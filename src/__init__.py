@@ -59,22 +59,23 @@ class ImportDialog(QDialog):
         self.form = import_dialog.Ui_Dialog()
         self.form.setupUi(self)
         self.conf = mw.addonManager.getConfig(__name__)
-        self.import_()
+        self.extract()
 
-    def update_progress(self, at: int, end: int):
+    def extract_progress(self, at: int, end: int):
         self.form.progressBar.setMaximum(100)
         self.form.progressBar.setValue(at * 100 / end)
         self.form.text.setText(f"Extracting notes from tiddlers...{at}/{end}")
 
-    def import_(self):
-        self.import_thread = self.ImportThread(self.conf)
-        self.import_thread.finished.connect(self.accept)
-        self.import_thread.progress_update.connect(self.update_progress)
-        self.import_thread.start()
+    def extract(self):
+        self.extract_thread = self.ImportThread(self.conf)
+        self.extract_thread.finished.connect(self.compare_notes)
+        self.extract_thread.progress_update.connect(self.extract_progress)
+        self.extract_thread.start()
 
-    def accept(self):
-        showWarning(str(self.import_thread.notes))
-        super().accept()
+    def compare_notes(self):
+        extracted_notes = self.extract_thread.notes
+        showWarning(str(extracted_notes))
+        self.accept()
 
 
 
