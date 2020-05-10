@@ -1,12 +1,21 @@
-.PHONY: all zip
+.PHONY: all forms zip clean
 
-all: zip
+all: forms zip
+forms: src/import_dialog.py
 zip: build.zip
 
-build.zip: clean src/*
+src/import_dialog.py: designer/import_dialog.ui 
+	pyuic5 $^ > $@
+
+build.zip: src/*
+	rm -f $@
+	rm -f src/meta.json
+	rm -rf src/__pycache__
 	( cd src/; zip -r ../$@ * )
 
 clean:
-	rm -f src/meta.json
-	rm -rf src/__pycache__
+	rm -f *.pyc
+	rm -f src/*.pyc
+	rm -f src/__pycache__
+	rm -f src/import_dialog.py
 	rm -f build.zip

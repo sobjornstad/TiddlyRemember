@@ -3,11 +3,10 @@
 from pathlib import Path
 import subprocess
 from tempfile import TemporaryDirectory
-from typing import Callable, Iterable, Optional, Set, Sequence
 
 from bs4 import BeautifulSoup
 
-from twnote import TwNote
+from .twnote import TwNote
 
 RENDERED_FILE_EXTENSION = "html"
 
@@ -37,7 +36,7 @@ def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: 
     subprocess.call(cmd, cwd=wiki_path)
 
 
-def notes_from_tiddler(tiddler: str, name: str) -> Set[TwNote]:
+def notes_from_tiddler(tiddler: str, name: str) -> 'Set[TwNote]':
     """
     Given the text of a tiddler, parse the contents and return a set
     containing all the TwNotes found within that tiddler.
@@ -59,8 +58,8 @@ def notes_from_tiddler(tiddler: str, name: str) -> Set[TwNote]:
 
 
 def notes_from_paths(
-    paths: Sequence[Path],
-    callback: Optional[Callable[[int, int], None]]) -> Set[TwNote]:
+    paths: 'Sequence[Path]',
+    callback: 'Optional[Callable[[int, int], None]]') -> 'Set[TwNote]':
     """
     Given an iterable of paths, compile the notes found in all those tiddlers.
 
@@ -83,8 +82,9 @@ def notes_from_paths(
     return notes
 
 
-def find_notes(tw_binary: str, wiki_path: str, filter_: str,
-               callback: Optional[Callable[[int, int], None]] = None) -> Set[TwNote]:
+def find_notes(
+    tw_binary: str, wiki_path: str, filter_: str,
+    callback: 'Optional[Callable[[int, int], None]]' = None) -> 'Set[TwNote]':
     """
     Return a set of TwNotes parsed out of a TiddlyWiki.
 
