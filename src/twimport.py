@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from dataclasses import dataclass
 from pathlib import Path
 import subprocess
 from tempfile import TemporaryDirectory
@@ -11,12 +10,16 @@ from bs4 import BeautifulSoup
 RENDERED_FILE_EXTENSION = "html"
 
 
-@dataclass
 class Note:
-    id_: str
-    tidref: str
-    question: str
-    answer: str
+    def __init__(self, id_: str, tidref: str, question: str, answer: str) -> None:
+        self.id_ = id_
+        self.tidref = tidref
+        self.question = question
+        self.answer = answer
+
+    def __repr__(self):
+        return (f"Note(id_={self.id_!r}, tidref={self.tidref!r}, "
+                f"question={self.question!r}, answer={self.answer!r}")
 
     def __eq__(self, other):
         return self.id_ == other.id_
@@ -117,6 +120,7 @@ def find_notes(tw_binary: str, wiki_path: str, filter_: str,
             callback)
 
     return notes
+
 
 if __name__ == '__main__':
     notes = find_notes(
