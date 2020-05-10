@@ -1,8 +1,9 @@
+# caches and local files
 .mypy_cache/
 __pycache__/
 venv/
-build.zip
-
-src/import_dialog.py
-
 meta.json
+
+# build outputs
+build.zip
+anki-plugin/src/import_dialog.py
