@@ -4,3 +4,5 @@ venv/
 build.zip
 
 src/import_dialog.py
+
+meta.json

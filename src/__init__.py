@@ -1,5 +1,5 @@
 ##############################################################
-# Remember - store questions in a TiddlyWiki
+# TiddlyRemember - store Anki notes in a NodeJS TiddlyWiki
 # Copyright 2020 Soren Bjornstad <contact@sorenbjornstad.com>
 ##############################################################
 
@@ -134,7 +134,7 @@ class ImportDialog(QDialog):
         for note_id in adds:
             tw_note = extracted_notes_map[note_id]
             n = Note(self.mw.col, self.mw.col.models.byName("TWQ"))
-            n.model()['did'] = self.mw.col.decks.id("tw")
+            n.model()['did'] = self.mw.col.decks.id(self.conf['defaultDeck'])
             n['Question'] = tw_note.question
             n['Answer'] = tw_note.answer
             n['ID'] = tw_note.id_

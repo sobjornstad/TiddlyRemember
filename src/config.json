@@ -1,7 +1,7 @@
 {
-    "tiddlywikiDirectory": "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
-    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
+    "defaultDeck": "tw",
     "filter": "[!is[system]type[text/vnd.tiddlywiki]]",
-    "deck": "MyDeck",
+    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
+    "tiddlywikiDirectory": "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
     "twUrl": "http://Alice:1109/Zettelkasten"
 }
