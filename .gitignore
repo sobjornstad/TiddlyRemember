@@ -3,6 +3,7 @@
 __pycache__/
 venv/
 meta.json
+.vscode/settings.json
 
 # build outputs
 build.zip
