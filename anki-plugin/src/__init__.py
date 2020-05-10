@@ -102,6 +102,16 @@ class ImportDialog(QDialog):
         self.form.progressBar.setMaximum(0)
         self.form.text.setText(f"Applying note changes to your collection...")
 
+        if len(self.extract_thread.notes) == 0:
+            # This is probably a mistake or misconfiguration.
+            # To avoid deleting all the user's existing notes to "sync"
+            # the collection, abort immediately.
+            showWarning("No notes were found in your TiddlyWiki. "
+                        "Please check your add-on configuration. "
+                        "Your collection has not been updated.")
+            self.accept()
+            return
+
         userlog = ankisync.sync(self.extract_thread.notes, self.mw, self.conf)
 
         self.accept()

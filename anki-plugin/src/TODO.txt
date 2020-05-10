@@ -6,9 +6,16 @@
   happen just initially, or repeatedly sync...it would probably be nice to be able
   to move/tag stuff in Anki, but then it wouldn't stay up to date with TW. Thinking
   probably repeatedly, stubbornly move.
-* Ensure that if we can't access the wiki, we don't end up deleting everything.
-  Maybe even ask user confirmation for removals, since they can lose data
-  (then again, Anki has backups for a reason). We could force a backup immediately
-  prior so the user doesn't lose anything.
 * Support multiple wikis.
 * Document Anki plugin config.
+
+Single-file test:
+{
+    "defaultDeck": "tw",
+    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
+    "wiki": {
+        "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]",
+        "path": "/home/soren/cabinet/Me/Config/oldapps/TiddlyWiki/zettelkasten_static/zettel.html",
+        "type": "file"
+    }
+}
