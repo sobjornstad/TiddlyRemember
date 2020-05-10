@@ -1,0 +1,5 @@
+{
+    "tiddlywikiDirectory": "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
+    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
+    "filter": "[!is[system]type[text/vnd.tiddlywiki]]"
+}
