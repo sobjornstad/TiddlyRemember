@@ -45,7 +45,7 @@ def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: 
         filter_,
         f"[is[tiddler]addsuffix[.{RENDERED_FILE_EXTENSION}]]",
         "text/html",
-        "$:/plugins/sobjornstad/tiddlyremember/macros/remember"]
+        "$:/plugins/sobjornstad/tiddlyremember/templates/TiddlyRememberParseable"]
 
     #TODO: Error handling
     out = subprocess.check_output(cmd, cwd=wiki_path)

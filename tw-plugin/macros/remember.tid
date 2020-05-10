@@ -19,5 +19,3 @@ type: text/vnd.tiddlywiki
         </div>
     </div>
 \end
-
-<$transclude mode="block" />
