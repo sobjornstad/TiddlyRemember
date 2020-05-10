@@ -1,4 +1,5 @@
 from anki.notes import Note
+from urllib.parse import quote as urlquote
 
 class TwNote:
     def __init__(self, id_: str, tidref: str, question: str, answer: str) -> None:
@@ -6,6 +7,7 @@ class TwNote:
         self.tidref = tidref
         self.question = question
         self.answer = answer
+        self.permalink = None
 
     def __repr__(self):
         return (f"Note(id_={self.id_!r}, tidref={self.tidref!r}, "
@@ -27,7 +29,17 @@ class TwNote:
             and self.answer == anki_note.fields[1]
             and self.id_ == anki_note.fields[2]
             and self.tidref == anki_note.fields[3]
+            and self.permalink == anki_note.fields[4]
         )
+
+    def set_permalink(self, base_url: str) -> None:
+        """
+        Build and add the permalink field to this note given the base URL of
+        the wiki. May be used to replace an existing permalink.
+        """
+        if not base_url.endswith('/'):
+            base_url += '/'
+        self.permalink = base_url + "#" + urlquote(self.tidref)
 
     def update_fields(self, anki_note: Note) -> None:
         """
@@ -36,3 +48,4 @@ class TwNote:
         anki_note.fields[0] = self.question
         anki_note.fields[1] = self.answer
         anki_note.fields[3] = self.tidref
+        anki_note.fields[4] = self.permalink if self.permalink is not None else ""
