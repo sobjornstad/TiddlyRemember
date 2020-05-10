@@ -26,6 +26,7 @@
 
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import pyqtSignal
+
 import aqt
 from aqt.qt import QAction, QThread
 from aqt.utils import getFile, showWarning, askUser, tooltip
