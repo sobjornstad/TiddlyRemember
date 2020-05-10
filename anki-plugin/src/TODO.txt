@@ -8,3 +8,6 @@
   probably repeatedly, stubbornly move.
 * Create the TW plugin.
 * Support single-file wikis?
+* Ensure that if we can't access the wiki, we don't end up deleting everything.
+  Maybe even ask user confirmation for removals, since they can lose data
+  (then again, Anki has backups for a reason).
