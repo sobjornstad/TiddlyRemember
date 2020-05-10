@@ -1,13 +1,17 @@
-from anki.notes import Note
+from typing import Optional
 from urllib.parse import quote as urlquote
 
+from anki.notes import Note
+
+from .util import Twid
+
 class TwNote:
-    def __init__(self, id_: str, tidref: str, question: str, answer: str) -> None:
+    def __init__(self, id_: Twid, tidref: str, question: str, answer: str) -> None:
         self.id_ = id_
         self.tidref = tidref
         self.question = question
         self.answer = answer
-        self.permalink = None
+        self.permalink: Optional[str] = None
 
     def __repr__(self):
         return (f"Note(id_={self.id_!r}, tidref={self.tidref!r}, "

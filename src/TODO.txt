@@ -7,3 +7,4 @@
   to move/tag stuff in Anki, but then it wouldn't stay up to date with TW. Thinking
   probably repeatedly, stubbornly move.
 * Create the TW plugin.
+* Support single-file wikis?
