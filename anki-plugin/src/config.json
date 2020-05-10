@@ -1,10 +1,10 @@
 {
-    "defaultDeck": "tw",
-    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
+    "defaultDeck": "TiddlyRemember",
+    "tiddlywikiBinary": "tiddlywiki",
     "wiki": {
         "type": "folder",
-        "path": "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
-        "permalink": "http://Alice:1109/Zettelkasten",
+        "path": "",
+        "permalink": "",
         "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]"
     }
 }

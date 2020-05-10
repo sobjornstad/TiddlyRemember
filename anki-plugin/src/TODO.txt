@@ -18,3 +18,15 @@ Single-file test:
         "type": "file"
     }
 }
+
+Folder test:
+{
+    "defaultDeck": "tw",
+    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
+    "wiki": {
+        "type": "folder",
+        "path": "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
+        "permalink": "http://Alice:1109/Zettelkasten",
+        "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]"
+    }
+}
