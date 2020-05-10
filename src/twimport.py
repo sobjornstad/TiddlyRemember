@@ -4,11 +4,10 @@ from dataclasses import dataclass
 from pathlib import Path
 import subprocess
 from tempfile import TemporaryDirectory
-from typing import Set
+from typing import Callable, Iterable, Optional, Set, Sequence
 
 from bs4 import BeautifulSoup
 
-ZK_DIR = "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki"
 RENDERED_FILE_EXTENSION = "html"
 
 
@@ -68,19 +67,57 @@ def notes_from_tiddler(tiddler: str, name: str) -> Set[Note]:
     return notes
 
 
-with TemporaryDirectory() as tmpdir:
-    render_wiki(
-        "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
-        ZK_DIR,
-        tmpdir,
-        "[!is[system]type[text/vnd.tiddlywiki]]")
+def notes_from_paths(
+    paths: Sequence[Path],
+    callback: Optional[Callable[[int, int], None]]) -> Set[Note]:
+    """
+    Given an iterable of paths, compile the notes found in all those
+    tiddlers.
 
+    Optionally, call a /callback/ function every 50 tiddlers, passing in the
+    current tiddler number and the total number of tiddlers to be processed.
+    """
     notes = set()
-    for tiddler in Path(tmpdir).glob(f"*.{RENDERED_FILE_EXTENSION}"):
+    for index, tiddler in enumerate(paths, 0):
         with open(tiddler, 'r') as f:
             tid_text = f.read()
         tid_name = tiddler.name[:tiddler.name.find(f".{RENDERED_FILE_EXTENSION}")]
-        print(f"Processing {tid_name}...")
         notes.update(notes_from_tiddler(tid_text, tid_name))
 
+        if callback is not None and not index % 50:
+            callback(index+1, len(paths))
+
+    if callback is not None:
+        callback(len(paths), len(paths))
+    return notes
+
+
+def find_notes(tw_binary: str, wiki_path: str, filter_: str,
+               callback: Optional[Callable[[int, int], None]] = None) -> Set[Note]:
+    """
+    Return a set of Notes parsed out of a TiddlyWiki.
+
+    :param tw_binary: Path to the TiddlyWiki node executable.
+    :param wiki_path: Path of the wiki folder to render.
+    :param filter_: TiddlyWiki filter describing which tiddlers
+                    to search for notes.
+    :param callback: Optional callable receiving two integers, the first representing
+                     the number of tiddlers processed and the second the total number.
+                     It will be called every 50 tiddlers. The first call is made at
+                     tiddler 1, once the wiki has been rendered.
+    """
+    with TemporaryDirectory() as tmpdir:
+        render_wiki(tw_binary, wiki_path, tmpdir, filter_)
+        notes = notes_from_paths(
+            list(Path(tmpdir).glob(f"*.{RENDERED_FILE_EXTENSION}")),
+            callback)
+
+    return notes
+
+if __name__ == '__main__':
+    notes = find_notes(
+        tw_binary="/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
+        wiki_path="/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
+        filter_="[!is[system]type[text/vnd.tiddlywiki]]",
+        callback=lambda cur, tot: print(f"{cur}/{tot}"))
     print(notes)
