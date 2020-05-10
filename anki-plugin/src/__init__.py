@@ -120,15 +120,6 @@ class ImportDialog(QDialog):
         tooltip(userlog)
 
 
-def pluralize(sg: str, n: int, pl: str = None):
-    if n == 1:
-        return sg
-    else:
-        if pl is None:
-            pl = sg + 's'
-        return pl
-
-
 def open_dialog():
     "Launch the sync dialog."
     dialog = ImportDialog(aqt.mw)
