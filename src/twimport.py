@@ -7,25 +7,9 @@ from typing import Callable, Iterable, Optional, Set, Sequence
 
 from bs4 import BeautifulSoup
 
+from twnote import TwNote
+
 RENDERED_FILE_EXTENSION = "html"
-
-
-class Note:
-    def __init__(self, id_: str, tidref: str, question: str, answer: str) -> None:
-        self.id_ = id_
-        self.tidref = tidref
-        self.question = question
-        self.answer = answer
-
-    def __repr__(self):
-        return (f"Note(id_={self.id_!r}, tidref={self.tidref!r}, "
-                f"question={self.question!r}, answer={self.answer!r}")
-
-    def __eq__(self, other):
-        return self.id_ == other.id_
-
-    def __hash__(self):
-        return hash(self.id_)
 
 
 def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: str) -> None:
@@ -53,10 +37,10 @@ def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: 
     subprocess.call(cmd, cwd=wiki_path)
 
 
-def notes_from_tiddler(tiddler: str, name: str) -> Set[Note]:
+def notes_from_tiddler(tiddler: str, name: str) -> Set[TwNote]:
     """
     Given the text of a tiddler, parse the contents and return a set
-    containing all the Notes found within that tiddler.
+    containing all the TwNotes found within that tiddler.
 
     :param tiddler: The rendered text of a tiddler as a string.
     :param name: The name of the tiddler, for traceability purposes.
@@ -69,14 +53,14 @@ def notes_from_tiddler(tiddler: str, name: str) -> Set[Note]:
         question = pair.find("div", class_="rquestion").p.get_text()
         answer = pair.find("div", class_="ranswer").p.get_text()
         id_ = pair.find("div", class_="rid").get_text().strip().lstrip('[').rstrip(']')
-        notes.add(Note(id_, name, question, answer))
+        notes.add(TwNote(id_, name, question, answer))
 
     return notes
 
 
 def notes_from_paths(
     paths: Sequence[Path],
-    callback: Optional[Callable[[int, int], None]]) -> Set[Note]:
+    callback: Optional[Callable[[int, int], None]]) -> Set[TwNote]:
     """
     Given an iterable of paths, compile the notes found in all those tiddlers.
 
@@ -100,9 +84,9 @@ def notes_from_paths(
 
 
 def find_notes(tw_binary: str, wiki_path: str, filter_: str,
-               callback: Optional[Callable[[int, int], None]] = None) -> Set[Note]:
+               callback: Optional[Callable[[int, int], None]] = None) -> Set[TwNote]:
     """
-    Return a set of Notes parsed out of a TiddlyWiki.
+    Return a set of TwNotes parsed out of a TiddlyWiki.
 
     :param tw_binary: Path to the TiddlyWiki node executable.
     :param wiki_path: Path of the wiki folder to render.
