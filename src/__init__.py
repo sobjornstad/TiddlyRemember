@@ -24,16 +24,22 @@
 # SOFTWARE.
 ###############################################################################
 
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import pyqtSignal
+from typing import Dict, NewType, Set
 
+# pylint: disable=import-error, no-name-in-module
 import aqt
 from aqt.qt import QAction, QThread
 from aqt.utils import getFile, showWarning, askUser, tooltip
 from anki.notes import Note
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtCore import pyqtSignal
 
 from . import import_dialog
 from . import twimport
+from .twnote import TwNote
+
+# TiddlyWiki ID
+Twid = NewType('Twid', str)
 
 
 class ImportDialog(QDialog):
@@ -69,24 +75,61 @@ class ImportDialog(QDialog):
 
     def extract(self):
         self.extract_thread = self.ImportThread(self.conf)
-        self.extract_thread.finished.connect(self.compare_notes)
+        self.extract_thread.finished.connect(self.sync)
         self.extract_thread.progress_update.connect(self.extract_progress)
         self.extract_thread.start()
 
-    def compare_notes(self):
-        extracted_notes = self.extract_thread.notes
-        showWarning(str(extracted_notes))
+    def sync(self):
+        extracted_notes: Set[TwNote] = self.extract_thread.notes
+        extracted_twids: Set[Twid] = set(n.id_ for n in extracted_notes)
+        extracted_notes_map: Dict[Twid, TwNote] = {n.id_: n for n in extracted_notes}
+
+        anki_notes: Set[Note] = [self.mw.col.getNote(nid)
+                                 for nid in self.mw.col.find_notes("note:TWQ")]
+        anki_twids: Set[Twid] = set(n.fields[2] for n in anki_notes)
+        anki_notes_map: Dict[Twid, Note] = {n.fields[2]: n for n in anki_notes}
+
+        adds = extracted_twids.difference(anki_twids)
+        edits = extracted_twids.intersection(anki_twids)
+        removes = anki_twids.difference(extracted_twids)
+
+        for note_id in adds:
+            tw_note = extracted_notes_map[note_id]
+            n = Note(self.mw.col, self.mw.col.models.byName("TWQ"))
+            n.model()['did'] = self.mw.col.decks.id("tw")
+            n['Question'] = tw_note.question
+            n['Answer'] = tw_note.answer
+            n['ID'] = tw_note.id_
+            n['Reference'] = tw_note.tidref
+            self.mw.col.addNote(n)
+        print(f"Added {len(adds)} notes.")
+
+        edit_count = 0
+        for note_id in edits:
+            anki_note = anki_notes_map[note_id]
+            tw_note = extracted_notes_map[note_id]
+            if not tw_note.fields_equal(anki_note):
+                tw_note.update_fields(anki_note)
+                anki_note.flush()
+                edit_count += 1
+        print(f"Updated {edit_count} notes.")
+
+        self.mw.col.remNotes(anki_notes_map[twid].id for twid in removes)
+        print(f"Removed {len(removes)} notes.")
+
+        self.mw.reset()
         self.accept()
 
 
 
 
 def open_dialog():
-    "Launch the add-poem dialog."
+    "Launch the sync dialog."
     dialog = ImportDialog(aqt.mw)
     dialog.exec_()
 
-action = QAction(aqt.mw)
-action.setText("Import from &TiddlyWiki...")
-aqt.mw.form.menuTools.addAction(action)
-action.triggered.connect(open_dialog)
+if aqt.mw is not None:
+    action = QAction(aqt.mw)
+    action.setText("Sync from &TiddlyWiki")
+    aqt.mw.form.menuTools.addAction(action)
+    action.triggered.connect(open_dialog)
