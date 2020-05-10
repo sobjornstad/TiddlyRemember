@@ -45,13 +45,11 @@ def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: 
         filter_,
         f"[is[tiddler]addsuffix[.{RENDERED_FILE_EXTENSION}]]",
         "text/html",
-        "$:/plugins/sobjornstad/tiddlyremember/templates/TiddlyRememberParseable"]
+        "$:/plugins/sobjornstad/tiddlyremember/templates/TiddlyRememberParseable"
+    ]
 
     #TODO: Error handling
-    out = subprocess.check_output(cmd, cwd=wiki_path)
-    #print(repr(out))
-    #print(tw_binary, wiki_path, output_directory, filter_)
-    #import time; time.sleep(500)
+    subprocess.call(cmd, cwd=wiki_path)
 
 
 def notes_from_tiddler(tiddler: str, name: str) -> Set[TwNote]:
