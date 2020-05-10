@@ -1,5 +1,4 @@
 * Cloze note type.
-* Automatically create the note type if it doesn't exist, a la LPCG.
 * Add some kind of mechanism for choosing decks and/or tags. Perhaps base it on
   the tag or tiddler that the item itself is in -- maybe a set of filters like
   the file placement ditty in NodeJS? The challenge is figuring out if this should
@@ -7,6 +6,7 @@
   to move/tag stuff in Anki, but then it wouldn't stay up to date with TW. Thinking
   probably repeatedly, stubbornly move.
 * Support multiple wikis.
+* ...How is it working that foo and test2 both contain the same details? Why does foo win?
 
 Single-file test:
 {

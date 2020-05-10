@@ -2,6 +2,7 @@ from typing import Any, Dict, NewType, Set, cast
 
 from anki.notes import Note
 
+from . import trmodels
 from .twnote import TwNote
 from .util import pluralize, Twid
 
@@ -34,9 +35,10 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
     extracted_notes: Set[TwNote] = tw_notes
     extracted_twids: Set[Twid] = set(n.id_ for n in extracted_notes)
     extracted_notes_map: Dict[Twid, TwNote] = {n.id_: n for n in extracted_notes}
+    model_name = trmodels.TiddlyRememberQuestionAnswer.name
 
     anki_notes: Set[Note] = set(mw.col.getNote(nid)
-                                for nid in mw.col.find_notes("note:TWQ"))
+                                for nid in mw.col.find_notes(f'"note:{model_name}"'))
     anki_twids: Set[Twid] = set(cast(Twid, n.fields[2]) for n in anki_notes)
     anki_notes_map: Dict[Twid, Note] = {cast(Twid, n.fields[2]): n for n in anki_notes}
 
@@ -48,7 +50,7 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
 
     for note_id in adds:
         tw_note = extracted_notes_map[note_id]
-        n = Note(mw.col, mw.col.models.byName("TWQ"))
+        n = Note(mw.col, mw.col.models.byName(model_name))
         n.model()['did'] = mw.col.decks.id(conf['defaultDeck']) # type: ignore
         n['Question'] = tw_note.question
         n['Answer'] = tw_note.answer
