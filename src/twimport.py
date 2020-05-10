@@ -3,11 +3,13 @@
 from dataclasses import dataclass
 from pathlib import Path
 import subprocess
+from tempfile import TemporaryDirectory
 from typing import Set
 
 from bs4 import BeautifulSoup
 
 ZK_DIR = "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki"
+RENDERED_FILE_EXTENSION = "html"
 
 
 @dataclass
@@ -41,7 +43,7 @@ def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: 
         output_directory,
         "--render",
         filter_,
-        "[is[tiddler]addsuffix[.html]]",
+        f"[is[tiddler]addsuffix[.{RENDERED_FILE_EXTENSION}]]",
         "text/html",
         "$:/sib/macros/remember"]
 
@@ -65,18 +67,20 @@ def notes_from_tiddler(tiddler: str, name: str) -> Set[Note]:
 
     return notes
 
-render_wiki(
-    "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
-    ZK_DIR,
-    "/tmp/testdir",
-    "[!is[system]type[text/vnd.tiddlywiki]]")
 
-notes = set()
-for tiddler in Path("/tmp/testdir").glob("*.html"):
-    with open(tiddler, 'r') as f:
-        tid_text = f.read()
-    tid_name = tiddler.name[:tiddler.name.find('.html')]
-    print(f"Processing {tid_name}...")
-    notes.update(notes_from_tiddler(tid_text, tid_name))
+with TemporaryDirectory() as tmpdir:
+    render_wiki(
+        "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
+        ZK_DIR,
+        tmpdir,
+        "[!is[system]type[text/vnd.tiddlywiki]]")
 
-print(notes)
+    notes = set()
+    for tiddler in Path(tmpdir).glob(f"*.{RENDERED_FILE_EXTENSION}"):
+        with open(tiddler, 'r') as f:
+            tid_text = f.read()
+        tid_name = tiddler.name[:tiddler.name.find(f".{RENDERED_FILE_EXTENSION}")]
+        print(f"Processing {tid_name}...")
+        notes.update(notes_from_tiddler(tid_text, tid_name))
+
+    print(notes)
