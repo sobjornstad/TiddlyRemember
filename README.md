@@ -130,6 +130,9 @@ Going the other way,
   prior to running a sync in Anki.
 * Only one wiki is supported per Anki installation at the moment.
   Multiple-wiki support is planned in the future.
+  If you switch to a new wiki in the same profile,
+  *all your existing notes will be deleted*
+  (you can avoid this by first switching them to a different note type).
 * If the same unique ID is used for multiple `rememberq` calls,
   one definition of the question will randomly overwrite the other in Anki.
   Don't do this!
