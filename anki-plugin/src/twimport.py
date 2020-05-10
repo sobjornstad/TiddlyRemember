@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 from pathlib import Path
 import subprocess
 from tempfile import TemporaryDirectory
@@ -10,6 +11,19 @@ from bs4 import BeautifulSoup
 from .twnote import TwNote
 
 RENDERED_FILE_EXTENSION = "html"
+
+
+def folderify_wiki(tw_binary: str, wiki_path: str, output_directory: str) -> None:
+    """
+    Convert a single-file wiki into a folder wiki so we can continue working with it.
+
+    :param tw_binary: Path to the TiddlyWiki node executable.
+    :param wiki_path: Path of the wiki file to convert to a folder.
+    :param output_directory: Directory to place the folder wiki in.
+    """
+    cmd = [tw_binary, "--load", wiki_path, "--savewikifolder", output_directory]
+    #TODO: Error handling
+    subprocess.call(cmd)
 
 
 def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: str) -> None:
@@ -34,7 +48,10 @@ def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: 
         "$:/plugins/sobjornstad/tiddlyremember/macros/remember"]
 
     #TODO: Error handling
-    subprocess.call(cmd, cwd=wiki_path)
+    out = subprocess.check_output(cmd, cwd=wiki_path)
+    #print(repr(out))
+    #print(tw_binary, wiki_path, output_directory, filter_)
+    #import time; time.sleep(500)
 
 
 def notes_from_tiddler(tiddler: str, name: str) -> Set[TwNote]:
@@ -84,13 +101,15 @@ def notes_from_paths(
 
 
 def find_notes(
-    tw_binary: str, wiki_path: str, filter_: str,
+    tw_binary: str, wiki_path: str, wiki_type: str, filter_: str,
     callback: Optional[Callable[[int, int], None]] = None) -> Set[TwNote]:
     """
     Return a set of TwNotes parsed out of a TiddlyWiki.
 
     :param tw_binary: Path to the TiddlyWiki node executable.
     :param wiki_path: Path of the wiki folder to render.
+    :param wiki_type: 'folder' or 'file'. File wikis will be rendered to folders
+                      for further processing.
     :param filter_: TiddlyWiki filter describing which tiddlers
                     to search for notes.
     :param callback: Optional callable receiving two integers, the first representing
@@ -99,9 +118,19 @@ def find_notes(
                      tiddler 1, once the wiki has been rendered.
     """
     with TemporaryDirectory() as tmpdir:
-        render_wiki(tw_binary, wiki_path, tmpdir, filter_)
+        if wiki_type == 'file':
+            wiki_folder = os.path.join(tmpdir, 'wikifolder')
+            folderify_wiki(tw_binary, wiki_path, wiki_folder)
+        elif wiki_type == 'folder':
+            wiki_folder = wiki_path
+        else:
+            raise Exception(
+                "Invalid wiki type {wiki_type} -- must be 'file' or 'folder'.")
+
+        render_location = os.path.join(tmpdir, 'render')
+        render_wiki(tw_binary, wiki_folder, render_location, filter_)
         notes = notes_from_paths(
-            list(Path(tmpdir).glob(f"*.{RENDERED_FILE_EXTENSION}")),
+            list(Path(render_location).glob(f"*.{RENDERED_FILE_EXTENSION}")),
             callback)
 
     return notes
@@ -111,6 +140,7 @@ if __name__ == '__main__':
     notes = find_notes(
         tw_binary="/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
         wiki_path="/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
+        wiki_type="folder",
         filter_="[!is[system]type[text/vnd.tiddlywiki]]",
         callback=lambda cur, tot: print(f"{cur}/{tot}"))
     print(notes)

@@ -56,12 +56,14 @@ class ImportDialog(QDialog):
 
         def run(self):
             self.notes = twimport.find_notes(
-                self.conf['tiddlywikiBinary'],
-                self.conf['tiddlywikiDirectory'],
-                self.conf['filter'],
-                self.progress_update.emit)
+                tw_binary=self.conf['tiddlywikiBinary'],
+                wiki_path=self.conf['wiki']['path'],
+                wiki_type=self.conf['wiki']['type'],
+                filter_=self.conf['wiki']['contentFilter'],
+                callback=self.progress_update.emit
+            )
             for n in self.notes:
-                wiki_url = self.conf.get('twUrl', None)
+                wiki_url = self.conf['wiki'].get('permalink', None)
                 if wiki_url is not None:
                     n.set_permalink(wiki_url)
 
