@@ -84,11 +84,11 @@ class TiddlyRememberQuestionAnswer(ModelData):
     templates = (TiddlyRememberQuestionAnswerTemplate,)
     styling = """
         .card {
-        font-family: arial;
-        font-size: 20px;
-        text-align: center;
-        color: black;
-        background-color: white;
+            font-family: arial;
+            font-size: 20px;
+            text-align: center;
+            color: black;
+            background-color: white;
         }
 
         .note-id {
