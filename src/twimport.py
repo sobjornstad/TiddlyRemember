@@ -54,6 +54,10 @@ def notes_from_tiddler(tiddler: str, name: str) -> Set[Note]:
     """
     Given the text of a tiddler, parse the contents and return a set
     containing all the Notes found within that tiddler.
+
+    :param tiddler: The rendered text of a tiddler as a string.
+    :param name: The name of the tiddler, for traceability purposes.
+    :return: A (possibly empty) set of all the notes found in this tiddler.
     """
     notes = set()
     soup = BeautifulSoup(tiddler, 'html.parser')
@@ -71,11 +75,11 @@ def notes_from_paths(
     paths: Sequence[Path],
     callback: Optional[Callable[[int, int], None]]) -> Set[Note]:
     """
-    Given an iterable of paths, compile the notes found in all those
-    tiddlers.
+    Given an iterable of paths, compile the notes found in all those tiddlers.
 
-    Optionally, call a /callback/ function every 50 tiddlers, passing in the
-    current tiddler number and the total number of tiddlers to be processed.
+    :param paths:
+    :param callback: Optional callable passing back progress. See :func:`find_notes`.
+    :return: A set of all the notes found in the tiddler files passed.
     """
     notes = set()
     for index, tiddler in enumerate(paths, 0):
