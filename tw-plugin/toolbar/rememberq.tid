@@ -1,0 +1,25 @@
+caption: RememberQ
+condition: [<targetTiddler>!has[type]] [<targetTiddler>type[text/vnd.tiddlywiki]]
+created: 20161118171456554
+description: Remember Question/Answer
+icon: $:/core/images/tip
+modified: 20200510004100438
+shortcuts: 
+tags: $:/tags/EditorToolbar
+title: $:/plugins/sobjornstad/tiddlyremember/toolbar/rememberq
+type: text/vnd.tiddlywiki
+
+\define getMacro()
+<<rememberq "$(questionid)$"
+	"Q"
+	"A">>
+\end
+
+<$set name=questionid
+			value=<<now "[UTC]YYYY0MM0DD0hh0mm0ss0XXX">> >
+	<$action-sendmessage
+		$message="tm-edit-text-operation"
+		$param="replace-selection"
+		text=<<getMacro>>
+	/>
+</$set>

@@ -1,0 +1,23 @@
+created: 20200510004110231
+modified: 20200510023332089
+tags: $:/tags/Macro
+title: $:/plugins/sobjornstad/tiddlyremember/macros/remember
+type: text/vnd.tiddlywiki
+
+\define rememberq(id, question, answer)
+    <div class="rememberq">
+        <div class="rquestion">
+            <div>Q:</div>
+            <p>$question$</p>
+        </div>
+        <div class="ranswer">
+            <div>A:</div>
+            <p>$answer$</p>
+        </div>
+        <div class="rid">
+            [$id$]
+        </div>
+    </div>
+\end
+
+<$transclude mode="block" />

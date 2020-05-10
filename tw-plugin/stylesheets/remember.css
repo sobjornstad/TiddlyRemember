@@ -1,0 +1,21 @@
+div.rememberq {
+	border-left: 3px solid <<colour tag-background>>;
+	padding-left: 0.5em;
+}
+
+div.rememberq .rquestion p, .ranswer p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 2em;
+}
+
+div.rememberq .rquestion div, div.rememberq .ranswer div {
+	font-weight: bold;
+	color: <<colour primary>>;
+	float: left;
+}
+
+div.rememberq div.rid {
+	float: right;
+	color: <<colour muted-foreground>>;
+}
