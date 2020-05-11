@@ -4,4 +4,6 @@ tags:
 title: $:/plugins/sobjornstad/tiddlyremember/templates/TiddlyRememberParseable
 type: text/vnd.tiddlywiki
 
+\import [[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]
+
 <$transclude mode="block" />
