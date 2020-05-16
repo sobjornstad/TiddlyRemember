@@ -1,9 +1,12 @@
 created: 20200510211830000
-modified: 20200510211830000
-tags:
+modified: 20200516223853339
+tags: 
 title: $:/plugins/sobjornstad/tiddlyremember/templates/TiddlyRememberParseable
 type: text/vnd.tiddlywiki
 
 \import [[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]
+
+{{||$:/plugins/sobjornstad/tiddlyremember/templates/AnkiDecks}}
+{{||$:/plugins/sobjornstad/tiddlyremember/templates/AnkiTags}}
 
 <$transclude mode="block" />

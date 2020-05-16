@@ -1,0 +1,16 @@
+created: 20200516191131056
+modified: 20200516232427612
+revision: 174
+tags: 
+title: $:/plugins/sobjornstad/tiddlyremember/templates/AnkiTags
+type: text/vnd.tiddlywiki
+
+<ul id="anki-tags">
+	<$list 
+			filter="[[$:/config/TiddlyRemember/TagMapping]get[text]splitregexp[\n]]"
+			variable="subfilter">
+		<$list filter="[<currentTiddler>subfilter<subfilter>]">
+			<li><<currentTiddler>></li>
+		</$list>
+	</$list>
+</ul>

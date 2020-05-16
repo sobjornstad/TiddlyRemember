@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Set
 from urllib.parse import quote as urlquote
 
 from anki.notes import Note
@@ -6,11 +6,14 @@ from anki.notes import Note
 from .util import Twid
 
 class TwNote:
-    def __init__(self, id_: Twid, tidref: str, question: str, answer: str) -> None:
+    def __init__(self, id_: Twid, tidref: str, question: str, answer: str,
+                 target_tags: Set[str], target_deck: Optional[str]) -> None:
         self.id_ = id_
         self.tidref = tidref
         self.question = question
         self.answer = answer
+        self.target_tags = target_tags
+        self.target_deck = target_deck
         self.permalink: Optional[str] = None
 
     def __repr__(self):

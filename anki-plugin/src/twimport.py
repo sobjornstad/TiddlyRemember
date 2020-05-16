@@ -63,12 +63,28 @@ def notes_from_tiddler(tiddler: str, name: str) -> Set[TwNote]:
     """
     notes = set()
     soup = BeautifulSoup(tiddler, 'html.parser')
+
     pairs = soup.find_all("div", class_="rememberq")
     for pair in pairs:
         question = pair.find("div", class_="rquestion").p.get_text()
         answer = pair.find("div", class_="ranswer").p.get_text()
         id_ = pair.find("div", class_="rid").get_text().strip().lstrip('[').rstrip(']')
-        notes.add(TwNote(id_, name, question, answer))
+
+        tagList = soup.find("ul", id="anki-tags")
+        if tagList:
+            tags = set(i.get_text() for i in tagList.find_all("li"))
+        else:
+            tags = set()
+
+
+        deckList = soup.find("ul", id="anki-decks")
+        if deckList:
+            firstItem = deckList.find("li")
+            deck = firstItem.get_text() if firstItem is not None else None
+        else:
+            deck = None
+
+        notes.add(TwNote(id_, name, question, answer, tags, deck))
 
     return notes
 
@@ -132,13 +148,3 @@ def find_notes(
             callback)
 
     return notes
-
-
-if __name__ == '__main__':
-    notes = find_notes(
-        tw_binary="/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
-        wiki_path="/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
-        wiki_type="folder",
-        filter_="[!is[system]type[text/vnd.tiddlywiki]]",
-        callback=lambda cur, tot: print(f"{cur}/{tot}"))
-    print(notes)
