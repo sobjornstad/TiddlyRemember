@@ -1,5 +1,6 @@
 * Cloze note type.
 * Support multiple wikis.
+* Refactor: TwNotes should be able to take advantage of field mappings in trmodels so we don't repeat them
 
 --------------------------------------------------------------------------------
 

@@ -54,7 +54,7 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
     extracted_notes: Set[TwNote] = tw_notes
     extracted_twids: Set[Twid] = set(n.id_ for n in extracted_notes)
     extracted_notes_map: Dict[Twid, TwNote] = {n.id_: n for n in extracted_notes}
-    model_name = trmodels.TiddlyRememberQuestionAnswer.name
+    model_name = trmodels.TiddlyRememberQuestionAnswer.name # pylint: disable=no-member
 
     anki_notes: Set[Note] = set(mw.col.getNote(nid)
                                 for nid in mw.col.find_notes(f'"note:{model_name}"'))
@@ -72,12 +72,7 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
         n = Note(mw.col, mw.col.models.byName(model_name))
         n.model()['did'] = mw.col.decks.id(tw_note.target_deck     # type: ignore
                                            or conf['defaultDeck'])
-        n['Question'] = tw_note.question
-        n['Answer'] = tw_note.answer
-        n['ID'] = tw_note.id_
-        n['Reference'] = tw_note.tidref
-        n['Permalink'] = tw_note.permalink if tw_note.permalink is not None else ""
-        n.tags = tw_note.anki_tags
+        tw_note.update_fields(n)
         mw.col.addNote(n)
     userlog.append(f"Added {len(adds)} {pluralize('note', len(adds))}.")
 

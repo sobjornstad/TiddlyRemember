@@ -8,7 +8,7 @@ from typing import Callable, Optional, Set, Sequence
 
 from bs4 import BeautifulSoup
 
-from .twnote import TwNote
+from .twnote import TwNote, QuestionNote
 
 RENDERED_FILE_EXTENSION = "html"
 
@@ -61,7 +61,7 @@ def notes_from_tiddler(tiddler: str, name: str) -> Set[TwNote]:
     :param name: The name of the tiddler, for traceability purposes.
     :return: A (possibly empty) set of all the notes found in this tiddler.
     """
-    notes = set()
+    notes: Set[TwNote] = set()
     soup = BeautifulSoup(tiddler, 'html.parser')
 
     pairs = soup.find_all("div", class_="rememberq")
@@ -84,7 +84,7 @@ def notes_from_tiddler(tiddler: str, name: str) -> Set[TwNote]:
         else:
             deck = None
 
-        notes.add(TwNote(id_, name, question, answer, tags, deck))
+        notes.add(QuestionNote(id_, name, question, answer, tags, deck))
 
     return notes
 
