@@ -7,7 +7,7 @@ type: text/vnd.tiddlywiki
 
 <ul id="anki-tags">
 	<$list 
-			filter="[[$:/config/TiddlyRemember/TagMapping]get[text]splitregexp[\n]]"
+			filter="[[$:/config/TiddlyRemember/TagMapping]get[text]splitregexp[\n]!is[blank]]"
 			variable="subfilter">
 		<$list filter="[<currentTiddler>subfilter<subfilter>]">
 			<li><<currentTiddler>></li>

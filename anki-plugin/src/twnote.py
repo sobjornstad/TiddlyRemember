@@ -37,8 +37,12 @@ class TwNote:
         Spaces aren't, though, since tags are separated by spaces.
         """
         assert aqt.mw is not None, "Anki not initialized prior to TiddlyWiki sync!"
-        return aqt.mw.col.tags.canonify(
+        # Canonify seems to be returning empty strings as part of the list,
+        # perhaps due to a bug. Strip them so our equality checks don't get
+        # goofed up.
+        canon = aqt.mw.col.tags.canonify(
             [t.replace(' ', '_') for t in self.target_tags])
+        return [i for i in canon if i.strip()]
 
     def fields_equal(self, anki_note: Note) -> bool:
         """
