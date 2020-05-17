@@ -139,10 +139,10 @@ class QuestionNote(TwNote):
         return notes
 
     @classmethod
-    def wants_soup(cls, soup: BeautifulSoup):
+    def wants_soup(cls, soup: BeautifulSoup) -> bool:
         return bool(soup.find_all("div", class_="rememberq"))
 
-    def _subclass_fields_equal(self, anki_note):
+    def _subclass_fields_equal(self, anki_note) -> bool:
         return (
             self.question == anki_note.fields[0]
             and self.answer == anki_note.fields[1]
@@ -164,7 +164,7 @@ class QuestionNote(TwNote):
         anki_note.tags = self.anki_tags
 
 
-def get_deck_and_tags(tiddler_soup: BeautifulSoup) -> Tuple[str, Set[str]]:
+def get_deck_and_tags(tiddler_soup: BeautifulSoup) -> Tuple[Optional[str], Set[str]]:
     """
     Given the soup of a tiddler, extract its deck and list of tags.
     """
