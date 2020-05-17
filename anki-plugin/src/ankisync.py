@@ -54,12 +54,13 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
     extracted_notes: Set[TwNote] = tw_notes
     extracted_twids: Set[Twid] = set(n.id_ for n in extracted_notes)
     extracted_notes_map: Dict[Twid, TwNote] = {n.id_: n for n in extracted_notes}
-    model_name = trmodels.TiddlyRememberQuestionAnswer.name # pylint: disable=no-member
 
+    model_search = ' or '.join(f'note:"{i.name}"' for i in trmodels.all_note_types())
     anki_notes: Set[Note] = set(mw.col.getNote(nid)
-                                for nid in mw.col.find_notes(f'"note:{model_name}"'))
-    anki_twids: Set[Twid] = set(cast(Twid, n.fields[2]) for n in anki_notes)
-    anki_notes_map: Dict[Twid, Note] = {cast(Twid, n.fields[2]): n for n in anki_notes}
+                                for nid in mw.col.find_notes(model_search))
+    #TODO: We should not rely on this being called exactly 'ID' on all note types.
+    anki_twids: Set[Twid] = set(cast(Twid, n['ID']) for n in anki_notes)
+    anki_notes_map: Dict[Twid, Note] = {cast(Twid, n['ID']): n for n in anki_notes}
 
     adds = extracted_twids.difference(anki_twids)
     edits = extracted_twids.intersection(anki_twids)
@@ -69,7 +70,7 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
 
     for note_id in adds:
         tw_note = extracted_notes_map[note_id]
-        n = Note(mw.col, mw.col.models.byName(model_name))
+        n = Note(mw.col, mw.col.models.byName(tw_note.model.name))
         n.model()['did'] = mw.col.decks.id(tw_note.target_deck     # type: ignore
                                            or conf['defaultDeck'])
         tw_note.update_fields(n)

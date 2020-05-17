@@ -6,7 +6,7 @@ from anki.notes import Note
 import aqt
 from bs4 import BeautifulSoup
 
-from .trmodels import TiddlyRememberQuestionAnswer
+from .trmodels import TiddlyRememberQuestionAnswer, TiddlyRememberCloze
 from .util import Twid
 
 class TwNote(metaclass=ABCMeta):
@@ -33,11 +33,24 @@ class TwNote(metaclass=ABCMeta):
         the wants_soup and parse_html methods of each candidate subclass.
         """
         notes: Set[TwNote] = set()
-        for subclass in (QuestionNote,):
-            wanted_soup = subclass.wants_soup(soup)
+        for subclass in cls.__subclasses__():
+            wanted_soup = subclass.wants_soup(soup)  # type: ignore
             if wanted_soup:
-                notes.update(subclass.parse_html(soup, tiddler_name))
+                notes.update(subclass.parse_html(soup, tiddler_name))  # type: ignore
         return notes
+
+    def _assert_correct_model(self, anki_note: Note) -> None:
+        """
+        Raise an assertion error if the :attr:`anki_note` doesn't match
+        the current class's model.
+        """
+        # pylint: disable=no-member
+        model = anki_note.model()
+        assert model is not None
+        assert self.model is not None, \
+             f"Class {self.__class__} does not specify a 'model' attribute."
+        assert model['name'] == self.model.name, \
+             f"Expected note of type {self.model.name}, but got {model['name']}."
 
     @property
     def anki_tags(self) -> List[str]:
@@ -61,13 +74,8 @@ class TwNote(metaclass=ABCMeta):
         Compare the fields on this TwNote to an Anki note. Return True if all
         are equal.
         """
-        # pylint: disable=no-member
-        model = anki_note.model()
-        assert model is not None
-        assert model['name'] == self.model.name, \
-             f"Expected note of type {self.model.name}, but got {model['name']}."
-
-        return self._subclass_fields_equal(anki_note)
+        self._assert_correct_model(anki_note)
+        return self._fields_equal(anki_note)
 
     def set_permalink(self, base_url: str) -> None:
         """
@@ -77,6 +85,14 @@ class TwNote(metaclass=ABCMeta):
         if not base_url.endswith('/'):
             base_url += '/'
         self.permalink = base_url + "#" + urlquote(self.tidref)
+
+    def update_fields(self, anki_note: Note) -> None:
+        """
+        Alter the Anki note to match this TiddlyWiki note.
+        """
+        self._assert_correct_model(anki_note)
+        self._update_fields(anki_note)
+
 
     ### Abstract methods ###
     @abstractclassmethod
@@ -97,15 +113,13 @@ class TwNote(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def _subclass_fields_equal(self, anki_note: Note) -> bool:
+    def _fields_equal(self, anki_note: Note) -> bool:
         "Check field equality for the given note type."
         raise NotImplementedError
 
     @abstractmethod
-    def update_fields(self, anki_note: Note) -> None:
-        """
-        Alter the Anki note to match this TiddlyWiki note.
-        """
+    def _update_fields(self, anki_note: Note) -> None:
+        "Update fields for the given note type."
         raise NotImplementedError
 
 
@@ -134,15 +148,15 @@ class QuestionNote(TwNote):
             answer = pair.find("div", class_="ranswer").p.get_text()
             id_raw = pair.find("div", class_="rid").get_text()
             id_ = id_raw.strip().lstrip('[').rstrip(']')
-            notes.add(QuestionNote(id_, name, question, answer, tags, deck))
+            notes.add(cls(id_, name, question, answer, tags, deck))
 
         return notes
 
     @classmethod
     def wants_soup(cls, soup: BeautifulSoup) -> bool:
-        return bool(soup.find_all("div", class_="rememberq"))
+        return bool(soup.find("div", class_="rememberq"))
 
-    def _subclass_fields_equal(self, anki_note) -> bool:
+    def _fields_equal(self, anki_note: Note) -> bool:
         return (
             self.question == anki_note.fields[0]
             and self.answer == anki_note.fields[1]
@@ -152,7 +166,7 @@ class QuestionNote(TwNote):
             and self.anki_tags == anki_note.tags
         )
 
-    def update_fields(self, anki_note: Note) -> None:
+    def _update_fields(self, anki_note: Note) -> None:
         """
         Alter the Anki note to match this TiddlyWiki note.
         """
@@ -160,6 +174,57 @@ class QuestionNote(TwNote):
         anki_note.fields[1] = self.answer
         anki_note.fields[3] = self.tidref
         anki_note.fields[4] = self.permalink if self.permalink is not None else ""
+        anki_note['ID'] = self.id_
+        anki_note.tags = self.anki_tags
+
+
+class ClozeNote(TwNote):
+    model = TiddlyRememberCloze
+
+    def __init__(self, id_: Twid, tidref: str, text: str,
+                 target_tags: Set[str], target_deck: Optional[str]) -> None:
+        super().__init__(id_, tidref, target_tags, target_deck)
+        self.text = text
+
+    def __repr__(self):
+        return (f"TwNote(id_={self.id_!r}, tidref={self.tidref!r}, "
+                f"text={self.text!r}, target_tags={self.target_tags!r}, "
+                f"target_deck={self.target_deck!r})")
+
+    @classmethod
+    def parse_html(cls, soup: BeautifulSoup, name: str) -> Set['ClozeNote']:
+        notes = set()
+        deck, tags = get_deck_and_tags(soup)
+
+        pairs = soup.find_all(class_="remembercz")
+        for pair in pairs:
+            text = pair.find("span", class_="cloze-text").get_text()
+            id_raw = pair.find("div", class_="rid").get_text()
+            id_ = id_raw.strip().lstrip('[').rstrip(']')
+            notes.add(cls(id_, name, text, tags, deck))
+
+        return notes
+
+    @classmethod
+    def wants_soup(cls, soup: BeautifulSoup) -> bool:
+        return bool(soup.find("div", class_="remembercz"))
+
+    def _fields_equal(self, anki_note: Note) -> bool:
+        return (
+            self.text == anki_note['Text']
+            and self.id_ == anki_note['ID']
+            and self.tidref == anki_note['Reference']
+            and self.permalink == anki_note['Permalink']
+            and self.anki_tags == anki_note.tags
+        )
+
+    def _update_fields(self, anki_note: Note) -> None:
+        """
+        Alter the Anki note to match this TiddlyWiki note.
+        """
+        anki_note['Text'] = self.text
+        anki_note['ID'] = self.id_
+        anki_note['Permalink'] = self.permalink if self.permalink is not None else ""
         anki_note['Reference'] = self.tidref
         anki_note.tags = self.anki_tags
 

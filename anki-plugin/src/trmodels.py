@@ -1,7 +1,7 @@
 from abc import ABC
 import inspect
 from textwrap import dedent
-from typing import Type, Tuple
+from typing import Iterable, List, Type, Tuple
 import sys
 
 import aqt
@@ -165,16 +165,25 @@ class TiddlyRememberCloze(ModelData):
     is_cloze = True
 
 
+def _itermodels() -> Iterable[Type[ModelData]]:
+    def is_model(obj):
+        return (inspect.isclass(obj)
+                and any('ModelData' == b.__name__ for b in obj.__bases__))
+    return (i for _, i in inspect.getmembers(sys.modules[__name__], is_model))
+
+
 def ensure_note_types():
     """
     For all note types defined in this file, add them to the collection if
     they aren't in there already.
     """
-    def is_model(obj):
-        return (inspect.isclass(obj)
-                and any('ModelData' == b.__name__ for b in obj.__bases__))
-
-    models = inspect.getmembers(sys.modules[__name__], is_model)
-    for _, model in models:
+    for model in _itermodels():
         if not model.in_collection():
             aqt.mw.col.models.add(model.to_model())
+
+
+def all_note_types() -> List[Type[ModelData]]:
+    """
+    Return a list of all note types defined in this file.
+    """
+    return list(_itermodels())
