@@ -5,6 +5,7 @@ from typing import Type, Tuple
 import sys
 
 import aqt
+from anki.consts import MODEL_CLOZE
 
 
 class TemplateData(ABC):
@@ -33,6 +34,7 @@ class ModelData(ABC):
     templates: Tuple[Type[TemplateData]]
     styling: str
     sort_field: str
+    is_cloze: bool
 
     @classmethod
     def to_model(cls):
@@ -46,6 +48,8 @@ class ModelData(ABC):
             mm.addTemplate(model, t)
         model['css'] = dedent(cls.styling).strip()
         model['sortf'] = cls.fields.index(cls.sort_field)
+        if cls.is_cloze:
+            model['type'] = MODEL_CLOZE
         return model
 
     @classmethod
@@ -103,6 +107,62 @@ class TiddlyRememberQuestionAnswer(ModelData):
         }
     """
     sort_field = "Question"
+    is_cloze = False
+
+
+class TiddlyRememberCloze(ModelData):
+    class TiddlyRememberClozeTemplate(TemplateData):
+        name = "Cloze"
+        front = """
+            {{cloze:Text}}
+        """
+        back = """
+            {{cloze:Text}}
+
+            <div class="note-id">
+                {{#Permalink}}
+                    [<a href="{{text:Permalink}}">{{Reference}}</a>:{{ID}}]
+                {{/Permalink}}
+                {{^Permalink}}
+                    [{{Reference}}:{{ID}}]
+                {{/Permalink}}
+            </div>
+        """
+
+    name = "TiddlyRemember Cloze v1"
+    fields = ("Text", "ID", "Reference", "Permalink")
+    templates = (TiddlyRememberClozeTemplate,)
+    styling = """
+        .card {
+            font-family: arial;
+            font-size: 20px;
+            text-align: center;
+            color: black;
+            background-color: white;
+        }
+
+        .cloze {
+            font-weight: bold;
+            color: blue;
+        }
+
+        .nightMode .cloze {
+            filter: invert(85%);
+        }
+
+        .note-id {
+            font-size: 70%;
+            margin-top: 1ex;
+            text-align: right;
+            color: grey;
+        }
+
+        .note-id a {
+            color: grey;
+        }
+    """
+    sort_field = "Text"
+    is_cloze = True
 
 
 def ensure_note_types():
