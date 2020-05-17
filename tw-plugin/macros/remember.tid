@@ -1,5 +1,5 @@
 created: 20200510004110231
-modified: 20200510023332089
+modified: 20200517155832138
 tags: $:/tags/Macro
 title: $:/plugins/sobjornstad/tiddlyremember/macros/remember
 type: text/vnd.tiddlywiki
@@ -18,4 +18,34 @@ type: text/vnd.tiddlywiki
             [$id$]
         </div>
     </div>
+\end
+
+\define remembercz(id, text, mode: "block")
+	<$list filter="[[$mode$]match[inline]]">
+		<<twRememberClozeInline "$id$" "$text$">>
+	</$list>
+	<$list filter="[[$mode$]!match[inline]]">
+		<<twRememberClozeBlock "$id$" "$text$">>
+	</$list>
+\end
+
+\define twRememberClozeBlock(id, text)
+	<div class="remembercz">
+		<span class="cloze-identifier">cloze: </span>
+		<span class="cloze-text">$text$</span>
+		<div class="rid">
+			[$id$]
+		</div>
+	</div>
+\end
+
+\define twRememberClozeInline(id, text)
+	<span class="remembercz">
+		<span class="cloze-identifier">{cloze: </span>
+		<span class="cloze-text">$text$</span>
+		<span class="cloze-identifier">}</span>
+		<div class="rid">
+			[$id$]
+		</div>
+	</span>
 \end

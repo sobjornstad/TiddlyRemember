@@ -1,21 +1,20 @@
-caption: RememberQ
+caption: RememberCz
 condition: [<targetTiddler>!has[type]] [<targetTiddler>type[text/vnd.tiddlywiki]]
-created: 20161118171456554
-description: Remember Question/Answer
-icon: $:/plugins/sobjornstad/tiddlyremember/icons/lightbulb-white.svg
-modified: 20200517161709608
+created: 20200517155905263
+description: Remember Cloze Deletion
+icon: $:/plugins/sobjornstad/tiddlyremember/icons/lightbulb-black.svg
+modified: 20200517162124307
 shortcuts: 
 tags: $:/tags/EditorToolbar
-title: $:/plugins/sobjornstad/tiddlyremember/toolbar/rememberq
+title: $:/plugins/sobjornstad/tiddlyremember/toolbar/remembercz
 type: text/vnd.tiddlywiki
 
 \define getMacro()
-<<rememberq "$(questionid)$"
-	"Q"
-	"A">>
+<<remembercz "$(clozeid)$"
+	"Cloze">>
 \end
 
-<$set name=questionid
+<$set name=clozeid
       value=<<now "[UTC]YYYY0MM0DD0hh0mm0ss0XXX">> >
 	<$action-sendmessage
 		$message="tm-edit-text-operation"

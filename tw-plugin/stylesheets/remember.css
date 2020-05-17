@@ -19,3 +19,18 @@ div.rememberq div.rid {
 	float: right;
 	color: <<colour muted-foreground>>;
 }
+
+div.remembercz {
+	border-left: 3px solid <<colour tag-background>>;
+	padding-left: 0.5em;
+}
+
+.remembercz > span.cloze-identifier {
+	color: <<colour tag-background>>;
+}
+
+.remembercz div.rid {
+	float: right;
+	margin-left: 0.5em;
+	color: <<colour muted-foreground>>;
+}
