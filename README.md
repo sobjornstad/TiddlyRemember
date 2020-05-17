@@ -95,6 +95,59 @@ After you've added, edited, or removed questions in TiddlyWiki,
     to update your collection to match.
 
 
+## Choosing decks and tags
+
+By default, cards go to the deck specified in the `defaultDeck` property
+    of your Anki add-on configuration
+    (this property, itself, defaults to `TiddlyRemember`),
+and notes have no tags.
+
+You can configure how questions map to decks and tags
+    on a tiddler-by-tiddler basis
+    by overriding the configuration tiddlers
+    `$:/config/TiddlyRemember/TagMapping`
+    and `$:/config/TiddlyRemember/DeckMapping`.
+These tiddlers are empty in a base installation.
+You may populate them with a newline-separated list of TiddlyWiki filters.
+TiddlyRemember will run each filter
+    against the title of the tiddler your question is in
+    and track results across the filter runs.
+(If you're familiar with the way Node folder wikis
+ use `$:/config/FileSystemPaths` to define folder structure,
+ this is the same idea.)
+
+### Tag details
+
+For tags, all matches in any of the filters become tags,
+    duplicates excluded.
+If your tags contain spaces, the spaces will be turned into `_`
+    (Anki separates tags by spaces).
+If there are no results at all, the card gets no tags.
+
+Here's an example tag mapping,
+    which passes through all tags set in TiddlyWiki
+    with the exception of the `Public` tag,
+    and additionally includes an `Important` tag
+    for questions in tiddlers with a `priority` field set to "high":
+
+```
+[tags[]] -[[Public]]
+[has[priority]get[priority]match[high]then[Important]]
+```
+
+
+### Deck details
+
+Decks work similarly to tags.
+However, since a card can only be in one deck,
+    the first result returned by any of the filters wins
+    and the remaining results are ignored.
+If there are no results at all,
+    the `defaultDeck` in your Anki settings is used.
+Decks will be created on sync if they don't exist,
+    but won't be deleted even if the sync makes them empty.
+
+
 ## Cross-referencing
 
 If you define the `permalink` property in your Anki plugin config,
@@ -113,13 +166,6 @@ Going the other way,
   Any changes you make in Anki will be overwritten without warning on your next sync.
   There are no plans to change this, and doing so would break other things
   (e.g., the ability to include transclusions inside a question or answer).
-* All questions go to a single deck and have no tags.
-  Currently, you can move cards to a different deck or add tags
-  and they will be preserved across syncs.
-  However, this will likely change in future versions
-  so that this is instead configured within your wiki or question macros
-  and overwrites any changes made in Anki,
-  so you probably should not do complicated organization now.
 * If you delete questions in TiddlyWiki,
   they will be permanently removed from Anki,
   and the scheduling information cannot be recovered except by restoring a backup.

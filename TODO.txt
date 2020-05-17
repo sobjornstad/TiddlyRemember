@@ -1,10 +1,4 @@
 * Cloze note type.
-* Add some kind of mechanism for choosing decks and/or tags. Perhaps base it on
-  the tag or tiddler that the item itself is in -- maybe a set of filters like
-  the file placement ditty in NodeJS? The challenge is figuring out if this should
-  happen just initially, or repeatedly sync...it would probably be nice to be able
-  to move/tag stuff in Anki, but then it wouldn't stay up to date with TW. Thinking
-  probably repeatedly, stubbornly move.
 * Support multiple wikis.
 
 --------------------------------------------------------------------------------

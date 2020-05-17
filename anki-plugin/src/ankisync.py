@@ -7,6 +7,25 @@ from .twnote import TwNote
 from .util import pluralize, Twid
 
 
+def update_deck(tw_note: TwNote, anki_note: Note, mw: Any, default_deck: str) -> None:
+    """
+    Given a note already in Anki's database, move its cards into an
+    appropriate deck if they aren't already there. All cards must go to the
+    same deck for the time being -- although this is currently irrelevant
+    since we don't support any note types with multiple cards!
+
+    The note must be flushed to Anki's database for this to work correctly.
+    """
+    # Confusingly, mw.col.decks.id returns the ID of an existing deck, and
+    # creates it if it doesn't exist. This happens to be exactly what we want.
+    deck_name = tw_note.target_deck or default_deck
+    new_did = mw.col.decks.id(deck_name)
+    for card in anki_note.cards():
+        if card.did != new_did:
+            card.did = new_did
+            card.flush()
+
+
 def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
     """
     Compare TiddlyWiki notes with the notes currently in our Anki collection
@@ -51,12 +70,14 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
     for note_id in adds:
         tw_note = extracted_notes_map[note_id]
         n = Note(mw.col, mw.col.models.byName(model_name))
-        n.model()['did'] = mw.col.decks.id(conf['defaultDeck']) # type: ignore
+        n.model()['did'] = mw.col.decks.id(tw_note.target_deck     # type: ignore
+                                           or conf['defaultDeck'])
         n['Question'] = tw_note.question
         n['Answer'] = tw_note.answer
         n['ID'] = tw_note.id_
         n['Reference'] = tw_note.tidref
         n['Permalink'] = tw_note.permalink if tw_note.permalink is not None else ""
+        n.tags = tw_note.anki_tags
         mw.col.addNote(n)
     userlog.append(f"Added {len(adds)} {pluralize('note', len(adds))}.")
 
@@ -68,6 +89,7 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
             tw_note.update_fields(anki_note)
             anki_note.flush()
             edit_count += 1
+        update_deck(tw_note, anki_note, mw, conf['defaultDeck'])
     userlog.append(f"Updated {edit_count} {pluralize('note', edit_count)}.")
 
     mw.col.remNotes(anki_notes_map[twid].id for twid in removes)

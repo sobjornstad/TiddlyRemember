@@ -1,7 +1,8 @@
-from typing import Optional, Set
+from typing import List, Optional, Set
 from urllib.parse import quote as urlquote
 
 from anki.notes import Note
+import aqt
 
 from .util import Twid
 
@@ -26,6 +27,19 @@ class TwNote:
     def __hash__(self):
         return hash(self.id_)
 
+    @property
+    def anki_tags(self) -> List[str]:
+        """
+        Munge tags and return a list suitable for use in Anki.
+
+        A quick test shows most if not all special characters are valid in tags;
+        I cannot find further documentation on any issues these may cause.
+        Spaces aren't, though, since tags are separated by spaces.
+        """
+        assert aqt.mw is not None, "Anki not initialized prior to TiddlyWiki sync!"
+        return aqt.mw.col.tags.canonify(
+            [t.replace(' ', '_') for t in self.target_tags])
+
     def fields_equal(self, anki_note: Note) -> bool:
         """
         Compare the fields on this TwNote to an Anki note. Return True if all
@@ -37,6 +51,7 @@ class TwNote:
             and self.id_ == anki_note.fields[2]
             and self.tidref == anki_note.fields[3]
             and self.permalink == anki_note.fields[4]
+            and self.anki_tags == anki_note.tags
         )
 
     def set_permalink(self, base_url: str) -> None:
@@ -56,3 +71,4 @@ class TwNote:
         anki_note.fields[1] = self.answer
         anki_note.fields[3] = self.tidref
         anki_note.fields[4] = self.permalink if self.permalink is not None else ""
+        anki_note.tags = self.anki_tags
