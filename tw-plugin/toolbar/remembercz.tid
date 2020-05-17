@@ -3,6 +3,7 @@ condition: [<targetTiddler>!has[type]] [<targetTiddler>type[text/vnd.tiddlywiki]
 created: 20200517155905263
 description: Remember Cloze Deletion
 icon: $:/plugins/sobjornstad/tiddlyremember/icons/lightbulb-black.svg
+list-after: $:/plugins/sobjornstad/tiddlyremember/toolbar/rememberq
 modified: 20200517162124307
 shortcuts: 
 tags: $:/tags/EditorToolbar
