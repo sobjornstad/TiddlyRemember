@@ -6,6 +6,7 @@ from anki.notes import Note
 import aqt
 from bs4 import BeautifulSoup
 
+from .clozeparse import ankify_clozes
 from .trmodels import TiddlyRememberQuestionAnswer, TiddlyRememberCloze
 from .util import Twid
 
@@ -133,7 +134,7 @@ class QuestionNote(TwNote):
         self.answer = answer
 
     def __repr__(self):
-        return (f"TwNote(id_={self.id_!r}, tidref={self.tidref!r}, "
+        return (f"QuestionNote(id_={self.id_!r}, tidref={self.tidref!r}, "
                 f"question={self.question!r}, answer={self.answer!r}, "
                 f"target_tags={self.target_tags!r}, target_deck={self.target_deck!r})")
 
@@ -187,7 +188,7 @@ class ClozeNote(TwNote):
         self.text = text
 
     def __repr__(self):
-        return (f"TwNote(id_={self.id_!r}, tidref={self.tidref!r}, "
+        return (f"ClozeNote(id_={self.id_!r}, tidref={self.tidref!r}, "
                 f"text={self.text!r}, target_tags={self.target_tags!r}, "
                 f"target_deck={self.target_deck!r})")
 
@@ -201,7 +202,8 @@ class ClozeNote(TwNote):
             text = pair.find("span", class_="cloze-text").get_text()
             id_raw = pair.find("div", class_="rid").get_text()
             id_ = id_raw.strip().lstrip('[').rstrip(']')
-            notes.add(cls(id_, name, text, tags, deck))
+            parsed_text = ankify_clozes(text)
+            notes.add(cls(id_, name, parsed_text, tags, deck))
 
         return notes
 

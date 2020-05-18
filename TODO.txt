@@ -1,6 +1,12 @@
-* Cloze note type.
+Missing features:
+
 * Support multiple wikis.
-* Refactor: TwNotes should be able to take advantage of field mappings in trmodels so we don't repeat them
+* Consider not stripping all HTML.
+
+Possible glitches:
+
+* Error handling for Node failure.
+* Error handling for changing an existing rememberq/remembercz to the other type.
 
 --------------------------------------------------------------------------------
 

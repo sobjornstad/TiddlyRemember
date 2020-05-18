@@ -63,9 +63,12 @@ Configure the Anki plugin with Tools -> Add-ons -> Configure,
 
 ## Use
 
-Currently, question-and-answer pairs are supported
-    with the use of the `rememberq` TiddlyWiki macro.
-Support for cloze deletions is planned.
+TiddlyRemember can generate question-and-answer pairs and cloze deletions.
+We'll start by looking at pairs; cloze deletions work similarly.
+
+### Q&A 
+
+Question-and-answer cards are created with the `rememberq` TiddlyWiki macro.
 Here's an example:
 
 ```
@@ -75,17 +78,17 @@ Here's an example:
 >>
 ```
 
-This will render the question-and-answer pair in a pretty way
-    and insert enough information in the HTML
-    that the TiddlyRemember parser can pick it out.
-The parser actually renders the tiddlers,
+This will render the question-and-answer pair in a new paragraph
+    and insert information in the HTML
+    that the TiddlyRemember parser can pick out.
+The parser actually renders the tiddlers when you sync to Anki,
     so you can include TextReferences and so on within the macro parameters
-    and the referents will display both in the browser and on your Anki cards.
+    and the referents will display both in your wiki and on your Anki cards.
 However, HTML will be stripped when creating Anki notes,
     so links, text formatting, etc., will only show up in your wiki;
     this may change in the future.
 
-Clicking the lightbulb icon on the edit toolbar
+Clicking the white (left-hand) lightbulb icon on the edit toolbar
     will insert this snippet,
     including the current time down to the milliseconds as the unique ID,
     so you don't have to worry about creating one.
@@ -93,6 +96,59 @@ Clicking the lightbulb icon on the edit toolbar
 After you've added, edited, or removed questions in TiddlyWiki,
     choose **Tools -> Sync from TiddlyWiki** in Anki
     to update your collection to match.
+
+### Cloze deletions
+
+Cloze deletions work much like questions,
+    but they use the `remembercz` macro,
+    which can be inserted with the black (right-hand) lightbulb icon on the edit toolbar.
+The portions you want to occlude (delete/hide) go in *single* braces:
+    Anki uses double braces, but TiddlyWiki already uses this for transclusions,
+    which are valid within the macro as well.
+The simplest way is to use *implicit cloze numbering*:
+    place each part you want to occlude in braces,
+    and Anki will create one card for each occlusion:
+
+```
+<<remembercz "a_unique_id"
+    "The answer to {life, the universe, and everything} is {42}."
+>>
+```
+
+This will generate two Anki cards.
+The front will show as follows,
+    while the back will show the entire sentence:
+
+1. The answer to [...] is 42.
+2. The answer to life, the universe, and everything is [...].
+
+If you want to put more than one occlusion on a card,
+    you can use *explicit cloze numbering*, like so:
+
+```
+<<remembercz "a_unique_id"
+    "The answer to {c1::life}, the {c1::universe}, and {c1::everything} is {c2::42}."
+>>
+```
+
+With the result:
+
+1. The answer to [...], the [...], and [...] is 42.
+2. The answer to life, the universe, and everything is [...].
+
+Cloze deletions can also be rendered *inline*,
+    as part of a paragraph in your wikitext,
+    rather than as a separate paragraph.
+This has no effect on the note generated in Anki.
+To do this, simply add the `inline` third argument to the `remembercz` macro:
+
+```
+The world is full of silly trivia.
+For instance, <<remembercz "a_unique_id"
+    "the answer to {c1::life}, the {c1::universe}, and {c1::everything} is {c2::42}."
+    inline>>
+The question, of course, is uncertain.
+```
 
 
 ## Choosing decks and tags
@@ -179,7 +235,7 @@ Going the other way,
   If you switch to a new wiki in the same profile,
   *all your existing notes will be deleted*
   (you can avoid this by first switching them to a different note type).
-* If the same unique ID is used for multiple `rememberq` calls,
+* If the same unique ID is used for multiple `rememberq` or `remembercz` calls,
   one definition of the question will randomly overwrite the other in Anki.
   Don't do this!
 * If you transclude a tiddler containing questions into another tiddler,
@@ -192,3 +248,49 @@ Going the other way,
   you'll need to download the wiki
   and save it to the location specified in your Anki plugin configuration
   before each sync.
+* Implicit cloze numbering can occasionally cause confusing/incorrect scheduling.
+  See the **Caution on implicit cloze numbering**, below.
+
+
+### Caution on implicit cloze numbering
+
+Implicit cloze numbering is very convenient,
+    but editing implicitly-numbered cloze deletions
+    can occasionally cause Anki to schedule the changed cards incorrectly.
+Most people rarely add or remove occlusions from an existing cloze deletion,
+    but it's worth being aware that this can happen if you do.
+Specifically, this happens if you *insert or remove an occlusion*
+    other than the rightmost one.
+This is because TiddlyRemember numbers implicit clozes from left to right,
+    and Anki tracks scheduling based on the number of the occlusion.
+
+For instance, if you have:
+
+```
+My two favorite letters are {L} and {R}.
+```
+
+And then you change it to:
+
+```
+My three favorite letters are {L}, {M}, and {R}.
+```
+
+Previously, the card where R was occluded was numbered **2**.
+Now, R will be numbered **3** --
+    and M will be numbered **2**,
+    so it will retain the scheduling of R,
+    while R will be treated as a new card!
+
+Fortunately, this is easy to prevent -- just switch to explicit numbering
+    if you need to insert or remove occlusions in an existing cloze deletion,
+    keeping the numbers of the existing occlusions:
+
+```
+My three favorite letters are {c1::L}, {c3::M}, and {c2::R}.
+```
+
+If this sounds too complicated,
+    you can simply use explicit numbering in all cases --
+    or if that seems like too much of a burden,
+    just not worry about the scheduling being wrong on rare occasions.
