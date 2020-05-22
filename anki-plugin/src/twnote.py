@@ -163,12 +163,12 @@ class QuestionNote(TwNote):
 
     def _fields_equal(self, anki_note: Note) -> bool:
         return (
-            self.question == anki_note.fields[0]
-            and self.answer == anki_note.fields[1]
-            and self.id_ == anki_note.fields[2]
+            self.question == anki_note['Question']
+            and self.answer == anki_note['Answer']
+            and self.id_ == anki_note['ID']
             and self.wiki_name == anki_note['Wiki']
-            and self.tidref == anki_note.fields[3]
-            and (self.permalink or "") == anki_note.fields[4]
+            and self.tidref == anki_note['Reference']
+            and (self.permalink or "") == anki_note['Permalink']
             and self.anki_tags == anki_note.tags
         )
 
