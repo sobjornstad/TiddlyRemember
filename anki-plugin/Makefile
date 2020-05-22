@@ -9,7 +9,7 @@ src/import_dialog.py: designer/import_dialog.ui
 
 build.zip: src/*
 	rm -f $@
-	rm -f src/meta.json
+	#rm -f src/meta.json
 	rm -rf src/__pycache__
 	( cd src/; zip -r ../$@ * )
 

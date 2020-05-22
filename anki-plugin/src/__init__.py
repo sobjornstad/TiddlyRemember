@@ -89,6 +89,7 @@ class ImportDialog(QDialog):
         self.extract_thread = None
         self.notes = []
         self.wikis = [(k, v) for k, v in self.conf['wikis'].items()]
+        self.form.wikiProgressBar.setMaximum(len(self.wikis))
         self.extract()
 
     def extract_progress(self, at: int, end: int):
@@ -130,6 +131,7 @@ class ImportDialog(QDialog):
             return
         self.notes.extend(self.extract_thread.notes)
 
+        self.form.wikiProgressBar.setValue(self.form.wikiProgressBar.value() + 1)
         if self.wikis:
             # If there are any more wikis, handle the next one.
             # Eventually, parallelizing this might be nice
