@@ -1,7 +1,6 @@
 # TiddlyRemember Configuration
 
-* **defaultDeck**: The deck that the cards of imported notes will be placed in.
-  The ability to use multiple decks is planned for a future version. Currently, TiddlyRemember never moves cards once they have been generated, but this may change in the future.
+* **defaultDeck**: The deck that the cards of imported notes will be placed in, if there is no match in your deck mappings (see the manual for details on deck mappings).
 * **tiddlywikiBinary**: Path to the TiddlyWiki executable on your system.
   Default is `tiddlywiki`, which will work if TW is on your system path.
 * **wiki**: Settings for your wiki:
