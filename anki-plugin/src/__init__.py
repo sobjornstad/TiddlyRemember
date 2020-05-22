@@ -86,8 +86,7 @@ class ImportDialog(QDialog):
 
         self.extract_thread = None
         self.notes = []
-        self.wikis = [('mywiki', self.conf['wiki'])]
-        #self.wikis = [(k, v) for k, v in self.conf['wiki'].items()]
+        self.wikis = [(k, v) for k, v in self.conf['wikis'].items()]
         self.extract()
 
     def extract_progress(self, at: int, end: int):
@@ -102,7 +101,10 @@ class ImportDialog(QDialog):
         sync with Anki.
         """
         wiki_name, wiki_conf = self.wikis.pop()
-        print(f"Processing {wiki_name}...")
+
+        self.form.text.setText(f"Exporting tiddlers from {wiki_name}...")
+        self.form.progressBar.setMaximum(0)
+
         self.extract_thread = ImportThread(self.conf, wiki_conf)
         self.extract_thread.finished.connect(self.join_thread)
         self.extract_thread.progress_update.connect(self.extract_progress)

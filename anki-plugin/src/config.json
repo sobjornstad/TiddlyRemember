@@ -1,10 +1,12 @@
 {
     "defaultDeck": "TiddlyRemember",
     "tiddlywikiBinary": "tiddlywiki",
-    "wiki": {
-        "type": "folder",
-        "path": "",
-        "permalink": "",
-        "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]"
+    "wikis": {
+        "defaultWiki": {
+            "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]",
+            "path": "",
+            "permalink": "",
+            "type": "file"
+        }
     }
 }
