@@ -4,7 +4,6 @@ Missing features:
 
 Possible glitches:
 
-* Error handling for Node failure.
 * Error handling for changing an existing rememberq/remembercz to the other type.
 
 --------------------------------------------------------------------------------
