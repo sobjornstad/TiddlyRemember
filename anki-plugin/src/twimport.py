@@ -63,26 +63,30 @@ def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: 
     subprocess.call(cmd, cwd=wiki_path)
 
 
-def notes_from_tiddler(tiddler: str, name: str) -> Set[TwNote]:
+def notes_from_tiddler(tiddler: str, wiki_name: str, tiddler_name: str) -> Set[TwNote]:
     """
     Given the text of a tiddler, parse the contents and return a set
     containing all the TwNotes found within that tiddler.
 
-    :param tiddler: The rendered text of a tiddler as a string.
-    :param name: The name of the tiddler, for traceability purposes.
+    :param tiddler:      The rendered text of a tiddler as a string.
+    :param wiki_name:    The name of the wiki this tiddler comes from,
+                         for traceability purposes.
+    :param tiddler_name: The name of the tiddler itself, for traceability purposes.
     :return: A (possibly empty) set of all the notes found in this tiddler.
     """
     soup = BeautifulSoup(tiddler, 'html.parser')
-    return TwNote.notes_from_soup(soup, name)
+    return TwNote.notes_from_soup(soup, wiki_name, tiddler_name)
 
 
 def notes_from_paths(
     paths: Sequence[Path],
+    wiki_name: str,
     callback: Optional[Callable[[int, int], None]]) -> Set[TwNote]:
     """
     Given an iterable of paths, compile the notes found in all those tiddlers.
 
-    :param paths:
+    :param paths: The paths of the tiddlers to generate notes for.
+    :param wiki_name: The name/id of the wiki these notes are from.
     :param callback: Optional callable passing back progress. See :func:`find_notes`.
     :return: A set of all the notes found in the tiddler files passed.
     """
@@ -91,7 +95,7 @@ def notes_from_paths(
         with open(tiddler, 'r') as f:
             tid_text = f.read()
         tid_name = tiddler.name[:tiddler.name.find(f".{RENDERED_FILE_EXTENSION}")]
-        notes.update(notes_from_tiddler(tid_text, tid_name))
+        notes.update(notes_from_tiddler(tid_text, wiki_name, tid_name))
 
         if callback is not None and not index % 50:
             callback(index+1, len(paths))
@@ -102,7 +106,7 @@ def notes_from_paths(
 
 
 def find_notes(
-    tw_binary: str, wiki_path: str, wiki_type: str, filter_: str,
+    tw_binary: str, wiki_path: str, wiki_type: str, wiki_name: str, filter_: str,
     callback: Optional[Callable[[int, int], None]] = None) -> Set[TwNote]:
     """
     Return a set of TwNotes parsed out of a TiddlyWiki.
@@ -112,12 +116,14 @@ def find_notes(
     :param wiki_type: 'folder', 'file', or 'url'. File wikis will be rendered to
                       folders for further processing. URL wikis will first be
                       downloaded, then rendered. 'url' implies a single-file wiki.
-    :param filter_: TiddlyWiki filter describing which tiddlers
-                    to search for notes.
-    :param callback: Optional callable receiving two integers, the first representing
-                     the number of tiddlers processed and the second the total number.
-                     It will be called every 50 tiddlers. The first call is made at
-                     tiddler 1, once the wiki has been rendered.
+    :param wiki_name: The name/ID the user has provided for the wiki, to be used as
+                      part of the tiddler reference field.
+    :param filter_:   TiddlyWiki filter describing which tiddlers
+                      to search for notes.
+    :param callback:  Optional callable receiving two integers, the first representing
+                      the number of tiddlers processed and the second the total number.
+                      It will be called every 50 tiddlers. The first call is made at
+                      tiddler 1, once the wiki has been rendered.
     """
     with TemporaryDirectory() as tmpdir:
         if wiki_type == 'file':
@@ -138,6 +144,7 @@ def find_notes(
         render_wiki(tw_binary, wiki_folder, render_location, filter_)
         notes = notes_from_paths(
             list(Path(render_location).glob(f"*.{RENDERED_FILE_EXTENSION}")),
+            wiki_name,
             callback)
 
     return notes

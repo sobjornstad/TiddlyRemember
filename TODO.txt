@@ -1,10 +1,10 @@
 Missing features:
 
-* Support multiple wikis.
 * Consider not stripping all HTML.
 
 Possible glitches:
 
+* Empty (instead of missing) permalink property just writes /#theanchor
 * Error handling for Node failure.
 * Error handling for changing an existing rememberq/remembercz to the other type.
 

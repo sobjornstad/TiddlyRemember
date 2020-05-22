@@ -48,9 +48,10 @@ class ImportThread(QThread):
     """
     progress_update = pyqtSignal(int, int)
 
-    def __init__(self, conf: dict, wiki_conf: Dict[str, str]):
+    def __init__(self, conf: dict, wiki_name: str, wiki_conf: Dict[str, str]):
         super().__init__()
         self.conf = conf
+        self.wiki_name = wiki_name
         self.wiki_conf = wiki_conf
         self.notes = None
         self.exception = None
@@ -61,6 +62,7 @@ class ImportThread(QThread):
                 tw_binary=self.conf['tiddlywikiBinary'],
                 wiki_path=self.wiki_conf['path'],
                 wiki_type=self.wiki_conf['type'],
+                wiki_name=self.wiki_name,
                 filter_=self.wiki_conf['contentFilter'],
                 callback=self.progress_update.emit
             )
@@ -105,7 +107,7 @@ class ImportDialog(QDialog):
         self.form.text.setText(f"Exporting tiddlers from {wiki_name}...")
         self.form.progressBar.setMaximum(0)
 
-        self.extract_thread = ImportThread(self.conf, wiki_conf)
+        self.extract_thread = ImportThread(self.conf, wiki_name, wiki_conf)
         self.extract_thread.finished.connect(self.join_thread)
         self.extract_thread.progress_update.connect(self.extract_progress)
         self.extract_thread.start()

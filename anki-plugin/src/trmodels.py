@@ -75,16 +75,16 @@ class TiddlyRememberQuestionAnswer(ModelData):
 
             <div class="note-id">
                 {{#Permalink}}
-                    [<a href="{{text:Permalink}}">{{Reference}}</a>:{{ID}}]
+                    [<a href="{{text:Permalink}}">{{Wiki}}/{{Reference}}</a> {{ID}}]
                 {{/Permalink}}
                 {{^Permalink}}
-                    [{{Reference}}:{{ID}}]
+                    [{{Wiki}}/{{Reference}} {{ID}}]
                 {{/Permalink}}
             </div>
         """
 
     name = "TiddlyRemember Q&A v1"
-    fields = ("Question", "Answer", "ID", "Reference", "Permalink")
+    fields = ("Question", "Answer", "ID", "Wiki", "Reference", "Permalink")
     templates = (TiddlyRememberQuestionAnswerTemplate,)
     styling = """
         .card {
@@ -121,16 +121,16 @@ class TiddlyRememberCloze(ModelData):
 
             <div class="note-id">
                 {{#Permalink}}
-                    [<a href="{{text:Permalink}}">{{Reference}}</a>:{{ID}}]
+                    [<a href="{{text:Permalink}}">{{Wiki}}/{{Reference}}</a> {{ID}}]
                 {{/Permalink}}
                 {{^Permalink}}
-                    [{{Reference}}:{{ID}}]
+                    [{{Wiki}}/{{Reference}} {{ID}}]
                 {{/Permalink}}
             </div>
         """
 
     name = "TiddlyRemember Cloze v1"
-    fields = ("Text", "ID", "Reference", "Permalink")
+    fields = ("Text", "ID", "Wiki", "Reference", "Permalink")
     templates = (TiddlyRememberClozeTemplate,)
     styling = """
         .card {
