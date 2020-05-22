@@ -163,7 +163,7 @@ class QuestionNote(TwNote):
             and self.answer == anki_note.fields[1]
             and self.id_ == anki_note.fields[2]
             and self.tidref == anki_note.fields[3]
-            and self.permalink == anki_note.fields[4]
+            and (self.permalink or "") == anki_note.fields[4]
             and self.anki_tags == anki_note.tags
         )
 
@@ -216,7 +216,7 @@ class ClozeNote(TwNote):
             self.text == anki_note['Text']
             and self.id_ == anki_note['ID']
             and self.tidref == anki_note['Reference']
-            and self.permalink == anki_note['Permalink']
+            and (self.permalink or "") == anki_note['Permalink']
             and self.anki_tags == anki_note.tags
         )
 
