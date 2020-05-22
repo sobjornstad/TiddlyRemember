@@ -67,8 +67,8 @@ class ImportThread(QThread):
                 callback=self.progress_update.emit
             )
             for n in self.notes:
-                wiki_url = self.wiki_conf.get('permalink', None)
-                if wiki_url is not None:
+                wiki_url = self.wiki_conf.get('permalink', '')
+                if wiki_url:
                     n.set_permalink(wiki_url)
         except Exception as e:
             self.exception = e
