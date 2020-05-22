@@ -41,45 +41,53 @@ from . import twimport
 from .twnote import TwNote
 from .util import Twid
 
+
+class ImportThread(QThread):
+    """
+    Background thread to export the wiki and parse questions out of it.
+    """
+    progress_update = pyqtSignal(int, int)
+
+    def __init__(self, conf: dict, wiki_conf: Dict[str, str]):
+        super().__init__()
+        self.conf = conf
+        self.wiki_conf = wiki_conf
+        self.notes = None
+        self.exception = None
+
+    def run(self):
+        try:
+            self.notes = twimport.find_notes(
+                tw_binary=self.conf['tiddlywikiBinary'],
+                wiki_path=self.wiki_conf['path'],
+                wiki_type=self.wiki_conf['type'],
+                filter_=self.wiki_conf['contentFilter'],
+                callback=self.progress_update.emit
+            )
+            for n in self.notes:
+                wiki_url = self.wiki_conf.get('permalink', None)
+                if wiki_url is not None:
+                    n.set_permalink(wiki_url)
+        except Exception as e:
+            self.exception = e
+
+
 class ImportDialog(QDialog):
     """
     Dialog implementing the import from TiddlyWiki.
     """
-    class ImportThread(QThread):
-        """
-        Background thread to export the wiki and parse questions out of it.
-        """
-        progress_update = pyqtSignal(int, int)
-
-        def __init__(self, conf):
-            super().__init__()
-            self.conf = conf
-            self.notes = None
-            self.exception = None
-
-        def run(self):
-            try:
-                self.notes = twimport.find_notes(
-                    tw_binary=self.conf['tiddlywikiBinary'],
-                    wiki_path=self.conf['wiki']['path'],
-                    wiki_type=self.conf['wiki']['type'],
-                    filter_=self.conf['wiki']['contentFilter'],
-                    callback=self.progress_update.emit
-                )
-                for n in self.notes:
-                    wiki_url = self.conf['wiki'].get('permalink', None)
-                    if wiki_url is not None:
-                        n.set_permalink(wiki_url)
-            except Exception as e:
-                self.exception = e
-
 
     def __init__(self, mw):
-        self.mw = mw
         QDialog.__init__(self)
         self.form = import_dialog.Ui_Dialog()
         self.form.setupUi(self)
         self.conf = mw.addonManager.getConfig(__name__)
+        self.mw = mw
+
+        self.extract_thread = None
+        self.notes = []
+        self.wikis = [('mywiki', self.conf['wiki'])]
+        #self.wikis = [(k, v) for k, v in self.conf['wiki'].items()]
         self.extract()
 
     def extract_progress(self, at: int, end: int):
@@ -88,26 +96,23 @@ class ImportDialog(QDialog):
         self.form.progressBar.setValue(at * 100 / end)
         self.form.text.setText(f"Extracting notes from tiddlers...{at}/{end}")
 
-    def extract(self):
+    def extract(self) -> None:
         """
         Extract questions from a TiddlyWiki using Node. When done, proceed to
         sync with Anki.
         """
-        self.extract_thread = self.ImportThread(self.conf)
-        self.extract_thread.finished.connect(self.sync)
+        wiki_name, wiki_conf = self.wikis.pop()
+        print(f"Processing {wiki_name}...")
+        self.extract_thread = ImportThread(self.conf, wiki_conf)
+        self.extract_thread.finished.connect(self.join_thread)
         self.extract_thread.progress_update.connect(self.extract_progress)
         self.extract_thread.start()
 
-    def sync(self):
+    def join_thread(self) -> None:
         """
-        After an extract() run, the notes extracted are available from
-        self.extract_thread. Compare these notes with the notes currently in
-        our Anki collection and add, edit, and remove notes as needed to get
-        Anki in sync with the TiddlyWiki notes.
+        Gather up the results of a completed extract thread, and start the next one
+        if appropriate.
         """
-        self.form.progressBar.setMaximum(0)
-        self.form.text.setText(f"Applying note changes to your collection...")
-
         if self.extract_thread.exception:
             raise self.extract_thread.exception
         if len(self.extract_thread.notes) == 0:
@@ -119,8 +124,26 @@ class ImportDialog(QDialog):
                         "Your collection has not been updated.")
             self.accept()
             return
+        self.notes.extend(self.extract_thread.notes)
 
-        userlog = ankisync.sync(self.extract_thread.notes, self.mw, self.conf)
+        if self.wikis:
+            # If there are any more wikis, handle the next one.
+            # Eventually, parallelizing this might be nice
+            # (might also not improve performance).
+            return self.extract()
+        else:
+            # When all are completed, start the sync with Anki.
+            return self.sync()
+
+    def sync(self):
+        """
+        Compare the notes gathered by the various wiki threads with the notes
+        currently in our Anki collection and add, edit, and remove notes as needed
+        to get Anki in sync with the TiddlyWiki notes.
+        """
+        self.form.progressBar.setMaximum(0)
+        self.form.text.setText(f"Applying note changes to your collection...")
+        userlog = ankisync.sync(self.notes, self.mw, self.conf)
 
         self.accept()
         self.mw.reset()

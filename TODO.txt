@@ -32,3 +32,15 @@ Folder test:
         "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]"
     }
 }
+
+Prod:
+{
+    "defaultDeck": "Collection::TiddlyRemember",
+    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
+    "wiki": {
+        "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]",
+        "path": "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
+        "permalink": "http://Alice:1109/Zettelkasten",
+        "type": "folder"
+    }
+}
