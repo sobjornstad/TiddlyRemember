@@ -243,8 +243,8 @@ Going the other way,
   TiddlyRemember is not able to follow transclusions to find the original source,
   as it starts looking for questions
   only after TiddlyWiki has completely rendered all tiddlers.
-* Your TiddlyWiki needs to be on your desktop filesystem for now.
-  If you keep it in cloud storage such as TiddlySpot,
+* TiddlyRemember can't authenticate to cloud storage to retrieve a wiki.
+  If it isn't available either on your local computer or at a publicly available URL,
   you'll need to download the wiki
   and save it to the location specified in your Anki plugin configuration
   before each sync.

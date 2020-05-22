@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+import requests
 import subprocess
 from tempfile import TemporaryDirectory
 from typing import Callable, Optional, Set, Sequence
@@ -24,6 +25,16 @@ def folderify_wiki(tw_binary: str, wiki_path: str, output_directory: str) -> Non
     cmd = [tw_binary, "--load", wiki_path, "--savewikifolder", output_directory]
     #TODO: Error handling
     subprocess.call(cmd)
+
+
+def download_wiki(url: str, target_location: str) -> None:
+    """
+    Download a wiki from a URL to the path target_location.
+    """
+    r = requests.get(url)
+    r.raise_for_status()
+    with open(target_location, 'wb') as f:
+        f.write(r.text.encode('utf-8'))
 
 
 def render_wiki(tw_binary: str, wiki_path: str, output_directory: str, filter_: str) -> None:
@@ -97,9 +108,10 @@ def find_notes(
     Return a set of TwNotes parsed out of a TiddlyWiki.
 
     :param tw_binary: Path to the TiddlyWiki node executable.
-    :param wiki_path: Path of the wiki folder to render.
-    :param wiki_type: 'folder' or 'file'. File wikis will be rendered to folders
-                      for further processing.
+    :param wiki_path: Path of the wiki URL, file or folder to render.
+    :param wiki_type: 'folder', 'file', or 'url'. File wikis will be rendered to
+                      folders for further processing. URL wikis will first be
+                      downloaded, then rendered. 'url' implies a single-file wiki.
     :param filter_: TiddlyWiki filter describing which tiddlers
                     to search for notes.
     :param callback: Optional callable receiving two integers, the first representing
@@ -113,9 +125,14 @@ def find_notes(
             folderify_wiki(tw_binary, wiki_path, wiki_folder)
         elif wiki_type == 'folder':
             wiki_folder = wiki_path
+        elif wiki_type == 'url':
+            downloaded_file = os.path.join(tmpdir, 'wiki.html') 
+            download_wiki(url=wiki_path, target_location=downloaded_file)
+            wiki_folder = os.path.join(tmpdir, 'wikifolder')
+            folderify_wiki(tw_binary, downloaded_file, wiki_folder)
         else:
-            raise Exception(
-                "Invalid wiki type {wiki_type} -- must be 'file' or 'folder'.")
+            raise Exception(f"Invalid wiki type '{wiki_type}' -- must be "
+                            f"'file', 'folder', or 'url'.")
 
         render_location = os.path.join(tmpdir, 'render')
         render_wiki(tw_binary, wiki_folder, render_location, filter_)
