@@ -54,19 +54,24 @@ class ImportDialog(QDialog):
         def __init__(self, conf):
             super().__init__()
             self.conf = conf
+            self.notes = None
+            self.exception = None
 
         def run(self):
-            self.notes = twimport.find_notes(
-                tw_binary=self.conf['tiddlywikiBinary'],
-                wiki_path=self.conf['wiki']['path'],
-                wiki_type=self.conf['wiki']['type'],
-                filter_=self.conf['wiki']['contentFilter'],
-                callback=self.progress_update.emit
-            )
-            for n in self.notes:
-                wiki_url = self.conf['wiki'].get('permalink', None)
-                if wiki_url is not None:
-                    n.set_permalink(wiki_url)
+            try:
+                self.notes = twimport.find_notes(
+                    tw_binary=self.conf['tiddlywikiBinary'],
+                    wiki_path=self.conf['wiki']['path'],
+                    wiki_type=self.conf['wiki']['type'],
+                    filter_=self.conf['wiki']['contentFilter'],
+                    callback=self.progress_update.emit
+                )
+                for n in self.notes:
+                    wiki_url = self.conf['wiki'].get('permalink', None)
+                    if wiki_url is not None:
+                        n.set_permalink(wiki_url)
+            except Exception as e:
+                self.exception = e
 
 
     def __init__(self, mw):
@@ -103,6 +108,8 @@ class ImportDialog(QDialog):
         self.form.progressBar.setMaximum(0)
         self.form.text.setText(f"Applying note changes to your collection...")
 
+        if self.extract_thread.exception:
+            raise self.extract_thread.exception
         if len(self.extract_thread.notes) == 0:
             # This is probably a mistake or misconfiguration.
             # To avoid deleting all the user's existing notes to "sync"
