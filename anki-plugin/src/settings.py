@@ -15,11 +15,16 @@ from . import settings_dialog
 
 
 class SettingsDialog(QDialog):
-    def __init__(self):
-        QDialog.__init__(self)
+    """
+    Friendly interface to the add-on's JSON config. Lets you specify general options
+    and details of which wikis to sync.
+    """
+    def __init__(self) -> None:
+        super().__init__()
         self.mw = aqt.mw
         self.form = settings_dialog.Ui_Dialog()
         self.form.setupUi(self)
+
         self.deckChooser = aqt.deckchooser.DeckChooser(self.mw, self.form.deckWidget,
                                                        label=False)
         self.form.defaultDeckLabel.setBuddy(self.deckChooser.deck)
@@ -40,9 +45,12 @@ class SettingsDialog(QDialog):
         self.current_wiki_index = 0
         self.wikis = []
 
-        self._loadConfig()
+        self._load_config()
 
-    def _loadConfig(self) -> None:
+
+    ##### Private helper methods. #####
+    def _load_config(self) -> None:
+        "Populate the dialog from the add-on's config as stored by Anki."
         self.conf = self.mw.addonManager.getConfig(__name__)
         for name, value in self.conf.items():
             control = getattr(self.form, name + '_', None)
@@ -51,9 +59,10 @@ class SettingsDialog(QDialog):
                 control.setCursorPosition(0)
         self.deckChooser.setDeckName(self.conf['defaultDeck'])
         self.wikis = [[name, config] for name, config in self.conf['wikis'].items()]
-        self._populateWikiList()
+        self._populate_wiki_list()
 
-    def _saveConfig(self) -> None:
+    def _save_config(self) -> None:
+        "Dump the values in the dialog to the add-on's config as stored by Anki."
         for name in list(self.conf.keys()):
             control = getattr(self.form, name + '_', None)
             if control is not None:
@@ -67,7 +76,8 @@ class SettingsDialog(QDialog):
 
         self.mw.addonManager.writeConfig(__name__, self.conf)
 
-    def _populateWikiList(self) -> None:
+    def _populate_wiki_list(self) -> None:
+        "Update the list widget of wikis to match the self.wikis list."
         oldBlockSignals = self.form.wikiList.blockSignals(True)
         self.form.wikiList.clear()
         for wiki_name, _ in self.wikis:
@@ -76,14 +86,51 @@ class SettingsDialog(QDialog):
         self.form.wikiList.blockSignals(oldBlockSignals)
         self.wiki_changed(self.current_wiki_index, save=False)
 
+    def _load_wiki_values(self, new_index: int) -> None:
+        """
+        Load values from the self.wikis list to populate the wiki settings
+        group box.
+        """
+        self.current_wiki_index = new_index
+        wiki_name, wiki_config = self.wikis[new_index]
+        self.form.wikiName.setText(wiki_name)
+        for name, value in wiki_config.items():
+            if getattr(self.form, name + '_', None):
+                control = getattr(self.form, name + '_')
+                if isinstance(control, QComboBox):
+                    index = control.findText(value.title() if value != 'url' else 'URL')
+                    if index == -1:
+                        raise Exception(f"Oops, configuration for wiki type was "
+                                        f"{value}, which is not supported.")
+                    control.setCurrentIndex(index)
+                else:
+                    control.setText(value)
+                    control.setCursorPosition(0)
+
+    def _save_wiki_values(self) -> None:
+        """
+        Save the values the user entered for a given wiki to an entry in the
+        self.wikis list.
+        """
+        current_wiki = self.wikis[self.current_wiki_index]
+        current_wiki[0] = self.form.wikiName.text()
+        for name in list(current_wiki[1].keys()):
+            if getattr(self.form, name + '_', None):
+                control = getattr(self.form, name + '_')
+                if isinstance(control, QComboBox):
+                    current_wiki[1][name] = control.currentText().lower()
+                else:
+                    current_wiki[1][name] = control.text()
+
+
+    ##### Event handlers for buttons. #####
     def accept(self):
-        self._saveConfig()
+        "Dump new configuration and exit."
+        self._save_config()
         super().accept()
 
-    def get_help(self):
-        pass
-
     def add_wiki(self) -> None:
+        "Add a new wiki to the list."
         self._save_wiki_values()
 
         prototype = copy.copy(self.wikis[-1][1])
@@ -94,10 +141,27 @@ class SettingsDialog(QDialog):
         self.wikis.append(['', prototype])
 
         self.current_wiki_index = len(self.wikis) - 1
-        self._populateWikiList()
+        self._populate_wiki_list()
         self.form.wikiName.setFocus()
 
+    def browse_for_wiki(self):
+        "Use a file browser dialog to replace the path to a wiki."
+        dlg = QFileDialog(self,
+                          caption="Browse for wiki",
+                          filter="HTML files (*.html);;All files (*)")
+        if self.form.type_.currentText().lower() == 'folder':
+            mode = QFileDialog.Directory
+        else:
+            mode = QFileDialog.ExistingFile
+        dlg.setFileMode(mode)
+
+        retval = dlg.exec_()
+        if retval != 0:
+            filename = dlg.selectedFiles()[0]
+            self.form.path_.setText(filename)
+
     def delete_wiki(self) -> None:
+        "Remove the selected wiki from the configuration."
         if len(self.wikis) == 1:
             showWarning("You cannot delete the only configured wiki.")
             return
@@ -121,70 +185,24 @@ class SettingsDialog(QDialog):
         self.form.wikiList.blockSignals(oldBlockSignals)
         self.wiki_changed(self.current_wiki_index, save=False)
 
-    def browse_for_wiki(self):
-        dlg = QFileDialog(self,
-                          caption="Browse for wiki",
-                          filter="HTML files (*.html);;All files (*)")
-        if self.form.type_.currentText().lower() == 'folder':
-            mode = QFileDialog.Directory
-        else:
-            mode = QFileDialog.ExistingFile
-        dlg.setFileMode(mode)
+    def get_help(self):
+        pass
 
-        retval = dlg.exec_()
-        if retval != 0:
-            filename = dlg.selectedFiles()[0]
-            self.form.path_.setText(filename)
 
-    def _save_wiki_values(self):
-        current_wiki = self.wikis[self.current_wiki_index]
-        current_wiki[0] = self.form.wikiName.text()
-        for name in list(current_wiki[1].keys()):
-            if getattr(self.form, name + '_', None):
-                control = getattr(self.form, name + '_')
-                if isinstance(control, QComboBox):
-                    current_wiki[1][name] = control.currentText().lower()
-                else:
-                    current_wiki[1][name] = control.text()
-
-    def wiki_changed(self, new_index: int, save=True):
-        if save:
-            # Don't do this the first time or when deleting a wiki
-            # or we'll wipe out the settings for the new wiki.
-            self._save_wiki_values()
-
-        # Repopulate group box with new values.
-        self.current_wiki_index = new_index
-        wiki_name, wiki_config = self.wikis[new_index]
-        self.form.wikiName.setText(wiki_name)
-        for name, value in wiki_config.items():
-            if getattr(self.form, name + '_', None):
-                control = getattr(self.form, name + '_')
-                if isinstance(control, QComboBox):
-                    index = control.findText(value.title() if value != 'url' else 'URL')
-                    if index == -1:
-                        raise Exception(f"Oops, configuration for wiki URL was "
-                                        f"{value}, which is not supported.")
-                    control.setCurrentIndex(index)
-                else:
-                    control.setText(value)
-                    control.setCursorPosition(0)
-
-    def wiki_name_changed(self, new_text: str) -> None:
-        self.wikis[self.current_wiki_index][0] = new_text
-        self.form.wikiList.currentItem().setText(new_text)
-
-    def type_changed(self, new_text: str) -> None:
-        if new_text == 'URL':
-            self.form.pathLabel.setText("&URL")
-            self.form.browseButton.hide()
-        else:
-            self.form.pathLabel.setText("&Path")
-            self.form.browseButton.show()
+    ##### Other event handlers. #####
+    def prevent_duplicate_name(self) -> None:
+        "Prevent the same name being entered for two wikis, even for a moment."
+        wiki_names = [name for name, _ in self.wikis]
+        if len(set(wiki_names)) != len(wiki_names):
+            showWarning("Two wikis cannot have the same name. Fixing this for you.")
+            new_name = _uniquify_name(self.form.wikiName.text(), wiki_names)
+            self.form.wikiName.setText(new_name)
+            self.wiki_name_changed(new_name)
 
     def test_executable(self) -> None:
+        "Check to see if the TiddlyWiki executable provided can be called from Anki."
+        QApplication.setOverrideCursor(QCursor(QtCore.Qt.WaitCursor))
         try:
-            QApplication.setOverrideCursor(QCursor(QtCore.Qt.WaitCursor))
             args = [self.form.tiddlywikiBinary_.text(), "--version"]
             proc = subprocess.run(args, check=True, stderr=subprocess.STDOUT,
                                   stdout=subprocess.PIPE)
@@ -198,18 +216,37 @@ class SettingsDialog(QDialog):
                 f"It's not quite working yet. Try seeing if you can run TiddlyWiki "
                 f"from the command line and copy your command in here.\n\n"
                 f"{e.output}")
+        except Exception:
+            QApplication.restoreOverrideCursor()
+            raise
         else:
             QApplication.restoreOverrideCursor()
             showInfo(f"Successfully called TiddlyWiki {proc.stdout.decode().strip()}! "
                      f"You're all set.")
 
-    def prevent_duplicate_name(self) -> None:
-        wiki_names = [name for name, _ in self.wikis]
-        if len(set(wiki_names)) != len(wiki_names):
-            showWarning("Two wikis cannot have the same name. Fixing this for you.")
-            new_name = _uniquify_name(self.form.wikiName.text(), wiki_names)
-            self.form.wikiName.setText(new_name)
-            self.wiki_name_changed(new_name)
+    def type_changed(self, new_text: str) -> None:
+        "Adjust the interface appropriately for selection of path or URL."
+        if new_text == 'URL':
+            self.form.pathLabel.setText("&URL")
+            self.form.browseButton.hide()
+        else:
+            self.form.pathLabel.setText("&Path")
+            self.form.browseButton.show()
+
+    def wiki_changed(self, new_index: int, save=True) -> None:
+        "Save and repopulate the settings interface for the current wiki."
+        if save:
+            # Don't do this the first time or when deleting a wiki
+            # or we'll wipe out the settings for the new wiki.
+            self._save_wiki_values()
+
+        # Repopulate group box with new values.
+        self._load_wiki_values(new_index)
+
+    def wiki_name_changed(self, new_text: str) -> None:
+        "Update the wiki list when the name of a wiki changes."
+        self.wikis[self.current_wiki_index][0] = new_text
+        self.form.wikiList.currentItem().setText(new_text)
 
 
 def _uniquify_name(name: str, names: Sequence[str]) -> str:
@@ -224,6 +261,7 @@ def _uniquify_name(name: str, names: Sequence[str]) -> str:
     return f"{name} {number}"
 
 
-def edit_settings():
+def edit_settings() -> None:
+    "Use the SettingsDialog to adjust user configuration."
     dlg = SettingsDialog()
     dlg.exec_()
