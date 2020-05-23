@@ -104,6 +104,39 @@ class ModelData(ABC):
         """
         return None
 
+    @classmethod
+    def verify_integrity(cls, anki_model) -> None:
+        """
+        Raise an exception if the user has changed the model in a way that will
+        interfere with syncing.
+
+        This currently means changing the order or names of fields or
+        the type (cloze or regular). Changing the templates is fine and supported.
+        """
+        # Verify field names and order.
+        anki_fields = ((f['ord'], f['name']) for f in anki_model['flds'])
+        for (anki_ord, anki_name), (mod_ord, mod_name) in zip(anki_fields,
+                                                              enumerate(cls.fields)):
+            if not anki_ord == mod_ord and anki_name == mod_name:
+                raise Exception(
+                    f"The fields on the note type {cls.name} have been modified "
+                    f"in a way that prevents TiddlyRemember from syncing. Please "
+                    f"restore the fields to their standard names and positions, "
+                    f"then try syncing again.")
+
+        # Verify model type.
+        if cls.is_cloze and not anki_model['type'] == MODEL_CLOZE:
+            raise Exception(
+                f"TiddlyRemember expects the note type {cls.name} to be a cloze note "
+                f"type, but it is not! Please fix the note type, then try syncing "
+                f"again.")
+        elif not cls.is_cloze and anki_model['type'] == MODEL_CLOZE:
+            raise Exception(
+                f"TiddlyRemember expects the note type {cls.name} to be a standard "
+                f"note type, but it is a cloze note type! Please fix the note type, "
+                f"then try syncing again.")
+
+
 
 class TiddlyRememberQuestionAnswer(ModelData):
     class TiddlyRememberQuestionAnswerTemplate(TemplateData):
@@ -244,3 +277,17 @@ def by_name(model_name: str) -> Optional[Type[ModelData]]:
         return next(i for i in all_note_types() if i.name == model_name)
     except StopIteration:
         return None
+
+
+def verify_note_types() -> None:
+    """
+    Raise an exception if any of the TiddlyRemember note types have been altered
+    in a way that could prevent a safe and correct sync.
+
+    The caller should ensure that all of the TiddlyRemember note types exist in Anki
+    (this is checked by name) before calling verify_note_types().
+    """
+    for model in _itermodels():
+        assert aqt.mw is not None, "Verified note types before Anki was loaded!"
+        anki_model = aqt.mw.col.models.byName(model.name)
+        model.verify_integrity(anki_model)

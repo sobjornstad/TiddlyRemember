@@ -75,6 +75,13 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
     Be aware that deleting a note from TiddlyWiki will permanently delete
     it from Anki.
     """
+    # Make sure the note types exist and haven't been modified in a way
+    # that could prevent the sync from working properly.
+    trmodels.ensure_note_types()
+    trmodels.verify_note_types()
+
+    # Retrieve Anki notes and TiddlyWiki notes and identify what adds, edits,
+    # and removes are needed to update the Anki collection.
     extracted_notes: Set[TwNote] = tw_notes
     extracted_twids: Set[Twid] = set(n.id_ for n in extracted_notes)
     extracted_notes_map: Dict[Twid, TwNote] = {n.id_: n for n in extracted_notes}
@@ -92,6 +99,7 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
 
     userlog = []
 
+    # Make the changes to the collection.
     for note_id in adds:
         tw_note = extracted_notes_map[note_id]
         n = Note(mw.col, mw.col.models.byName(tw_note.model.name))

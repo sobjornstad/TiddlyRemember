@@ -49,8 +49,7 @@ class TwNote(metaclass=ABCMeta):
         """
         # pylint: disable=no-member
         assert self.model_equal(anki_note), \
-             f"Expected note of type {self.model.name}, " \
-             f"but got {anki_note.model()['name']}."
+            f"Expected note of type {self.model.name}, but got {anki_note.model()['name']}."  # type: ignore
 
     @property
     def anki_tags(self) -> List[str]:

@@ -167,4 +167,3 @@ if aqt.mw is not None:
     action.setText("Sync from &TiddlyWiki")
     aqt.mw.form.menuTools.addAction(action)
     action.triggered.connect(open_dialog)
-    aqt.gui_hooks.profile_did_open.append(trmodels.ensure_note_types)
