@@ -20,6 +20,7 @@ class SettingsDialog(QDialog):
         self.form.setupUi(self)
         self.deckChooser = aqt.deckchooser.DeckChooser(self.mw, self.form.deckWidget,
                                                        label=False)
+        self.form.defaultDeckLabel.setBuddy(self.deckChooser.deck)
 
         self.form.okButton.clicked.connect(self.accept)
         self.form.cancelButton.clicked.connect(self.reject)

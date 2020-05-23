@@ -17,7 +17,7 @@
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="defaultDeckLabel">
        <property name="text">
         <string>Default &amp;Deck</string>
        </property>
