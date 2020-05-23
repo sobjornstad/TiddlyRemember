@@ -1,12 +1,11 @@
 import copy
 import subprocess
-from typing import Sequence
+from typing import Any, Dict, List, Sequence, Tuple
 
 # pylint: disable=no-name-in-module
 import aqt
-from aqt.qt import QAction, QThread, QKeySequence
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QDialog, QComboBox, QApplication, QFileDialog
+from PyQt5.QtWidgets import QDialog, QComboBox, QApplication, QFileDialog, QAction
 from PyQt5.QtGui import QCursor
 from PyQt5.QtCore import pyqtSignal, Qt
 from aqt.utils import getFile, showWarning, showInfo, showCritical, askUser
@@ -21,7 +20,8 @@ class SettingsDialog(QDialog):
     """
     def __init__(self) -> None:
         super().__init__()
-        self.mw = aqt.mw
+        assert aqt.mw is not None, "Settings dialog launched before Anki initialized!"
+        self.mw: aqt.AnkiQt = aqt.mw
         self.form = settings_dialog.Ui_Dialog()
         self.form.setupUi(self)
 
@@ -43,7 +43,9 @@ class SettingsDialog(QDialog):
         self.form.wikiName.editingFinished.connect(self.prevent_duplicate_name)
 
         self.current_wiki_index = 0
-        self.wikis = []
+        # Unfortunately you cannot specify a list with elements of fixed type, like
+        # with Tuple. We can't use tuples because we need mutability.
+        self.wikis: List[List[Any]] = []
 
         self._load_config()
 
@@ -51,7 +53,11 @@ class SettingsDialog(QDialog):
     ##### Private helper methods. #####
     def _load_config(self) -> None:
         "Populate the dialog from the add-on's config as stored by Anki."
-        self.conf = self.mw.addonManager.getConfig(__name__)
+        conf = self.mw.addonManager.getConfig(__name__)
+        assert conf is not None, \
+            "No config received from addon manager despite registration!"
+        self.conf = conf
+
         for name, value in self.conf.items():
             control = getattr(self.form, name + '_', None)
             if control is not None:

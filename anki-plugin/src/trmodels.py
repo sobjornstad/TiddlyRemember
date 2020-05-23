@@ -1,7 +1,7 @@
 from abc import ABC
 import inspect
 from textwrap import dedent
-from typing import Dict, Iterable, List, Optional, Tuple, Type, Union
+from typing import Dict, Iterable, List, Optional, Tuple, Type
 import sys
 
 import aqt

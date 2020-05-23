@@ -1,6 +1,5 @@
 from collections import Counter
 import itertools
-from operator import itemgetter
 import re
 from typing import Iterable, List, Optional, Sequence
 

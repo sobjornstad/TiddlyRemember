@@ -24,23 +24,19 @@
 # SOFTWARE.
 ###############################################################################
 
-from typing import Dict, NewType, Set
+from typing import Dict
 
 # pylint: disable=import-error, no-name-in-module
 import aqt
-from aqt.qt import QAction, QThread, QKeySequence
-from aqt.utils import getFile, showWarning, askUser, tooltip
-from anki.notes import Note
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import pyqtSignal
+from aqt.utils import showWarning, tooltip
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import QDialog, QAction
+from PyQt5.QtCore import pyqtSignal, QThread
 
 from . import ankisync
 from . import import_dialog
 from .settings import edit_settings
-from . import trmodels
 from . import twimport
-from .twnote import TwNote
-from .util import Twid
 
 
 class ImportThread(QThread):

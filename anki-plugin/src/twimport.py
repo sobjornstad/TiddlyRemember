@@ -9,7 +9,7 @@ from typing import Callable, Optional, Set, Sequence
 
 from bs4 import BeautifulSoup
 
-from .twnote import TwNote, QuestionNote
+from .twnote import TwNote
 
 RENDERED_FILE_EXTENSION = "html"
 
