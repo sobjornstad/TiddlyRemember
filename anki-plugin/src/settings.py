@@ -1,10 +1,13 @@
 import copy
+import subprocess
 
 import aqt
 from aqt.qt import QAction, QThread, QKeySequence
-from PyQt5.QtWidgets import QDialog, QComboBox
-from PyQt5.QtCore import pyqtSignal
-from aqt.utils import getFile, showWarning, askUser
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QDialog, QComboBox, QApplication
+from PyQt5.QtGui import QCursor
+from PyQt5.QtCore import pyqtSignal, Qt
+from aqt.utils import getFile, showWarning, showInfo, showCritical, askUser
 
 from . import settings_dialog
 
@@ -22,6 +25,7 @@ class SettingsDialog(QDialog):
         self.form.addWikiButton.clicked.connect(self.add_wiki)
         self.form.deleteWikiButton.clicked.connect(self.delete_wiki)
         self.form.browseButton.clicked.connect(self.browse_for_wiki)
+        self.form.testExecutableButton.clicked.connect(self.test_executable)
         self.form.type_.currentTextChanged.connect(self.type_changed)
         self.form.wikiList.currentRowChanged.connect(self.wiki_changed)
         self.form.wikiName.textEdited.connect(self.wiki_name_changed)
@@ -149,13 +153,34 @@ class SettingsDialog(QDialog):
         self.wikis[self.current_wiki_index][0] = new_text
         self.form.wikiList.currentItem().setText(new_text)
 
-    def type_changed(self, new_text: str):
+    def type_changed(self, new_text: str) -> None:
         if new_text == 'URL':
             self.form.pathLabel.setText("&URL")
             self.form.browseButton.hide()
         else:
             self.form.pathLabel.setText("&Path")
             self.form.browseButton.show()
+
+    def test_executable(self) -> None:
+        try:
+            QApplication.setOverrideCursor(QCursor(QtCore.Qt.WaitCursor))
+            args = [self.form.tiddlywikiBinary_.text(), "--version"]
+            proc = subprocess.run(args, check=True, stderr=subprocess.STDOUT,
+                                  stdout=subprocess.PIPE)
+        except FileNotFoundError:
+            QApplication.restoreOverrideCursor()
+            showCritical("It doesn't look like that file exists on your computer. "
+                         "Try using the full path to 'tiddlywiki'.")
+        except subprocess.CalledProcessError as e:
+            QApplication.restoreOverrideCursor()
+            showCritical(
+                f"It's not quite working yet. Try seeing if you can run TiddlyWiki "
+                f"from the command line and copy your command in here.\n\n"
+                f"{e.output}")
+        else:
+            QApplication.restoreOverrideCursor()
+            showInfo(f"Successfully called TiddlyWiki {proc.stdout.decode().strip()}! "
+                     f"You're all set.")
 
 
 def edit_settings():
