@@ -2,6 +2,9 @@ Missing features:
 
 * Consider not stripping all HTML.
 * ID prefix?
-* Documentation as a TW
+* Allow disabling sync for a wiki in case it's unavailable for a while
+* Publish Anki add-on and update metadata tiddler with link
+* GitHub Pages for docs -- update README with link
+* Bundle license and doc link in the plugin tiddler
 
 Possible glitches:

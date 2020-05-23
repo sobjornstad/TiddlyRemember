@@ -1,0 +1,52 @@
+created: 20200523163252291
+list: [[Question-and-answer notes]] [[Cloze notes]]
+modified: 20200523212124291
+tags: TiddlyRemember
+title: Creating notes in TiddlyRemember
+type: text/vnd.tiddlywiki
+
+Snippets that you want to remember using TiddlyRemember are called //notes// (as in Anki).
+You describe the snippets using TiddlyWiki macros.
+
+TiddlyRemember supports several types of notes:
+
+<ul>
+  <$list filter="[tag<currentTiddler>]">
+    <li><$link to=<<currentTiddler>>><<currentTiddler>></$link>, with the <code>{{!!macro}}</code> macro</li>
+  </$list>
+</ul>
+
+The first parameter to both the `rememberq` and `remembercz` macros
+is the note's [[Unique ID]].
+As long as you never change the unique ID,
+you can edit your question and answer text
+and move the question between tiddlers and even between wikis,
+and your scheduling information in Anki will be preserved.
+It's important that you do not reuse unique IDs (thus making them non-unique),
+as this will cause TiddlyRemember to randomly overwrite one question with another.
+To aid in creating unique IDs, when you use either of the TiddlyRemember editor toolbar buttons
+(the white and black lightbulbs),
+a unique ID consisting of the current millisecond timestamp will be inserted automatically.
+
+After you add, edit, or remove questions in TiddlyWiki, you'll want to [[sync to Anki|Syncing TiddlyRemember with Anki]].
+
+The parser actually renders the tiddlers when you sync to Anki,
+    so you can include transclusions within the macro parameters if needed,
+    and the referents will display both in your wiki and on your Anki cards.
+However, HTML will be stripped when creating Anki notes,
+    so links, text formatting, etc., will only show up in your wiki;
+    this may change in the future.
+
+If you need to include quotes in a note, use triple quotes for the macro parameter:
+
+```
+<<rememberq "20200523163414807"
+    """How do you include "quotation marks" within a macro parameter in TiddlyWiki?"""
+    "Use triple quotation marks on the outside."
+>>
+```
+
+<<rememberq "20200523163414807"
+    """How do you include "quotation marks" within a macro parameter in TiddlyWiki?"""
+    "Use triple quotation marks on the outside."
+>>

@@ -1,0 +1,20 @@
+created: 20200523165832311
+modified: 20200523165832411
+tags: [[Cloze notes]]
+title: Explicit cloze numbering
+type: text/vnd.tiddlywiki
+
+If you want to occlude more than one section on a card,
+    you can use //explicit cloze numbering//, like so:
+
+```
+<<remembercz "20200523165036960"
+    "The answer to {c1::life}, the {c1::universe}, and {c1::everything} is {c2::42}."
+>>
+```
+
+<<remembercz "20200523165036960"
+    "The answer to {c1::life}, the {c1::universe}, and {c1::everything} is {c2::42}."
+>>
+
+{{multiple-occlusions-screenshot.png}}

@@ -1,0 +1,39 @@
+created: 20200523164249707
+list: [[Multiple occlusions]] [[Explicit cloze numbering]] [[Inline cloze deletions]] [[Editing cloze notes]]
+macro: remembercz
+modified: 20200523211302144
+tags: [[Creating notes in TiddlyRemember]]
+title: Cloze notes
+type: text/vnd.tiddlywiki
+
+//Cloze deletion// is a technique for creating flashcards
+where you delete or hide (//occlude//, in fancy memory terms)
+a part of a sentence and try to fill in the blank.
+It's often faster and easier to create cloze notes than [[Question-and-answer notes]].
+
+Cloze notes are created with the `remembercz` macro, putting the part you want to occlude in single braces, like this:
+
+```
+<<remembercz "20200523164451023"
+    "You create a cloze note in TiddlyRemember using the {remembercz} macro."
+>>
+```
+
+<<remembercz "20200523164451023"
+    "You create a cloze note in TiddlyRemember using the {remembercz} macro."
+>>
+
+{{cloze-deletion-screenshot.png}}
+
+(When you flip the card, the `[...]` is filled in with the answer.)
+
+Clicking the black (right-hand) lightbulb icon on the edit toolbar will insert a `remembercz` snippet.
+
+
+!! Advanced cloze deletions
+
+<<tabs
+	tabsList:"[tag<currentTiddler>]"
+        default:"Multiple occlusions"
+	state:"$:/temp/ClozeTabState"
+>>

@@ -1,0 +1,13 @@
+{
+  "name": "tiddlyremember-docs",
+  "version": "1.0.0",
+  "description": "The documentation for TiddlyRemember",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "tiddlywiki": "5.1.22"
+  },
+  "author": "Soren Bjornstad",
+  "license": "MIT"
+}

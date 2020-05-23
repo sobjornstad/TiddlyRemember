@@ -4,6 +4,7 @@ __pycache__/
 venv/
 .vscode/
 meta.json
+node_modules/
 
 # build outputs
 *.ankiaddon

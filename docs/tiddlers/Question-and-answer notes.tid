@@ -1,0 +1,29 @@
+created: 20200523163403092
+macro: rememberq
+modified: 20200523180853141
+tags: [[Creating notes in TiddlyRemember]]
+title: Question-and-answer notes
+type: text/vnd.tiddlywiki
+
+Question-and-answer notes are created with the `rememberq` TiddlyWiki macro, like this:
+
+```
+<<rememberq "20200523163414806"
+    "How do you create a question-and-answer pair in TiddlyRemember?"
+    "With the `rememberq` macro, inserted by clicking the white lightbulb icon on the edit toolbar."
+>>
+```
+
+That renders like this in TiddlyWiki:
+
+<<rememberq "20200523163414806"
+    "How do you create a question-and-answer pair in TiddlyRemember?"
+    "With the `rememberq` macro, inserted by clicking the white lightbulb icon on the edit toolbar."
+>>
+
+And when reviewing in Anki:
+
+{{qapair-screenshot.png}}
+
+Clicking the white (left-hand) lightbulb icon on the edit toolbar
+    will insert a `rememberq` snippet.

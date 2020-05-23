@@ -1,0 +1,45 @@
+created: 20200523154559237
+list: [[Installing TiddlyRemember]] [[Configuring TiddlyRemember]] [[Creating notes in TiddlyRemember]] [[Syncing TiddlyRemember with Anki]]
+modified: 20200523210152031
+title: TiddlyRemember
+type: text/vnd.tiddlywiki
+
+|!Version |{{TiddlyRemember Metadata##version}}|
+|!Published |<$view field="created" format="date" template="MMM DDth, YYYY" />|
+|!TW5 compatibility |{{TiddlyRemember Metadata##compatible-tw5}}|
+|!Anki compatibility |{{TiddlyRemember Metadata##compatible-anki}}|
+|!GitHub |{{TiddlyRemember Metadata##repository}}|
+
+TiddlyRemember is a tool that integrates the [[TiddlyWiki|https://tiddlywiki.com]] non-linear note-taking system with the spaced-repetition-flashcards tool [[Anki|https://apps.ankiweb.net]].
+You can interleave questions with your notes in TiddlyWiki,
+    then sync them into Anki notes with one click.
+You can edit and move the questions around your TiddlyWiki,
+    and they will stay connected to the Anki notes.
+Scheduling information in Anki is preserved when editing notes in TiddlyWiki.
+
+Why would you want to keep your Anki notes in TiddlyWiki?
+
+* One of the problems with using spaced repetition to study complex topics is that individual cards end up largely without context, and if you need a refresher, it's hard to find the original source. TiddlyRemember can take you right back to your notes.
+* If you already have notes on a topic, this can help keep your content more [[DRY|https://en.wikipedia.org/wiki/Don%27t_repeat_yourself]] -- you don't have to maintain the same knowledge in two places. If your knowledge on a topic changes and you update your notes or flashcards, they won't get out of sync.
+* You can easily add notes to your Anki collection at the same time you're taking narrative or outline notes, without having to switch back and forth between two applications.
+
+You can write [[Question-and-answer notes]]:
+
+<<rememberq "20200523175149066"
+	"What tool does TiddlyRemember integrate TiddlyWiki with?"
+	"Anki.">>
+
+Or you can use [[Cloze notes]]:
+
+<<remembercz "20200523175253647"
+	"TiddlyRemember integrates TiddlyWiki with {Anki}.">>
+
+Ready to get started?
+
+<<tabs
+	tabsList:"[tag<currentTiddler>]"
+        default:"Installing TiddlyRemember"
+	state:"$:/temp/TrTabState"
+        class:"tc-vertical"
+        template:"$:/sib/TabCurrentTemplate"
+>>

@@ -1,0 +1,42 @@
+created: 20200523160949539
+modified: 20200523210759248
+tags: [[Configuring TiddlyRemember]]
+title: Configuring the Anki add-on
+type: text/vnd.tiddlywiki
+
+To access the Anki add-on settings, in Anki, choose ''Tools > Add-ons'', then select ''TiddlyRemember'' and click the ''Config'' button. Here's an example configuration:
+
+{{anki-config-screenshot.png}}
+
+!! Global settings
+
+The settings at the top apply to all wikis you might be syncing with.
+
+; Default deck
+: If a note in your TiddlyWiki doesn't match any of your [[deck mappings|Mapping tiddlers]], it will be placed here.
+; Path to TiddlyWiki executable
+: TiddlyRemember requires TiddlyWiki on Node.js to be installed on your computer (see [[Installing TiddlyRemember]]). Depending on your computer's configuration, simply `tiddlywiki` may be sufficient here -- otherwise, you'll have to figure out where TiddlyWiki is installed on your computer and provide the full path (e.g., `/usr/local/bin/tiddlywiki`). Click the ''Test'' button to see if it works.
+
+!! Wiki settings
+
+You can add and remove any number of wikis to sync with. Each wiki has its own set of settings.
+
+; Name
+: This will appear on your Anki cards to identify the source of the information.
+
+; Type
+: This may be `File`, `Folder`, or `URL`.
+:* `File`: A single-file wiki located on your computer.
+:* `Folder`: A folder wiki located on your computer. Select the folder containing the `tiddlywiki.info` file.
+:* `URL`: A single-file wiki hosted on the web somewhere, which can be downloaded without requiring authentication.
+
+; Path or URL
+: Either the path to the wiki (click ''Browse'' to look for it) or the URL of the wiki, depending on which option you chose for ''Type''.
+
+; Filter
+: Only the tiddlers matching this TiddlyWiki filter will be searched for questions. It's important to make sure that tiddlers that can't be rendered to HTML (e.g., images) are excluded -- failing to do so may result in extremely long sync times or crashes. If you're not sure what to put here, just keep the default.
+
+; Permalink
+: A URL at which your wiki can be accessed on the devices where you review Anki cards. This will allow Anki to provide a link back to the source tiddler on your cards. This field is optional -- if you leave it blank, no link will be provided on your cards, but you'll still be able to see which wiki and tiddler it came from. If you use a file wiki on your local computer, you can use a `file://` URL. For example, if you keep your wiki at `/home/soren/tiddlywiki.html`, you would enter `file:///home/soren/tiddlywiki.html`. You should be able to copy this URL out of the address bar of your browser.
+
+Changes to the name or permalink will update all of the notes from that wiki on the next sync.

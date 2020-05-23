@@ -1,0 +1,18 @@
+created: 20200523174038112
+modified: 20200523211058166
+title: Unique ID
+type: text/vnd.tiddlywiki
+
+TiddlyRemember relies on a ''unique ID'' field to sync notes to Anki.
+This is the first parameter to the `rememberq` and `remembercz` macros
+on [[Question-and-answer notes]] and [[Cloze notes]] respectively,
+and the field called `ID` on your notes in Anki.
+The use of a unique ID means you can edit notes and move them around between tiddlers and wikis and TiddlyRemember can still tell which Anki note they're connected to.
+
+Unique IDs are generated automatically with the current millisecond timestamp when you click either of the lightbulb buttons on the edit toolbar to create a TiddlyRemember snippet.
+
+Once a unique ID has been created, you ordinarily should not edit it. Typically, changing the unique ID, either in Anki or in TiddlyWiki, will result in the note being deleted from Anki and recreated without its review history. If you change a note so much that it should be rescheduled from scratch, you may choose to do this intentionally.
+
+Unique IDs, as the name suggests, need to be //unique//. If there is a collision (more than one note has the same ID), only one note will be created in Anki, and which values it has will be random on every sync. This is obviously bad, so it's best to use the snippet buttons every time you create a note to be sure you don't accidentally create a collision.
+
+If you transclude a tiddler that contains TiddlyRemember notes, this will create a kind of “collision” in that two different tiddlers contain a question with the same ID when rendered. Generally, nothing bad will happen here since the contents will be the same. However, which tiddler is cited as the source will be random, so you may wish to avoid these kinds of transclusions when practical.

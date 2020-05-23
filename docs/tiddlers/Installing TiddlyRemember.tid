@@ -1,0 +1,25 @@
+created: 20200523155103941
+modified: 20200523181642976
+tags: TiddlyRemember
+title: Installing TiddlyRemember
+type: text/vnd.tiddlywiki
+
+Since TiddlyRemember integrates TiddlyWiki and Anki, it requires installation steps in both programs, so setting it up is a bit more involved than most TiddlyWiki plugins. Here's the rundown.
+
+!! Step 1: Install the TiddlyWiki plugin
+
+First you need to install the TiddlyWiki plugin into your wiki. To do so, drag and drop this link into your TiddlyWiki: [[TiddlyRemember|$:/plugins/sobjornstad/TiddlyRemember]].
+
+Alternatively, if you're running on Node.js, install the plugin to your computer or the `plugins/` folder of your wiki using any method you like. You can find TiddlyRemember's code <a href={{TiddlyRemember Metadata##repository}}>in this GitHub repository</a>.
+
+
+!! Step 2: Install TiddlyWiki on Node.js
+
+You need TiddlyWiki installed on Node on your computer to use TiddlyRemember. You don't need to actually host your wiki on Node -- you just need it to be installed to help out with the sync.
+
+If you don't already have TiddlyWiki on Node installed, follow the [[TiddlyWiki documentation|https://tiddlywiki.com/#GettingStarted - Node.js]] to install it.
+
+
+!! Step 3: Install the Anki plugin
+
+{{Installing the Anki plugin}}

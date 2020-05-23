@@ -1,0 +1,19 @@
+created: 20200523165823242
+modified: 20200523170045157
+tags: [[Cloze notes]]
+title: Multiple occlusions
+type: text/vnd.tiddlywiki
+
+You can include more than one section with braces on a single cloze note:
+
+```
+<<remembercz "20200523164451024"
+    "{Cloze deletion} is a technique for creating flashcards in which you hide {parts of a sentence}."
+>>
+```
+
+<<remembercz "20200523164451024"
+    "{Cloze deletion} is a technique for creating flashcards in which you hide {parts of a sentence}."
+>>
+
+This will generate two Anki cards -- each will hide one of the sections and show the others.

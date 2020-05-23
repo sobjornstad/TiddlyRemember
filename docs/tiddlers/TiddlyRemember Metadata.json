@@ -1,0 +1,7 @@
+{
+    "version": "0.0.2",
+    "compatible-tw5": ">= 5.1.22",
+    "compatible-anki": ">= 2.1.20",
+    "repository": "https://github.com/sobjornstad/TiddlyRemember",
+    "anki-addon-url": "TODO"
+}

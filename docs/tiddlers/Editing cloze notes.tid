@@ -1,0 +1,51 @@
+created: 20200523171317711
+modified: 20200523180943325
+tags: [[Cloze notes]]
+title: Editing cloze notes
+type: text/vnd.tiddlywiki
+
+In general, cloze notes can be edited just like question-and-answer notes.
+However, if you intend to ''add or remove occlusions'' from the note,
+and you're fussy about your scheduling information in Anki,
+read on.
+
+Editing implicitly-numbered occlusions (those without `c1::` tags before the occlusion)
+    can occasionally cause Anki to schedule the changed cards incorrectly.
+Most people rarely add or remove occlusions from an existing cloze note,
+    but it's worth being aware that this can happen if you do.
+
+Specifically, this happens if you //insert or remove an occlusion//
+    other than the rightmost one.
+This is because TiddlyRemember numbers implicit clozes from left to right,
+    and Anki tracks scheduling based on the number of the occlusion.
+
+For instance, if you have:
+
+```
+My two favorite letters are {L} and {R}.
+```
+
+And then you change it to:
+
+```
+My three favorite letters are {L}, {M}, and {R}.
+```
+
+Previously, the card where R was occluded was numbered ''2''.
+Now, R will be numbered ''3'' --
+    and M will be numbered ''2'',
+    so it will retain the scheduling of R,
+    while R will be treated as a new card!
+
+Fortunately, this is easy to prevent -- just switch to explicit numbering
+    if you need to insert or remove occlusions in an existing cloze note,
+    keeping the numbers of the existing occlusions:
+
+```
+My three favorite letters are {c1::L}, {c3::M}, and {c2::R}.
+```
+
+If this sounds too complicated to remember,
+    you can simply use explicit numbering in all cases --
+    or if that seems like too much of a burden,
+    just not worry about the scheduling being wrong on rare occasions.
