@@ -1,10 +1,13 @@
 .PHONY: all forms zip clean
 
 all: forms zip
-forms: src/import_dialog.py
+forms: src/import_dialog.py src/settings_dialog.py
 zip: build.zip
 
 src/import_dialog.py: designer/import_dialog.ui 
+	pyuic5 $^ > $@
+
+src/settings_dialog.py: designer/settings_dialog.ui 
 	pyuic5 $^ > $@
 
 build.zip: src/*

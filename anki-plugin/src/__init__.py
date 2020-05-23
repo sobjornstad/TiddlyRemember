@@ -36,6 +36,7 @@ from PyQt5.QtCore import pyqtSignal
 
 from . import ankisync
 from . import import_dialog
+from .settings import edit_settings
 from . import trmodels
 from . import twimport
 from .twnote import TwNote
@@ -168,3 +169,4 @@ if aqt.mw is not None:
     action.setShortcut(QKeySequence("Shift+Y"))
     aqt.mw.form.menuTools.addAction(action)
     action.triggered.connect(open_dialog)
+    aqt.mw.addonManager.setConfigAction(__name__, edit_settings)
