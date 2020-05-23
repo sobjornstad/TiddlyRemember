@@ -28,7 +28,7 @@ from typing import Dict, NewType, Set
 
 # pylint: disable=import-error, no-name-in-module
 import aqt
-from aqt.qt import QAction, QThread
+from aqt.qt import QAction, QThread, QKeySequence
 from aqt.utils import getFile, showWarning, askUser, tooltip
 from anki.notes import Note
 from PyQt5.QtWidgets import QDialog
@@ -165,5 +165,6 @@ def open_dialog():
 if aqt.mw is not None:
     action = QAction(aqt.mw)
     action.setText("Sync from &TiddlyWiki")
+    action.setShortcut(QKeySequence("Shift+Y"))
     aqt.mw.form.menuTools.addAction(action)
     action.triggered.connect(open_dialog)
