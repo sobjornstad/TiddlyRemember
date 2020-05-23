@@ -34,10 +34,18 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="tiddlywikiBinary_"/>
+      <widget class="QLineEdit" name="tiddlywikiBinary_">
+       <property name="toolTip">
+        <string>The location at which the 'tiddlywiki' executable can be found on your system.
+You'll need to install TiddlyWiki on Node.js if you don't have it installed already.</string>
+       </property>
+      </widget>
      </item>
      <item row="1" column="2">
       <widget class="QPushButton" name="testExecutableButton">
+       <property name="toolTip">
+        <string>Check to see if TiddlyRemember can call TiddlyWiki.</string>
+       </property>
        <property name="text">
         <string>Test</string>
        </property>
@@ -65,6 +73,9 @@
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="1" column="1">
       <widget class="QPushButton" name="deleteWikiButton">
+       <property name="toolTip">
+        <string>Stop syncing the selected wiki and delete all its notes on next sync.</string>
+       </property>
        <property name="text">
         <string>De&amp;lete</string>
        </property>
@@ -75,6 +86,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="addWikiButton">
+       <property name="toolTip">
+        <string>Add another wiki to sync notes from.</string>
+       </property>
        <property name="text">
         <string>&amp;Add</string>
        </property>
@@ -130,7 +144,13 @@
          </widget>
         </item>
         <item row="4" column="1" colspan="2">
-         <widget class="QLineEdit" name="permalink_"/>
+         <widget class="QLineEdit" name="permalink_">
+          <property name="toolTip">
+           <string>URL where your wiki can be accessed in a browser on the devices you review on.
+This will allow Anki to provide a link to view the source of each card.
+Tip: Use a file:/// URI for single-file wikis on your local computer.</string>
+          </property>
+         </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_6">
@@ -143,7 +163,11 @@
          </widget>
         </item>
         <item row="0" column="1" colspan="2">
-         <widget class="QLineEdit" name="wikiName"/>
+         <widget class="QLineEdit" name="wikiName">
+          <property name="toolTip">
+           <string>Friendly name of this wiki to display as a source on your cards.</string>
+          </property>
+         </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_7">
@@ -157,6 +181,11 @@
         </item>
         <item row="1" column="1" colspan="2">
          <widget class="QComboBox" name="type_">
+          <property name="toolTip">
+           <string>File: A single-file TiddlyWiki on your local computer.
+Folder: A folder wiki (as used by Node.js wikis).
+URL: A single-file wiki accessible at a location on the internet.</string>
+          </property>
           <item>
            <property name="text">
             <string>File</string>
@@ -175,7 +204,11 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="path_"/>
+         <widget class="QLineEdit" name="path_">
+          <property name="toolTip">
+           <string>The path or URL to the wiki to sync.</string>
+          </property>
+         </widget>
         </item>
         <item row="2" column="2">
          <widget class="QPushButton" name="browseButton">
@@ -198,7 +231,14 @@
          </widget>
         </item>
         <item row="3" column="1" colspan="2">
-         <widget class="QLineEdit" name="contentFilter_"/>
+         <widget class="QLineEdit" name="contentFilter_">
+          <property name="toolTip">
+           <string>Only tiddlers matching this filter will be searched for notes.
+Be careful to exclude tiddlers that cannot be rendered to HTML, or you may encounter issues.
+Be aware that if you make the filter more restrictive, any newly excluded questions will be deleted on next sync.
+To test changes safely, sync into a new profile and review the notes that still show up.</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

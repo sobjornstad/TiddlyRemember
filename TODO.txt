@@ -1,5 +1,8 @@
 Missing features:
 
+* Tooltips
+* Validation
+
 * Consider not stripping all HTML.
 
 Possible glitches:
