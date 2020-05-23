@@ -1,6 +1,5 @@
 Missing features:
 
-* Validate we don't overwrite an existing wiki with same name
 * Consider not stripping all HTML.
 * ID prefix?
 * Documentation as a TW

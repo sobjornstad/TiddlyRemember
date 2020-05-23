@@ -1,6 +1,8 @@
 import copy
 import subprocess
+from typing import Sequence
 
+# pylint: disable=no-name-in-module
 import aqt
 from aqt.qt import QAction, QThread, QKeySequence
 from PyQt5 import QtCore
@@ -29,9 +31,11 @@ class SettingsDialog(QDialog):
         self.form.deleteWikiButton.clicked.connect(self.delete_wiki)
         self.form.browseButton.clicked.connect(self.browse_for_wiki)
         self.form.testExecutableButton.clicked.connect(self.test_executable)
+
         self.form.type_.currentTextChanged.connect(self.type_changed)
         self.form.wikiList.currentRowChanged.connect(self.wiki_changed)
         self.form.wikiName.textEdited.connect(self.wiki_name_changed)
+        self.form.wikiName.editingFinished.connect(self.prevent_duplicate_name)
 
         self.current_wiki_index = 0
         self.wikis = []
@@ -198,6 +202,26 @@ class SettingsDialog(QDialog):
             QApplication.restoreOverrideCursor()
             showInfo(f"Successfully called TiddlyWiki {proc.stdout.decode().strip()}! "
                      f"You're all set.")
+
+    def prevent_duplicate_name(self) -> None:
+        wiki_names = [name for name, _ in self.wikis]
+        if len(set(wiki_names)) != len(wiki_names):
+            showWarning("Two wikis cannot have the same name. Fixing this for you.")
+            new_name = _uniquify_name(self.form.wikiName.text(), wiki_names)
+            self.form.wikiName.setText(new_name)
+            self.wiki_name_changed(new_name)
+
+
+def _uniquify_name(name: str, names: Sequence[str]) -> str:
+    """
+    Given a tentative name and a list of existing names, return a possibly
+    modified new name that is guaranteed not to be the same as any of the existing
+    names.
+    """
+    number = 2
+    while f"{name} {number}" in names:
+        number += 1
+    return f"{name} {number}"
 
 
 def edit_settings():
