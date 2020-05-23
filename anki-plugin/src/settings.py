@@ -132,7 +132,6 @@ class SettingsDialog(QDialog):
             filename = dlg.selectedFiles()[0]
             self.form.path_.setText(filename)
 
-
     def _save_wiki_values(self):
         current_wiki = self.wikis[self.current_wiki_index]
         current_wiki[0] = self.form.wikiName.text()

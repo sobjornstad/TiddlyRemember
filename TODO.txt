@@ -1,45 +1,9 @@
 Missing features:
 
-* Tooltips
-* Validation
-
+* Validate we don't overwrite an existing wiki with same name
 * Consider not stripping all HTML.
+* ID prefix?
+* Documentation as a TW
+* Tweaks to the publish format for Anki add-on
 
 Possible glitches:
-
---------------------------------------------------------------------------------
-
-Single-file test:
-{
-    "defaultDeck": "tw",
-    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
-    "wiki": {
-        "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]",
-        "path": "/home/soren/cabinet/Me/Config/oldapps/TiddlyWiki/zettelkasten_static/zettel.html",
-        "type": "file"
-    }
-}
-
-Folder test:
-{
-    "defaultDeck": "tw",
-    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
-    "wiki": {
-        "type": "folder",
-        "path": "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
-        "permalink": "http://Alice:1109/Zettelkasten",
-        "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]"
-    }
-}
-
-Prod:
-{
-    "defaultDeck": "Collection::TiddlyRemember",
-    "tiddlywikiBinary": "/home/soren/cabinet/Me/Records/zettelkasten/node_modules/.bin/tiddlywiki",
-    "wiki": {
-        "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]",
-        "path": "/home/soren/cabinet/Me/Records/zettelkasten/zk-wiki",
-        "permalink": "http://Alice:1109/Zettelkasten",
-        "type": "folder"
-    }
-}
