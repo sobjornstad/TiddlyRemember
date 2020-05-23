@@ -7,6 +7,30 @@ from .twnote import TwNote
 from .util import pluralize, Twid
 
 
+def change_note_type(mw: Any, tw_note: TwNote, anki_note: Note) -> Note:
+    """
+    If the ID is now a cloze note rather than a question note or vice versa,
+    change the note type in Anki prior to trying to complete the sync.
+    Return the updated note.
+    """
+    old_model_name = anki_note.model()['name']  # type: ignore
+    old_model_definition = trmodels.by_name(old_model_name)
+    assert old_model_definition is not None, \
+        f"A note of a type TiddlyRemember does not support ('{old_model_name}') " \
+        f"was found. TiddlyRemember does not know how to fix this note. " \
+        f"This is probably TiddlyRemember's fault -- please consider reporting " \
+        f"this error. "
+
+    fmap = old_model_definition.field_remap(tw_note.model)
+    # NOTE: If we ever add note types that have more than one template,
+    # we can't hard-code this anymore.
+    cmap = {0: 0}
+    new_model = mw.col.models.byName(tw_note.model.name)
+    mw.col.models.change(anki_note.model(), [anki_note.id], new_model, fmap, cmap)
+
+    return mw.col.getNote(mw.col.find_notes(f"nid:{anki_note.id}")[0])
+
+
 def update_deck(tw_note: TwNote, anki_note: Note, mw: Any, default_deck: str) -> None:
     """
     Given a note already in Anki's database, move its cards into an
@@ -81,6 +105,9 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
     for note_id in edits:
         anki_note = anki_notes_map[note_id]
         tw_note = extracted_notes_map[note_id]
+        if not tw_note.model_equal(anki_note):
+            new_note = change_note_type(mw, tw_note, anki_note)
+            anki_note = anki_notes_map[note_id] = new_note
         if not tw_note.fields_equal(anki_note):
             tw_note.update_fields(anki_note)
             anki_note.flush()

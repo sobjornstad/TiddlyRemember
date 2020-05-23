@@ -48,12 +48,9 @@ class TwNote(metaclass=ABCMeta):
         the current class's model.
         """
         # pylint: disable=no-member
-        model = anki_note.model()
-        assert model is not None
-        assert self.model is not None, \
-             f"Class {self.__class__} does not specify a 'model' attribute."
-        assert model['name'] == self.model.name, \
-             f"Expected note of type {self.model.name}, but got {model['name']}."
+        assert self.model_equal(anki_note), \
+             f"Expected note of type {self.model.name}, " \
+             f"but got {anki_note.model()['name']}."
 
     @property
     def anki_tags(self) -> List[str]:
@@ -79,6 +76,17 @@ class TwNote(metaclass=ABCMeta):
         """
         self._assert_correct_model(anki_note)
         return self._fields_equal(anki_note)
+
+    def model_equal(self, anki_note: Note) -> bool:
+        """
+        Compare the model (note type) defined for this TwNote to that of
+        an Anki note. Return True if it is the same model.
+        """
+        model = anki_note.model()
+        assert model is not None
+        assert self.model is not None, \
+             f"Class {self.__class__} does not specify a 'model' attribute."
+        return model['name'] == self.model.name
 
     def set_permalink(self, base_url: str) -> None:
         """

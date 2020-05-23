@@ -4,8 +4,6 @@ Missing features:
 
 Possible glitches:
 
-* Error handling for changing an existing rememberq/remembercz to the other type.
-
 --------------------------------------------------------------------------------
 
 Single-file test:

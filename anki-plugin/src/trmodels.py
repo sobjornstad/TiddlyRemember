@@ -1,7 +1,7 @@
 from abc import ABC
 import inspect
 from textwrap import dedent
-from typing import Iterable, List, Type, Tuple
+from typing import Dict, Iterable, List, Optional, Tuple, Type, Union
 import sys
 
 import aqt
@@ -18,6 +18,7 @@ class TemplateData(ABC):
 
     @classmethod
     def to_template(cls):
+        "Create and return an Anki template object for this model definition."
         mm = aqt.mw.col.models
         t = mm.newTemplate(cls.name)
         t['qfmt'] = dedent(cls.front).strip()
@@ -38,6 +39,7 @@ class ModelData(ABC):
 
     @classmethod
     def to_model(cls):
+        "Create and return an Anki model object for this model definition."
         mm = aqt.mw.col.models
         model = mm.new(cls.name)
         for i in cls.fields:
@@ -54,10 +56,47 @@ class ModelData(ABC):
 
     @classmethod
     def in_collection(cls):
+        """
+        Determine if a model by this name exists already in the current
+        Anki collection.
+        """
         mm = aqt.mw.col.models
         model = mm.byName(cls.name)
         return model is not None
 
+    @classmethod
+    def field_remap(cls, other: 'Type[ModelData]') -> Dict[int, Optional[int]]:
+        """
+        Produce a field mapping to be used to change a note of this note type
+        to that of the /other/ note type. Fields are mapped by index, the old
+        note type's index to the new type's index.
+
+        If a field with exactly the same name is found, that is assumed to be
+        the correct mapping; otherwise, the check is delegated to the
+        other.field_index() class method, which returns None by default
+        (simply discard this field). This method can be overridden to support
+        maintaining information from certain other note types or fields; for
+        TiddlyRemember's purposes right now, we simply let the fields be
+        discarded since after changing the note type we will do a
+        unidirectional sync that will repopulate them anyway.
+        """
+        mapping: Dict[int, Optional[int]] = {}
+        for idx, field in enumerate(cls.fields):
+            try:
+                mapping[idx] = other.fields.index(field)
+            except ValueError:
+                mapping[idx] = other.field_index(cls, field)
+        return mapping
+
+    @classmethod
+    def field_index(cls, from_type: 'Type[ModelData]',
+                    from_field_name: str) -> Optional[int]:
+        """
+        Return the index of the field in *this* note type that the field
+        from_field_name in the note type from_type maps onto, or None if the content
+        should be discarded.
+        """
+        return None
 
 
 class TiddlyRememberQuestionAnswer(ModelData):
@@ -166,6 +205,7 @@ class TiddlyRememberCloze(ModelData):
 
 
 def _itermodels() -> Iterable[Type[ModelData]]:
+    "Iterable over the set of all model definitions in this file."
     def is_model(obj):
         return (inspect.isclass(obj)
                 and any('ModelData' == b.__name__ for b in obj.__bases__))
@@ -187,3 +227,14 @@ def all_note_types() -> List[Type[ModelData]]:
     Return a list of all note types defined in this file.
     """
     return list(_itermodels())
+
+
+def by_name(model_name: str) -> Optional[Type[ModelData]]:
+    """
+    Return a note type defined in this file by its name, or None if no such note
+    type exists.
+    """
+    try:
+        return next(i for i in all_note_types() if i.name == model_name)
+    except StopIteration:
+        return None
