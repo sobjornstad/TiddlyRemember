@@ -90,7 +90,7 @@ def render_wiki(tw_binary: str, wiki_path: str, output_directory: str,
         filter_,
         f"[is[tiddler]addsuffix[.{RENDERED_FILE_EXTENSION}]]",
         "text/html",
-        "$:/plugins/sobjornstad/tiddlyremember/templates/TiddlyRememberParseable"
+        "$:/plugins/sobjornstad/TiddlyRemember/templates/TiddlyRememberParseable"
     ]
     invoke_tw_command(cmd, wiki_path, "render wiki")
 

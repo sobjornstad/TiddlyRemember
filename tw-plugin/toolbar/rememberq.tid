@@ -2,11 +2,11 @@ caption: RememberQ
 condition: [<targetTiddler>!has[type]] [<targetTiddler>type[text/vnd.tiddlywiki]]
 created: 20161118171456554
 description: Remember Question/Answer
-icon: $:/plugins/sobjornstad/tiddlyremember/icons/lightbulb-white.svg
+icon: $:/plugins/sobjornstad/TiddlyRemember/icons/lightbulb-white.svg
 modified: 20200517161709608
 shortcuts: 
 tags: $:/tags/EditorToolbar
-title: $:/plugins/sobjornstad/tiddlyremember/toolbar/rememberq
+title: $:/plugins/sobjornstad/TiddlyRemember/toolbar/rememberq
 type: text/vnd.tiddlywiki
 
 \define getMacro()

@@ -1,0 +1,12 @@
+title: $:/plugins/sobjornstad/TiddlyRemember/readme
+type: text/vnd.tiddlywiki
+
+TiddlyRemember is a tool that integrates TiddlyWiki with Anki.
+You can interleave questions with your notes in TiddlyWiki,
+    then sync them into Anki notes with one click.
+You can edit and move the questions around your TiddlyWiki,
+    and they will stay connected to the Anki notes.
+Scheduling information in Anki is preserved when editing notes in TiddlyWiki.
+
+* [[Documentation|https://sobjornstad.github.io/TiddlyRemember/]]
+* [[GitHub|https://github.com/sobjornstad/TiddlyRemember]]

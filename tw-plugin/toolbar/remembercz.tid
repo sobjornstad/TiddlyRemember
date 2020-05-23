@@ -2,12 +2,12 @@ caption: RememberCz
 condition: [<targetTiddler>!has[type]] [<targetTiddler>type[text/vnd.tiddlywiki]]
 created: 20200517155905263
 description: Remember Cloze Deletion
-icon: $:/plugins/sobjornstad/tiddlyremember/icons/lightbulb-black.svg
-list-after: $:/plugins/sobjornstad/tiddlyremember/toolbar/rememberq
+icon: $:/plugins/sobjornstad/TiddlyRemember/icons/lightbulb-black.svg
+list-after: $:/plugins/sobjornstad/TiddlyRemember/toolbar/rememberq
 modified: 20200517162124307
 shortcuts: 
 tags: $:/tags/EditorToolbar
-title: $:/plugins/sobjornstad/tiddlyremember/toolbar/remembercz
+title: $:/plugins/sobjornstad/TiddlyRemember/toolbar/remembercz
 type: text/vnd.tiddlywiki
 
 \define getMacro()

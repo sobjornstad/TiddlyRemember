@@ -1,7 +1,7 @@
 created: 20200510004110231
 modified: 20200517155832138
 tags: $:/tags/Macro
-title: $:/plugins/sobjornstad/tiddlyremember/macros/remember
+title: $:/plugins/sobjornstad/TiddlyRemember/macros/remember
 type: text/vnd.tiddlywiki
 
 \define rememberq(id, question, answer)
