@@ -89,6 +89,16 @@ class SettingsDialog(QDialog):
             showWarning("You cannot delete the only configured wiki.")
             return
 
+        if not askUser(
+            "Deleting a wiki from your wiki list will cause all of the TiddlyRemember "
+            "notes therein to be PERMANENTLY DELETED from your Anki collection "
+            "on next sync with loss of all associated scheduling information "
+            "(unless they've been moved to another wiki and retain the same IDs). "
+            "If you want to preserve these notes in Anki but break the connection "
+            "to the wiki, change them to a different note type in the browser first. "
+            "\n\nDo you wish to continue?"):
+            return
+
         oldBlockSignals = self.form.wikiList.blockSignals(True)
         self.form.wikiList.takeItem(self.current_wiki_index)
         del self.wikis[self.current_wiki_index]
