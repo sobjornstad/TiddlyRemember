@@ -22,7 +22,7 @@ class SettingsDialog(QDialog):
         self.form.addWikiButton.clicked.connect(self.add_wiki)
         self.form.deleteWikiButton.clicked.connect(self.delete_wiki)
         self.form.browseButton.clicked.connect(self.browse_for_wiki)
-        self.form.type_.currentIndexChanged.connect(self.type_changed)
+        self.form.type_.currentTextChanged.connect(self.type_changed)
         self.form.wikiList.currentRowChanged.connect(self.wiki_changed)
         self.form.wikiName.textEdited.connect(self.wiki_name_changed)
 
@@ -149,8 +149,13 @@ class SettingsDialog(QDialog):
         self.wikis[self.current_wiki_index][0] = new_text
         self.form.wikiList.currentItem().setText(new_text)
 
-    def type_changed(self, new_index: int):
-        pass
+    def type_changed(self, new_text: str):
+        if new_text == 'URL':
+            self.form.pathLabel.setText("&URL")
+            self.form.browseButton.hide()
+        else:
+            self.form.pathLabel.setText("&Path")
+            self.form.browseButton.show()
 
 
 def edit_settings():

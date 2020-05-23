@@ -7,4 +7,4 @@ meta.json
 
 # build outputs
 build.zip
-anki-plugin/src/import_dialog.py
+anki-plugin/src/*_dialog.py
