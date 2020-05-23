@@ -5,7 +5,9 @@ venv/
 .vscode/
 meta.json
 node_modules/
+docs/tiddlers/$__StoryList.tid
 
 # build outputs
 *.ankiaddon
 anki-plugin/src/*_dialog.py
+docs/output
