@@ -2,9 +2,9 @@
 .mypy_cache/
 __pycache__/
 venv/
+.vscode/
 meta.json
-.vscode/settings.json
 
 # build outputs
-build.zip
+*.ankiaddon
 anki-plugin/src/*_dialog.py

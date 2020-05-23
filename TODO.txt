@@ -3,6 +3,5 @@ Missing features:
 * Consider not stripping all HTML.
 * ID prefix?
 * Documentation as a TW
-* Tweaks to the publish format for Anki add-on
 
 Possible glitches:

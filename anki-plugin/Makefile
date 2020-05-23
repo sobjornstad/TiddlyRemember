@@ -2,7 +2,7 @@
 
 all: forms zip
 forms: src/import_dialog.py src/settings_dialog.py
-zip: build.zip
+zip: build.ankiaddon
 
 src/import_dialog.py: designer/import_dialog.ui 
 	pyuic5 $^ > $@
@@ -10,15 +10,11 @@ src/import_dialog.py: designer/import_dialog.ui
 src/settings_dialog.py: designer/settings_dialog.ui 
 	pyuic5 $^ > $@
 
-build.zip: src/*
+build.ankiaddon: src/*.py src/config.json
 	rm -f $@
-	#rm -f src/meta.json
-	rm -rf src/__pycache__
-	( cd src/; zip -r ../$@ * )
+	( cd src/; zip -r ../$@ *.py config.json )
 
 clean:
-	rm -f *.pyc
-	rm -f src/*.pyc
 	rm -f src/__pycache__
-	rm -f src/import_dialog.py
-	rm -f build.zip
+	rm -f src/*_dialog.py
+	rm -f build.ankiaddon
