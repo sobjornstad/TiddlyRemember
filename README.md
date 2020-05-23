@@ -10,7 +10,7 @@ Scheduling information in Anki is preserved when editing notes in TiddlyWiki.
 ## Documentation
 
 Installation and use instructions can be found at
-https://TODO.com.
+https://sobjornstad.github.io/TiddlyRemember/.
 
 
 ## Building from source
