@@ -4,7 +4,7 @@ import subprocess
 import aqt
 from aqt.qt import QAction, QThread, QKeySequence
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QDialog, QComboBox, QApplication
+from PyQt5.QtWidgets import QDialog, QComboBox, QApplication, QFileDialog
 from PyQt5.QtGui import QCursor
 from PyQt5.QtCore import pyqtSignal, Qt
 from aqt.utils import getFile, showWarning, showInfo, showCritical, askUser
@@ -117,7 +117,20 @@ class SettingsDialog(QDialog):
         self.wiki_changed(self.current_wiki_index, save=False)
 
     def browse_for_wiki(self):
-        pass
+        dlg = QFileDialog(self,
+                          caption="Browse for wiki",
+                          filter="HTML files (*.html);;All files (*)")
+        if self.form.type_.currentText().lower() == 'folder':
+            mode = QFileDialog.Directory
+        else:
+            mode = QFileDialog.ExistingFile
+        dlg.setFileMode(mode)
+
+        retval = dlg.exec_()
+        if retval != 0:
+            filename = dlg.selectedFiles()[0]
+            self.form.path_.setText(filename)
+
 
     def _save_wiki_values(self):
         current_wiki = self.wikis[self.current_wiki_index]
