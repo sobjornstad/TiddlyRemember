@@ -15,9 +15,11 @@ from . import settings_dialog
 class SettingsDialog(QDialog):
     def __init__(self):
         QDialog.__init__(self)
+        self.mw = aqt.mw
         self.form = settings_dialog.Ui_Dialog()
         self.form.setupUi(self)
-        self.mw = aqt.mw
+        self.deckChooser = aqt.deckchooser.DeckChooser(self.mw, self.form.deckWidget,
+                                                       label=False)
 
         self.form.okButton.clicked.connect(self.accept)
         self.form.cancelButton.clicked.connect(self.reject)
@@ -42,6 +44,7 @@ class SettingsDialog(QDialog):
             if control is not None:
                 control.setText(value)
                 control.setCursorPosition(0)
+        self.deckChooser.setDeckName(self.conf['defaultDeck'])
         self.wikis = [[name, config] for name, config in self.conf['wikis'].items()]
         self._populateWikiList()
 
@@ -50,6 +53,7 @@ class SettingsDialog(QDialog):
             control = getattr(self.form, name + '_', None)
             if control is not None:
                 self.conf[name] = control.text()
+        self.conf['defaultDeck'] = self.deckChooser.deckName()
 
         self.conf['wikis'].clear()
         self.wiki_changed(self.current_wiki_index)  # to save changes to list

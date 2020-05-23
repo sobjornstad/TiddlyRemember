@@ -21,9 +21,6 @@
        <property name="text">
         <string>Default &amp;Deck</string>
        </property>
-       <property name="buddy">
-        <cstring>defaultDeck_</cstring>
-       </property>
       </widget>
      </item>
      <item row="1" column="0">
@@ -47,7 +44,7 @@
       </widget>
      </item>
      <item row="0" column="1" colspan="2">
-      <widget class="QLineEdit" name="defaultDeck_"/>
+      <widget class="QWidget" name="deckWidget" native="true"/>
      </item>
     </layout>
    </item>
@@ -103,16 +100,6 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>&amp;Name</string>
-          </property>
-          <property name="buddy">
-           <cstring>wikiName</cstring>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_4">
           <property name="text">
@@ -123,25 +110,18 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="pathLabel">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>&amp;Path</string>
+           <string>&amp;Name</string>
           </property>
           <property name="buddy">
-           <cstring>path_</cstring>
+           <cstring>wikiName</cstring>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="path_"/>
-        </item>
-        <item row="2" column="2">
-         <widget class="QPushButton" name="browseButton">
-          <property name="text">
-           <string> &amp;Browse...</string>
-          </property>
-         </widget>
+        <item row="4" column="1" colspan="2">
+         <widget class="QLineEdit" name="permalink_"/>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_6">
@@ -152,6 +132,9 @@
            <cstring>contentFilter_</cstring>
           </property>
          </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QLineEdit" name="wikiName"/>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_7">
@@ -182,14 +165,28 @@
           </item>
          </widget>
         </item>
-        <item row="0" column="1" colspan="2">
-         <widget class="QLineEdit" name="wikiName"/>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="path_"/>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="browseButton">
+          <property name="text">
+           <string> &amp;Browse...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="pathLabel">
+          <property name="text">
+           <string>&amp;Path</string>
+          </property>
+          <property name="buddy">
+           <cstring>path_</cstring>
+          </property>
+         </widget>
         </item>
         <item row="3" column="1" colspan="2">
          <widget class="QLineEdit" name="contentFilter_"/>
-        </item>
-        <item row="4" column="1" colspan="2">
-         <widget class="QLineEdit" name="permalink_"/>
         </item>
        </layout>
       </item>
@@ -237,7 +234,6 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>defaultDeck_</tabstop>
   <tabstop>tiddlywikiBinary_</tabstop>
   <tabstop>wikiList</tabstop>
   <tabstop>addWikiButton</tabstop>
