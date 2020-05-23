@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="generator" content="TiddlyWiki" />
+<meta name="tiddlywiki-version" content="5.1.21" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no">
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="static.css">
+<title>Mapping tiddlers: TiddlyRemember — Embed Anki notes in your TiddlyWiki</title>
+</head>
+<body class="tc-body">
+
+<section class="tc-story-river">
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists  tc-tagged-Configuring%20TiddlyRemember" data-tags="[[Configuring TiddlyRemember]]" data-tiddler-title="Mapping tiddlers"><div class="tc-tiddler-title">
+<div class="tc-titlebar">
+<span class="tc-tiddler-controls">
+<span class=" tc-reveal"><button aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span>
+</span>
+
+<span>
+
+<span class="tc-tiddler-title-icon" style="fill:;">
+
+</span>
+
+
+
+<h2 class="tc-title">
+Mapping tiddlers
+</h2>
+
+</span>
+
+</div>
+
+<div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div>
+</div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal">
+<div class="tc-subtitle">
+<a class="tc-tiddlylink tc-tiddlylink-missing" href=".html">
+
+</a> 23rd May 2020 at 11:24am
+</div>
+</div>
+<div class=" tc-reveal">
+<div class="tc-tags-wrapper"><span class="tc-tag-list-item">
+<span class="tc-tag-label tc-btn-invisible" draggable="true" style="background-color:;
+fill:rgba(0, 0, 0, 0.87);
+color:rgba(0, 0, 0, 0.87);">
+ Configuring TiddlyRemember
+</span>
+<span class="tc-drop-down tc-reveal" hidden="true"></span></span></div>
+</div>
+
+<div class="tc-tiddler-body tc-reveal"><p>By default, cards go to the <em>default deck</em> specified in your <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Configuring%2520the%2520Anki%2520add-on.html">Anki add-on configuration</a>, and notes have no tags.</p><p>You can configure how questions map to decks and tags
+    on a tiddler-by-tiddler basis
+    by overriding the configuration tiddlers
+    <code>$:/config/TiddlyRemember/TagMapping</code>
+    and <code>$:/config/TiddlyRemember/DeckMapping</code>.
+These tiddlers are empty in a base installation.
+You may populate them with a newline-separated list of TiddlyWiki filters.
+TiddlyRemember will run each filter
+    against the title of the tiddler your question is in
+    and track results across the filter runs.
+(If you're familiar with the way Node folder wikis
+ use <code>$:/config/FileSystemPaths</code> to define folder structure,
+ this is the same idea.)</p><h2 class="">Tags</h2><p>For tags, all matches in any of the filters become tags,
+    duplicates excluded.
+If your tags contain spaces, the spaces will be turned into <code>_</code>
+    (Anki separates tags by spaces).
+If there are no results at all, the card gets no tags.</p><p>Here's an example tag mapping,
+    which passes through all tags set in TiddlyWiki
+    with the exception of the <code>Public</code> tag,
+    and additionally includes an <code>Important</code> tag
+    for questions in tiddlers with a <code>priority</code> field set to <code>high</code>:</p><pre><code>[tags[]] -[[Public]]
+[has[priority]get[priority]match[high]then[Important]]</code></pre><h2 class="">Decks</h2><p>Decks work similarly to tags.
+However, since a card can only be in one deck,
+    the first result returned by any of the filters wins
+    and the remaining results are ignored.
+If there are no results at all,
+    the default deck specified in your Anki settings is used.
+Decks will be created on sync if they don't exist,
+    but won't be deleted even if the sync makes them empty.</p></div>
+
+
+
+</div>
+
+</p>
+</section>
+</body>
+</html>

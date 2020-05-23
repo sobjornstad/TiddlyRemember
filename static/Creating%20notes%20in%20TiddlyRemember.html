@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="generator" content="TiddlyWiki" />
+<meta name="tiddlywiki-version" content="5.1.21" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no">
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="static.css">
+<title>Creating notes in TiddlyRemember: TiddlyRemember — Embed Anki notes in your TiddlyWiki</title>
+</head>
+<body class="tc-body">
+
+<section class="tc-story-river">
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists  tc-tagged-TiddlyRemember" data-tags="TiddlyRemember" data-tiddler-title="Creating notes in TiddlyRemember"><div class="tc-tiddler-title">
+<div class="tc-titlebar">
+<span class="tc-tiddler-controls">
+<span class=" tc-reveal"><button aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span>
+</span>
+
+<span>
+
+<span class="tc-tiddler-title-icon" style="fill:;">
+
+</span>
+
+
+
+<h2 class="tc-title">
+Creating notes in TiddlyRemember
+</h2>
+
+</span>
+
+</div>
+
+<div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div>
+</div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal">
+<div class="tc-subtitle">
+<a class="tc-tiddlylink tc-tiddlylink-missing" href=".html">
+
+</a> 23rd May 2020 at 4:21pm
+</div>
+</div>
+<div class=" tc-reveal">
+<div class="tc-tags-wrapper"><span class="tc-tag-list-item">
+<span class="tc-tag-label tc-btn-invisible" draggable="true" style="background-color:;
+fill:rgba(0, 0, 0, 0.87);
+color:rgba(0, 0, 0, 0.87);">
+ TiddlyRemember
+</span>
+<span class="tc-drop-down tc-reveal" hidden="true"></span></span></div>
+</div>
+
+<div class="tc-tiddler-body tc-reveal"><p>Snippets that you want to remember using TiddlyRemember are called <em>notes</em> (as in Anki).
+You describe the snippets using TiddlyWiki macros.</p><p>TiddlyRemember supports several types of notes:</p><p><ul>
+  
+    <li><a class="tc-tiddlylink tc-tiddlylink-resolves" href="Question-and-answer%2520notes.html">Question-and-answer notes</a>, with the <code>rememberq</code> macro</li>
+  
+    <li><a class="tc-tiddlylink tc-tiddlylink-resolves" href="Cloze%2520notes.html">Cloze notes</a>, with the <code>remembercz</code> macro</li>
+  
+</ul></p><p>The first parameter to both the <code>rememberq</code> and <code>remembercz</code> macros
+is the note's <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Unique%2520ID.html">Unique ID</a>.
+As long as you never change the unique ID,
+you can edit your question and answer text
+and move the question between tiddlers and even between wikis,
+and your scheduling information in Anki will be preserved.
+It's important that you do not reuse unique IDs (thus making them non-unique),
+as this will cause TiddlyRemember to randomly overwrite one question with another.
+To aid in creating unique IDs, when you use either of the TiddlyRemember editor toolbar buttons
+(the white and black lightbulbs),
+a unique ID consisting of the current millisecond timestamp will be inserted automatically.</p><p>After you add, edit, or remove questions in TiddlyWiki, you'll want to <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Syncing%2520TiddlyRemember%2520with%2520Anki.html">sync to Anki</a>.</p><p>The parser actually renders the tiddlers when you sync to Anki,
+    so you can include transclusions within the macro parameters if needed,
+    and the referents will display both in your wiki and on your Anki cards.
+However, HTML will be stripped when creating Anki notes,
+    so links, text formatting, etc., will only show up in your wiki;
+    this may change in the future.</p><p>If you need to include quotes in a note, use triple quotes for the macro parameter:</p><pre><code>&lt;&lt;rememberq &quot;20200523163414807&quot;
+    &quot;&quot;&quot;How do you include &quot;quotation marks&quot; within a macro parameter in TiddlyWiki?&quot;&quot;&quot;
+    &quot;Use triple quotation marks on the outside.&quot;
+&gt;&gt;</code></pre><p><div class="rememberq">
+        <div class="rquestion">
+            <div>Q:</div>
+            <p>How do you include &quot;quotation marks&quot; within a macro parameter in TiddlyWiki?</p>
+        </div>
+        <div class="ranswer">
+            <div>A:</div>
+            <p>Use triple quotation marks on the outside.</p>
+        </div>
+        <div class="rid">
+            [20200523163414807]
+        </div>
+    </div></p></div>
+
+
+
+</div>
+
+</p>
+</section>
+</body>
+</html>

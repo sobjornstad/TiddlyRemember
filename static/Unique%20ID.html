@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="generator" content="TiddlyWiki" />
+<meta name="tiddlywiki-version" content="5.1.21" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no">
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="static.css">
+<title>Unique ID: TiddlyRemember — Embed Anki notes in your TiddlyWiki</title>
+</head>
+<body class="tc-body">
+
+<section class="tc-story-river">
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="Unique ID"><div class="tc-tiddler-title">
+<div class="tc-titlebar">
+<span class="tc-tiddler-controls">
+<span class=" tc-reveal"><button aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span>
+</span>
+
+<span>
+
+<span class="tc-tiddler-title-icon" style="fill:;">
+
+</span>
+
+
+
+<h2 class="tc-title">
+Unique ID
+</h2>
+
+</span>
+
+</div>
+
+<div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div>
+</div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal">
+<div class="tc-subtitle">
+<a class="tc-tiddlylink tc-tiddlylink-missing" href=".html">
+
+</a> 23rd May 2020 at 4:10pm
+</div>
+</div>
+<div class=" tc-reveal">
+<div class="tc-tags-wrapper"></div>
+</div>
+
+<div class="tc-tiddler-body tc-reveal"><p>TiddlyRemember relies on a <strong>unique ID</strong> field to sync notes to Anki.
+This is the first parameter to the <code>rememberq</code> and <code>remembercz</code> macros
+on <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Question-and-answer%2520notes.html">Question-and-answer notes</a> and <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Cloze%2520notes.html">Cloze notes</a> respectively,
+and the field called <code>ID</code> on your notes in Anki.
+The use of a unique ID means you can edit notes and move them around between tiddlers and wikis and TiddlyRemember can still tell which Anki note they're connected to.</p><p>Unique IDs are generated automatically with the current millisecond timestamp when you click either of the lightbulb buttons on the edit toolbar to create a TiddlyRemember snippet.</p><p>Once a unique ID has been created, you ordinarily should not edit it. Typically, changing the unique ID, either in Anki or in TiddlyWiki, will result in the note being deleted from Anki and recreated without its review history. If you change a note so much that it should be rescheduled from scratch, you may choose to do this intentionally.</p><p>Unique IDs, as the name suggests, need to be <em>unique</em>. If there is a collision (more than one note has the same ID), only one note will be created in Anki, and which values it has will be random on every sync. This is obviously bad, so it's best to use the snippet buttons every time you create a note to be sure you don't accidentally create a collision.</p><p>If you transclude a tiddler that contains TiddlyRemember notes, this will create a kind of “collision” in that two different tiddlers contain a question with the same ID when rendered. Generally, nothing bad will happen here since the contents will be the same. However, which tiddler is cited as the source will be random, so you may wish to avoid these kinds of transclusions when practical.</p></div>
+
+
+
+</div>
+
+</p>
+</section>
+</body>
+</html>
