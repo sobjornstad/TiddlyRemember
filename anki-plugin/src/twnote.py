@@ -7,7 +7,7 @@ import aqt
 from bs4 import BeautifulSoup
 
 from .clozeparse import ankify_clozes
-from .trmodels import TiddlyRememberQuestionAnswer, TiddlyRememberCloze
+from .trmodels import TiddlyRememberQuestionAnswer, TiddlyRememberCloze, ID_FIELD_NAME
 from .util import Twid
 
 class TwNote(metaclass=ABCMeta):
@@ -173,7 +173,7 @@ class QuestionNote(TwNote):
         return (
             self.question == anki_note['Question']
             and self.answer == anki_note['Answer']
-            and self.id_ == anki_note['ID']
+            and self.id_ == anki_note[ID_FIELD_NAME]
             and self.wiki_name == anki_note['Wiki']
             and self.tidref == anki_note['Reference']
             and (self.permalink or "") == anki_note['Permalink']
@@ -189,7 +189,7 @@ class QuestionNote(TwNote):
         anki_note['Wiki'] = self.wiki_name
         anki_note['Reference'] = self.tidref
         anki_note['Permalink'] = self.permalink if self.permalink is not None else ""
-        anki_note['ID'] = self.id_
+        anki_note[ID_FIELD_NAME] = self.id_
         anki_note.tags = self.anki_tags
 
 
@@ -229,7 +229,7 @@ class ClozeNote(TwNote):
     def _fields_equal(self, anki_note: Note) -> bool:
         return (
             self.text == anki_note['Text']
-            and self.id_ == anki_note['ID']
+            and self.id_ == anki_note[ID_FIELD_NAME]
             and self.wiki_name == anki_note['Wiki']
             and self.tidref == anki_note['Reference']
             and (self.permalink or "") == anki_note['Permalink']
@@ -241,7 +241,7 @@ class ClozeNote(TwNote):
         Alter the Anki note to match this TiddlyWiki note.
         """
         anki_note['Text'] = self.text
-        anki_note['ID'] = self.id_
+        anki_note[ID_FIELD_NAME] = self.id_
         anki_note['Wiki'] = self.wiki_name
         anki_note['Reference'] = self.tidref
         anki_note['Permalink'] = self.permalink if self.permalink is not None else ""

@@ -8,6 +8,12 @@ import aqt
 from anki.consts import MODEL_CLOZE
 
 
+# Field to hold the unique ID used to maintain synchronization integrity.
+# This must (currently) be the same on all note types used by TiddlyRemember
+# and is defined here to prevent them from getting out of sync.
+ID_FIELD_NAME = 'ID'
+
+
 class TemplateData(ABC):
     """
     Self-constructing definition for templates.
@@ -123,7 +129,7 @@ class TiddlyRememberQuestionAnswer(ModelData):
         """
 
     name = "TiddlyRemember Q&A v1"
-    fields = ("Question", "Answer", "ID", "Wiki", "Reference", "Permalink")
+    fields = ("Question", "Answer", ID_FIELD_NAME, "Wiki", "Reference", "Permalink")
     templates = (TiddlyRememberQuestionAnswerTemplate,)
     styling = """
         .card {
@@ -169,7 +175,7 @@ class TiddlyRememberCloze(ModelData):
         """
 
     name = "TiddlyRemember Cloze v1"
-    fields = ("Text", "ID", "Wiki", "Reference", "Permalink")
+    fields = ("Text", ID_FIELD_NAME, "Wiki", "Reference", "Permalink")
     templates = (TiddlyRememberClozeTemplate,)
     styling = """
         .card {
