@@ -6,8 +6,8 @@ from typing import Any, Dict, List, Sequence, Tuple
 import aqt
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QDialog, QComboBox, QApplication, QFileDialog, QAction
-from PyQt5.QtGui import QCursor
-from PyQt5.QtCore import pyqtSignal, Qt
+from PyQt5.QtGui import QCursor, QDesktopServices
+from PyQt5.QtCore import pyqtSignal, Qt, QUrl
 from aqt.utils import getFile, showWarning, showInfo, showCritical, askUser
 
 from . import settings_dialog
@@ -191,8 +191,10 @@ class SettingsDialog(QDialog):
         self.form.wikiList.blockSignals(oldBlockSignals)
         self.wiki_changed(self.current_wiki_index, save=False)
 
-    def get_help(self):
-        pass
+    def get_help(self) -> None:
+        "Launch the documentation for this dialog in a browser."
+        url = QUrl(r"https://sobjornstad.github.io/TiddlyRemember/#Configuring%20the%20Anki%20add-on")
+        QDesktopServices.openUrl(url)
 
 
     ##### Other event handlers. #####
