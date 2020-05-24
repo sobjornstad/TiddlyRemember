@@ -1,0 +1,40 @@
+created: 20200524074640000
+modified: 220200524074640000
+title: Calling TiddlyWiki in MacOS
+type: text/vnd.tiddlywiki
+
+If you install TiddlyWiki via Homebrew on a Mac,
+Homebrew does some path magic which makes the `tiddlywiki` and `node` commands
+available at your command line,
+but unfortunately does not make them available to Anki.
+There are two options for working around this.
+
+!! Option 1: Modify your path
+
+Run the following command at a command line:
+
+```
+sudo launchctl config user path "/usr/local/bin:$PATH"
+```
+
+This will add the directory TiddlyWiki and Node are installed in to your system path.
+See the [[Homebrew documentation|https://docs.brew.sh/FAQ#my-mac-apps-dont-find-usrlocalbin-utilities]] for details.
+
+After making this change, you'll need to restart your computer.
+Then you'll be able to put `tiddlywiki` in the //Path to TiddlyWiki executable// [[configuration field|Configuring the Anki add-on]] and have it work.
+
+
+!! Option 2: Launch TiddlyWiki from a shell script (advanced)
+
+If you don't want to modify your system path or you don't have administrator privileges,
+you can write a shell script that contains the full paths to Node and TiddlyWiki:
+
+# Open a command line, enter the following commands, and note the results:
+#* `which node`
+#* `which tiddlywiki`
+# Create a new text file in your favorite text editor, called `tiddlywiki`. You can place the file anywhere you like.
+# Enter the following two lines:
+#* `#!/usr/bin/env bash`
+#* `node tiddlywiki "$@"` -- replacing //node// and //tiddlywiki// with the output of the commands in step 1.
+# Save the file and make the script executable using `chmod +x` on the command line.
+# Return to [[Configuring the Anki add-on]] and provide your shiny new shell script as the path to TiddlyWiki. It should test successfully now.

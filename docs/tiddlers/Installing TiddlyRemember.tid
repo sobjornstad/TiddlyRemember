@@ -19,6 +19,8 @@ You need TiddlyWiki installed on Node on your computer to use TiddlyRemember. Yo
 
 If you don't already have TiddlyWiki on Node installed, follow the [[TiddlyWiki documentation|https://tiddlywiki.com/#GettingStarted - Node.js]] to install it.
 
+If you're using a Mac and you installed using Homebrew, there may be one more step -- see [[Calling TiddlyWiki in MacOS]].
+
 
 !! Step 3: Install the Anki plugin
 

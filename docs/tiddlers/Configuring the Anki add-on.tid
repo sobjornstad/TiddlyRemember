@@ -15,7 +15,7 @@ The settings at the top apply to all wikis you might be syncing with.
 ; Default deck
 : If a note in your TiddlyWiki doesn't match any of your [[deck mappings|Mapping tiddlers]], it will be placed here.
 ; Path to TiddlyWiki executable
-: TiddlyRemember requires TiddlyWiki on Node.js to be installed on your computer (see [[Installing TiddlyRemember]]). Depending on your computer's configuration, simply `tiddlywiki` may be sufficient here -- otherwise, you'll have to figure out where TiddlyWiki is installed on your computer and provide the full path (e.g., `/usr/local/bin/tiddlywiki`). Click the ''Test'' button to see if it works.
+: TiddlyRemember requires TiddlyWiki on Node.js to be installed on your computer (see [[Installing TiddlyRemember]]). Depending on your computer's configuration, simply `tiddlywiki` may be sufficient here. If you're on a Mac, you need to [[do an additional step|Calling TiddlyWiki in MacOS]] first. Otherwise, you'll have to figure out where TiddlyWiki is installed on your computer and provide the full path (e.g., `/usr/local/bin/tiddlywiki`). Click the ''Test'' button to see if it works.
 
 !! Wiki settings
 
