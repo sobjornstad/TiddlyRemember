@@ -10,6 +10,7 @@ from typing import Callable, Optional, Set, Sequence
 from bs4 import BeautifulSoup
 
 from .twnote import TwNote
+from .util import nowin_startupinfo
 
 RENDERED_FILE_EXTENSION = "html"
 
@@ -21,7 +22,8 @@ def invoke_tw_command(cmd: Sequence[str], wiki_path: Optional[str],
     """
     try:
         proc = subprocess.run(cmd, cwd=wiki_path, stdout=subprocess.PIPE,
-                              stderr=subprocess.STDOUT, check=True)
+                              stderr=subprocess.STDOUT, check=True,
+                              startupinfo=nowin_startupinfo())
     except FileNotFoundError:
         raise Exception(
             f"The TiddlyWiki executable at '{cmd[0]}' was not found. Please set the "

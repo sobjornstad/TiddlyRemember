@@ -11,6 +11,7 @@ from PyQt5.QtCore import pyqtSignal, Qt, QUrl
 from aqt.utils import getFile, showWarning, showInfo, showCritical, askUser
 
 from . import settings_dialog
+from .util import nowin_startupinfo
 
 
 class SettingsDialog(QDialog):
@@ -213,7 +214,8 @@ class SettingsDialog(QDialog):
         try:
             args = [self.form.tiddlywikiBinary_.text(), "--version"]
             proc = subprocess.run(args, check=True, stderr=subprocess.STDOUT,
-                                  stdout=subprocess.PIPE)
+                                  stdout=subprocess.PIPE,
+                                  startupinfo=nowin_startupinfo())
         except FileNotFoundError:
             QApplication.restoreOverrideCursor()
             showCritical("It doesn't look like that file exists on your computer. "
