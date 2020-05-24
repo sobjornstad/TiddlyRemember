@@ -75,7 +75,6 @@ class ImportDialog(QDialog):
     """
     Dialog implementing the import from TiddlyWiki.
     """
-
     def __init__(self, mw):
         QDialog.__init__(self)
         self.form = import_dialog.Ui_Dialog()
@@ -88,21 +87,32 @@ class ImportDialog(QDialog):
         self.wikis = [(k, v) for k, v in self.conf['wikis'].items()]
         self.form.wikiProgressBar.setMaximum(len(self.wikis))
 
+    def start_import(self) -> bool:
+        """
+        Check to make sure import is configured correctly and begin
+        extracting data. Return True if started asynchronously, False if
+        unable to start.
+        """
         # Catch scenario where user tries to sync without configuring and provide
         # a helpful error message.
         if len(self.wikis) == 1 and not self.wikis[0][1]['path'].strip():
             showWarning("You don't appear to have set up any wikis to sync with. "
                         "To do so, choose Tools > Add-ons, select TiddlyRemember, "
                         "and click the Config button.")
-            return
+            return False
 
         self.extract()
+        return True
 
     def extract_progress(self, at: int, end: int):
         "Progress callback function for export/parse triggered by progress signal."
         self.form.progressBar.setMaximum(100)
-        self.form.progressBar.setValue(at * 100 / end)
         self.form.text.setText(f"Extracting notes from tiddlers...{at}/{end}")
+        if end == 0:
+            # Obviously this will be done *real* soon...but don't want an exception!
+            self.form.progressBar.setValue(100)
+        else:
+            self.form.progressBar.setValue(at * 100 / end)
 
     def extract(self) -> None:
         """
@@ -125,16 +135,19 @@ class ImportDialog(QDialog):
         if appropriate.
         """
         if self.extract_thread.exception:
+            self.reject()
             raise self.extract_thread.exception
+
         if len(self.extract_thread.notes) == 0:
-            # This is probably a mistake or misconfiguration.
-            # To avoid deleting all the user's existing notes to "sync"
-            # the collection, abort immediately.
-            showWarning("No notes were found in your TiddlyWiki. "
-                        "Please check your add-on configuration. "
-                        "Your collection has not been updated.")
-            self.accept()
+            # This is probably a mistake or misconfiguration. To avoid deleting
+            # all the user's existing notes to "sync" the collection, abort now.
+            showWarning(
+                f"No notes were found in the wiki {self.extract_thread.wiki_name}. "
+                f"Please check your add-on configuration. "
+                f"Your collection has not been updated.")
+            self.reject()
             return
+
         self.notes.extend(self.extract_thread.notes)
 
         self.form.wikiProgressBar.setValue(self.form.wikiProgressBar.value() + 1)
@@ -165,7 +178,8 @@ class ImportDialog(QDialog):
 def open_dialog():
     "Launch the sync dialog."
     dialog = ImportDialog(aqt.mw)
-    dialog.exec_()
+    if dialog.start_import():
+        dialog.exec_()
 
 
 if aqt.mw is not None:
