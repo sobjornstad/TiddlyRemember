@@ -1,3 +1,6 @@
+"""
+util.py - general-purpose functions and definitions used by multiple modules
+"""
 import os
 import subprocess
 from typing import NewType, Optional
@@ -7,6 +10,12 @@ Twid = NewType('Twid', str)
 
 
 def pluralize(sg: str, n: int, pl: str = None) -> str:
+    """
+    Return a string in one of two forms, depending on whether /n/ is 1.
+
+    For convenience when working with English text, the plural form may be
+    left blank if it consists of the singular form plus 's'.
+    """
     if n == 1:
         return sg
     else:

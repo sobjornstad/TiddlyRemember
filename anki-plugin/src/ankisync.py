@@ -1,3 +1,16 @@
+"""
+ankisync.py - sync TiddlyWiki notes to Anki
+
+After finding all notes in a user's TiddlyWikis, we need to sync with Anki.
+This is a unidirectional, destructive sync -- all TiddlyWiki notes found are
+compared with all Anki notes in the collection, and the Anki collection is
+updated to match, by adding and updating notes to match those found in the
+set of TiddlyWiki notes, then deleting any notes in the Anki collection that
+use TiddlyRemember models and were not found in that set. Any changes made in
+Anki and not in TiddlyWiki will be lost at this point.
+
+The sync() method is the public interface to this module.
+"""
 from typing import Any, Dict, NewType, Set, cast
 
 from anki.notes import Note
@@ -7,7 +20,7 @@ from .twnote import TwNote
 from .util import pluralize, Twid
 
 
-def change_note_type(mw: Any, tw_note: TwNote, anki_note: Note) -> Note:
+def _change_note_type(mw: Any, tw_note: TwNote, anki_note: Note) -> Note:
     """
     If the ID is now a cloze note rather than a question note or vice versa,
     change the note type in Anki prior to trying to complete the sync.
@@ -31,7 +44,7 @@ def change_note_type(mw: Any, tw_note: TwNote, anki_note: Note) -> Note:
     return mw.col.getNote(mw.col.find_notes(f"nid:{anki_note.id}")[0])
 
 
-def update_deck(tw_note: TwNote, anki_note: Note, mw: Any, default_deck: str) -> None:
+def _update_deck(tw_note: TwNote, anki_note: Note, mw: Any, default_deck: str) -> None:
     """
     Given a note already in Anki's database, move its cards into an
     appropriate deck if they aren't already there. All cards must go to the
@@ -114,13 +127,13 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
         anki_note = anki_notes_map[note_id]
         tw_note = extracted_notes_map[note_id]
         if not tw_note.model_equal(anki_note):
-            new_note = change_note_type(mw, tw_note, anki_note)
+            new_note = _change_note_type(mw, tw_note, anki_note)
             anki_note = anki_notes_map[note_id] = new_note
         if not tw_note.fields_equal(anki_note):
             tw_note.update_fields(anki_note)
             anki_note.flush()
             edit_count += 1
-        update_deck(tw_note, anki_note, mw, conf['defaultDeck'])
+        _update_deck(tw_note, anki_note, mw, conf['defaultDeck'])
     userlog.append(f"Updated {edit_count} {pluralize('note', edit_count)}.")
 
     mw.col.remNotes(anki_notes_map[twid].id for twid in removes)

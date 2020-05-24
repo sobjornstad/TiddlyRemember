@@ -1,3 +1,10 @@
+"""
+settings.py - user-interface classes to help the user manage the add-on's configuration
+
+Underneath, this is just a JSON file, using Anki's standard add-on
+configuration system. We attach to some nifty hooks Anki includes to allow
+the user to edit the file using a friendly GUI.
+"""
 import copy
 import os
 import platform

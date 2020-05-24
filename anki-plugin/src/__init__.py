@@ -24,7 +24,7 @@
 # SOFTWARE.
 ###############################################################################
 
-from typing import Dict
+from typing import Dict, List, Optional, Set
 
 # pylint: disable=import-error, no-name-in-module
 import aqt
@@ -37,6 +37,7 @@ from . import ankisync
 from . import import_dialog
 from .settings import edit_settings
 from . import twimport
+from .twnote import TwNote
 
 
 class ImportThread(QThread):
@@ -45,15 +46,15 @@ class ImportThread(QThread):
     """
     progress_update = pyqtSignal(int, int)
 
-    def __init__(self, conf: dict, wiki_name: str, wiki_conf: Dict[str, str]):
+    def __init__(self, conf: dict, wiki_name: str, wiki_conf: Dict[str, str]) -> None:
         super().__init__()
         self.conf = conf
         self.wiki_name = wiki_name
         self.wiki_conf = wiki_conf
-        self.notes = None
-        self.exception = None
+        self.notes: Optional[Set[TwNote]] = None
+        self.exception: Optional[Exception] = None
 
-    def run(self):
+    def run(self) -> None:
         try:
             self.notes = twimport.find_notes(
                 tw_binary=self.conf['tiddlywikiBinary'],
@@ -75,15 +76,15 @@ class ImportDialog(QDialog):
     """
     Dialog implementing the import from TiddlyWiki.
     """
-    def __init__(self, mw):
+    def __init__(self, mw) -> None:
         QDialog.__init__(self)
         self.form = import_dialog.Ui_Dialog()
         self.form.setupUi(self)
         self.conf = mw.addonManager.getConfig(__name__)
         self.mw = mw
 
-        self.extract_thread = None
-        self.notes = []
+        self.extract_thread: Optional[ImportThread] = None
+        self.notes: Set[TwNote] = set()
         self.wikis = [(k, v) for k, v in self.conf['wikis'].items()]
         self.form.wikiProgressBar.setMaximum(len(self.wikis))
 
@@ -104,7 +105,7 @@ class ImportDialog(QDialog):
         self.extract()
         return True
 
-    def extract_progress(self, at: int, end: int):
+    def extract_progress(self, at: int, end: int) -> None:
         "Progress callback function for export/parse triggered by progress signal."
         self.form.progressBar.setMaximum(100)
         self.form.text.setText(f"Extracting notes from tiddlers...{at}/{end}")
@@ -134,11 +135,12 @@ class ImportDialog(QDialog):
         Gather up the results of a completed extract thread, and start the next one
         if appropriate.
         """
+        assert self.extract_thread is not None, "Tried to join a nonexistent thread!"
         if self.extract_thread.exception:
             self.reject()
             raise self.extract_thread.exception
 
-        if len(self.extract_thread.notes) == 0:
+        if not self.extract_thread.notes:
             # This is probably a mistake or misconfiguration. To avoid deleting
             # all the user's existing notes to "sync" the collection, abort now.
             showWarning(
@@ -148,7 +150,10 @@ class ImportDialog(QDialog):
             self.reject()
             return
 
-        self.notes.extend(self.extract_thread.notes)
+        # This is a set union, with object equality defined by the ID. Any
+        # notes with an ID matching one already used in a previous wiki will be
+        # discarded here.
+        self.notes.update(self.extract_thread.notes)
 
         self.form.wikiProgressBar.setValue(self.form.wikiProgressBar.value() + 1)
         if self.wikis:
@@ -160,7 +165,7 @@ class ImportDialog(QDialog):
             # When all are completed, start the sync with Anki.
             return self.sync()
 
-    def sync(self):
+    def sync(self) -> None:
         """
         Compare the notes gathered by the various wiki threads with the notes
         currently in our Anki collection and add, edit, and remove notes as needed
@@ -175,7 +180,7 @@ class ImportDialog(QDialog):
         tooltip(userlog)
 
 
-def open_dialog():
+def open_dialog() -> None:
     "Launch the sync dialog."
     dialog = ImportDialog(aqt.mw)
     if dialog.start_import():

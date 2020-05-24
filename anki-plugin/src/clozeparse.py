@@ -1,3 +1,11 @@
+"""
+clozeparse.py - transform TiddlyRemember cloze deletions into a format Anki understands
+
+This module's public interface consists of the ankify_clozes() function.
+To change the argument of the remembercz TiddlyWiki macro into suitable
+text for the Text field of an Anki cloze note, simply call this function
+on that argument.
+"""
 from collections import Counter
 import itertools
 import re
@@ -5,6 +13,14 @@ from typing import Iterable, List, Optional, Sequence
 
 
 class Occlusion:
+    """
+    Representation of an occlusion -- a part within a remembercz TiddlyWiki note
+    that is in {single braces} and needs to become an Anki occlusion.
+
+    Constructed from a placeholder index (this will be used to substitute the
+    occlusion back into the text of the note once parsing is done) and raw_text
+    (the part that was between the {braces} in the original user-entered text).
+    """
     def __init__(self, placeholder_index: int, raw_text: str) -> None:
         self.placeholder_index = placeholder_index
         self.raw_text = raw_text
@@ -14,10 +30,19 @@ class Occlusion:
 
     @property
     def placeholder(self) -> str:
+        "A Python format-string placeholder for this occlusion."
         return "{%i}" % self.placeholder_index
 
     @property
     def anki_occlusion(self) -> str:
+        """
+        This occlusion, in the form that Anki understands.
+
+        The caller must ensure that it has filled in self.anki_index if this
+        Occlusion was originally constructed from an implicitly numbered
+        occlusion (one that looks like {this}, rather than an {{c1::explicit
+        occlusion}}).
+        """
         assert self.anki_index is not None, \
             "Tried to render occlusion before filling in missing index!"
         return "{{c%i::%s}}" % (self.anki_index, self.text)

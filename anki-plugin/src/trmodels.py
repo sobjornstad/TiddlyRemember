@@ -1,3 +1,26 @@
+"""
+trmodels.py - self-constructing definitions of Anki models (note types)
+
+Creating a note type in Anki is a procedural operation, which is very
+inconvenient and difficult to read when note types need to be defined in
+source code rather than through the GUI. This module allows note types to be
+defined declaratively.
+
+It first defines TemplateData and ModelData classes which contain the logic
+for creating templates and note types, then subclasses which define the
+options and templates for each note type our application needs to create and
+manage. A framework for checking if note types exist and have the expected
+fields, and for changing between note types defined here, is also provided.
+
+These classes are a bit unusual in that they are never instantiated and have
+no instance methods or variables. The class structure is just used as a
+convenient way to inherit construction logic and fields and group related
+information together.
+
+TiddlyWiki note types defined in twnote.py have a one-to-one relationship
+with subclasses of ModelData defined in this module. This relationship is
+defined by the TwNote subclasses' /model/ class variable.
+"""
 from abc import ABC
 import inspect
 from textwrap import dedent
@@ -6,6 +29,8 @@ import sys
 
 import aqt
 from anki.consts import MODEL_CLOZE
+from anki.models import Template as AnkiTemplate
+from anki.models import NoteType as AnkiModel
 
 
 # Field to hold the unique ID used to maintain synchronization integrity.
@@ -23,8 +48,9 @@ class TemplateData(ABC):
     back: str
 
     @classmethod
-    def to_template(cls):
+    def to_template(cls) -> AnkiTemplate:
         "Create and return an Anki template object for this model definition."
+        assert aqt.mw is not None, "Tried to use models before Anki is initialized!"
         mm = aqt.mw.col.models
         t = mm.newTemplate(cls.name)
         t['qfmt'] = dedent(cls.front).strip()
@@ -44,8 +70,9 @@ class ModelData(ABC):
     is_cloze: bool
 
     @classmethod
-    def to_model(cls):
+    def to_model(cls) -> AnkiModel:
         "Create and return an Anki model object for this model definition."
+        assert aqt.mw is not None, "Tried to use models before Anki is initialized!"
         mm = aqt.mw.col.models
         model = mm.new(cls.name)
         for i in cls.fields:
@@ -61,11 +88,12 @@ class ModelData(ABC):
         return model
 
     @classmethod
-    def in_collection(cls):
+    def in_collection(cls) -> bool:
         """
         Determine if a model by this name exists already in the current
         Anki collection.
         """
+        assert aqt.mw is not None, "Tried to use models before Anki is initialized!"
         mm = aqt.mw.col.models
         model = mm.byName(cls.name)
         return model is not None
@@ -105,7 +133,7 @@ class ModelData(ABC):
         return None
 
     @classmethod
-    def verify_integrity(cls, anki_model) -> None:
+    def verify_integrity(cls, anki_model: AnkiModel) -> None:
         """
         Raise an exception if the user has changed the model in a way that will
         interfere with syncing.
@@ -251,16 +279,6 @@ def _itermodels() -> Iterable[Type[ModelData]]:
     return (i for _, i in inspect.getmembers(sys.modules[__name__], is_model))
 
 
-def ensure_note_types():
-    """
-    For all note types defined in this file, add them to the collection if
-    they aren't in there already.
-    """
-    for model in _itermodels():
-        if not model.in_collection():
-            aqt.mw.col.models.add(model.to_model())
-
-
 def all_note_types() -> List[Type[ModelData]]:
     """
     Return a list of all note types defined in this file.
@@ -277,6 +295,17 @@ def by_name(model_name: str) -> Optional[Type[ModelData]]:
         return next(i for i in all_note_types() if i.name == model_name)
     except StopIteration:
         return None
+
+
+def ensure_note_types() -> None:
+    """
+    For all note types defined in this file, add them to the collection if
+    they aren't in there already.
+    """
+    assert aqt.mw is not None, "Tried to use models before Anki is initialized!"
+    for model in _itermodels():
+        if not model.in_collection():
+            aqt.mw.col.models.add(model.to_model())
 
 
 def verify_note_types() -> None:
