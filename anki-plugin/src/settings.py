@@ -1,5 +1,6 @@
 import copy
 import os
+import platform
 import subprocess
 from typing import Any, Dict, List, Sequence, Tuple
 
@@ -162,6 +163,11 @@ class SettingsDialog(QDialog):
 
         self.current_wiki_index = len(self.wikis) - 1
         self._populate_wiki_list()
+        if platform.system() == 'Darwin':
+            # Work around a weird framework bug where the group box doesn't refresh...
+            # but only on MacOS. Last tested with Qt 5.13.1/PyQt 5.14.1.
+            self.form.groupBox.hide()
+            self.form.groupBox.show()
         self.form.wikiName.setFocus()
 
     def browse_for_wiki(self):
