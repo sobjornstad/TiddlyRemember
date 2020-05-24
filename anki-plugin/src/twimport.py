@@ -124,8 +124,8 @@ def notes_from_paths(
     """
     notes = set()
     for index, tiddler in enumerate(paths, 0):
-        with open(tiddler, 'r') as f:
-            tid_text = f.read()
+        with open(tiddler, 'rb') as f:
+            tid_text = f.read().decode()
         tid_name = tiddler.name[:tiddler.name.find(f".{RENDERED_FILE_EXTENSION}")]
         notes.update(notes_from_tiddler(tid_text, wiki_name, tid_name))
 
