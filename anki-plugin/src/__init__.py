@@ -87,6 +87,15 @@ class ImportDialog(QDialog):
         self.notes = []
         self.wikis = [(k, v) for k, v in self.conf['wikis'].items()]
         self.form.wikiProgressBar.setMaximum(len(self.wikis))
+
+        # Catch scenario where user tries to sync without configuring and provide
+        # a helpful error message.
+        if len(self.wikis) == 1 and not self.wikis[0][1]['path'].strip():
+            showWarning("You don't appear to have set up any wikis to sync with. "
+                        "To do so, choose Tools > Add-ons, select TiddlyRemember, "
+                        "and click the Config button.")
+            return
+
         self.extract()
 
     def extract_progress(self, at: int, end: int):
