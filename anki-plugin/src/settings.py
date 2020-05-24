@@ -1,4 +1,5 @@
 import copy
+import os
 import subprocess
 from typing import Any, Dict, List, Sequence, Tuple
 
@@ -52,12 +53,24 @@ class SettingsDialog(QDialog):
 
 
     ##### Private helper methods. #####
+    def _init_tiddlywiki_path(self) -> None:
+        "If no TiddlyWiki path is defined, try to guess one."
+        if os.name == 'nt':
+            tw_path = os.path.expandvars("$APPDATA\\npm\\tiddlywiki.cmd")
+        else:
+            tw_path = 'tiddlywiki'
+        self.conf['tiddlywikiBinary'] = tw_path
+
+
     def _load_config(self) -> None:
         "Populate the dialog from the add-on's config as stored by Anki."
         conf = self.mw.addonManager.getConfig(__name__)
         assert conf is not None, \
             "No config received from addon manager despite registration!"
         self.conf = conf
+
+        if not self.conf['tiddlywikiBinary'].strip():
+            self._init_tiddlywiki_path()
 
         for name, value in self.conf.items():
             control = getattr(self.form, name + '_', None)

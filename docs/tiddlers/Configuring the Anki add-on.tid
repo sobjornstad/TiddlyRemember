@@ -15,11 +15,12 @@ The settings at the top apply to all wikis you might be syncing with.
 ; Default deck
 : If a note in your TiddlyWiki doesn't match any of your [[deck mappings|Mapping tiddlers]], it will be placed here.
 ; Path to TiddlyWiki executable
-: TiddlyRemember requires TiddlyWiki on Node.js to be installed on your computer (see [[Installing TiddlyRemember]]). Depending on your computer's configuration, simply `tiddlywiki` may be sufficient here. If you're on a Mac, you need to [[do an additional step|Calling TiddlyWiki in MacOS]] first. Otherwise, you'll have to figure out where TiddlyWiki is installed on your computer and provide the full path (e.g., `/usr/local/bin/tiddlywiki`). Click the ''Test'' button to see if it works.
+: TiddlyRemember requires TiddlyWiki on Node.js to be installed on your computer (see [[Installing TiddlyRemember]]). If you did a standard installation of Node on Windows or Linux, the default is likely correct. If you're on a Mac, you need to [[do an additional step|Calling TiddlyWiki in MacOS]] to make the default of `tiddlywiki` work. Click the ''Test'' button to see if it works.
+: If you configured something in a non-standard way, figure out where TiddlyWiki is installed on your computer and provide the full path here (e.g., `/usr/local/bin/tiddlywiki`).
 
 !! Wiki settings
 
-You can add and remove any number of wikis to sync with. Each wiki has its own set of settings.
+You can configure any number of wikis to sync with. Each wiki has its own set of settings.
 
 ; Name
 : This will appear on your Anki cards to identify the source of the information.
@@ -37,6 +38,6 @@ You can add and remove any number of wikis to sync with. Each wiki has its own s
 : Only the tiddlers matching this TiddlyWiki filter will be searched for questions. It's important to make sure that tiddlers that can't be rendered to HTML (e.g., images) are excluded -- failing to do so may result in extremely long sync times or crashes. If you're not sure what to put here, just keep the default.
 
 ; Permalink
-: A URL at which your wiki can be accessed on the devices where you review Anki cards. This will allow Anki to provide a link back to the source tiddler on your cards. This field is optional -- if you leave it blank, no link will be provided on your cards, but you'll still be able to see which wiki and tiddler it came from. If you use a file wiki on your local computer, you can use a `file://` URL. For example, if you keep your wiki at `/home/soren/tiddlywiki.html`, you would enter `file:///home/soren/tiddlywiki.html`. You should be able to copy this URL out of the address bar of your browser.
+: A URL at which your wiki can be accessed on the devices where you review Anki cards. This will allow Anki to provide a link back to the source tiddler on your cards. This field is optional -- if you leave it blank, no link will be provided on your cards, but you'll still be able to see which wiki and tiddler it came from. If you use a file wiki on your local computer, you can use a `file://` URL. You should be able to copy this URL out of the address bar of your browser.
 
 Changes to the name or permalink will update all of the notes from that wiki on the next sync.
