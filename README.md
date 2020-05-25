@@ -36,5 +36,7 @@ Then copy the `anki-plugin/src` directory
 Configure the Anki plugin with Tools -> Add-ons -> Configure,
     following the instructions to the right of the JSON.
 
+[TiddlyWiki]: https://tiddlywiki.com
+[Anki]: https://apps.ankiweb.net
 [Peru]: https://github.com/buildinspace/peru
 [dev instructions]: https://tiddlywiki.com/dev/#Developing%20plugins%20using%20Node.js%20and%20GitHub
