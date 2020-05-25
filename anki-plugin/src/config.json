@@ -1,6 +1,7 @@
 {
     "defaultDeck": "TiddlyRemember",
     "tiddlywikiBinary": "",
+    "schemaVersion": "1",
     "wikis": {
         "defaultWiki": {
             "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]",
