@@ -136,7 +136,7 @@ def _render_wiki(tw_binary: str, wiki_path: str, output_directory: str,
         output_directory,
         "--render",
         filter_,
-        f"[is[tiddler]addsuffix[.{RENDERED_FILE_EXTENSION}]]",
+        f"[encodeuricomponent[]addsuffix[.{RENDERED_FILE_EXTENSION}]]",
         "text/html",
         "$:/plugins/sobjornstad/TiddlyRemember/templates/TiddlyRememberParseable"
     ]

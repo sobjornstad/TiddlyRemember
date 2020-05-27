@@ -1,11 +1,11 @@
 created: 20200523154559237
 list: [[Installing TiddlyRemember]] [[Configuring TiddlyRemember]] [[Creating notes in TiddlyRemember]] [[Syncing TiddlyRemember with Anki]]
-modified: 20200523210152031
+modified: 20200526210152031
 title: TiddlyRemember
 type: text/vnd.tiddlywiki
 
 |!Version |{{TiddlyRemember Metadata##version}}|
-|!Published |<$view field="created" format="date" template="MMM DDth, YYYY" />|
+|!Published |<$view field="modified" format="date" template="MMM DDth, YYYY" />|
 |!TW5 compatibility |{{TiddlyRemember Metadata##compatible-tw5}}|
 |!Anki compatibility |{{TiddlyRemember Metadata##compatible-anki}}|
 |!GitHub |{{TiddlyRemember Metadata##repository}}|
