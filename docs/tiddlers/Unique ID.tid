@@ -1,5 +1,5 @@
 created: 20200523174038112
-modified: 20200523211058166
+modified: 20200731032554152
 title: Unique ID
 type: text/vnd.tiddlywiki
 
@@ -15,4 +15,4 @@ Once a unique ID has been created, you ordinarily should not edit it. Typically,
 
 Unique IDs, as the name suggests, need to be //unique//. If there is a collision (more than one note has the same ID), only one note will be created in Anki, and which values it has will be random on every sync. This is obviously bad, so it's best to use the snippet buttons every time you create a note to be sure you don't accidentally create a collision.
 
-If you transclude a tiddler that contains TiddlyRemember notes, this will create a kind of “collision” in that two different tiddlers contain a question with the same ID when rendered. Generally, nothing bad will happen here since the contents will be the same. However, which tiddler is cited as the source will be random, so you may wish to avoid these kinds of transclusions when practical.
+If you transclude a tiddler that contains TiddlyRemember notes, this will create a kind of “collision” in that two different tiddlers contain a question with the same ID when rendered. Generally, nothing bad will happen here since the contents will be the same. However, if you're doing this, you will want to use [[hard references|Soft and hard references]] for the questions that are being transcluded -- otherwise, which tiddler is cited as the source will be random on every sync.
