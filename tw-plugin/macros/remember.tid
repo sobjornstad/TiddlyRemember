@@ -14,6 +14,11 @@ type: text/vnd.tiddlywiki
             <div>A:</div>
             <p>$answer$</p>
         </div>
+		<div class="tr-selfidentification">
+			<$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
+				<<selfid>>
+			</$set>
+		</div>
         <div class="rid">
             [$id$]
         </div>
@@ -36,6 +41,11 @@ type: text/vnd.tiddlywiki
 	<div class="remembercz">
 		<span class="cloze-identifier">cloze: </span>
 		<span class="cloze-text">$text$</span>
+		<div class="tr-selfidentification">
+			<$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
+				<<selfid>>
+			</$set>
+		</div>
 		<div class="rid">
 			[$id$]
 		</div>
@@ -50,6 +60,11 @@ type: text/vnd.tiddlywiki
 		<span class="cloze-identifier">{cloze: </span>
 		<span class="cloze-text">$text$</span>
 		<span class="cloze-identifier">}</span>
+		<div class="tr-selfidentification">
+			<$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
+				<<selfid>>
+			</$set>
+		</div>
 		<div class="rid">
 			[$id$]
 		</div>
