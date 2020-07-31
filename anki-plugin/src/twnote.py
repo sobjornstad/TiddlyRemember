@@ -197,7 +197,9 @@ class QuestionNote(TwNote):
             answer = pair.find("div", class_="ranswer").p.get_text()
             id_raw = pair.find("div", class_="rid").get_text()
             id_ = id_raw.strip().lstrip('[').rstrip(']')
-            notes.add(cls(id_, wiki_name, tiddler_name, question, answer, tags, deck))
+            tidref = select_tidref(pair.find("div", class_="tr-reference"),
+                                   tiddler_name)
+            notes.add(cls(id_, wiki_name, tidref, question, answer, tags, deck))
 
         return notes
 
@@ -254,8 +256,10 @@ class ClozeNote(TwNote):
             text = pair.find("span", class_="cloze-text").get_text()
             id_raw = pair.find("div", class_="rid").get_text()
             id_ = id_raw.strip().lstrip('[').rstrip(']')
+            tidref = select_tidref(pair.find("div", class_="tr-reference"),
+                                   tiddler_name)
             parsed_text = ankify_clozes(text)
-            notes.add(cls(id_, wiki_name, tiddler_name, parsed_text, tags, deck))
+            notes.add(cls(id_, wiki_name, tidref, parsed_text, tags, deck))
 
         return notes
 
@@ -300,3 +304,16 @@ def _get_deck_and_tags(tiddler_soup: BeautifulSoup) -> Tuple[Optional[str], Set[
         tags = set()
 
     return deck, tags
+
+
+def select_tidref(hard_ref: BeautifulSoup, tiddler_name: str):
+    """
+    Given the hard-reference BS node coming from an HTML snippet and the name
+    of the tiddler the HTML snippet was rendered within, return the string to
+    be used as a tiddler reference. This will be the hard-reference if the
+    tr-reference div exists and is non-empty, otherwise the tiddler name.
+    """
+    if hard_ref is not None and hard_ref.get_text().strip():
+        return hard_ref.get_text().strip()
+    else:
+        return tiddler_name
