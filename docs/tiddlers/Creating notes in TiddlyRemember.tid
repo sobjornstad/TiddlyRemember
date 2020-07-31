@@ -1,6 +1,6 @@
 created: 20200523163252291
 list: [[Question-and-answer notes]] [[Cloze notes]]
-modified: 20200523212124291
+modified: 20200731123936106
 tags: TiddlyRemember
 title: Creating notes in TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -50,3 +50,9 @@ If you need to include quotes in a note, use triple quotes for the macro paramet
     """How do you include "quotation marks" within a macro parameter in TiddlyWiki?"""
     "Use triple quotation marks on the outside."
 >>
+
+
+!! Advanced features
+
+* If you plan to transclude any tiddlers containing questions into other tiddlers, you'll want to read about [[Soft and hard references]].
+* In many cases, you can [[dynamically create questions|Dynamically generating TiddlyRemember notes]] from data stored elsewhere in your wiki using filters.
