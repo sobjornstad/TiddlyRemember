@@ -1,10 +1,10 @@
 created: 20200510004110231
-modified: 20200517155832138
+modified: 20200730205800000
 tags: $:/tags/Macro
 title: $:/plugins/sobjornstad/TiddlyRemember/macros/remember
 type: text/vnd.tiddlywiki
 
-\define rememberq(id, question, answer)
+\define rememberq(id, question, answer, reference: "")
     <div class="rememberq">
         <div class="rquestion">
             <div>Q:</div>
@@ -17,35 +17,44 @@ type: text/vnd.tiddlywiki
         <div class="rid">
             [$id$]
         </div>
+		<div class="tr-reference">
+			<$text text=<<__reference__>>/>
+		</div>
     </div>
 \end
 
-\define remembercz(id, text, mode: "block")
+\define remembercz(id, text, mode: "block", reference: "")
 	<$list filter="[[$mode$]match[inline]]">
-		<<twRememberClozeInline "$id$" "$text$">>
+		<$macrocall $name=twRememberClozeInline id=<<__id__>> text=<<__text__>> reference=<<__reference__>>/>
 	</$list>
 	<$list filter="[[$mode$]!match[inline]]">
-		<<twRememberClozeBlock "$id$" "$text$">>
+		<$macrocall $name=twRememberClozeBlock id=<<__id__>> text=<<__text__>> reference=<<__reference__>>/>
 	</$list>
 \end
 
-\define twRememberClozeBlock(id, text)
+\define twRememberClozeBlock(id, text, reference)
 	<div class="remembercz">
 		<span class="cloze-identifier">cloze: </span>
 		<span class="cloze-text">$text$</span>
 		<div class="rid">
 			[$id$]
 		</div>
+		<div class="tr-reference">
+			<$text text=<<__reference__>>/>
+		</div>
 	</div>
 \end
 
-\define twRememberClozeInline(id, text)
+\define twRememberClozeInline(id, text, reference)
 	<span class="remembercz">
 		<span class="cloze-identifier">{cloze: </span>
 		<span class="cloze-text">$text$</span>
 		<span class="cloze-identifier">}</span>
 		<div class="rid">
 			[$id$]
+		</div>
+		<div class="tr-reference">
+			<$text text=<<__reference__>>/>
 		</div>
 	</span>
 \end
