@@ -1,6 +1,6 @@
 created: 20200523154559237
 list: [[Installing TiddlyRemember]] [[Configuring TiddlyRemember]] [[Creating notes in TiddlyRemember]] [[Syncing TiddlyRemember with Anki]]
-modified: 20200526210152031
+modified: 20200731032650251
 title: TiddlyRemember
 type: text/vnd.tiddlywiki
 
@@ -19,7 +19,7 @@ Scheduling information in Anki is preserved when editing notes in TiddlyWiki.
 
 Why would you want to keep your Anki notes in TiddlyWiki?
 
-* One of the problems with using spaced repetition to study complex topics is that individual cards end up largely without context, and if you need a refresher, it's hard to find the original source. TiddlyRemember can take you right back to your notes.
+* One of the problems with using spaced repetition to study complex topics is that individual cards can end up largely without context, and if you need a refresher, it's hard to find the original source. TiddlyRemember can take you right back to your notes.
 * If you already have notes on a topic, this can help keep your content more [[DRY|https://en.wikipedia.org/wiki/Don%27t_repeat_yourself]] -- you don't have to maintain the same knowledge in two places. If your knowledge on a topic changes and you update your notes or flashcards, they won't get out of sync.
 * You can easily add notes to your Anki collection at the same time you're taking narrative or outline notes, without having to switch back and forth between two applications.
 
