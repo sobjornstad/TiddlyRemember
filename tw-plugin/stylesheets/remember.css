@@ -15,7 +15,7 @@ div.rememberq .rquestion div, div.rememberq .ranswer div {
 	float: left;
 }
 
-div.rememberq div.rid {
+div.rememberq div.tr-selfidentification {
 	float: right;
 	color: <<colour muted-foreground>>;
 }
@@ -29,12 +29,17 @@ div.remembercz {
 	color: <<colour tag-background>>;
 }
 
-.remembercz div.rid {
+.remembercz div.tr-selfidentification {
 	float: right;
 	margin-left: 0.5em;
 	color: <<colour muted-foreground>>;
 }
 
+/* the separate reference and ID fields are only for TR's benefit */
 div.rememberq div.tr-reference, .remembercz div.tr-reference {
+	display: none;
+}
+
+div.rememberq div.rid, .remembercz div.rid {
 	display: none;
 }
