@@ -1,0 +1,21 @@
+created: 20200731031104283
+modified: 20200731033440608
+tags: 
+title: Dynamically generating TiddlyRemember notes
+type: text/vnd.tiddlywiki
+
+TiddlyRemember is mostly designed for using individual macro calls on your tiddlers to add questions associated with those tiddlers. However, since questions are just macro calls and you can make macro calls with parameters pulled from filters, it's also possible to dynamically generate questions based on arbitrary queries against your tiddlers.
+
+To take a simple example, suppose that you want to make each question-and-answer pair into a separate tiddler, rather than including questions within other tiddlers. You might have a `question` field and an `answer` field on each of these tiddlers and tag them `TiddlyRememberNote`. Then in a new tiddler called, say, `TiddlyRememberNoteList`, you would write the following:
+
+```html
+<$list filter="[tag[TiddlyRememberNote]]">
+    <$macrocall $name=rememberq id={{!!created}} question={{!!question}} answer={{!!answer}} reference={{!!title}} />
+</$list>
+```
+
+When you save, you will see the tiddler fill up with a list of TiddlyRemember notes. As long as the `TiddlyRememberNoteList` tiddler is matched by the filter used in your [[Anki configuration|Configuring the Anki add-on]], TiddlyRemember will then happily import these notes into Anki.
+
+You can see that we use the `created` field of each of these tiddlers as a [[Unique ID]] -- this is quite suitable because it's a millisecond timestamp just like the `rememberq` and `remembercz` snippets create when you insert them. If you need to pull more than one question from a tiddler, you might have to get more creative.
+
+You can also see that we used the optional `reference` parameter and set it to the title of each tiddler containing a question. If we hadn't used this parameter, all of our Anki notes would be cited as coming from `TiddlyRememberNoteList`, which is presumably not particularly helpful. For more on the `reference` parameter, see [[Soft and hard references]].
