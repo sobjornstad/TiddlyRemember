@@ -136,7 +136,7 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
         _update_deck(tw_note, anki_note, mw, conf['defaultDeck'])
     userlog.append(f"Updated {edit_count} {pluralize('note', edit_count)}.")
 
-    mw.col.remNotes(anki_notes_map[twid].id for twid in removes)
+    mw.col.remove_notes([anki_notes_map[twid].id for twid in removes])
     userlog.append(f"Removed {len(removes)} {pluralize('note', len(removes))}.")
 
     return '\n'.join(userlog)
