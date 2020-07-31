@@ -34,3 +34,7 @@ div.remembercz {
 	margin-left: 0.5em;
 	color: <<colour muted-foreground>>;
 }
+
+div.rememberq div.tr-reference, .remembercz div.tr-reference {
+	display: none;
+}
