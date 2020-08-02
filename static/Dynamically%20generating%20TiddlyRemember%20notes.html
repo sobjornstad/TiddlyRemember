@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="generator" content="TiddlyWiki" />
+<meta name="tiddlywiki-version" content="5.1.22" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no">
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="static.css">
+<title>Dynamically generating TiddlyRemember notes: TiddlyRemember — Embed Anki notes in your TiddlyWiki</title>
+</head>
+<body class="tc-body">
+
+<section class="tc-story-river">
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="Dynamically generating TiddlyRemember notes"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><span class=" tc-reveal"><button aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span></span><span><span class="tc-tiddler-title-icon" style="fill:;"></span><h2 class="tc-title">Dynamically generating TiddlyRemember notes</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a>30th July 2020 at 10:34pm</div></div><div class=" tc-reveal">
+<div class="tc-tags-wrapper"></div>
+</div>
+
+<div class="tc-tiddler-body tc-reveal"><p>TiddlyRemember is mostly designed for using individual macro calls on your tiddlers to add questions associated with those tiddlers. However, since questions are just macro calls and you can make macro calls with parameters pulled from filters, it's also possible to dynamically generate questions based on arbitrary queries against your tiddlers.</p><p>To take a simple example, suppose that you want to make each question-and-answer pair into a separate tiddler, rather than including questions within other tiddlers. You might have a <code>question</code> field and an <code>answer</code> field on each of these tiddlers and tag them <code>TiddlyRememberNote</code>. Then in a new tiddler called, say, <code>TiddlyRememberNoteList</code>, you would write the following:</p><pre><code>&lt;$list filter=&quot;[tag[TiddlyRememberNote]]&quot;&gt;
+    &lt;$macrocall $name=rememberq id={{!!created}} question={{!!question}} answer={{!!answer}} reference={{!!title}} /&gt;
+&lt;/$list&gt;</code></pre><p>When you save, you will see the tiddler fill up with a list of TiddlyRemember notes. As long as the <code>TiddlyRememberNoteList</code> tiddler is matched by the filter used in your <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Configuring%2520the%2520Anki%2520add-on.html">Anki configuration</a>, TiddlyRemember will then happily import these notes into Anki.</p><p>You can see that we use the <code>created</code> field of each of these tiddlers as a <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Unique%2520ID.html">Unique ID</a> – this is quite suitable because it's a millisecond timestamp just like the <code>rememberq</code> and <code>remembercz</code> snippets create when you insert them. If you need to pull more than one question from a tiddler, you might have to get more creative.</p><p>You can also see that we used the optional <code>reference</code> parameter and set it to the title of each tiddler containing a question. If we hadn't used this parameter, all of our Anki notes would be cited as coming from <code>TiddlyRememberNoteList</code>, which is presumably not particularly helpful. For more on the <code>reference</code> parameter, see <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Soft%2520and%2520hard%2520references.html">Soft and hard references</a>.</p></div>
+
+
+
+</div>
+
+</p>
+</section>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="generator" content="TiddlyWiki" />
-<meta name="tiddlywiki-version" content="5.1.21" />
+<meta name="tiddlywiki-version" content="5.1.22" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -90,134 +90,43 @@ Error message and password prompt
 
 /*
 ** Start with the normalize CSS reset, and then belay some of its effects
-*//*! normalize.css v3.0.0 | MIT License | git.io/normalize */
+*//*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+/* Document
+   ========================================================================== */
 
 /**
- * 1. Set default font family to sans-serif.
- * 2. Prevent iOS text size adjust after orientation change, without disabling
- *    user zoom.
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
 html {
-  font-family: sans-serif; /* 1 */
-  -ms-text-size-adjust: 100%; /* 2 */
+  line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
+/* Sections
+   ========================================================================== */
+
 /**
- * Remove default margin.
+ * Remove the margin in all browsers.
  */
 
 body {
   margin: 0;
 }
 
-/* HTML5 display definitions
-   ========================================================================== */
-
 /**
- * Correct `block` display not defined in IE 8/9.
+ * Render the `main` element consistently in IE.
  */
 
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-main,
-nav,
-section,
-summary {
+main {
   display: block;
 }
 
 /**
- * 1. Correct `inline-block` display not defined in IE 8/9.
- * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
- */
-
-audio,
-canvas,
-progress,
-video {
-  display: inline-block; /* 1 */
-  vertical-align: baseline; /* 2 */
-}
-
-/**
- * Prevent modern browsers from displaying `audio` without controls.
- * Remove excess height in iOS 5 devices.
- */
-
-audio:not([controls]) {
-  display: none;
-  height: 0;
-}
-
-/**
- * Address `[hidden]` styling not present in IE 8/9.
- * Hide the `template` element in IE, Safari, and Firefox < 22.
- */
-
-[hidden],
-template {
-  display: none;
-}
-
-/* Links
-   ========================================================================== */
-
-/**
- * Remove the gray background color from active links in IE 10.
- */
-
-a {
-  background: transparent;
-}
-
-/**
- * Improve readability when focused and also mouse hovered in all browsers.
- */
-
-a:active,
-a:hover {
-  outline: 0;
-}
-
-/* Text-level semantics
-   ========================================================================== */
-
-/**
- * Address styling not present in IE 8/9, Safari 5, and Chrome.
- */
-
-abbr[title] {
-  border-bottom: 1px dotted;
-}
-
-/**
- * Address style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
- */
-
-b,
-strong {
-  font-weight: bold;
-}
-
-/**
- * Address styling not present in Safari 5 and Chrome.
- */
-
-dfn {
-  font-style: italic;
-}
-
-/**
- * Address variable `h1` font-size and margin within `section` and `article`
- * contexts in Firefox 4+, Safari 5, and Chrome.
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
  */
 
 h1 {
@@ -225,17 +134,75 @@ h1 {
   margin: 0.67em 0;
 }
 
+/* Grouping content
+   ========================================================================== */
+
 /**
- * Address styling not present in IE 8/9.
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
  */
 
-mark {
-  background: #ff0;
-  color: #000;
+hr {
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+  overflow: visible; /* 2 */
 }
 
 /**
- * Address inconsistent and variable font size in all browsers.
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+pre {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+
+a {
+  background-color: transparent;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+  border-bottom: none; /* 1 */
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+samp {
+  font-family: monospace, monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
  */
 
 small {
@@ -243,7 +210,8 @@ small {
 }
 
 /**
- * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
  */
 
 sub,
@@ -254,87 +222,31 @@ sup {
   vertical-align: baseline;
 }
 
-sup {
-  top: -0.5em;
-}
-
 sub {
   bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
 }
 
 /* Embedded content
    ========================================================================== */
 
 /**
- * Remove border when inside `a` element in IE 8/9.
+ * Remove the border on images inside links in IE 10.
  */
 
 img {
-  border: 0;
-}
-
-/**
- * Correct overflow displayed oddly in IE 9.
- */
-
-svg:not(:root) {
-  overflow: hidden;
-}
-
-/* Grouping content
-   ========================================================================== */
-
-/**
- * Address margin not present in IE 8/9 and Safari 5.
- */
-
-figure {
-  margin: 1em 40px;
-}
-
-/**
- * Address differences between Firefox and other browsers.
- */
-
-hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
-}
-
-/**
- * Contain overflow in all browsers.
- */
-
-pre {
-  overflow: auto;
-}
-
-/**
- * Address odd `em`-unit font size rendering in all browsers.
- */
-
-code,
-kbd,
-pre,
-samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
+  border-style: none;
 }
 
 /* Forms
    ========================================================================== */
 
 /**
- * Known limitation: by default, Chrome and Safari on OS X allow very limited
- * styling of `select`, unless a `border` property is set.
- */
-
-/**
- * 1. Correct color not being inherited.
- *    Known issue: affects color of disabled elements.
- * 2. Correct font properties not being inherited.
- * 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
  */
 
 button,
@@ -342,146 +254,100 @@ input,
 optgroup,
 select,
 textarea {
-  color: inherit; /* 1 */
-  font: inherit; /* 2 */
-  margin: 0; /* 3 */
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0; /* 2 */
 }
 
 /**
- * Address `overflow` set to `hidden` in IE 8/9/10.
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
  */
 
-button {
+button,
+input { /* 1 */
   overflow: visible;
 }
 
 /**
- * Address inconsistent `text-transform` inheritance for `button` and `select`.
- * All other form control elements do not inherit `text-transform` values.
- * Correct `button` style inheritance in Firefox, IE 8+, and Opera
- * Correct `select` style inheritance in Firefox.
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
  */
 
 button,
-select {
+select { /* 1 */
   text-transform: none;
 }
 
 /**
- * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
- *    and `video` controls.
- * 2. Correct inability to style clickable `input` types in iOS.
- * 3. Improve usability and consistency of cursor style between image-type
- *    `input` and others.
+ * Correct the inability to style clickable types in iOS and Safari.
  */
 
 button,
-html input[type="button"], /* 1 */
-input[type="reset"],
-input[type="submit"] {
-  -webkit-appearance: button; /* 2 */
-  cursor: pointer; /* 3 */
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
 }
 
 /**
- * Re-set default cursor for disabled elements.
- */
-
-button[disabled],
-html input[disabled] {
-  cursor: default;
-}
-
-/**
- * Remove inner padding and border in Firefox 4+.
+ * Remove the inner border and padding in Firefox.
  */
 
 button::-moz-focus-inner,
-input::-moz-focus-inner {
-  border: 0;
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
   padding: 0;
 }
 
 /**
- * Address Firefox 4+ setting `line-height` on `input` using `!important` in
- * the UA stylesheet.
+ * Restore the focus styles unset by the previous rule.
  */
 
-input {
-  line-height: normal;
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
 }
 
 /**
- * It's recommended that you don't attempt to style these elements.
- * Firefox's implementation doesn't respect box-sizing, padding, or width.
- *
- * 1. Address box sizing set to `content-box` in IE 8/9/10.
- * 2. Remove excess padding in IE 8/9/10.
- */
-
-input[type="checkbox"],
-input[type="radio"] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
-}
-
-/**
- * Fix the cursor style for Chrome's increment/decrement buttons. For certain
- * `font-size` values of the `input`, it causes the cursor style of the
- * decrement button to change from `default` to `text`.
- */
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  height: auto;
-}
-
-/**
- * 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
- * 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome
- *    (include `-moz` to future-proof).
- */
-
-input[type="search"] {
-  -webkit-appearance: textfield; /* 1 */
-  -moz-box-sizing: content-box;
-  -webkit-box-sizing: content-box; /* 2 */
-  box-sizing: content-box;
-}
-
-/**
- * Remove inner padding and search cancel button in Safari and Chrome on OS X.
- * Safari (but not Chrome) clips the cancel button when the search input has
- * padding (and `textfield` appearance).
- */
-
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-decoration {
-  -webkit-appearance: none;
-}
-
-/**
- * Define consistent border, margin, and padding.
+ * Correct the padding in Firefox.
  */
 
 fieldset {
-  border: 1px solid #c0c0c0;
-  margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
+  padding: 0.35em 0.75em 0.625em;
 }
 
 /**
- * 1. Correct `color` not being inherited in IE 8/9.
- * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
  */
 
 legend {
-  border: 0; /* 1 */
-  padding: 0; /* 2 */
+  box-sizing: border-box; /* 1 */
+  color: inherit; /* 2 */
+  display: table; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+  white-space: normal; /* 1 */
 }
 
 /**
- * Remove default vertical scrollbar in IE 8/9.
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+  vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
  */
 
 textarea {
@@ -489,29 +355,89 @@ textarea {
 }
 
 /**
- * Don't inherit the `font-weight` (applied by a rule above).
- * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
  */
 
-optgroup {
-  font-weight: bold;
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
 }
 
-/* Tables
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+
+details {
+  display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+
+summary {
+  display: list-item;
+}
+
+/* Misc
    ========================================================================== */
 
 /**
- * Remove most spacing between table cells.
+ * Add the correct display in IE 10+.
  */
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
+template {
+  display: none;
 }
 
-td,
-th {
-  padding: 0;
+/**
+ * Add the correct display in IE 10.
+ */
+
+[hidden] {
+  display: none;
 }
 *, input[type="search"] {
 	box-sizing: border-box;
@@ -570,6 +496,9 @@ th {
 	margin-left: 25px;
 	padding-left: 10px;
 	quotes: "\201C""\201D""\2018""\2019";
+}blockquote > div {
+	margin-top: 1em;
+	margin-bottom: 1em;
 }blockquote.tc-big-quote {
 	font-family: Georgia, serif;
 	position: relative;
@@ -651,6 +580,9 @@ pre > code {
 	caption-side: bottom;
 	margin-top: 1em;
 	margin-bottom: 1em;
+	/* next 2 elements needed, since normalize 8.0.1 */
+	border-collapse: collapse;
+	border-spacing: 0;
 }table th, table td {
 	padding: 0 7px 0 7px;
 	border-top: 1px solid #d8d8d8;
@@ -937,6 +869,8 @@ a.tc-tiddlylink:hover {
 }.tc-tag-label svg, .tc-tag-label img {
 	height: 1em;
 	width: 1em;
+	margin-right: 3px; 
+	margin-bottom: 1px;
 	vertical-align: text-bottom;
 }.tc-edit-tags button.tc-remove-tag-button svg {
 	font-size: 0.7em;
@@ -1097,6 +1031,7 @@ a.tc-tiddlylink:hover {
 	color: rgba(0, 0, 0, 0.87);
 }.tc-tiddler-title-icon {
 	vertical-align: middle;
+	margin-right: .1em;
 }.tc-system-title-prefix {
 	color: rgba(0, 0, 0, 0.54);
 }.tc-titlebar h2 {
@@ -1108,6 +1043,8 @@ a.tc-tiddlylink:hover {
 	font-size: 0.9em;
 	color: rgba(0, 0, 0, 0.54);
 	font-weight: 300;
+}.tc-subtitle .tc-tiddlylink {
+	margin-right: .3em;
 }.tc-tiddler-missing .tc-title {
   font-style: italic;
   font-weight: normal;
@@ -1274,6 +1211,8 @@ a.tc-tiddlylink:hover {
 	font-style: normal;
 }.tc-edit-type-dropdown a.tc-tiddlylink-missing {
 	font-style: normal;
+}.tc-type-selector .tc-edit-typeeditor {
+	width: 20%;
 }.tc-edit-tags {
 	border: 1px solid #e8e7e7;
 	padding: 4px 8px 4px 8px;
@@ -1331,7 +1270,9 @@ a.tc-tiddlylink:hover {
 	width: 10%;
 }/*
 ** Storyview Classes
-*/.tc-storyview-zoomin-tiddler {
+*/.tc-viewswitcher .tc-image-button {
+	margin-right: .3em;
+}.tc-storyview-zoomin-tiddler {
 	position: absolute;
 	display: block;
 	width: 100%;
@@ -1362,6 +1303,8 @@ a.tc-tiddlylink:hover {
 	fill: rgba(0, 0, 0, 0.87);
 }.tc-drop-down button.tc-btn-invisible:hover svg {
 	fill: rgba(0, 0, 0, 0.87);
+}.tc-drop-down .tc-drop-down-info {
+	padding-left: 14px;
 }.tc-drop-down p {
 	padding: 0 14px 0 14px;
 }.tc-drop-down svg {
@@ -1615,7 +1558,6 @@ a.tc-tiddlylink:hover {
 }.tc-tab-content {
 	margin-top: 14px;
 }.tc-tab-content.tc-vertical  {
-    word-break: break-word;
 	display: inline-block;
 	vertical-align: top;
 	padding-top: 0;
@@ -1623,6 +1565,7 @@ a.tc-tiddlylink:hover {
 	border-left: 1px solid transparent;
 	-webkit-flex: 1 0 70%;
 	flex: 1 0 70%;
+	overflow: auto;
 }.tc-sidebar-lists .tc-tab-buttons {
 	margin-bottom: -1px;
 }.tc-sidebar-lists .tc-tab-buttons button.tc-tab-selected {
@@ -1722,25 +1665,31 @@ a.tc-tiddlylink:hover {
 ** Alerts
 */.tc-alerts {
 	position: fixed;
-	top: 0;
+	top: 28px;
 	left: 0;
-	max-width: 500px;
+	right: 0;
+	max-width: 50%;
 	z-index: 20000;
 }.tc-alert {
 	position: relative;
-	margin: 28px;
-	padding: 14px 14px 14px 14px;
-	border: 2px solid rgba(0, 0, 0, 0.12);
+	margin: 14px;
+	padding: 7px;
+	border: 1px solid rgba(0, 0, 0, 0.12);
 	background-color: #FAFAFA;
 }.tc-alert-toolbar {
 	position: absolute;
-	top: 14px;
-	right: 14px;
+	top: 7px;
+	right: 7px;
+    line-height: 0;
 }.tc-alert-toolbar svg {
 	fill: rgba(0, 0, 0, 0.54);
 }.tc-alert-subtitle {
 	color: rgba(0, 0, 0, 0.54);
 	font-weight: bold;
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
+}.tc-alert-body > p {
+	margin: 0;
 }.tc-alert-highlight {
 	color: rgba(0, 0, 0, 0.12);
 }@media (min-width: 1000px) {.tc-static-alert {
@@ -1785,11 +1734,27 @@ a.tc-tiddlylink:hover {
 }.tc-control-panel table, .tc-control-panel table input, .tc-control-panel table textarea {
 	width: 100%;
 }.tc-plugin-info {
-	display: block;
+	display: flex;
 	border: 1px solid rgba(0, 0, 0, 0.54);
-	background-colour: #FAFAFA;
+	fill: rgba(0, 0, 0, 0.54);
+	background-color: #FAFAFA;
 	margin: 0.5em 0 0.5em 0;
 	padding: 4px;
+    align-items: center;
+}.tc-plugin-info-sub-plugins .tc-plugin-info {
+    margin: 0.5em;
+	background: #FAFAFA;
+}.tc-plugin-info-sub-plugin-indicator {
+	margin: -16px 1em 0 2em;
+}.tc-plugin-info-sub-plugin-indicator button {
+	color: #FAFAFA;
+	background: rgba(0, 0, 0, 0.87);
+	border-radius: 8px;
+    padding: 2px 7px;
+    font-size: 0.75em;
+}.tc-plugin-info-sub-plugins .tc-plugin-info-dropdown {
+	margin-left: 1em;
+	margin-right: 1em;
 }.tc-plugin-info-disabled {
 	background: -webkit-repeating-linear-gradient(45deg, #ff0, #ff0 10px, #eee 10px, #eee 20px);
 	background: repeating-linear-gradient(45deg, #ff0, #ff0 10px, #eee 10px, #eee 20px);
@@ -1804,30 +1769,44 @@ a.tc-tiddlylink:hover {
 }a.tc-tiddlylink.tc-plugin-info:hover .tc-plugin-info > .tc-plugin-info-chunk > svg {
 	fill: rgba(0, 0, 0, 0.87);
 }.tc-plugin-info-chunk {
-	display: inline-block;
-	vertical-align: middle;
-}.tc-plugin-info-chunk h1 {
-	font-size: 1em;
-	margin: 2px 0 2px 0;
-}.tc-plugin-info-chunk h2 {
+    margin: 2px;
+}.tc-plugin-info-chunk.tc-plugin-info-toggle {
+	flex-grow: 0;
+	flex-shrink: 0;
+	line-height: 1;
+}.tc-plugin-info-chunk.tc-plugin-info-icon {
+	flex-grow: 0;
+	flex-shrink: 0;
+	line-height: 1;
+}.tc-plugin-info-chunk.tc-plugin-info-description {
+	flex-grow: 1;
+}.tc-plugin-info-chunk.tc-plugin-info-buttons {
 	font-size: 0.8em;
+	line-height: 1.2;
+	flex-grow: 0;
+	flex-shrink: 0;
+    text-align: right;
+}.tc-plugin-info-chunk.tc-plugin-info-description h1 {
+	font-size: 1em;
+	line-height: 1.2;
 	margin: 2px 0 2px 0;
-}.tc-plugin-info-chunk div {
+}.tc-plugin-info-chunk.tc-plugin-info-description h2 {
+	font-size: 0.8em;
+	line-height: 1.2;
+	margin: 2px 0 2px 0;
+}.tc-plugin-info-chunk.tc-plugin-info-description div {
 	font-size: 0.7em;
+	line-height: 1.2;
 	margin: 2px 0 2px 0;
-}.tc-plugin-info:hover > .tc-plugin-info-chunk > img, .tc-plugin-info:hover > .tc-plugin-info-chunk > svg {
-	width: 2em;
-	height: 2em;
-	fill: rgba(0, 0, 0, 0.87);
-}.tc-plugin-info > .tc-plugin-info-chunk > img, .tc-plugin-info > .tc-plugin-info-chunk > svg {
-	width: 2em;
-	height: 2em;
-	fill: rgba(0, 0, 0, 0.54);
-}.tc-plugin-info.tc-small-icon > .tc-plugin-info-chunk > img, .tc-plugin-info.tc-small-icon > .tc-plugin-info-chunk > svg {
+}.tc-plugin-info-chunk.tc-plugin-info-toggle img, .tc-plugin-info-chunk.tc-plugin-info-toggle svg {
 	width: 1em;
 	height: 1em;
+}.tc-plugin-info-chunk.tc-plugin-info-icon img, .tc-plugin-info-chunk.tc-plugin-info-icon svg {
+	width: 2em;
+	height: 2em;
 }.tc-plugin-info-dropdown {
 	border: 1px solid rgba(0, 0, 0, 0.54);
+	background: #FAFAFA;
 	margin-top: -8px;
 }.tc-plugin-info-dropdown-message {
 	background: #FAFAFA;
@@ -1835,7 +1814,25 @@ a.tc-tiddlylink:hover {
 	font-weight: bold;
 	font-size: 0.8em;
 }.tc-plugin-info-dropdown-body {
-	padding: 1em 1em 1em 1em;
+	padding: 1em 1em 0 1em;
+	background: #FAFAFA;
+}.tc-plugin-info-sub-plugins {
+	padding: 0.5em;
+    margin: 0 1em 1em 1em;
+	background: #FFFFFF;
+}.tc-install-plugin {
+	font-weight: bold;
+	background: green;
+	color: white;
+	fill: white;
+	border-radius: 4px;
+	padding: 3px;
+}.tc-install-plugin.tc-reinstall-downgrade {
+	background: red;
+}.tc-install-plugin.tc-reinstall {
+	background: blue;
+}.tc-install-plugin.tc-reinstall-upgrade {
+	background: orange;
 }.tc-check-list {
 	line-height: 2em;
 }.tc-check-list .tc-image-button {
@@ -2143,6 +2140,10 @@ a.tc-tiddlylink:hover {
 }select {
         color: rgba(0, 0, 0, 0.87);
         background: #FAFAFA;
+}/*
+** Utility classes for SVG icons
+*/.tc-fill-background {
+	fill: #FAFAFA;
 }
 
 div.rememberq {
@@ -2156,7 +2157,7 @@ div.rememberq {
 	font-weight: bold;
 	color: #3949ab;
 	float: left;
-}div.rememberq div.rid {
+}div.rememberq div.tr-selfidentification {
 	float: right;
 	color: rgba(0, 0, 0, 0.54);
 }div.remembercz {
@@ -2164,83 +2165,43 @@ div.rememberq {
 	padding-left: 0.5em;
 }.remembercz > span.cloze-identifier {
 	color: #ec6;
-}.remembercz div.rid {
+}.remembercz div.tr-selfidentification {
 	float: right;
 	margin-left: 0.5em;
 	color: rgba(0, 0, 0, 0.54);
+}/* the separate reference and ID fields are only for TR's benefit */
+div.rememberq div.tr-reference, .remembercz div.tr-reference {
+	display: none;
+}div.rememberq div.rid, .remembercz div.rid {
+	display: none;
 }
-
 
 
 </style>
 </head>
 <body class="tc-body">
 
-<div class="tc-page-container tc-page-view-classic tc-language-en-GB"><div class="tc-dropzone"><span class="tc-topbar tc-topbar-left"></span><span class="tc-topbar tc-topbar-right"><span class=" tc-reveal">
-<button aria-label="hide sidebar" class="tc-btn-invisible" title="Hide sidebar"><svg class="tc-image-chevron-right tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt">
-    <g fill-rule="evenodd" transform="translate(-48.000000, -3.000000)">
-        <path d="M112.743107,112.12741 C111.310627,113.561013 109.331747,114.449239 107.145951,114.449239 L27.9777917,114.449239 C23.6126002,114.449239 20.0618714,110.904826 20.0618714,106.532572 C20.0618714,102.169214 23.6059497,98.6159054 27.9777917,98.6159054 L99.2285381,98.6159054 L99.2285381,27.365159 C99.2285381,22.9999675 102.77295,19.4492387 107.145205,19.4492387 C111.508562,19.4492387 115.061871,22.993317 115.061871,27.365159 L115.061871,106.533318 C115.061871,108.71579 114.175869,110.694669 112.743378,112.127981 Z" transform="translate(67.561871, 66.949239) rotate(-45.000000) translate(-67.561871, -66.949239) "></path>
-        <path d="M151.35638,112.12741 C149.923899,113.561013 147.94502,114.449239 145.759224,114.449239 L66.5910645,114.449239 C62.225873,114.449239 58.6751442,110.904826 58.6751442,106.532572 C58.6751442,102.169214 62.2192225,98.6159054 66.5910645,98.6159054 L137.841811,98.6159054 L137.841811,27.365159 C137.841811,22.9999675 141.386223,19.4492387 145.758478,19.4492387 C150.121835,19.4492387 153.675144,22.993317 153.675144,27.365159 L153.675144,106.533318 C153.675144,108.71579 152.789142,110.694669 151.356651,112.127981 Z" transform="translate(106.175144, 66.949239) rotate(-45.000000) translate(-106.175144, -66.949239) "></path>
-    </g>
-</svg></button>
-</span>
-<span class=" tc-reveal" hidden="true"></span>
-</span><div class="tc-sidebar-scrollable" style="overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;"><div><div class="tc-sidebar-header"><div class=" tc-reveal"><div class=" tc-reveal"><h1 class="tc-site-title">TiddlyRemember</h1></div><div class=" tc-reveal"><div class="tc-site-subtitle">Embed Anki notes in your TiddlyWiki</div></div><div class=" tc-reveal"><p><div class="tc-page-controls"><button aria-label="new tiddler" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fnew-tiddler" title="Create a new tiddler">
-
-<svg class="tc-image-new-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt">
-    <g fill-rule="evenodd">
-        <path d="M56,72 L8.00697327,72 C3.59075293,72 0,68.418278 0,64 C0,59.5907123 3.58484404,56 8.00697327,56 L56,56 L56,8.00697327 C56,3.59075293 59.581722,0 64,0 C68.4092877,0 72,3.58484404 72,8.00697327 L72,56 L119.993027,56 C124.409247,56 128,59.581722 128,64 C128,68.4092877 124.415156,72 119.993027,72 L72,72 L72,119.993027 C72,124.409247 68.418278,128 64,128 C59.5907123,128 56,124.415156 56,119.993027 L56,72 L56,72 Z"></path>
-    </g>
-</svg>
+<div class="tc-page-container tc-page-view-classic tc-language-en-GB"><div class="tc-dropzone"><span class="tc-topbar tc-topbar-left"></span><span class="tc-topbar tc-topbar-right">
+<button aria-label="hide sidebar" class="tc-btn-invisible" title="Hide sidebar"><svg class="tc-image-chevron-right tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M83.456 63.947c0 2.027-.77 4.054-2.316 5.6l-55.98 55.98a7.92 7.92 0 01-11.196 0c-3.085-3.086-3.092-8.105 0-11.196L64.344 63.95 13.963 13.567a7.92 7.92 0 010-11.195c3.086-3.085 8.105-3.092 11.196 0l55.98 55.98a7.892 7.892 0 012.317 5.595z"></path><path d="M122.069 63.947c0 2.027-.77 4.054-2.316 5.6l-55.98 55.98a7.92 7.92 0 01-11.196 0c-3.085-3.086-3.092-8.105 0-11.196l50.382-50.382-50.382-50.382a7.92 7.92 0 010-11.195c3.086-3.085 8.104-3.092 11.196 0l55.98 55.98a7.892 7.892 0 012.316 5.595z"></path></g></svg></button>
 
 
-</button>
-<button aria-label="control panel" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fcontrol-panel " title="Open control panel">
+</span><div class="tc-sidebar-scrollable" style="overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;"><div><div class="tc-sidebar-header"><div class=" tc-reveal"><div class=" tc-reveal"><h1 class="tc-site-title">TiddlyRemember</h1></div><div class=" tc-reveal"><div class="tc-site-subtitle">Embed Anki notes in your TiddlyWiki</div></div><div class=" tc-reveal"><p><div class="tc-page-controls"><button aria-label="new tiddler" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fnew-tiddler" title="Create a new tiddler"><svg class="tc-image-new-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M56 72H8.007C3.591 72 0 68.418 0 64c0-4.41 3.585-8 8.007-8H56V8.007C56 3.591 59.582 0 64 0c4.41 0 8 3.585 8 8.007V56h47.993c4.416 0 8.007 3.582 8.007 8 0 4.41-3.585 8-8.007 8H72v47.993c0 4.416-3.582 8.007-8 8.007-4.41 0-8-3.585-8-8.007V72z" fill-rule="evenodd"></path></svg></button><button aria-label="control panel" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fcontrol-panel " title="Open control panel">
 
-<svg class="tc-image-options-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt">
-    <g fill-rule="evenodd">
-        <path d="M110.48779,76.0002544 C109.354214,80.4045063 107.611262,84.5641217 105.354171,88.3838625 L105.354171,88.3838625 L112.07833,95.1080219 C115.20107,98.2307613 115.210098,103.299824 112.089164,106.420759 L106.420504,112.089418 C103.301049,115.208874 98.2346851,115.205502 95.1077675,112.078585 L88.3836082,105.354425 C84.5638673,107.611516 80.4042519,109.354468 76,110.488045 L76,110.488045 L76,119.993281 C76,124.409501 72.4220153,128.000254 68.0083475,128.000254 L59.9916525,128.000254 C55.5800761,128.000254 52,124.41541 52,119.993281 L52,110.488045 C47.5957481,109.354468 43.4361327,107.611516 39.6163918,105.354425 L32.8922325,112.078585 C29.7694931,115.201324 24.7004301,115.210353 21.5794957,112.089418 L15.9108363,106.420759 C12.7913807,103.301303 12.7947522,98.2349395 15.9216697,95.1080219 L22.6458291,88.3838625 C20.3887383,84.5641217 18.6457859,80.4045063 17.5122098,76.0002544 L8.00697327,76.0002544 C3.59075293,76.0002544 2.19088375e-16,72.4222697 4.89347582e-16,68.0086019 L9.80228577e-16,59.9919069 C1.25035972e-15,55.5803305 3.58484404,52.0002544 8.00697327,52.0002544 L17.5122098,52.0002544 C18.6457859,47.5960025 20.3887383,43.4363871 22.6458291,39.6166462 L15.9216697,32.8924868 C12.7989304,29.7697475 12.7899019,24.7006845 15.9108363,21.5797501 L21.5794957,15.9110907 C24.6989513,12.7916351 29.7653149,12.7950065 32.8922325,15.9219241 L39.6163918,22.6460835 C43.4361327,20.3889927 47.5957481,18.6460403 52,17.5124642 L52,8.00722764 C52,3.5910073 55.5779847,0.000254375069 59.9916525,0.000254375069 L68.0083475,0.000254375069 C72.4199239,0.000254375069 76,3.58509841 76,8.00722764 L76,17.5124642 C80.4042519,18.6460403 84.5638673,20.3889927 88.3836082,22.6460835 L95.1077675,15.9219241 C98.2305069,12.7991848 103.29957,12.7901562 106.420504,15.9110907 L112.089164,21.5797501 C115.208619,24.6992057 115.205248,29.7655693 112.07833,32.8924868 L105.354171,39.6166462 L105.354171,39.6166462 C107.611262,43.4363871 109.354214,47.5960025 110.48779,52.0002544 L119.993027,52.0002544 C124.409247,52.0002544 128,55.5782391 128,59.9919069 L128,68.0086019 C128,72.4201783 124.415156,76.0002544 119.993027,76.0002544 L110.48779,76.0002544 L110.48779,76.0002544 Z M64,96.0002544 C81.673112,96.0002544 96,81.6733664 96,64.0002544 C96,46.3271424 81.673112,32.0002544 64,32.0002544 C46.326888,32.0002544 32,46.3271424 32,64.0002544 C32,81.6733664 46.326888,96.0002544 64,96.0002544 Z"></path>
-    </g>
-</svg>
+<svg class="tc-image-options-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M110.488 76a47.712 47.712 0 01-5.134 12.384l6.724 6.724c3.123 3.123 3.132 8.192.011 11.313l-5.668 5.668c-3.12 3.12-8.186 3.117-11.313-.01l-6.724-6.725c-3.82 2.258-7.98 4-12.384 5.134v9.505c0 4.417-3.578 8.007-7.992 8.007h-8.016C55.58 128 52 124.415 52 119.993v-9.505a47.712 47.712 0 01-12.384-5.134l-6.724 6.725c-3.123 3.122-8.192 3.131-11.313.01l-5.668-5.668c-3.12-3.12-3.116-8.186.01-11.313l6.725-6.724c-2.257-3.82-4-7.98-5.134-12.384H8.007C3.591 76 0 72.422 0 68.01v-8.017C0 55.58 3.585 52 8.007 52h9.505a47.712 47.712 0 015.134-12.383l-6.724-6.725c-3.123-3.122-3.132-8.191-.011-11.312l5.668-5.669c3.12-3.12 8.186-3.116 11.313.01l6.724 6.725c3.82-2.257 7.98-4 12.384-5.134V8.007C52 3.591 55.578 0 59.992 0h8.016C72.42 0 76 3.585 76 8.007v9.505a47.712 47.712 0 0112.384 5.134l6.724-6.724c3.123-3.123 8.192-3.132 11.313-.01l5.668 5.668c3.12 3.12 3.116 8.186-.01 11.312l-6.725 6.725c2.257 3.82 4 7.979 5.134 12.383h9.505c4.416 0 8.007 3.578 8.007 7.992v8.017c0 4.411-3.585 7.991-8.007 7.991h-9.505zM64 96c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z" fill-rule="evenodd"></path></svg>
 
 
-</button>
-<button aria-label="save changes" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fsave-wiki" title="Save changes">
+</button><button aria-label="save changes" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fsave-wiki" title="Save changes">
 
 
 
 <span class="tc-dirty-indicator">
 
-<svg class="tc-image-save-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt">
-    <g fill-rule="evenodd">
-        <path d="M120.78304,34.329058 C125.424287,43.1924006 128.049406,53.2778608 128.049406,63.9764502 C128.049406,99.3226742 99.3956295,127.97645 64.0494055,127.97645 C28.7031816,127.97645 0.0494055385,99.3226742 0.0494055385,63.9764502 C0.0494055385,28.6302262 28.7031816,-0.0235498012 64.0494055,-0.0235498012 C82.8568763,-0.0235498012 99.769563,8.08898558 111.479045,21.0056358 L114.159581,18.3250998 C117.289194,15.1954866 122.356036,15.1939641 125.480231,18.3181584 C128.598068,21.4359957 128.601317,26.5107804 125.473289,29.6388083 L120.78304,34.329058 Z M108.72451,46.3875877 C110.870571,51.8341374 112.049406,57.767628 112.049406,63.9764502 C112.049406,90.4861182 90.5590735,111.97645 64.0494055,111.97645 C37.5397375,111.97645 16.0494055,90.4861182 16.0494055,63.9764502 C16.0494055,37.4667822 37.5397375,15.9764502 64.0494055,15.9764502 C78.438886,15.9764502 91.3495036,22.308215 100.147097,32.3375836 L58.9411255,73.5435552 L41.975581,56.5780107 C38.8486152,53.4510448 33.7746915,53.4551552 30.6568542,56.5729924 C27.5326599,59.6971868 27.5372202,64.7670668 30.6618725,67.8917192 L53.279253,90.5090997 C54.8435723,92.073419 56.8951519,92.8541315 58.9380216,92.8558261 C60.987971,92.8559239 63.0389578,92.0731398 64.6049211,90.5071765 L108.72451,46.3875877 Z"></path>
-    </g>
-</svg>
+<svg class="tc-image-save-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M120.783 34.33c4.641 8.862 7.266 18.948 7.266 29.646 0 35.347-28.653 64-64 64-35.346 0-64-28.653-64-64 0-35.346 28.654-64 64-64 18.808 0 35.72 8.113 47.43 21.03l2.68-2.68c3.13-3.13 8.197-3.132 11.321-.008 3.118 3.118 3.121 8.193-.007 11.32l-4.69 4.691zm-12.058 12.058a47.876 47.876 0 013.324 17.588c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48c14.39 0 27.3 6.332 36.098 16.362L58.941 73.544 41.976 56.578c-3.127-3.127-8.201-3.123-11.32-.005-3.123 3.124-3.119 8.194.006 11.319l22.617 22.617a7.992 7.992 0 005.659 2.347c2.05 0 4.101-.783 5.667-2.349l44.12-44.12z" fill-rule="evenodd"></path></svg>
 
 
 </span>
-</button></div></p></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-search"><p>
-<div class="tc-search">
-<input class="tc-popup-handle" type="search" value="">
-<span class=" tc-reveal" hidden="true"></span>
-<span class=" tc-reveal">
-<button aria-label="advanced search" class="tc-btn-invisible" title="Advanced search">
-<svg class="tc-image-advanced-search-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt">
-    <g fill-rule="evenodd">
-        <path d="M74.5651535,87.9848361 C66.9581537,93.0488876 57.8237115,96 48,96 C21.490332,96 0,74.509668 0,48 C0,21.490332 21.490332,0 48,0 C74.509668,0 96,21.490332 96,48 C96,57.8541369 93.0305793,67.0147285 87.9377231,74.6357895 L122.284919,108.982985 C125.978897,112.676963 125.973757,118.65366 122.284271,122.343146 C118.593975,126.033442 112.613238,126.032921 108.92411,122.343793 L74.5651535,87.9848361 Z M48,80 C65.673112,80 80,65.673112 80,48 C80,30.326888 65.673112,16 48,16 C30.326888,16 16,30.326888 16,48 C16,65.673112 30.326888,80 48,80 Z"></path>
-        <circle cx="48" cy="48" r="8"></circle>
-        <circle cx="28" cy="48" r="8"></circle>
-        <circle cx="68" cy="48" r="8"></circle>
-    </g>
-</svg>
-</button>
-</span>
-</div>
-
-<div class="tc-block-dropdown-wrapper tc-reveal" hidden="true"></div>
-
-</p></div></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-tabs"><p><div class="tc-tab-set ">
-<div class="tc-tab-buttons ">
+</button></div></p></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-search"><p><div class="tc-search"><input class="tc-popup-handle" type="search" value=""><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="advanced search" class="tc-btn-invisible" title="Advanced search"><svg class="tc-image-advanced-search-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M74.565 87.985A47.776 47.776 0 0148 96C21.49 96 0 74.51 0 48S21.49 0 48 0s48 21.49 48 48c0 9.854-2.97 19.015-8.062 26.636l34.347 34.347a9.443 9.443 0 010 13.36 9.446 9.446 0 01-13.36 0l-34.36-34.358zM48 80c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z"></path><circle cx="48" cy="48" r="8"></circle><circle cx="28" cy="48" r="8"></circle><circle cx="68" cy="48" r="8"></circle></g></svg></button></span></div><div class="tc-block-dropdown-wrapper tc-reveal" hidden="true"></div></p></div></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-tabs"><p><div class="tc-tab-set tc-sidebar-tabs-main">
+<div class="tc-tab-buttons tc-sidebar-tabs-main">
 <button class=" tc-tab-selected">
 
 
@@ -2267,68 +2228,21 @@ More
 
 </button>
 </div>
-<div class="tc-tab-divider "></div>
-<div class="tc-tab-content ">
-<div class=" tc-reveal"><p><div class="tc-sidebar-tab-open"><div class="tc-sidebar-tab-open-item"><span class=" tc-droppable"><div class="tc-droppable-placeholder"></div><div><button aria-label="close" class="tc-btn-invisible tc-btn-mini" title="Close this tiddler"><svg class="tc-image-close-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt">
-    <g fill-rule="evenodd">
-        <path d="M65.0864256,75.4091629 L14.9727349,125.522854 C11.8515951,128.643993 6.78104858,128.64922 3.65685425,125.525026 C0.539017023,122.407189 0.5336324,117.334539 3.65902635,114.209145 L53.7727171,64.0954544 L3.65902635,13.9817637 C0.537886594,10.8606239 0.532659916,5.79007744 3.65685425,2.6658831 C6.77469148,-0.451954124 11.8473409,-0.457338747 14.9727349,2.66805521 L65.0864256,52.7817459 L115.200116,2.66805521 C118.321256,-0.453084553 123.391803,-0.458311231 126.515997,2.6658831 C129.633834,5.78372033 129.639219,10.8563698 126.513825,13.9817637 L76.4001341,64.0954544 L126.513825,114.209145 C129.634965,117.330285 129.640191,122.400831 126.515997,125.525026 C123.39816,128.642863 118.32551,128.648248 115.200116,125.522854 L65.0864256,75.4091629 L65.0864256,75.4091629 Z"></path>
-    </g>
-</svg>
-</button> <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/TiddlyRemember.html">TiddlyRemember</a></div></span></div><div><span class=" tc-droppable"><div class="tc-droppable-placeholder"></div><div><button class="tc-btn-invisible tc-btn-mini">close all</button></div></span></div></div></p></div><div class=" tc-reveal" hidden="true"></div><div class=" tc-reveal" hidden="true"></div><div class=" tc-reveal" hidden="true"></div>
+<div class="tc-tab-divider tc-sidebar-tabs-main"></div>
+<div class="tc-tab-content tc-sidebar-tabs-main">
+<div class=" tc-reveal"><p><div class="tc-sidebar-tab-open"><div class="tc-sidebar-tab-open-item"><span class=" tc-droppable"><div class="tc-droppable-placeholder"></div><div><button aria-label="close" class="tc-btn-invisible tc-btn-mini" title="Close this tiddler"><svg class="tc-image-close-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M65.086 75.41l-50.113 50.113c-3.121 3.121-8.192 3.126-11.316.002-3.118-3.118-3.123-8.19.002-11.316l50.114-50.114L3.659 13.982C.538 10.86.533 5.79 3.657 2.666c3.118-3.118 8.19-3.123 11.316.002l50.113 50.114L115.2 2.668c3.121-3.121 8.192-3.126 11.316-.002 3.118 3.118 3.123 8.19-.002 11.316L76.4 64.095l50.114 50.114c3.121 3.121 3.126 8.192.002 11.316-3.118 3.118-8.19 3.123-11.316-.002L65.086 75.409z" fill-rule="evenodd"></path></svg></button> <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/TiddlyRemember.html">TiddlyRemember</a></div></span></div><div><span class=" tc-droppable"><div class="tc-droppable-placeholder"></div><div><button class="tc-btn-invisible tc-btn-mini">close all</button></div></span></div></div></p></div><div class=" tc-reveal" hidden="true"></div><div class=" tc-reveal" hidden="true"></div><div class=" tc-reveal" hidden="true"></div>
 </div>
-</div></p></div></div></div></div></div></div><section class="tc-story-river"><section class="story-backdrop"></section><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="TiddlyRemember"><div class="tc-tiddler-title">
-<div class="tc-titlebar">
-<span class="tc-tiddler-controls">
-<span class=" tc-reveal"><button aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"><svg class="tc-image-down-arrow tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt">
-    <path d="M109.35638,81.3533152 C107.923899,82.7869182 105.94502,83.6751442 103.759224,83.6751442 L24.5910645,83.6751442 C20.225873,83.6751442 16.6751442,80.1307318 16.6751442,75.7584775 C16.6751442,71.3951199 20.2192225,67.8418109 24.5910645,67.8418109 L95.8418109,67.8418109 L95.8418109,-3.40893546 C95.8418109,-7.77412698 99.3862233,-11.3248558 103.758478,-11.3248558 C108.121835,-11.3248558 111.675144,-7.78077754 111.675144,-3.40893546 L111.675144,75.7592239 C111.675144,77.9416955 110.789142,79.9205745 109.356651,81.3538862 Z" transform="translate(64.175144, 36.175144) rotate(45.000000) translate(-64.175144, -36.175144) "></path>
-</svg></button><div class=" tc-reveal" hidden="true"></div></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"><svg class="tc-image-edit-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt">
-    <g fill-rule="evenodd">
-        <path d="M116.870058,45.3431458 L108.870058,45.3431458 L108.870058,45.3431458 L108.870058,61.3431458 L116.870058,61.3431458 L116.870058,45.3431458 Z M124.870058,45.3431458 L127.649881,45.3431458 C132.066101,45.3431458 135.656854,48.9248678 135.656854,53.3431458 C135.656854,57.7524334 132.07201,61.3431458 127.649881,61.3431458 L124.870058,61.3431458 L124.870058,45.3431458 Z M100.870058,45.3431458 L15.6638275,45.3431458 C15.5064377,45.3431458 15.3501085,45.3476943 15.1949638,45.3566664 L15.1949638,45.3566664 C15.0628002,45.3477039 14.928279,45.3431458 14.7913977,45.3431458 C6.68160973,45.3431458 -8.34314575,53.3431458 -8.34314575,53.3431458 C-8.34314575,53.3431458 6.85614548,61.3431458 14.7913977,61.3431458 C14.9266533,61.3431458 15.0596543,61.3384973 15.190398,61.3293588 C15.3470529,61.3385075 15.5049057,61.3431458 15.6638275,61.3431458 L100.870058,61.3431458 L100.870058,45.3431458 L100.870058,45.3431458 Z" transform="translate(63.656854, 53.343146) rotate(-45.000000) translate(-63.656854, -53.343146) "></path>
-        <path d="M35.1714596,124.189544 C41.9594858,123.613403 49.068777,121.917633 58.85987,118.842282 C60.6854386,118.268877 62.4306907,117.705515 65.1957709,116.802278 C81.1962861,111.575575 87.0734839,109.994907 93.9414474,109.655721 C102.29855,109.242993 107.795169,111.785371 111.520478,118.355045 C112.610163,120.276732 115.051363,120.951203 116.97305,119.861518 C118.894737,118.771832 119.569207,116.330633 118.479522,114.408946 C113.146151,105.003414 104.734907,101.112919 93.5468356,101.66546 C85.6716631,102.054388 79.4899908,103.716944 62.7116783,109.197722 C59.9734132,110.092199 58.2519873,110.64787 56.4625698,111.20992 C37.002649,117.322218 25.6914684,118.282267 16.8654804,112.957098 C14.9739614,111.815848 12.5154166,112.424061 11.3741667,114.31558 C10.2329168,116.207099 10.84113,118.665644 12.7326489,119.806894 C19.0655164,123.627836 26.4866335,124.926678 35.1714596,124.189544 Z"></path>
-    </g>
-</svg></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"><svg class="tc-image-close-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt">
-    <g fill-rule="evenodd">
-        <path d="M65.0864256,75.4091629 L14.9727349,125.522854 C11.8515951,128.643993 6.78104858,128.64922 3.65685425,125.525026 C0.539017023,122.407189 0.5336324,117.334539 3.65902635,114.209145 L53.7727171,64.0954544 L3.65902635,13.9817637 C0.537886594,10.8606239 0.532659916,5.79007744 3.65685425,2.6658831 C6.77469148,-0.451954124 11.8473409,-0.457338747 14.9727349,2.66805521 L65.0864256,52.7817459 L115.200116,2.66805521 C118.321256,-0.453084553 123.391803,-0.458311231 126.515997,2.6658831 C129.633834,5.78372033 129.639219,10.8563698 126.513825,13.9817637 L76.4001341,64.0954544 L126.513825,114.209145 C129.634965,117.330285 129.640191,122.400831 126.515997,125.525026 C123.39816,128.642863 118.32551,128.648248 115.200116,125.522854 L65.0864256,75.4091629 L65.0864256,75.4091629 Z"></path>
-    </g>
-</svg>
-</button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span>
-</span>
-
-<span>
-
-<span class="tc-tiddler-title-icon" style="fill:;">
-
-</span>
-
-
-
-<h2 class="tc-title">
-TiddlyRemember
-</h2>
-
-</span>
-
-</div>
-
-<div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div>
-</div><div class=" tc-reveal" hidden="true"></div>
-<div class=" tc-reveal">
-<div class="tc-subtitle">
-<a class="tc-tiddlylink tc-tiddlylink-missing" href="static/.html">
-
-</a> 26th May 2020 at 4:01pm
-</div>
-</div>
-<div class=" tc-reveal">
+</div></p></div></div></div></div></div></div><section class="tc-story-river"><section class="story-backdrop"></section><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="TiddlyRemember"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><span class=" tc-reveal"><button aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"><svg class="tc-image-down-arrow tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M64.177 100.069a7.889 7.889 0 01-5.6-2.316l-55.98-55.98a7.92 7.92 0 010-11.196c3.086-3.085 8.105-3.092 11.196 0l50.382 50.382 50.382-50.382a7.92 7.92 0 0111.195 0c3.086 3.086 3.092 8.104 0 11.196l-55.98 55.98a7.892 7.892 0 01-5.595 2.316z"></path></svg></button><div class=" tc-reveal" hidden="true"></div></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"><svg class="tc-image-edit-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M95.627 10.059l-5.656 5.657 11.313 11.313 5.657-5.656-11.314-11.314zm5.657-5.657l1.966-1.966c3.123-3.122 8.194-3.129 11.319-.005 3.117 3.118 3.122 8.192-.005 11.32l-1.966 1.965-11.314-11.314zm-16.97 16.97l-60.25 60.25a8.12 8.12 0 00-.322.342c-.1.087-.198.179-.295.275-5.735 5.735-10.702 22.016-10.702 22.016s16.405-5.09 22.016-10.702c.095-.096.186-.193.272-.292a8.12 8.12 0 00.345-.325l60.25-60.25-11.314-11.313zM35.171 124.19c6.788-.577 13.898-2.272 23.689-5.348 1.825-.573 3.57-1.136 6.336-2.04 16-5.226 21.877-6.807 28.745-7.146 8.358-.413 13.854 2.13 17.58 8.699a4 4 0 006.959-3.946c-5.334-9.406-13.745-13.296-24.933-12.744-7.875.39-14.057 2.052-30.835 7.533-2.739.894-4.46 1.45-6.25 2.012-19.46 6.112-30.77 7.072-39.597 1.747a4 4 0 10-4.132 6.85c6.333 3.82 13.754 5.12 22.438 4.383z"></path></g></svg></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"><svg class="tc-image-close-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M65.086 75.41l-50.113 50.113c-3.121 3.121-8.192 3.126-11.316.002-3.118-3.118-3.123-8.19.002-11.316l50.114-50.114L3.659 13.982C.538 10.86.533 5.79 3.657 2.666c3.118-3.118 8.19-3.123 11.316.002l50.113 50.114L115.2 2.668c3.121-3.121 8.192-3.126 11.316-.002 3.118 3.118 3.123 8.19-.002 11.316L76.4 64.095l50.114 50.114c3.121 3.121 3.126 8.192.002 11.316-3.118 3.118-8.19 3.123-11.316-.002L65.086 75.409z" fill-rule="evenodd"></path></svg></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span></span><span><span class="tc-tiddler-title-icon" style="fill:;"></span><h2 class="tc-title">TiddlyRemember</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href="static/.html"></a>30th July 2020 at 10:26pm</div></div><div class=" tc-reveal">
 <div class="tc-tags-wrapper"></div>
 </div>
 
-<div class="tc-tiddler-body tc-reveal"><table><tbody><tr class="evenRow"><th align="left">Version</th><td>1.0.1</td></tr><tr class="oddRow"><th align="left">Published</th><td>May 26th, 2020</td></tr><tr class="evenRow"><th align="left">TW5 compatibility</th><td>&gt;= 5.1.21</td></tr><tr class="oddRow"><th align="left">Anki compatibility</th><td>&gt;= 2.1.24</td></tr><tr class="evenRow"><th align="left">GitHub</th><td><a class="tc-tiddlylink-external" href="https://github.com/sobjornstad/TiddlyRemember" rel="noopener noreferrer" target="_blank">https://github.com/sobjornstad/TiddlyRemember</a></td></tr></tbody></table><p>TiddlyRemember is a tool that integrates the <a class="tc-tiddlylink-external" href="https://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> non-linear note-taking system with the spaced-repetition-flashcards tool <a class="tc-tiddlylink-external" href="https://apps.ankiweb.net" rel="noopener noreferrer" target="_blank">Anki</a>.
+<div class="tc-tiddler-body tc-reveal"><table><tbody><tr class="evenRow"><th align="left">Version</th><td>1.1.0</td></tr><tr class="oddRow"><th align="left">Published</th><td>July 30th, 2020</td></tr><tr class="evenRow"><th align="left">TW5 compatibility</th><td>&gt;= 5.1.21</td></tr><tr class="oddRow"><th align="left">Anki compatibility</th><td>&gt;= 2.1.28</td></tr><tr class="evenRow"><th align="left">GitHub</th><td><a class="tc-tiddlylink-external" href="https://github.com/sobjornstad/TiddlyRemember" rel="noopener noreferrer" target="_blank">https://github.com/sobjornstad/TiddlyRemember</a></td></tr></tbody></table><p>TiddlyRemember is a tool that integrates the <a class="tc-tiddlylink-external" href="https://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> non-linear note-taking system with the spaced-repetition-flashcards tool <a class="tc-tiddlylink-external" href="https://apps.ankiweb.net" rel="noopener noreferrer" target="_blank">Anki</a>.
 You can interleave questions with your notes in TiddlyWiki,
     then sync them into Anki notes with one click.
 You can edit and move the questions around your TiddlyWiki,
     and they will stay connected to the Anki notes.
-Scheduling information in Anki is preserved when editing notes in TiddlyWiki.</p><p>Why would you want to keep your Anki notes in TiddlyWiki?</p><ul><li>One of the problems with using spaced repetition to study complex topics is that individual cards end up largely without context, and if you need a refresher, it's hard to find the original source. TiddlyRemember can take you right back to your notes.</li><li>If you already have notes on a topic, this can help keep your content more <a class="tc-tiddlylink-external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" rel="noopener noreferrer" target="_blank">DRY</a> – you don't have to maintain the same knowledge in two places. If your knowledge on a topic changes and you update your notes or flashcards, they won't get out of sync.</li><li>You can easily add notes to your Anki collection at the same time you're taking narrative or outline notes, without having to switch back and forth between two applications.</li></ul><p>You can write <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/Question-and-answer%2520notes.html">Question-and-answer notes</a>:</p><p><div class="rememberq">
+Scheduling information in Anki is preserved when editing notes in TiddlyWiki.</p><p>Why would you want to keep your Anki notes in TiddlyWiki?</p><ul><li>One of the problems with using spaced repetition to study complex topics is that individual cards can end up largely without context, and if you need a refresher, it's hard to find the original source. TiddlyRemember can take you right back to your notes.</li><li>If you already have notes on a topic, this can help keep your content more <a class="tc-tiddlylink-external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" rel="noopener noreferrer" target="_blank">DRY</a> – you don't have to maintain the same knowledge in two places. If your knowledge on a topic changes and you update your notes or flashcards, they won't get out of sync.</li><li>You can easily add notes to your Anki collection at the same time you're taking narrative or outline notes, without having to switch back and forth between two applications.</li></ul><p>You can write <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/Question-and-answer%2520notes.html">Question-and-answer notes</a>:</p><p><div class="rememberq">
         <div class="rquestion">
             <div>Q:</div>
             <p>What tool does TiddlyRemember integrate TiddlyWiki with?</p>
@@ -2337,16 +2251,32 @@ Scheduling information in Anki is preserved when editing notes in TiddlyWiki.</p
             <div>A:</div>
             <p>Anki.</p>
         </div>
+		<div class="tr-selfidentification">
+			
+				[20200523175149066]
+			
+		</div>
         <div class="rid">
             [20200523175149066]
         </div>
+		<div class="tr-reference">
+			
+		</div>
     </div></p><p>Or you can use <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/Cloze%2520notes.html">Cloze notes</a>:</p><p>
 	
 		<div class="remembercz">
 		<span class="cloze-identifier">cloze: </span>
 		<span class="cloze-text">TiddlyRemember integrates TiddlyWiki with {Anki}.</span>
+		<div class="tr-selfidentification">
+			
+				[20200523175253647]
+			
+		</div>
 		<div class="rid">
 			[20200523175253647]
+		</div>
+		<div class="tr-reference">
+			
 		</div>
 	</div>
 	</p><p>Ready to get started?</p><p><div class="tc-tab-set tc-vertical">
