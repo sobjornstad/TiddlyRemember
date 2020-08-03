@@ -10,6 +10,7 @@ import requests
 import subprocess
 from tempfile import TemporaryDirectory
 from typing import Callable, Optional, Set, Sequence
+import urllib
 
 from bs4 import BeautifulSoup
 
@@ -85,7 +86,8 @@ def _notes_from_paths(
     for index, tiddler in enumerate(paths, 0):
         with open(tiddler, 'rb') as f:
             tid_text = f.read().decode()
-        tid_name = tiddler.name[:tiddler.name.find(f".{RENDERED_FILE_EXTENSION}")]
+        tid_name = urllib.parse.unquote(
+            tiddler.name[:tiddler.name.find(f".{RENDERED_FILE_EXTENSION}")])
         notes.update(_notes_from_tiddler(tid_text, wiki_name, tid_name))
 
         if callback is not None and not index % 50:
