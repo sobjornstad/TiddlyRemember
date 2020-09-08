@@ -265,7 +265,7 @@ class ClozeNote(TwNote):
 
     @classmethod
     def wants_soup(cls, soup: BeautifulSoup) -> bool:
-        return bool(soup.find("div", class_="remembercz"))
+        return bool(soup.find(class_="remembercz"))
 
     def _fields_equal(self, anki_note: Note) -> bool:
         return (
