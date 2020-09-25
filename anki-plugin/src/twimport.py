@@ -6,13 +6,13 @@ about a wiki, returns a set of TwNotes that it found in this wiki.
 """
 import os
 from pathlib import Path
-import requests
 import subprocess
 from tempfile import TemporaryDirectory
 from typing import Callable, Optional, Set, Sequence
 import urllib
 
 from bs4 import BeautifulSoup
+import requests
 
 from .twnote import TwNote
 from .util import nowin_startupinfo
@@ -58,16 +58,16 @@ def _invoke_tw_command(cmd: Sequence[str], wiki_path: Optional[str],
         proc = subprocess.run(cmd, cwd=wiki_path, stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT, check=True,
                               startupinfo=nowin_startupinfo())
-    except FileNotFoundError:
+    except FileNotFoundError as e:
         raise Exception(
             f"The TiddlyWiki executable at '{cmd[0]}' was not found. Please set the "
             f"'tiddlywikiBinary' option in your TiddlyRemember configuration to the "
             f"path to your 'tiddlywiki' command. If you do not have TiddlyWiki on "
-            f"Node.JS installed on your computer, please install it now.")
+            f"Node.JS installed on your computer, please install it now.") from e
     except subprocess.CalledProcessError as proc:
         stdout = proc.stdout.decode() if proc.stdout else "(no output)"
         raise Exception(f"Failed to {description}: return code {proc.returncode}.\n"
-                        f"$ {' '.join(proc.cmd)}\n\n{stdout}")
+                        f"$ {' '.join(proc.cmd)}\n\n{stdout}") from proc
 
 
 def _notes_from_paths(
@@ -176,7 +176,7 @@ def find_notes(
         elif wiki_type == 'folder':
             wiki_folder = wiki_path
         elif wiki_type == 'url':
-            downloaded_file = os.path.join(tmpdir, 'wiki.html') 
+            downloaded_file = os.path.join(tmpdir, 'wiki.html')
             _download_wiki(url=wiki_path, target_location=downloaded_file)
             wiki_folder = os.path.join(tmpdir, 'wikifolder')
             _folderify_wiki(tw_binary, downloaded_file, wiki_folder)

@@ -11,7 +11,7 @@ Anki and not in TiddlyWiki will be lost at this point.
 
 The sync() method is the public interface to this module.
 """
-from typing import Any, Dict, NewType, Set, cast
+from typing import Any, Dict, Set, cast
 
 from anki.notes import Note
 

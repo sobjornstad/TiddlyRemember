@@ -123,7 +123,7 @@ def ankify_clozes(text: str) -> str:
     for index, occlusion in zip(next_occlusion_number(used_occlusion_numbers),
                                 deferred_mappings):
         occlusion.anki_index = index
-    
+
     # Replace placeholders with the cleansed, explicified, Anki-format occlusions.
     return placeholder_text.format(*(i.anki_occlusion for i in occlusions))
 

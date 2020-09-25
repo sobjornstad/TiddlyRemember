@@ -122,6 +122,7 @@ class ModelData(ABC):
                 mapping[idx] = other.field_index(cls, field)
         return mapping
 
+    # pylint: disable=unused-argument
     @classmethod
     def field_index(cls, from_type: 'Type[ModelData]',
                     from_field_name: str) -> Optional[int]:
@@ -167,7 +168,9 @@ class ModelData(ABC):
 
 
 class TiddlyRememberQuestionAnswer(ModelData):
+    "One-sided Q&A note."
     class TiddlyRememberQuestionAnswerTemplate(TemplateData):
+        "Template for the Q&A note."
         name = "Forward"
         front = """
             {{Question}}
@@ -217,7 +220,9 @@ class TiddlyRememberQuestionAnswer(ModelData):
 
 
 class TiddlyRememberCloze(ModelData):
+    "Cloze deletion note."
     class TiddlyRememberClozeTemplate(TemplateData):
+        "Template for the cloze note."
         name = "Cloze"
         front = """
             {{cloze:Text}}
@@ -275,7 +280,7 @@ def _itermodels() -> Iterable[Type[ModelData]]:
     "Iterable over the set of all model definitions in this file."
     def is_model(obj):
         return (inspect.isclass(obj)
-                and any('ModelData' == b.__name__ for b in obj.__bases__))
+                and any(b.__name__ == 'ModelData' for b in obj.__bases__))
     return (i for _, i in inspect.getmembers(sys.modules[__name__], is_model))
 
 

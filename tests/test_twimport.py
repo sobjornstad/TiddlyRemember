@@ -12,7 +12,6 @@ from src.twimport import find_notes
 from src.twnote import TwNote, QuestionNote, ClozeNote
 
 TIDDLYWIKI_BINARY = "tiddlywiki"
-BASE_FILTER = "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]"
 
 
 @pytest.fixture
