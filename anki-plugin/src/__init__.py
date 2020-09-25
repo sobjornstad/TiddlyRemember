@@ -174,7 +174,7 @@ class ImportDialog(QDialog):
         """
         self.form.progressBar.setMaximum(0)
         self.form.text.setText("Applying note changes to your collection...")
-        userlog = ankisync.sync(self.notes, self.mw, self.conf)
+        userlog = ankisync.sync(self.notes, self.mw.col, self.conf)
 
         self.accept()
         self.mw.reset()
