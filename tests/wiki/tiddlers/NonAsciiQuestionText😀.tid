@@ -1,0 +1,16 @@
+created: 20200925184334629
+creator: mnemonist
+modified: 20200925185745929
+modifier: mnemonist
+reference-name: NonAsciiQuestionText
+tags: TestCase Regression
+title: NonAsciiQuestionTéxt😀
+type: text/vnd.tiddlywiki
+
+Bug reported against TiddlyRemember 1.1.1, in [[GitHub issue 19|https://github.com/sobjornstad/TiddlyRemember/issues/19]]:
+
+<<rememberq "20200923152852640"
+	"What 'élan vital' means?"
+	"The 'vital force' that 'explains' biology and that inorganic matter lacks">>
+
+We'll go ahead and make the title funny too to test that at the same time.

@@ -1,0 +1,12 @@
+created: 20200925185656294
+modified: 20200925185829256
+tags: Regression
+title: MultipleInlineCloze
+type: text/vnd.tiddlywiki
+
+Bug reported against TiddlyRemember 1.1.1, in [[GitHub issue 17|https://github.com/sobjornstad/TiddlyRemember/issues/17]]: under some circumstances, inline clozes didn't get synced at all (i.e., TiddlyRemember didn't try to create Anki notes for them).
+
+The cause was `wants_soup()` returning false if there weren't any block-level TiddlyRemember notes.
+
+<<remembercz "20200906204435482"
+  "Platformy zdieľanej ekonomiky znižujú transakčné náklady na {c1::dohľadávanie}, {c2::dohadovanie} a {c3::dodržanie dohody}." inline>>

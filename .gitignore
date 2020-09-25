@@ -11,3 +11,5 @@ docs/tiddlers/$__StoryList.tid
 *.ankiaddon
 anki-plugin/src/*_dialog.py
 docs/output
+.coverage
+tests/coverage/

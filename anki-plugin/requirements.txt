@@ -1,12 +1,18 @@
+# Dependencies of the actual Anki plugin.
 beautifulsoup4==4.9.0
 
+# Development and build tools.
 bs4>=0.0.1,<1.0
 pylint>=2.5.2,<3.0
 yapf>=0.30.0,<1.0
 mypy>=0.770,<1.0
-pip>=20.1
+pip>=20.2
+pytest>=6.0.2
+pytest-cov>=2.10.1
 
-pyqt5>=5.9,<6.0
-anki==2.1.26
-ankirspy==2.1.26
-aqt==2.1.26
+# The Anki version we're developing against.
+pyqt5==5.15.0
+pyqtwebengine==5.15.0
+anki==2.1.33
+ankirspy==2.1.33
+aqt==2.1.33
