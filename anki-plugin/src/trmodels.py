@@ -27,7 +27,6 @@ from textwrap import dedent
 from typing import Dict, Iterable, List, Optional, Tuple, Type
 import sys
 
-import aqt
 from anki.consts import MODEL_CLOZE
 from anki.models import Template as AnkiTemplate
 from anki.models import NoteType as AnkiModel
@@ -48,10 +47,9 @@ class TemplateData(ABC):
     back: str
 
     @classmethod
-    def to_template(cls) -> AnkiTemplate:
+    def to_template(cls, col) -> AnkiTemplate:
         "Create and return an Anki template object for this model definition."
-        assert aqt.mw is not None, "Tried to use models before Anki is initialized!"
-        mm = aqt.mw.col.models
+        mm = col.models
         t = mm.newTemplate(cls.name)
         t['qfmt'] = dedent(cls.front).strip()
         t['afmt'] = dedent(cls.back).strip()
@@ -70,16 +68,15 @@ class ModelData(ABC):
     is_cloze: bool
 
     @classmethod
-    def to_model(cls) -> AnkiModel:
+    def to_model(cls, col) -> AnkiModel:
         "Create and return an Anki model object for this model definition."
-        assert aqt.mw is not None, "Tried to use models before Anki is initialized!"
-        mm = aqt.mw.col.models
+        mm = col.models
         model = mm.new(cls.name)
         for i in cls.fields:
             field = mm.newField(i)
             mm.addField(model, field)
         for template in cls.templates:
-            t = template.to_template()
+            t = template.to_template(col)
             mm.addTemplate(model, t)
         model['css'] = dedent(cls.styling).strip()
         model['sortf'] = cls.fields.index(cls.sort_field)
@@ -88,14 +85,12 @@ class ModelData(ABC):
         return model
 
     @classmethod
-    def in_collection(cls) -> bool:
+    def in_collection(cls, col) -> bool:
         """
         Determine if a model by this name exists already in the current
         Anki collection.
         """
-        assert aqt.mw is not None, "Tried to use models before Anki is initialized!"
-        mm = aqt.mw.col.models
-        model = mm.byName(cls.name)
+        model = col.models.byName(cls.name)
         return model is not None
 
     @classmethod
@@ -302,18 +297,17 @@ def by_name(model_name: str) -> Optional[Type[ModelData]]:
         return None
 
 
-def ensure_note_types() -> None:
+def ensure_note_types(col) -> None:
     """
     For all note types defined in this file, add them to the collection if
     they aren't in there already.
     """
-    assert aqt.mw is not None, "Tried to use models before Anki is initialized!"
     for model in _itermodels():
-        if not model.in_collection():
-            aqt.mw.col.models.add(model.to_model())
+        if not model.in_collection(col):
+            col.models.add(model.to_model(col))
 
 
-def verify_note_types() -> None:
+def verify_note_types(col) -> None:
     """
     Raise an exception if any of the TiddlyRemember note types have been altered
     in a way that could prevent a safe and correct sync.
@@ -322,6 +316,5 @@ def verify_note_types() -> None:
     (this is checked by name) before calling verify_note_types().
     """
     for model in _itermodels():
-        assert aqt.mw is not None, "Verified note types before Anki was loaded!"
-        anki_model = aqt.mw.col.models.byName(model.name)
+        anki_model = col.models.byName(model.name)
         model.verify_integrity(anki_model)
