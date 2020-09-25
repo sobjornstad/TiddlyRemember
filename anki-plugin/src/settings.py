@@ -9,18 +9,18 @@ import copy
 import os
 import platform
 import subprocess
-from typing import Any, Dict, List, Sequence, Tuple
+from typing import Any, List, Sequence
 
 # pylint: disable=no-name-in-module
 import aqt
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QDialog, QComboBox, QApplication, QFileDialog, QAction
+from PyQt5.QtWidgets import QDialog, QComboBox, QApplication, QFileDialog
 from PyQt5.QtGui import QCursor, QDesktopServices
-from PyQt5.QtCore import pyqtSignal, Qt, QUrl
-from aqt.utils import getFile, showWarning, showInfo, showCritical, askUser
+from PyQt5.QtCore import QUrl
+from aqt.utils import showWarning, showInfo, showCritical, askUser
 
 from . import settings_dialog
-from .util import nowin_startupinfo
+from .util import nowin_startupinfo, DEFAULT_FILTER
 
 
 class SettingsDialog(QDialog):
@@ -165,7 +165,7 @@ class SettingsDialog(QDialog):
         for k in prototype.keys():
             prototype[k] = ''
         prototype['type'] = 'file'
-        prototype['contentFilter'] = '[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]'
+        prototype['contentFilter'] = DEFAULT_FILTER
         self.wikis.append(['', prototype])
 
         self.current_wiki_index = len(self.wikis) - 1

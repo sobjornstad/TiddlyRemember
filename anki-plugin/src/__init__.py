@@ -55,6 +55,7 @@ class ImportThread(QThread):
         self.exception: Optional[Exception] = None
 
     def run(self) -> None:
+        "Find notes, updating owner on progress periodically."
         try:
             self.notes = twimport.find_notes(
                 tw_binary=self.conf['tiddlywikiBinary'],
@@ -85,7 +86,7 @@ class ImportDialog(QDialog):
 
         self.extract_thread: Optional[ImportThread] = None
         self.notes: Set[TwNote] = set()
-        self.wikis = [(k, v) for k, v in self.conf['wikis'].items()]
+        self.wikis = list(self.conf['wikis'].items())
         self.form.wikiProgressBar.setMaximum(len(self.wikis))
 
     def start_import(self) -> bool:
@@ -148,7 +149,7 @@ class ImportDialog(QDialog):
                 f"Please check your add-on configuration. "
                 f"Your collection has not been updated.")
             self.reject()
-            return
+            return None
 
         # This is a set union, with object equality defined by the ID. Any
         # notes with an ID matching one already used in a previous wiki will be
@@ -172,7 +173,7 @@ class ImportDialog(QDialog):
         to get Anki in sync with the TiddlyWiki notes.
         """
         self.form.progressBar.setMaximum(0)
-        self.form.text.setText(f"Applying note changes to your collection...")
+        self.form.text.setText("Applying note changes to your collection...")
         userlog = ankisync.sync(self.notes, self.mw, self.conf)
 
         self.accept()

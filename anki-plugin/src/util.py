@@ -8,6 +8,8 @@ from typing import NewType, Optional
 
 Twid = NewType('Twid', str)
 
+DEFAULT_FILTER = '[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]'
+
 
 def pluralize(sg: str, n: int, pl: str = None) -> str:
     """
