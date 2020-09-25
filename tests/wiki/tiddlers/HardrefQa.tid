@@ -1,0 +1,14 @@
+created: 20200925183457939
+creator: mnemonist
+modified: 20200925183714819
+modifier: mnemonist
+tags: TestCase HardrefTest
+title: HardrefQa
+type: text/vnd.tiddlywiki
+
+This tiddler is used to test hard referencing. It contains a question-and-answer note using a hard reference, and it is transcluded in HardrefQaTransclusion. HardrefQaTarget, which does not contain the question at all, is cited as the source.
+
+<<rememberq "20200925183527082"
+	"Do hard references work in TiddlyRemember?"
+	"I don't know, you tell me!"
+        reference:HardrefQaTarget>>

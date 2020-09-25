@@ -15,6 +15,18 @@ def pluralize(sg: str, n: int, pl: str = None) -> str:
 
     For convenience when working with English text, the plural form may be
     left blank if it consists of the singular form plus 's'.
+
+    >>> pluralize("Soren", 2)
+    'Sorens'
+
+    >>> pluralize("potato", 1, "potatoes")
+    'potato'
+
+    >>> pluralize("potato", 6, "potatoes")
+    'potatoes'
+
+    >>> pluralize("potato", 0, "potatoes")
+    'potatoes'
     """
     if n == 1:
         return sg

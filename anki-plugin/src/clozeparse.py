@@ -63,33 +63,33 @@ def ankify_clozes(text: str) -> str:
     work in Anki. The following documents the simplified format.
 
     Implicit cloze identification:
-        >>> _ankify_clozes("This is a {test}.")
+        >>> ankify_clozes("This is a {test}.")
         'This is a {{c1::test}}.'
 
-        >>> _ankify_clozes("{This} is a {test}.")
+        >>> ankify_clozes("{This} is a {test}.")
         '{{c1::This}} is a {{c2::test}}.'
 
     Explicit cloze identification:
-        >>> _ankify_clozes("This is a {c1::test}.")
+        >>> ankify_clozes("This is a {c1::test}.")
         'This is a {{c1::test}}.'
 
-        >>> _ankify_clozes("{c1::This} is a {c1::test}.")
+        >>> ankify_clozes("{c1::This} is a {c1::test}.")
         '{{c1::This}} is a {{c1::test}}.'
 
-        >>> _ankify_clozes("{c1::This} is a {c2::test}.")
+        >>> ankify_clozes("{c1::This} is a {c2::test}.")
         '{{c1::This}} is a {{c2::test}}.'
 
-        >>> _ankify_clozes("{c1::This} is a {c2::second} {c3::test}.")
+        >>> ankify_clozes("{c1::This} is a {c2::second} {c3::test}.")
         '{{c1::This}} is a {{c2::second}} {{c3::test}}.'
 
     A mixture -- the first unused numbers are selected for the implicit matches:
-        >>> _ankify_clozes("{c1::This} is a {c2::third} {test}.")
+        >>> ankify_clozes("{c1::This} is a {c2::third} {test}.")
         '{{c1::This}} is a {{c2::third}} {{c3::test}}.'
 
-        >>> _ankify_clozes("{c1::This} is a {c3::fourth} {test}.")
+        >>> ankify_clozes("{c1::This} is a {c3::fourth} {test}.")
         '{{c1::This}} is a {{c3::fourth}} {{c2::test}}.'
 
-        >>> _ankify_clozes("{c1::This} is a {c3::fourth} {test} {cloze deletion}.")
+        >>> ankify_clozes("{c1::This} is a {c3::fourth} {test} {cloze deletion}.")
         '{{c1::This}} is a {{c3::fourth}} {{c2::test}} {{c4::cloze deletion}}.'
     """
     def next_occlusion_number(seq: Sequence[int]) -> Iterable[int]:

@@ -1,0 +1,13 @@
+created: 20200925183623605
+creator: mnemonist
+modified: 20200925183926991
+modifier: mnemonist
+tags: HardrefTest
+title: HardrefQaTransclusion
+type: text/vnd.tiddlywiki
+
+This tiddler transcludes HardrefQa. If all goes well, HardrefQaTarget will be cited, rather than either this tiddler or HardrefQa itself.
+
+---------------
+
+{{HardrefQa}}
