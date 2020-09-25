@@ -78,9 +78,10 @@ class TwNote(metaclass=ABCMeta):
         Raise an assertion error if the :attr:`anki_note` doesn't match
         the current class's model.
         """
+        assert self.model is not None, "TwNote subclass forgot to set self.model"
         # pylint: disable=no-member
         assert self.model_equal(anki_note), \
-            (f"Expected note of type {self.model.name}, "
+            (f"Expected note of type {self.model.name}, "  # type: ignore
              f"but got {anki_note.model()['name']}.")  # type: ignore
 
     @property

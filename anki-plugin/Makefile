@@ -4,10 +4,10 @@ all: forms zip
 forms: src/import_dialog.py src/settings_dialog.py
 zip: build.ankiaddon
 
-src/import_dialog.py: designer/import_dialog.ui 
+src/import_dialog.py: designer/import_dialog.ui
 	pyuic5 $^ > $@
 
-src/settings_dialog.py: designer/settings_dialog.ui 
+src/settings_dialog.py: designer/settings_dialog.ui
 	pyuic5 $^ > $@
 
 build.ankiaddon: src/*.py src/config.json

@@ -218,7 +218,8 @@ class SettingsDialog(QDialog):
         self.form.wikiList.blockSignals(oldBlockSignals)
         self.wiki_changed(self.current_wiki_index, save=False)
 
-    def get_help(self) -> None:
+    @staticmethod
+    def get_help() -> None:
         "Launch the documentation for this dialog in a browser."
         url = QUrl(r"https://sobjornstad.github.io/TiddlyRemember/#Configuring%20the%20Anki%20add-on")
         QDesktopServices.openUrl(url)

@@ -15,7 +15,7 @@ Here's a snippet from that paragraph:
 ```
 This has no effect on the note generated in Anki, and it looks like this in your wiki:
 <<remembercz "20200523165526185"
-    "To render a cloze deletion inline, simply add the {`inline`} third argument to the `remembercz` macro." 
+    "To render a cloze deletion inline, simply add the {`inline`} third argument to the `remembercz` macro."
     inline>>
 Here's a snippet from that paragraph.
 ```

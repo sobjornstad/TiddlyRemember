@@ -10,6 +10,8 @@ test_twimport - test the creation of TwNote objects from a TiddlyWiki
 import sys
 sys.path.append("anki-plugin")
 
+import os
+
 from src.twimport import find_notes
 from src.twnote import TwNote, QuestionNote, ClozeNote
 
@@ -20,7 +22,6 @@ from testutils import fn_params
 def test_question_import(fn_params):
     "The 'BasicQuestionAndAnswer' note imports as expected."
 
-    import os
     print(os.getcwd())
     fn_params['filter_'] = "BasicQuestionAndAnswer"
     notes = find_notes(**fn_params)

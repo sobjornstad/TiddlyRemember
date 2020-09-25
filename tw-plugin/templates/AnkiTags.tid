@@ -1,12 +1,12 @@
 created: 20200516191131056
 modified: 20200516232427612
 revision: 174
-tags: 
+tags:
 title: $:/plugins/sobjornstad/TiddlyRemember/templates/AnkiTags
 type: text/vnd.tiddlywiki
 
 <ul id="anki-tags">
-	<$list 
+	<$list
 			filter="[[$:/config/TiddlyRemember/TagMapping]get[text]splitregexp[\n]!is[blank]]"
 			variable="subfilter">
 		<$list filter="[<currentTiddler>subfilter<subfilter>]">
