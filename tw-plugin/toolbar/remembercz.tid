@@ -5,7 +5,7 @@ description: Remember Cloze Deletion
 icon: $:/plugins/sobjornstad/TiddlyRemember/icons/lightbulb-black.svg
 list-after: $:/plugins/sobjornstad/TiddlyRemember/toolbar/rememberq
 modified: 20200517162124307
-shortcuts: 
+shortcuts:
 tags: $:/tags/EditorToolbar
 title: $:/plugins/sobjornstad/TiddlyRemember/toolbar/remembercz
 type: text/vnd.tiddlywiki
