@@ -2,33 +2,26 @@
 test_twimport - test the creation of TwNote objects from a TiddlyWiki
 """
 
+# pylint: disable=import-error
+# pylint: disable=wrong-import-position
+# pylint: disable=redefined-outer-name
+
 # Must run from the project root.
 import sys
 sys.path.append("anki-plugin")
 
-import pytest
-
 from src.twimport import find_notes
 from src.twnote import TwNote, QuestionNote, ClozeNote
 
-TIDDLYWIKI_BINARY = "tiddlywiki"
-
-
-@pytest.fixture
-def fn_params():
-    return {
-        'tw_binary': TIDDLYWIKI_BINARY,
-        'wiki_path': "tests/wiki/",
-        'wiki_type': "folder",
-        'wiki_name': "TestWiki",
-        'callback': None
-    }
+from testutils import fn_params
 
 
 ### Integration tests of basic functionality ###
 def test_question_import(fn_params):
     "The 'BasicQuestionAndAnswer' note imports as expected."
 
+    import os
+    print(os.getcwd())
     fn_params['filter_'] = "BasicQuestionAndAnswer"
     notes = find_notes(**fn_params)
 

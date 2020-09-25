@@ -9,7 +9,6 @@ from typing import Any, List, Optional, Set, Tuple
 from urllib.parse import quote as urlquote
 
 from anki.notes import Note
-import aqt
 from bs4 import BeautifulSoup
 
 from .clozeparse import ankify_clozes
@@ -93,13 +92,7 @@ class TwNote(metaclass=ABCMeta):
         I cannot find further documentation on any issues these may cause.
         Spaces aren't, though, since tags are separated by spaces.
         """
-        assert aqt.mw is not None, "Anki not initialized prior to TiddlyWiki sync!"
-        # Canonify seems to be returning empty strings as part of the list,
-        # perhaps due to a bug. Strip them so our equality checks don't get
-        # goofed up.
-        canon = aqt.mw.col.tags.canonify(
-            [t.replace(' ', '_') for t in self.target_tags])
-        return [i for i in canon if i.strip()]
+        return [t.replace(' ', '_') for t in self.target_tags]
 
     def fields_equal(self, anki_note: Note) -> bool:
         """

@@ -63,7 +63,7 @@ def _update_deck(tw_note: TwNote, anki_note: Note, col: Any, default_deck: str) 
             card.flush()
 
 
-def sync(tw_notes: Set[TwNote], col: Any, conf: Any) -> str:
+def sync(tw_notes: Set[TwNote], col: Any, default_deck: str) -> str:
     """
     Compare TiddlyWiki notes with the notes currently in our Anki collection
     and add, edit, and remove notes as needed to get Anki in sync with the
@@ -71,7 +71,6 @@ def sync(tw_notes: Set[TwNote], col: Any, conf: Any) -> str:
 
     :param twnotes: Set of TwNotes extracted from a TiddlyWiki.
     :param col: The Anki collection object.
-    :param conf: The TiddlyRemember config object.
     :return: A log string to pass back to the user, describing the results.
 
     .. warning::
@@ -91,8 +90,8 @@ def sync(tw_notes: Set[TwNote], col: Any, conf: Any) -> str:
     """
     # Make sure the note types exist and haven't been modified in a way
     # that could prevent the sync from working properly.
-    trmodels.ensure_note_types()
-    trmodels.verify_note_types()
+    trmodels.ensure_note_types(col)
+    trmodels.verify_note_types(col)
 
     # Retrieve Anki notes and TiddlyWiki notes and identify what adds, edits,
     # and removes are needed to update the Anki collection.
@@ -118,7 +117,7 @@ def sync(tw_notes: Set[TwNote], col: Any, conf: Any) -> str:
         tw_note = extracted_notes_map[note_id]
         n = Note(col, col.models.byName(tw_note.model.name))
         n.model()['did'] = col.decks.id(tw_note.target_deck     # type: ignore
-                                        or conf['defaultDeck'])
+                                        or default_deck)
         tw_note.update_fields(n)
         col.addNote(n)
     userlog.append(f"Added {len(adds)} {pluralize('note', len(adds))}.")
@@ -134,7 +133,7 @@ def sync(tw_notes: Set[TwNote], col: Any, conf: Any) -> str:
             tw_note.update_fields(anki_note)
             anki_note.flush()
             edit_count += 1
-        _update_deck(tw_note, anki_note, col, conf['defaultDeck'])
+        _update_deck(tw_note, anki_note, col, default_deck)
     userlog.append(f"Updated {edit_count} {pluralize('note', edit_count)}.")
 
     col.remove_notes([anki_notes_map[twid].id for twid in removes])
