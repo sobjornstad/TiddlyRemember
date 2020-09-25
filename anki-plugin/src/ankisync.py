@@ -20,7 +20,7 @@ from .twnote import TwNote
 from .util import pluralize, Twid
 
 
-def _change_note_type(mw: Any, tw_note: TwNote, anki_note: Note) -> Note:
+def _change_note_type(col: Any, tw_note: TwNote, anki_note: Note) -> Note:
     """
     If the ID is now a cloze note rather than a question note or vice versa,
     change the note type in Anki prior to trying to complete the sync.
@@ -38,13 +38,13 @@ def _change_note_type(mw: Any, tw_note: TwNote, anki_note: Note) -> Note:
     # NOTE: If we ever add note types that have more than one template,
     # we can't hard-code this anymore.
     cmap = {0: 0}
-    new_model = mw.col.models.byName(tw_note.model.name)
-    mw.col.models.change(anki_note.model(), [anki_note.id], new_model, fmap, cmap)
+    new_model = col.models.byName(tw_note.model.name)
+    col.models.change(anki_note.model(), [anki_note.id], new_model, fmap, cmap)
 
-    return mw.col.getNote(mw.col.find_notes(f"nid:{anki_note.id}")[0])
+    return col.getNote(col.find_notes(f"nid:{anki_note.id}")[0])
 
 
-def _update_deck(tw_note: TwNote, anki_note: Note, mw: Any, default_deck: str) -> None:
+def _update_deck(tw_note: TwNote, anki_note: Note, col: Any, default_deck: str) -> None:
     """
     Given a note already in Anki's database, move its cards into an
     appropriate deck if they aren't already there. All cards must go to the
@@ -53,24 +53,25 @@ def _update_deck(tw_note: TwNote, anki_note: Note, mw: Any, default_deck: str) -
 
     The note must be flushed to Anki's database for this to work correctly.
     """
-    # Confusingly, mw.col.decks.id returns the ID of an existing deck, and
+    # Confusingly, col.decks.id returns the ID of an existing deck, and
     # creates it if it doesn't exist. This happens to be exactly what we want.
     deck_name = tw_note.target_deck or default_deck
-    new_did = mw.col.decks.id(deck_name)
+    new_did = col.decks.id(deck_name)
     for card in anki_note.cards():
         if card.did != new_did:
             card.did = new_did
             card.flush()
 
 
-def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
+def sync(tw_notes: Set[TwNote], col: Any, conf: Any) -> str:
     """
     Compare TiddlyWiki notes with the notes currently in our Anki collection
     and add, edit, and remove notes as needed to get Anki in sync with the
     TiddlyWiki notes.
 
     :param twnotes: Set of TwNotes extracted from a TiddlyWiki.
-    :param mw: The Anki main-window object.
+    :param col: The Anki collection object.
+    :param conf: The TiddlyRemember config object.
     :return: A log string to pass back to the user, describing the results.
 
     .. warning::
@@ -100,8 +101,8 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
     extracted_notes_map: Dict[Twid, TwNote] = {n.id_: n for n in extracted_notes}
 
     model_search = ' or '.join(f'note:"{i.name}"' for i in trmodels.all_note_types())
-    anki_notes: Set[Note] = set(mw.col.getNote(nid)
-                                for nid in mw.col.find_notes(model_search))
+    anki_notes: Set[Note] = set(col.getNote(nid)
+                                for nid in col.find_notes(model_search))
     id_field = trmodels.ID_FIELD_NAME
     anki_twids: Set[Twid] = set(cast(Twid, n[id_field]) for n in anki_notes)
     anki_notes_map: Dict[Twid, Note] = {cast(Twid, n[id_field]): n for n in anki_notes}
@@ -115,11 +116,11 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
     # Make the changes to the collection.
     for note_id in adds:
         tw_note = extracted_notes_map[note_id]
-        n = Note(mw.col, mw.col.models.byName(tw_note.model.name))
-        n.model()['did'] = mw.col.decks.id(tw_note.target_deck     # type: ignore
-                                           or conf['defaultDeck'])
+        n = Note(col, col.models.byName(tw_note.model.name))
+        n.model()['did'] = col.decks.id(tw_note.target_deck     # type: ignore
+                                        or conf['defaultDeck'])
         tw_note.update_fields(n)
-        mw.col.addNote(n)
+        col.addNote(n)
     userlog.append(f"Added {len(adds)} {pluralize('note', len(adds))}.")
 
     edit_count = 0
@@ -127,16 +128,16 @@ def sync(tw_notes: Set[TwNote], mw: Any, conf: Any) -> str:
         anki_note = anki_notes_map[note_id]
         tw_note = extracted_notes_map[note_id]
         if not tw_note.model_equal(anki_note):
-            new_note = _change_note_type(mw, tw_note, anki_note)
+            new_note = _change_note_type(col, tw_note, anki_note)
             anki_note = anki_notes_map[note_id] = new_note
         if not tw_note.fields_equal(anki_note):
             tw_note.update_fields(anki_note)
             anki_note.flush()
             edit_count += 1
-        _update_deck(tw_note, anki_note, mw, conf['defaultDeck'])
+        _update_deck(tw_note, anki_note, col, conf['defaultDeck'])
     userlog.append(f"Updated {edit_count} {pluralize('note', edit_count)}.")
 
-    mw.col.remove_notes([anki_notes_map[twid].id for twid in removes])
+    col.remove_notes([anki_notes_map[twid].id for twid in removes])
     userlog.append(f"Removed {len(removes)} {pluralize('note', len(removes))}.")
 
     return '\n'.join(userlog)
