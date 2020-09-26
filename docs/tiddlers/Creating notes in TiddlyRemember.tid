@@ -1,6 +1,6 @@
 created: 20200523163252291
 list: [[Question-and-answer notes]] [[Pair notes]] [[Cloze notes]]
-modified: 20200926170212249
+modified: 20200926190540649
 tags: TiddlyRemember
 title: Creating notes in TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -32,25 +32,25 @@ After you add, edit, or remove questions in TiddlyWiki, you'll want to [[sync to
 !! What can I include in my notes?
 
 TiddlyRemember actually renders your tiddlers to HTML when you sync to Anki,
-    so you can include anything from basic wikitext formatting to transclusions
-    within the macro parameters if needed,
-    and they will be displayed in both your wiki and your Anki cards.
-Most HTML will be preserved when synced to Anki,
+    and the contents of TiddlyRemember macro parameters are wikified,
+    so you can include anything from basic wikitext formatting to transclusions,
+    and the results will be displayed correctly both in your wiki and on your Anki cards.
+Starting in TiddlyRemember 1.2.0, most HTML will be preserved when synced to Anki,
     from simple things like bold or italics to complex things like `<span>`s with custom classes.
 One exception is internal links;
     since these don't work outside the context of TiddlyWiki,
     they're converted to plain text in Anki.
 
-Images and other media work only if they are external links
-    (not embedded within your TiddlyWiki)
-    and accessible from all devices you review on.
+Images work only if they point to external files
+    (not tiddlers within your TiddlyWiki)
+    that are accessible from all devices you review on.
 For instance, an image found on Wikimedia Commons
     and linked with `[img [https://the/url]]` will work
     (provided you have Internet access while studying),
     while one you dragged and dropped into your wiki will not.
 Support for syncing media into Anki's media repository is planned for the future.
 
-If you need to include quotes in a note, use triple quotes for the macro parameter:
+If you need to include double quotation marks in a note, use triple quotes for the macro parameter:
 
 ```
 <<rememberq "20200523163414807"
