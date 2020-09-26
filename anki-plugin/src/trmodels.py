@@ -286,7 +286,7 @@ class TiddlyRememberPair(ModelData):
         front_name = "Second"
         back_name = "First"
 
-    name = "TiddlyRemember 2-side v1"
+    name = "TiddlyRemember Pair v1"
     fields = ("First", "Second", ID_FIELD_NAME, "Wiki", "Reference", "Permalink")
     templates = (TiddlyRememberPairForwardTemplate,
                  TiddlyRememberPairReverseTemplate)
