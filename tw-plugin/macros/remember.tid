@@ -4,27 +4,45 @@ tags: $:/tags/Macro
 title: $:/plugins/sobjornstad/TiddlyRemember/macros/remember
 type: text/vnd.tiddlywiki
 
+\define remembertwo(id, reference)
+	<div class="tr-selfidentification">
+		<$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
+			<<selfid>>
+		</$set>
+	</div>
+	<div class="rid">
+		[$id$]
+	</div>
+	<div class="tr-reference">
+		<$text text=<<__reference__>>/>
+	</div>
+\end
+
 \define rememberq(id, question, answer, reference: "")
-    <div class="rememberq">
-        <div class="rquestion">
+    <div class="rememberq remembertwo">
+        <div class="rquestion tr-ritem">
             <div>Q:</div>
             <p>$question$</p>
         </div>
-        <div class="ranswer">
+        <div class="ranswer tr-ritem">
             <div>A:</div>
             <p>$answer$</p>
         </div>
-		<div class="tr-selfidentification">
-			<$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
-				<<selfid>>
-			</$set>
-		</div>
-        <div class="rid">
-            [$id$]
+		<$macrocall $name=remembertwo id=<<__id__>> reference=<<__reference__>>/>
+    </div>
+\end
+
+\define rememberp(id, first, second, reference: "")
+    <div class="rememberp remembertwo">
+        <div class="rfirst tr-ritem">
+            <div>1:</div>
+            <p>$first$</p>
         </div>
-		<div class="tr-reference">
-			<$text text=<<__reference__>>/>
-		</div>
+        <div class="rsecond tr-ritem">
+            <div>2:</div>
+            <p>$second$</p>
+        </div>
+		<$macrocall $name=remembertwo id=<<__id__>> reference=<<__reference__>>/>
     </div>
 \end
 

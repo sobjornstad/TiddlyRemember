@@ -1,0 +1,11 @@
+created: 20200925223919428
+modified: 20200925223946770
+tags: TestCase
+title: BasicPair
+type: text/vnd.tiddlywiki
+
+This tests a simple pair (two-sided) note.
+
+<<rememberp "20200925223930460"
+	"One"
+	"1">>
