@@ -1,6 +1,6 @@
 created: 20200523163252291
-list: [[Question-and-answer notes]] [[Cloze notes]]
-modified: 20200731123936106
+list: [[Question-and-answer notes]] [[Pair notes]] [[Cloze notes]]
+modified: 20200926170212249
 tags: TiddlyRemember
 title: Creating notes in TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -16,8 +16,7 @@ TiddlyRemember supports several types of notes:
   </$list>
 </ul>
 
-The first parameter to both the `rememberq` and `remembercz` macros
-is the note's [[Unique ID]].
+The first parameter to all the TiddlyRemember macros is the note's [[Unique ID]].
 As long as you never change the unique ID,
 you can edit your question and answer text
 and move the question between tiddlers and even between wikis,
@@ -30,12 +29,26 @@ a unique ID consisting of the current millisecond timestamp will be inserted aut
 
 After you add, edit, or remove questions in TiddlyWiki, you'll want to [[sync to Anki|Syncing TiddlyRemember with Anki]].
 
-The parser actually renders the tiddlers when you sync to Anki,
-    so you can include transclusions within the macro parameters if needed,
-    and the referents will display both in your wiki and on your Anki cards.
-However, HTML will be stripped when creating Anki notes,
-    so links, text formatting, etc., will only show up in your wiki;
-    this may change in the future.
+!! What can I include in my notes?
+
+TiddlyRemember actually renders your tiddlers to HTML when you sync to Anki,
+    so you can include anything from basic wikitext formatting to transclusions
+    within the macro parameters if needed,
+    and they will be displayed in both your wiki and your Anki cards.
+Most HTML will be preserved when synced to Anki,
+    from simple things like bold or italics to complex things like `<span>`s with custom classes.
+One exception is internal links;
+    since these don't work outside the context of TiddlyWiki,
+    they're converted to plain text in Anki.
+
+Images and other media work only if they are external links
+    (not embedded within your TiddlyWiki)
+    and accessible from all devices you review on.
+For instance, an image found on Wikimedia Commons
+    and linked with `[img [https://the/url]]` will work
+    (provided you have Internet access while studying),
+    while one you dragged and dropped into your wiki will not.
+Support for syncing media into Anki's media repository is planned for the future.
 
 If you need to include quotes in a note, use triple quotes for the macro parameter:
 
