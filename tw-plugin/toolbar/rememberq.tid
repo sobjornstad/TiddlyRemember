@@ -4,7 +4,7 @@ created: 20161118171456554
 description: Remember Question/Answer
 icon: $:/plugins/sobjornstad/TiddlyRemember/icons/lightbulb-white.svg
 modified: 20200517161709608
-shortcuts:
+shortcuts: ((rememberq))
 tags: $:/tags/EditorToolbar
 title: $:/plugins/sobjornstad/TiddlyRemember/toolbar/rememberq
 type: text/vnd.tiddlywiki
