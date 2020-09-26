@@ -93,6 +93,35 @@ def test_hardref(fn_params):
     assert note.question == "Do hard references work in TiddlyRemember?"
 
 
+def test_formatting(fn_params):
+    "Check that basic HTML formatting comes across into TwNotes."
+    fn_params['filter_'] = "FormattingTest"
+    notes = find_notes(**fn_params)
+
+    assert len(notes) == 1
+    note = notes.pop()
+
+    assert isinstance(note, ClozeNote)
+    assert note.id_ == "20200926152545054"
+    assert '<strong>' in note.text
+    assert '<em>' in note.text
+    assert '<strike>' in note.text
+
+
+def test_external_image(fn_params):
+    "Check that image references come across into TwNotes, including sizing."
+    fn_params['filter_'] = "ExternalCatImageTest"
+    notes = find_notes(**fn_params)
+
+    assert len(notes) == 1
+    note = notes.pop()
+
+    assert isinstance(note, QuestionNote)
+    assert note.id_ == "20200926152139943"
+    assert '<img src="https://upload.wikimedia.org' in note.answer
+    assert 'width="400"' in note.answer
+
+
 def test_file_import(fn_params):
     """
     Check that the file-to-folder conversion works.

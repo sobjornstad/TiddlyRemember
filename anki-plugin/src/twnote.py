@@ -214,8 +214,8 @@ class QuestionNote(TwNote):
 
         pairs = soup.find_all("div", class_="rememberq")
         for pair in pairs:
-            question = pair.find("div", class_="rquestion").p.get_text()
-            answer = pair.find("div", class_="ranswer").p.get_text()
+            question = clean_field_html(pair.find("div", class_="rquestion").p)
+            answer = clean_field_html(pair.find("div", class_="ranswer").p)
             id_raw = pair.find("div", class_="rid").get_text()
             id_ = id_raw.strip().lstrip('[').rstrip(']')
             tidref = select_tidref(pair.find("div", class_="tr-reference"),
@@ -268,8 +268,8 @@ class PairNote(TwNote):
 
         pairs = soup.find_all("div", class_="rememberp")
         for pair in pairs:
-            question = pair.find("div", class_="rfirst").p.get_text()
-            answer = pair.find("div", class_="rsecond").p.get_text()
+            question = clean_field_html(pair.find("div", class_="rfirst").p)
+            answer = clean_field_html(pair.find("div", class_="rsecond").p)
             id_raw = pair.find("div", class_="rid").get_text()
             id_ = id_raw.strip().lstrip('[').rstrip(']')
             tidref = select_tidref(pair.find("div", class_="tr-reference"),
@@ -320,7 +320,7 @@ class ClozeNote(TwNote):
 
         pairs = soup.find_all(class_="remembercz")
         for pair in pairs:
-            text = pair.find("span", class_="cloze-text").get_text()
+            text = clean_field_html(pair.find("span", class_="cloze-text"))
             id_raw = pair.find("div", class_="rid").get_text()
             id_ = id_raw.strip().lstrip('[').rstrip(']')
             tidref = select_tidref(pair.find("div", class_="tr-reference"),
@@ -373,3 +373,18 @@ def select_tidref(hard_ref: BeautifulSoup, tiddler_name: str):
         return hard_ref.get_text().strip()
     else:
         return tiddler_name
+
+
+def clean_field_html(soup: BeautifulSoup) -> str:
+    """
+    Given the raw HTML for a field, such as "question" or "answer", neaten it
+    up by removing anything that doesn't belong on the Anki card, such as
+    outer <p> tags, and return the string of HTML that belongs in the field.
+    """
+    clean = []
+    for elem in soup.contents:
+        if elem.name == 'a':
+            clean.append(elem.get_text())
+        else:
+            clean.append(str(elem))
+    return ''.join(clean)
