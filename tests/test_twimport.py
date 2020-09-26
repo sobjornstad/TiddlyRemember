@@ -15,7 +15,7 @@ import os
 from src.twimport import find_notes
 from src.twnote import TwNote, QuestionNote, ClozeNote, PairNote
 
-from testutils import fn_params
+from testutils import fn_params  # pylint: disable=unused-import
 
 
 ### Integration tests of basic functionality ###
@@ -53,12 +53,14 @@ def test_cloze_import(fn_params):
 
     assert note.id_ == '20200925171645079'
     assert note.tidref == 'BasicCloze'
-    assert note.text == 'TiddlyRemember is good for {{c1::remembering things that you put in your TiddlyWiki}}.'
+    assert note.text == ('TiddlyRemember is good for '
+                         '{{c1::remembering things that you put in your TiddlyWiki}}.')
     assert note.target_tags == set()
     assert note.target_deck is None
 
 
 def test_pair_import(fn_params):
+    "The 'BasicPair' note imports as expected."
     fn_params['filter_'] = "BasicPair"
     notes = find_notes(**fn_params)
 
@@ -118,7 +120,24 @@ def test_link(fn_params):
 
     assert note.id_ == "20200926154719339"
     assert note.question == 'How do you get to Google?'
-    assert note.answer == 'Browse to <a href="https://google.com">https://google.com</a>.'
+    assert note.answer == \
+        'Browse to <a href="https://google.com">https://google.com</a>.'
+
+
+def test_recursive_link(fn_params):
+    "Check that links are still cleaned up when inside another HTML element."
+
+    fn_params['filter_'] = "RecursiveLinkTest"
+    notes = find_notes(**fn_params)
+
+    assert len(notes) == 1
+    note = notes.pop()
+
+    assert note.id_ == "20200926154719339"
+    assert note.question == 'How do you get <strong>to Google</strong>?'
+    assert note.answer == \
+        ('Browse <span style="color: orange;">to '
+         '<a href="https://google.com">https://google.com</a></span>.')
 
 
 def test_external_image(fn_params):

@@ -1,0 +1,11 @@
+created: 20200926172120311
+modified: 20200926174431199
+tags: TestCase
+title: RecursiveLinkTest
+type: text/vnd.tiddlywiki
+
+Like LinkTest, but involves links nested in other elements.
+
+<<rememberq "20200926154719339"
+	"How do you get ''to [[Google]]''?"
+	"""Browse <span style="color: orange;">to [[https://google.com]]</span>.""">>
