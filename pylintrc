@@ -39,7 +39,7 @@ load-plugins=
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-disable=no-else-return,no-else-raise,broad-except
+disable=no-else-return,no-else-raise,no-else-break,broad-except
 
 
 [REPORTS]

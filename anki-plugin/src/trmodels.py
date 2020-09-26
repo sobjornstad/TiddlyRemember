@@ -23,6 +23,7 @@ defined by the TwNote subclasses' /model/ class variable.
 """
 from abc import ABC
 import inspect
+from itertools import zip_longest
 from textwrap import dedent
 from typing import Dict, Iterable, List, Optional, Tuple, Type
 import sys
@@ -115,6 +116,36 @@ class ModelData(ABC):
                 mapping[idx] = other.fields.index(field)
             except ValueError:
                 mapping[idx] = other.field_index(cls, field)
+        return mapping
+
+    @classmethod
+    def card_remap(cls, other: 'Type[ModelData]') -> Dict[int, Optional[int]]:
+        """
+        Produce a card mapping to be used to map cards of the current note type
+        to cards of the /other/ note type.
+
+        The default behavior maps the cards in order by template index, so
+        that if the source note type has "templates = (A, B)", and the
+        destination has "templates = (C, D)", card A will become card C, and
+        card B will become card D, for purposes of scheduling history. If the
+        source has more cards than the destination, the remaining ones at the
+        end will be mapped to None and lost. If the destination has more
+        cards than the source, we don't define those in the mapping and let
+        Anki deal with it (it'll create new cards).
+
+        For notes whose source is a cloze note, the correct card mapping is
+        undefined, at least as of now; Anki's remap code just ignores
+        whatever is passed in and does its own thing.
+        """
+        mapping: Dict[int, Optional[int]] = {}
+        for idx, (this_t, other_t) in enumerate(zip_longest(cls.templates,
+                                                            other.templates)):
+            if this_t is None:
+                break
+            elif other_t is None:
+                mapping[idx] = None
+            else:
+                mapping[idx] = idx
         return mapping
 
     # pylint: disable=unused-argument
@@ -239,6 +270,7 @@ class TiddlyRememberPair(ModelData):
         """
 
         def __init_subclass__(cls, **kwargs):
+            # pylint: disable=no-member
             cls.front = cls.front.replace(r'<%FRONT%>', cls.front_name)
             cls.back = cls.back.replace(r'<%BACK%>', cls.back_name)
 

@@ -35,9 +35,7 @@ def _change_note_type(col: Any, tw_note: TwNote, anki_note: Note) -> Note:
         f"this error. "
 
     fmap = old_model_definition.field_remap(tw_note.model)
-    # NOTE: If we ever add note types that have more than one template,
-    # we can't hard-code this anymore.
-    cmap = {0: 0}
+    cmap = old_model_definition.card_remap(tw_note.model)
     new_model = col.models.byName(tw_note.model.name)
     col.models.change(anki_note.model(), [anki_note.id], new_model, fmap, cmap)
 
