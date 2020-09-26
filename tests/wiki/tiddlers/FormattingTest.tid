@@ -1,0 +1,10 @@
+created: 20200926152514865
+modified: 20200926152645351
+tags: TestCase
+title: FormattingTest
+type: text/vnd.tiddlywiki
+
+It should be possible to include basic HTML formatting within a question using the standard TiddlyWiki markup.
+
+<<remembercz "20200926152545054"
+	"One can find a ''great deal'' of //cool// {content} on the ~~Information Superhighway~~{Internet}.">>

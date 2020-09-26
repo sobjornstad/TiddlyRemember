@@ -1,0 +1,11 @@
+created: 20200926152101486
+modified: 20200926153737075
+tags: TestCase
+title: ExternalCatImageTest
+type: text/vnd.tiddlywiki
+
+It should be possible to embed an image within a question, provided the image links to an external location accessible during review (we can't import media into Anki yet).
+
+<<rememberq "20200926152139943"
+	"What does a cat look like?"
+	"[img width=400 [https://upload.wikimedia.org/wikipedia/commons/4/4f/Felis_silvestris_catus_lying_on_rice_straw.jpg]]">>
