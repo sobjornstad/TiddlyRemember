@@ -382,20 +382,15 @@ def clean_field_html(soup: BeautifulSoup) -> str:
     outer <p> tags and internal links, and return the string of HTML that belongs
     in the field.
     """
-    clean = []
-    for elem in soup.contents:
-        if elem.name == 'a':
-            classes = elem.attrs.get('class', None)
-            if (classes is not None
-                    and 'href' in elem.attrs
-                    and 'tc-tiddlylink-external' in classes):
-                # External links lose their attributes but stay links.
-                href = elem.attrs['href']
-                text = elem.get_text()
-                clean.append(f'<a href="{href}">{text}</a>')
-            else:
-                # Internal links just get whacked and replaced with their text.
-                clean.append(elem.get_text())
+    for elem in soup.find_all("a"):
+        classes = elem.attrs.get('class', None)
+        if (classes is not None
+                and 'href' in elem.attrs
+                and 'tc-tiddlylink-external' in classes):
+            # External links lose their attributes but stay links.
+            elem.attrs = {'href': elem.attrs['href']}
         else:
-            clean.append(str(elem))
-    return ''.join(clean)
+            # Internal links just get whacked and replaced with their plaintext.
+            elem.replace_with(elem.get_text())
+
+    return ''.join(str(i) for i in soup.contents)
