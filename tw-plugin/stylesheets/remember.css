@@ -1,6 +1,7 @@
 div.remembertwo {
 	border-left: 3px solid <<colour tag-background>>;
 	padding-left: 0.5em;
+	margin-bottom: 22px; /* line-height of the selfidentification block */
 }
 
 div.remembertwo .tr-ritem p {
@@ -23,6 +24,7 @@ div.remembertwo div.tr-selfidentification {
 div.remembercz {
 	border-left: 3px solid <<colour tag-background>>;
 	padding-left: 0.5em;
+	line-height: 22px; /* default; setting explicitly */
 }
 
 .remembercz > span.cloze-identifier {

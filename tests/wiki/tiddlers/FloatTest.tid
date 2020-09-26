@@ -1,0 +1,17 @@
+created: 20200926174936138
+modified: 20200926181126318
+tags: ManualTest
+title: FloatTest
+type: text/vnd.tiddlywiki
+
+<<rememberq "20200926174937947"
+	"Foo?"
+	"Bar baz.">>
+
+Some more text. It needs to go on for a while, so I'll keep typing text that doesn't have any real meaning. I want to get onto another line.
+
+<<rememberq "20200926174937947"
+	"Bar?"
+	"""Um, no, wrote the Rowleys' attorney in a motion to dismiss earlier this month. He had multiple arguments, all very good ones, as to why a contract claim would not fly here. First, there was no agreement. Second, if there was an agreement, there was no meeting of the minds on the amount of money (Dimmick admitted the "offer" was for "an unspecified amount"), and so no binding contract. Third, agreements made at knifepoint are, you may be surprised to learn, not enforceable as they are made "under duress." Finally, a contract to do something illegal (e.g. hide a fugitive) is also.""">>
+
+Some more text. It needs to go on for a while, so I'll keep typing text that doesn't have any real meaning. I want to get onto another line.
