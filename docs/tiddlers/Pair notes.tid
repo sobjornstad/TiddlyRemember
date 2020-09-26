@@ -1,0 +1,33 @@
+created: 20200926164440378
+macro: rememberp
+modified: 20200926165500388
+tags: [[Creating notes in TiddlyRemember]]
+title: Pair notes
+type: text/vnd.tiddlywiki
+
+''Pair notes'' are like [[Question-and-answer notes]], but when you add one pair note, Anki creates two cards, one showing the reverse side first. These can be helpful for learning words in a foreign language, or definitions of terms.
+
+To change a question-and-answer note into a pair note, change the `q` to `p`, for //pair//:
+
+```
+<<rememberp "20200926164615666"
+    "German: //yellow//"
+    "English: //gelb//"
+>>
+```
+
+That renders like this in TiddlyWiki:
+
+<<rememberp "20200926164615666"
+    "German: //yellow//"
+    "English: //gelb//"
+>>
+
+In Anki, you'll see one note with a single set of fields but two cards in the browser:
+
+{{pair-browser.png}}
+
+And when reviewing, you'll see the note displayed both ways, with different scheduling for each card:
+
+{{pair-sideone.png}}
+{{pair-sidetwo.png}}

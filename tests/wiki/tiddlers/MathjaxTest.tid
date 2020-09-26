@@ -1,0 +1,15 @@
+created: 20200926161646646
+modified: 20200926163801937
+tags: TestCase
+title: MathjaxTest
+type: text/vnd.tiddlywiki
+
+I haven't been able to get Mathjax to work correctly in TiddlyWiki. But it does sync across into Anki.
+
+<<rememberq "20200926161654369"
+	"What is the formula for the Ideal Gas Law?"
+	"\( pV = nRT \)">>
+
+\( pV - nRT \)
+
+\[ pV = nRT \]
