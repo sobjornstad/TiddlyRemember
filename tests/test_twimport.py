@@ -13,7 +13,7 @@ sys.path.append("anki-plugin")
 import os
 
 from src.twimport import find_notes
-from src.twnote import TwNote, QuestionNote, ClozeNote
+from src.twnote import TwNote, QuestionNote, ClozeNote, PairNote
 
 from testutils import fn_params
 
@@ -54,6 +54,24 @@ def test_cloze_import(fn_params):
     assert note.id_ == '20200925171645079'
     assert note.tidref == 'BasicCloze'
     assert note.text == 'TiddlyRemember is good for {{c1::remembering things that you put in your TiddlyWiki}}.'
+    assert note.target_tags == set()
+    assert note.target_deck is None
+
+
+def test_pair_import(fn_params):
+    fn_params['filter_'] = "BasicPair"
+    notes = find_notes(**fn_params)
+
+    assert len(notes) == 1
+    note = notes.pop()
+
+    assert isinstance(note, TwNote)
+    assert isinstance(note, PairNote)
+
+    assert note.id_ == '20200925223930460'
+    assert note.tidref == "BasicPair"
+    assert note.first == "One"
+    assert note.second == "1"
     assert note.target_tags == set()
     assert note.target_deck is None
 

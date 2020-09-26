@@ -62,7 +62,7 @@ class ModelData(ABC):
     """
     name: str
     fields: Tuple[str, ...]
-    templates: Tuple[Type[TemplateData]]
+    templates: Tuple[Type[TemplateData], ...]
     styling: str
     sort_field: str
     is_cloze: bool
@@ -213,6 +213,73 @@ class TiddlyRememberQuestionAnswer(ModelData):
     sort_field = "Question"
     is_cloze = False
 
+
+class TiddlyRememberPair(ModelData):
+    "Two-sided flashcard."
+
+    class Metatemplate(TemplateData):
+        front = r"""
+            {{<%FRONT%>}}
+        """
+        back = r"""
+            {{FrontSide}}
+
+            <hr id=answer>
+
+            {{<%BACK%>}}
+
+            <div class="note-id">
+                {{#Permalink}}
+                    [<a href="{{text:Permalink}}">{{Wiki}}/{{Reference}}</a> {{ID}}]
+                {{/Permalink}}
+                {{^Permalink}}
+                    [{{Wiki}}/{{Reference}} {{ID}}]
+                {{/Permalink}}
+            </div>
+        """
+
+        def __init_subclass__(cls, **kwargs):
+            cls.front = cls.front.replace(r'<%FRONT%>', cls.front_name)
+            cls.back = cls.back.replace(r'<%BACK%>', cls.back_name)
+
+    class TiddlyRememberPairForwardTemplate(Metatemplate):
+        "Forward template for the two-sided note."
+        name = "Forward"
+        front_name = "First"
+        back_name = "Second"
+
+    class TiddlyRememberPairReverseTemplate(Metatemplate):
+        "Reverse template for the two-sided note."
+        name = "Reverse"
+        front_name = "Second"
+        back_name = "First"
+
+    name = "TiddlyRemember 2-side v1"
+    fields = ("First", "Second", ID_FIELD_NAME, "Wiki", "Reference", "Permalink")
+    templates = (TiddlyRememberPairForwardTemplate,
+                 TiddlyRememberPairReverseTemplate)
+    styling = """
+        .card {
+            font-family: arial;
+            font-size: 20px;
+            text-align: center;
+            color: black;
+            background-color: white;
+        }
+
+        .note-id {
+            font-size: 70%;
+            margin-top: 1ex;
+            text-align: right;
+            color: grey;
+        }
+
+        .note-id a {
+            color: grey;
+        }
+    """
+    sort_field = "First"
+    is_cloze = False
 
 class TiddlyRememberCloze(ModelData):
     "Cloze deletion note."

@@ -1,21 +1,21 @@
-div.rememberq {
+div.remembertwo {
 	border-left: 3px solid <<colour tag-background>>;
 	padding-left: 0.5em;
 }
 
-div.rememberq .rquestion p, .ranswer p {
+div.remembertwo .tr-ritem p {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	margin-left: 2em;
 }
 
-div.rememberq .rquestion div, div.rememberq .ranswer div {
+div.remembertwo .tr-ritem div {
 	font-weight: bold;
 	color: <<colour primary>>;
 	float: left;
 }
 
-div.rememberq div.tr-selfidentification {
+div.remembertwo div.tr-selfidentification {
 	float: right;
 	color: <<colour muted-foreground>>;
 }
@@ -36,10 +36,10 @@ div.remembercz {
 }
 
 /* the separate reference and ID fields are only for TR's benefit */
-div.rememberq div.tr-reference, .remembercz div.tr-reference {
+div.remembertwo div.tr-reference, .remembercz div.tr-reference {
 	display: none;
 }
 
-div.rememberq div.rid, .remembercz div.rid {
+div.remembertwo div.rid, .remembercz div.rid {
 	display: none;
 }
