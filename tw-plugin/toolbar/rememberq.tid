@@ -15,11 +15,16 @@ type: text/vnd.tiddlywiki
 	"A">>
 \end
 
-<$set name=questionid
-      value=<<now "[UTC]YYYY0MM0DD0hh0mm0ss0XXX">> >
+\define prefixId() $(theprefix)$$(thetime)$
+
+<$set name=thetime value=<<now "[UTC]YYYY0MM0DD0hh0mm0ss0XXX">> >
+<$set name=theprefix value={{$:/config/TiddlyRemember/IdPrefix}}>
+<$set name=questionid value=<<prefixId>> >
 	<$action-sendmessage
 		$message="tm-edit-text-operation"
 		$param="replace-selection"
 		text=<<getMacro>>
 	/>
+</$set>
+</$set>
 </$set>

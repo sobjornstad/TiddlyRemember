@@ -1,5 +1,5 @@
 created: 20200523174038112
-modified: 20200731032554152
+modified: 20200926182845239
 title: Unique ID
 type: text/vnd.tiddlywiki
 
@@ -15,4 +15,22 @@ Once a unique ID has been created, you ordinarily should not edit it. Typically,
 
 Unique IDs, as the name suggests, need to be //unique//. If there is a collision (more than one note has the same ID), only one note will be created in Anki, and which values it has will be random on every sync. This is obviously bad, so it's best to use the snippet buttons every time you create a note to be sure you don't accidentally create a collision.
 
-If you transclude a tiddler that contains TiddlyRemember notes, this will create a kind of “collision” in that two different tiddlers contain a question with the same ID when rendered. Generally, nothing bad will happen here since the contents will be the same. However, if you're doing this, you will want to use [[hard references|Soft and hard references]] for the questions that are being transcluded -- otherwise, which tiddler is cited as the source will be random on every sync.
+If you transclude a tiddler that contains TiddlyRemember notes, this will create a kind of “collision” in that two different tiddlers contain a question with the same ID when rendered. Generally, nothing bad will happen here since the contents will be the same. However, if you're doing this, you will want to use [[hard references|Soft and hard references]] to manually specify the source of the questions that are being transcluded – otherwise, which tiddler is cited as the source may change randomly from one sync to the next, producing spurious updates and making it hard to identify the source you intended to cite.
+
+!! Prefixing IDs
+
+If you're creating TiddlyRemember notes in a wiki that will be distributed to others,
+    you may wish to prefix your unique IDs with an identifier.
+Although collisions between millisecond timestamps are unlikely,
+    the more widely your questions get distributed,
+    the more likely that someone else happens to create a note at the same time.
+If you're concerned about such collisions,
+    override the shadow tiddler $:/config/TiddlyRemember/IdPrefix
+    to include an appropriate prefix.
+For instance, in this wiki, I might use `trdoc-`,
+    and subsequently generated IDs would look like `trdoc-20200926182550795`.
+
+This option is not retroactive –
+    questions you have already created
+    will continue to have whatever IDs they had when you created them,
+    unless you go and manually change them in your wikitext.
