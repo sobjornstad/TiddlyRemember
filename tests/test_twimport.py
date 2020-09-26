@@ -108,6 +108,19 @@ def test_formatting(fn_params):
     assert '<strike>' in note.text
 
 
+def test_link(fn_params):
+    "Check that internal links are removed and external links comes across."
+    fn_params['filter_'] = "LinkTest"
+    notes = find_notes(**fn_params)
+
+    assert len(notes) == 1
+    note = notes.pop()
+
+    assert note.id_ == "20200926154719339"
+    assert note.question == 'How do you get to Google?'
+    assert note.answer == 'Browse to <a href="https://google.com">https://google.com</a>.'
+
+
 def test_external_image(fn_params):
     "Check that image references come across into TwNotes, including sizing."
     fn_params['filter_'] = "ExternalCatImageTest"
