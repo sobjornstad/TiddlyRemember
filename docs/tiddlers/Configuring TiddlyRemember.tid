@@ -1,10 +1,11 @@
 created: 20200523161821016
-modified: 20200523180313366
+modified: 20200926190648443
 tags: TiddlyRemember
 title: Configuring TiddlyRemember
 type: text/vnd.tiddlywiki
 
-TiddlyRemember configuration is found in two places, in Anki and in your wiki(s).
+TiddlyRemember configuration is found in two places, in your wiki(s) and in Anki.
 
+* [[Mapping tiddlers]] within your wiki(s) are used to determine what decks and tags your notes will have in Anki. Mapping tiddlers are entirely optional – if you don't need different decks and tags in Anki, just ignore them.
 *  [[Add-on configuration|Configuring the Anki add-on]] within Anki is used to list the wikis you want to sync to your Anki collection. You have to set up the add-on configuration before you can sync anything.
-* [[Mapping tiddlers]] within your wiki(s) are used to determine what decks and tags your notes will have in Anki. Mapping tiddlers are entirely optional -- if you don't need different decks and tags in Anki, just ignore them.
+* [[Editing card templates]] in Anki is an advanced feature that allows you to further customize the display of your cards.
