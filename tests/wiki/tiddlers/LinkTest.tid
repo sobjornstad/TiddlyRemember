@@ -1,0 +1,11 @@
+created: 20200926154715902
+modified: 20200926154815025
+tags: TestCase
+title: LinkTest
+type: text/vnd.tiddlywiki
+
+Internal links should work in TiddlyWiki and be changed into external links to the wiki in Anki. External links should just be maintained throughout.
+
+<<rememberq "20200926154719339"
+	"How do you get to [[Google]]?"
+	"Browse to [[https://google.com]].">>
