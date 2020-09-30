@@ -35,7 +35,7 @@ Roll back the `tiddlywiki.info` changes,
 ## Bumping the version
 
 1. Update the version number in `tw-plugin/plugin.info`.
-   in the `TiddlyWiki Metadata` tiddler.
+   Also update it in the `TiddlyWiki Metadata` tiddler.
 2. Open and save the `TiddlyRemember` main tiddler
    so that its modification date gets bumped.
 3. Quit the TiddlyWiki listener and commit the changes to your release branch.
