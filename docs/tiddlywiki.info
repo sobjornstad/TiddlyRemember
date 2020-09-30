@@ -1,8 +1,6 @@
 {
     "description": "TiddlyRemember",
     "plugins": [
-        "tiddlywiki/filesystem",
-        "tiddlywiki/tiddlyweb"
     ],
     "themes": [
         "tiddlywiki/vanilla"
