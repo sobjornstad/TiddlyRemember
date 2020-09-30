@@ -15,6 +15,6 @@ build.ankiaddon: src/*.py src/config.json
 	( cd src/; zip -r ../$@ *.py config.json )
 
 clean:
-	rm -f src/__pycache__
+	rm -rf src/__pycache__
 	rm -f src/*_dialog.py
 	rm -f build.ankiaddon
