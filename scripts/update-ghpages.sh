@@ -22,11 +22,10 @@ revision=$(git rev-parse HEAD)
 rm -rf "$tmp_location"
 git worktree add "$tmp_location" "$pages_branch"
 cp -r docs/output/* "$tmp_location"
-# TODO: concurrency problem with (? Bizarrely when I run the commands manually it works, when automatically it says there are no changes???
 (
     cd "$tmp_location" || die "Failed to cd to just-created temporary location!"
     git add .
-    git commit -am "updating GitHub Pages branch with docs built from $revision"
+    PRE_COMMIT_ALLOW_NO_CONFIG=1 git commit -am "updating GitHub Pages branch with docs built from $revision"
 )
 rm -rf "$tmp_location"
 git worktree prune
