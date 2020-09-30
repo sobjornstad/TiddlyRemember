@@ -2129,23 +2129,25 @@ a.tc-tiddlylink:hover {
 	fill: #FAFAFA;
 }
 
-div.rememberq {
+div.remembertwo {
 	border-left: 3px solid #ec6;
 	padding-left: 0.5em;
-}div.rememberq .rquestion p, .ranswer p {
+	margin-bottom: 22px; /* line-height of the selfidentification block */
+}div.remembertwo .tr-ritem p {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	margin-left: 2em;
-}div.rememberq .rquestion div, div.rememberq .ranswer div {
+}div.remembertwo .tr-ritem div {
 	font-weight: bold;
 	color: #3949ab;
 	float: left;
-}div.rememberq div.tr-selfidentification {
+}div.remembertwo div.tr-selfidentification {
 	float: right;
 	color: rgba(0, 0, 0, 0.54);
 }div.remembercz {
 	border-left: 3px solid #ec6;
 	padding-left: 0.5em;
+	line-height: 22px; /* default; setting explicitly */
 }.remembercz > span.cloze-identifier {
 	color: #ec6;
 }.remembercz div.tr-selfidentification {
@@ -2153,9 +2155,9 @@ div.rememberq {
 	margin-left: 0.5em;
 	color: rgba(0, 0, 0, 0.54);
 }/* the separate reference and ID fields are only for TR's benefit */
-div.rememberq div.tr-reference, .remembercz div.tr-reference {
+div.remembertwo div.tr-reference, .remembercz div.tr-reference {
 	display: none;
-}div.rememberq div.rid, .remembercz div.rid {
+}div.remembertwo div.rid, .remembercz div.rid {
 	display: none;
 }
 
