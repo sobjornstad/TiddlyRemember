@@ -27,7 +27,7 @@ def _download_wiki(url: str, target_location: str) -> None:
     r = requests.get(url)
     r.raise_for_status()
     with open(target_location, 'wb') as f:
-        f.write(r.text.encode('utf-8'))
+        f.write(r.text.encode(r.encoding))
 
 
 def _folderify_wiki(tw_binary: str, wiki_path: str, output_directory: str) -> None:
