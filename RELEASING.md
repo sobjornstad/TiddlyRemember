@@ -85,3 +85,10 @@ Roll back the `tiddlywiki.info` changes,
 2. Create a new release on GitHub to publicize the update:
    https://github.com/sobjornstad/TiddlyRemember/releases/new.
    The tag should be in the form `v0.0.0`, using standard semantic versioning.
+
+
+## Smoke tests
+
+* Install TW plugin via Node.
+* Install TW plugin via drag-and-drop.
+* Remove any livelinks to Anki plugin, download/update through Anki interface, and sync up.
