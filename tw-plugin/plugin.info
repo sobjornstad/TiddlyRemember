@@ -2,7 +2,7 @@
     "title": "$:/plugins/sobjornstad/TiddlyRemember",
     "description": "TiddlyRemember: Embed Anki notes in your TiddlyWiki",
     "author": "Soren Bjornstad",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "core-version": ">=5.1.21",
     "source": "https://github.com/sobjornstad/TiddlyRemember",
     "list": "readme license",
