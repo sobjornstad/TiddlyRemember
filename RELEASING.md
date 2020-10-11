@@ -38,7 +38,7 @@ Roll back the `tiddlywiki.info` changes,
    Also update it in the `TiddlyWiki Metadata` tiddler.
 2. Open and save the `TiddlyRemember` main tiddler
    so that its modification date gets bumped.
-3. Quit the TiddlyWiki listener and commit the changes to your release branch.
+3. Quit the TiddlyWiki listener.
 
 
 ## Updating the Anki add-on
@@ -59,9 +59,10 @@ Roll back the `tiddlywiki.info` changes,
 
 ## Publishing to GitHub
 
-1. Check your branch log and make any final rebases or adjustments.
-2. Push the branch to GitHub.
-3. Create a pull request to `master`.
+1. Commit all doc and release changes made thus far.
+2. Check your branch log and make any final rebases or adjustments.
+3. Push the branch to GitHub.
+4. Create a pull request to `master`.
    If all looks good, complete with a rebase-and-merge and delete the branch.
 
 
