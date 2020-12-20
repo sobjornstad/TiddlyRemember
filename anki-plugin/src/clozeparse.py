@@ -61,7 +61,7 @@ class Occlusion:
             self.text = self.raw_text
 
 
-def ankify_clozes(text: str, wiki_name: str, tidref: str) -> str:
+def ankify_clozes(text: str, wiki_name: str = "", tidref: str = "") -> str:
     """
     Given some text in TiddlyRemember simplified cloze format, convert it to
     work in Anki. The following documents the simplified format.
