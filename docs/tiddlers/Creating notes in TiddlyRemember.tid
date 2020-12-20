@@ -1,6 +1,6 @@
 created: 20200523163252291
 list: [[Question-and-answer notes]] [[Pair notes]] [[Cloze notes]]
-modified: 20200926190540649
+modified: 20201220192329388
 tags: TiddlyRemember
 title: Creating notes in TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -63,6 +63,9 @@ If you need to include double quotation marks in a note, use triple quotes for t
     """How do you include "quotation marks" within a macro parameter in TiddlyWiki?"""
     "Use triple quotation marks on the outside."
 >>
+
+Some users have reported issues opening external links with `file://` URLs.
+See [[External links to files cannot be opened]] for a possible workaround.
 
 
 !! Advanced features

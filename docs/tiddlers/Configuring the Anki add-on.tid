@@ -1,5 +1,5 @@
 created: 20200523160949539
-modified: 20200523210759248
+modified: 20201220192453711
 tags: [[Configuring TiddlyRemember]]
 title: Configuring the Anki add-on
 type: text/vnd.tiddlywiki
@@ -39,5 +39,7 @@ You can configure any number of wikis to sync with. Each wiki has its own set of
 
 ; Permalink
 : A URL at which your wiki can be accessed on the devices where you review Anki cards. This will allow Anki to provide a link back to the source tiddler on your cards. This field is optional -- if you leave it blank, no link will be provided on your cards, but you'll still be able to see which wiki and tiddler it came from. If you use a file wiki on your local computer, you can use a `file://` URL. You should be able to copy this URL out of the address bar of your browser.
+
+: At least one user has reported being unable to open the link on Windows with a `file://` URI. A workaround is described in [[External links to files cannot be opened]].
 
 Changes to the name or permalink will update all of the notes from that wiki on the next sync.
