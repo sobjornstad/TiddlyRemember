@@ -120,8 +120,6 @@ class TwNote(metaclass=ABCMeta):
         Build and add the permalink field to this note given the base URL of
         the wiki. May be used to replace an existing permalink.
         """
-        if not base_url.endswith('/'):
-            base_url += '/'
         self.permalink = base_url + "#" + urlquote(self.tidref)
 
     def update_fields(self, anki_note: Note) -> None:
