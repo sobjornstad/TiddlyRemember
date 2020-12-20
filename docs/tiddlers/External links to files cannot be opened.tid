@@ -1,0 +1,21 @@
+created: 20201220192136524
+modified: 20201220192510746
+tags: Troubleshooting
+title: External links to files cannot be opened
+type: text/vnd.tiddlywiki
+
+Some users have reported difficulties clicking on links
+    to files on the local file system (`file://` URLs) within Anki.
+This may apply to either the `Permalink` field
+    that TiddlyRemember populates automatically
+    according to the settings described in [[Configuring the Anki add-on]],
+    or to external links within the text of TiddlyRemember notes.
+
+Oddly, this does not seem to be an issue for all users,
+    and no clear pattern in Anki version, operating system, etc., has been observed.
+
+As a workaround, the Anki add-on
+    [[Open linked pdf, docx, epub, audio/video etc. in external program|https://ankiweb.net/shared/info/879473266]]
+    can be used to open such links.
+See [[this forum thread|https://groups.google.com/d/msgid/tiddlywiki/67f5abb4-73dd-4f06-bb13-f6e320091a43n%40googlegroups.com]]
+    for more information.
