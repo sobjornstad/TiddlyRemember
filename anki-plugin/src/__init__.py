@@ -35,6 +35,7 @@ from PyQt5.QtCore import pyqtSignal, QThread
 
 from . import ankisync
 from . import import_dialog
+from .clozeparse import UnmatchedBracesError
 from .settings import edit_settings
 from . import twimport
 from .twnote import TwNote
@@ -139,7 +140,11 @@ class ImportDialog(QDialog):
         assert self.extract_thread is not None, "Tried to join a nonexistent thread!"
         if self.extract_thread.exception:
             self.reject()
-            raise self.extract_thread.exception
+            if isinstance(self.extract_thread.exception, UnmatchedBracesError):
+                showWarning(str(self.extract_thread.exception))
+                return None
+            else:
+                raise self.extract_thread.exception
 
         if not self.extract_thread.notes:
             # This is probably a mistake or misconfiguration. To avoid deleting

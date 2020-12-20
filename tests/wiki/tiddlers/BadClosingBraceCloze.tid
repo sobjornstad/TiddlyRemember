@@ -1,0 +1,12 @@
+created: 20201220140000000
+creator: mnemonist
+modified: 20201220140000000
+modifier: mnemonist
+tags: TestCase
+title: BadClosingBraceCloze
+type: text/vnd.tiddlywiki
+
+<$macrocall $name="remembercz" id=<<currentTiddler>> text='
+Make the radio input checked by default:<br>
+{`<input type="radio" name="some-name" checked}>`}
+' reference="HTML5 Elements"/>
