@@ -1,6 +1,6 @@
 created: 20200523163403092
 macro: rememberq
-modified: 20200926165339907
+modified: 20201220191556559
 tags: [[Creating notes in TiddlyRemember]]
 title: Question-and-answer notes
 type: text/vnd.tiddlywiki
@@ -25,7 +25,8 @@ And when reviewing in Anki:
 
 {{qapair-screenshot.png}}
 
-Clicking the white (left-hand) lightbulb icon on the edit toolbar
+Clicking the white (left-hand) lightbulb icon on the editor toolbar
     will insert a `rememberq` snippet.
+You can also use the keyboard shortcut (Alt+R by default, customizable in the keyboard shortcuts panel).
 
 [[Pair notes]] are like question-and-answer notes, but also create a card showing the “answer” on the front and the “question” on the back.

@@ -1,7 +1,7 @@
 created: 20200523164249707
 list: [[Multiple occlusions]] [[Explicit cloze numbering]] [[Inline cloze deletions]] [[Editing cloze notes]]
 macro: remembercz
-modified: 20200523211302144
+modified: 20201220191538609
 tags: [[Creating notes in TiddlyRemember]]
 title: Cloze notes
 type: text/vnd.tiddlywiki
@@ -27,7 +27,8 @@ Cloze notes are created with the `remembercz` macro, putting the part you want t
 
 (When you flip the card, the `[...]` is filled in with the answer.)
 
-Clicking the black (right-hand) lightbulb icon on the edit toolbar will insert a `remembercz` snippet.
+Clicking the black (right-hand) lightbulb icon on the editor toolbar will insert a `remembercz` snippet.
+You can also use the keyboard shortcut (Alt+Shift+R by default, customizable in the keyboard shortcuts panel).
 
 
 !! Advanced cloze deletions
