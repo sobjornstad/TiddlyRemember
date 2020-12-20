@@ -12,6 +12,9 @@ sys.path.append("anki-plugin")
 
 import os
 
+import pytest
+
+from src.clozeparse import UnmatchedBracesError
 from src.twimport import find_notes
 from src.twnote import TwNote, QuestionNote, ClozeNote, PairNote
 
@@ -216,3 +219,15 @@ def test_inlinecloze(fn_params):
     notes = find_notes(**fn_params)
 
     assert len(notes) == 1
+
+
+def test_doubleclosingbrace(fn_params):
+    """
+    Report: "Single '}' encountered in format string" error
+    prevents syncing.
+
+    https://github.com/sobjornstad/TiddlyRemember/issues/29
+    """
+    fn_params['filter_'] = "BadClosingBraceCloze"
+    with pytest.raises(UnmatchedBracesError):
+        find_notes(**fn_params)

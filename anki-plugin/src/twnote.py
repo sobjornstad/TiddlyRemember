@@ -323,7 +323,7 @@ class ClozeNote(TwNote):
             id_ = id_raw.strip().lstrip('[').rstrip(']')
             tidref = select_tidref(pair.find("div", class_="tr-reference"),
                                    tiddler_name)
-            parsed_text = ankify_clozes(text)
+            parsed_text = ankify_clozes(text, wiki_name, tidref)
             notes.add(cls(id_, wiki_name, tidref, parsed_text, tags, deck))
 
         return notes

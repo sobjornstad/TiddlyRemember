@@ -12,6 +12,10 @@ import re
 from typing import Iterable, List, Optional, Sequence
 
 
+class UnmatchedBracesError(Exception):
+    pass
+
+
 class Occlusion:
     """
     Representation of an occlusion -- a part within a remembercz TiddlyWiki note
@@ -57,7 +61,7 @@ class Occlusion:
             self.text = self.raw_text
 
 
-def ankify_clozes(text: str) -> str:
+def ankify_clozes(text: str, wiki_name: str, tidref: str) -> str:
     """
     Given some text in TiddlyRemember simplified cloze format, convert it to
     work in Anki. The following documents the simplified format.
@@ -125,7 +129,17 @@ def ankify_clozes(text: str) -> str:
         occlusion.anki_index = index
 
     # Replace placeholders with the cleansed, explicified, Anki-format occlusions.
-    return placeholder_text.format(*(i.anki_occlusion for i in occlusions))
+    try:
+        return placeholder_text.format(*(i.anki_occlusion for i in occlusions))
+    except ValueError as e:
+        if str(e) == "Single '}' encountered in format string":
+            raise UnmatchedBracesError(
+                f"The following TiddlyRemember cloze note in your wiki '{wiki_name}' "
+                f"with reference '{tidref}' "
+                f"contains an unmatched closing brace ('}}'):\n{text}\n\n"
+                f"Please find and correct this note and then try syncing again.") from e
+        else:
+            raise
 
 
 if __name__ == '__main__':
