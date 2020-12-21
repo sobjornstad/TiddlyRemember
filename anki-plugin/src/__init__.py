@@ -133,19 +133,28 @@ class ImportDialog(QDialog):
         self.extract_thread.progress_update.connect(self.extract_progress)
         self.extract_thread.start()
 
-    def join_thread(self) -> None:
+    def handle_thread_exception(self) -> bool:
         """
-        Gather up the results of a completed extract thread, and start the next one
-        if appropriate.
+        Try to handle exceptions that took place during the thread's execution,
+        if any.
+
+        Three possible results:
+            - There were no exceptions: False is returned.
+            - There was an exception and a warning was displayed, so no further
+              processing should be done: True is returned.
+            - There was an exception we didn't know how to handle:
+              the exception is reraised.
         """
-        assert self.extract_thread is not None, "Tried to join a nonexistent thread!"
+        assert self.extract_thread is not None, \
+            "Tried to handle exceptions on a nonexistent thread!"
+
         exc = self.extract_thread.exception
         if exc:
             self.reject()
+
             if (isinstance(exc, ConfigurationError)
                     or isinstance(exc, UnmatchedBracesError)):
                 showWarning(str(self.extract_thread.exception))
-                return None
             elif isinstance(exc, RenderingError) and 'ENAMETOOLONG' in str(exc):
                 msg = ("It looks like your wiki may contain a tiddler with an "
                        "extremely long name, which cannot be synced due to "
@@ -162,9 +171,21 @@ class ImportDialog(QDialog):
                     msg += f"\n\nTiddler path: {m['path']}"
                 msg += f"\n\nThe original error message follows:\n{str(exc)}"
                 showWarning(msg)
-                return None
             else:
                 raise exc
+
+            return True
+        return False
+
+    def join_thread(self) -> None:
+        """
+        Gather up the results of a completed extract thread, and start the next one
+        if appropriate.
+        """
+        assert self.extract_thread is not None, "Tried to join a nonexistent thread!"
+
+        if self.handle_thread_exception():
+            return None
 
         if not self.extract_thread.notes:
             # This is probably a mistake or misconfiguration. To avoid deleting
