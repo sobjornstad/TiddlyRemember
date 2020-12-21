@@ -14,6 +14,7 @@ import urllib
 from bs4 import BeautifulSoup
 import requests
 
+from .oops import RenderingError, ConfigurationError
 from .twnote import TwNote
 from .util import nowin_startupinfo
 
@@ -39,11 +40,13 @@ def _folderify_wiki(tw_binary: str, wiki_path: str, output_directory: str) -> No
     :param output_directory: Directory to place the folder wiki in.
     """
     if not os.path.exists(wiki_path):
-        raise Exception(f"The wiki file '{wiki_path}' does not exist. "
-                        f"Please check your TiddlyRemember configuration.")
+        raise ConfigurationError(
+            f"The wiki file '{wiki_path}' does not exist. "
+            f"Please check your TiddlyRemember configuration.")
     elif not os.path.isfile(wiki_path):
-        raise Exception(f"The wiki file '{wiki_path}' is a folder. If you meant to "
-                        f"use a folder wiki, set the 'type' parameter to 'folder'.")
+        raise ConfigurationError(
+            f"The wiki file '{wiki_path}' is a folder. If you meant to "
+            f"use a folder wiki, set the 'type' parameter to 'folder'.")
 
     cmd = [tw_binary, "--load", wiki_path, "--savewikifolder", output_directory]
     _invoke_tw_command(cmd, None, "folderify wiki")
@@ -59,15 +62,16 @@ def _invoke_tw_command(cmd: Sequence[str], wiki_path: Optional[str],
                               stderr=subprocess.STDOUT, check=True,
                               startupinfo=nowin_startupinfo())
     except FileNotFoundError as e:
-        raise Exception(
+        raise ConfigurationError(
             f"The TiddlyWiki executable at '{cmd[0]}' was not found. Please set the "
             f"'tiddlywikiBinary' option in your TiddlyRemember configuration to the "
             f"path to your 'tiddlywiki' command. If you do not have TiddlyWiki on "
             f"Node.JS installed on your computer, please install it now.") from e
     except subprocess.CalledProcessError as proc:
         stdout = proc.stdout.decode() if proc.stdout else "(no output)"
-        raise Exception(f"Failed to {description}: return code {proc.returncode}.\n"
-                        f"$ {' '.join(proc.cmd)}\n\n{stdout}") from proc
+        raise RenderingError(
+            f"Failed to {description}: return code {proc.returncode}.\n"
+            f"$ {' '.join(proc.cmd)}\n\n{stdout}") from proc
 
 
 def _notes_from_paths(
@@ -116,7 +120,7 @@ def _notes_from_tiddler(tiddler: str, wiki_name: str, tiddler_name: str) -> Set[
 def _render_wiki(tw_binary: str, wiki_path: str, output_directory: str,
                  filter_: str) -> None:
     """
-    Request that TiddlyWiki render the specified tiddlers as html to a
+    Request that TiddlyWiki render the specified tiddlers as HTML to a
     location where we can inspect them for notes.
 
     :param tw_binary: Path to the TiddlyWiki node executable.
@@ -124,13 +128,21 @@ def _render_wiki(tw_binary: str, wiki_path: str, output_directory: str,
     :param output_directory: Directory to render html files into.
     :param filter_: TiddlyWiki filter describing which tiddlers we want
                     to search for notes.
+
+    Raises:
+        ConfigurationError - if something is wrong with the TR configuration
+            or the Node install
+        RenderingError - if Node fails to render the wiki for some unexplained reason
+            (nonzero exit status)
     """
     if not os.path.exists(wiki_path):
-        raise Exception(f"The wiki folder '{wiki_path}' does not exist. "
-                        f"Please check your TiddlyRemember configuration.")
+        raise ConfigurationError(
+            f"The wiki folder '{wiki_path}' does not exist. "
+            f"Please check your TiddlyRemember configuration.")
     elif not os.path.isdir(wiki_path):
-        raise Exception(f"The wiki folder '{wiki_path}' is a file. If you meant to "
-                        f"use a single-file wiki, set the 'type' parameter to 'file'.")
+        raise ConfigurationError(
+            f"The wiki folder '{wiki_path}' is a file. If you meant to "
+            f"use a single-file wiki, set the 'type' parameter to 'file'.")
 
     cmd = [
         tw_binary,
