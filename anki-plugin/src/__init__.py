@@ -24,6 +24,7 @@
 # SOFTWARE.
 ###############################################################################
 
+import re
 from typing import Dict, List, Optional, Set
 
 # pylint: disable=import-error, no-name-in-module
@@ -35,7 +36,7 @@ from PyQt5.QtCore import pyqtSignal, QThread
 
 from . import ankisync
 from . import import_dialog
-from .clozeparse import UnmatchedBracesError
+from .oops import ConfigurationError, RenderingError, UnmatchedBracesError
 from .settings import edit_settings
 from . import twimport
 from .twnote import TwNote
@@ -138,13 +139,32 @@ class ImportDialog(QDialog):
         if appropriate.
         """
         assert self.extract_thread is not None, "Tried to join a nonexistent thread!"
-        if self.extract_thread.exception:
+        exc = self.extract_thread.exception
+        if exc:
             self.reject()
-            if isinstance(self.extract_thread.exception, UnmatchedBracesError):
+            if (isinstance(exc, ConfigurationError)
+                    or isinstance(exc, UnmatchedBracesError)):
                 showWarning(str(self.extract_thread.exception))
                 return None
+            elif isinstance(exc, RenderingError) and 'ENAMETOOLONG' in str(exc):
+                msg = ("It looks like your wiki may contain a tiddler with an "
+                       "extremely long name, which cannot be synced due to "
+                       "limits on the length of a filename in your operating system. "
+                       "Please reduce the length of this tiddler name "
+                       "and then try syncing again. "
+                       "The exact length allowed will depend on your operating system "
+                       "and the language your tiddler title is written in, "
+                       "but should generally not be more than 200 characters "
+                       "(sometimes less).")
+                m = re.search(r"^\s*path: '(?P<path>.*)'\s*$", str(exc),
+                              flags=re.MULTILINE)
+                if m:
+                    msg += f"\n\nTiddler path: {m['path']}"
+                msg += f"\n\nThe original error message follows:\n{str(exc)}"
+                showWarning(msg)
+                return None
             else:
-                raise self.extract_thread.exception
+                raise exc
 
         if not self.extract_thread.notes:
             # This is probably a mistake or misconfiguration. To avoid deleting
