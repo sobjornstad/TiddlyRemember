@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 import requests
 
 from .oops import RenderingError, ConfigurationError
-from .twnote import TwNote
+from .twnote import TwNote, ensure_version
 from .util import nowin_startupinfo
 
 RENDERED_FILE_EXTENSION = "html"
@@ -114,6 +114,7 @@ def _notes_from_tiddler(tiddler: str, wiki_name: str, tiddler_name: str) -> Set[
     :return: A (possibly empty) set of all the notes found in this tiddler.
     """
     soup = BeautifulSoup(tiddler, 'html.parser')
+    ensure_version(soup)
     return TwNote.notes_from_soup(soup, wiki_name, tiddler_name)
 
 

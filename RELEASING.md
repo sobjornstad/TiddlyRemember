@@ -34,8 +34,11 @@ Roll back the `tiddlywiki.info` changes,
 
 ## Bumping the version
 
-1. Update the version number in `tw-plugin/plugin.info`.
-   Also update it in the `TiddlyWiki Metadata` tiddler.
+1. Update the version number in:
+   * `tw-plugin/plugin.info`.
+   * The `TiddlyWiki Metadata` tiddler.
+   * `util.py` (both the TR compatibility list and the plugin version).
+   * The `TiddlyRememberParseable` template.
 2. Open and save the `TiddlyRemember` main tiddler
    so that its modification date gets bumped.
 3. Quit the TiddlyWiki listener.
