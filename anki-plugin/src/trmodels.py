@@ -32,6 +32,8 @@ from anki.consts import MODEL_CLOZE
 from anki.models import Template as AnkiTemplate
 from anki.models import NoteType as AnkiModel
 
+from .oops import AnkiStateError
+
 
 # Field to hold the unique ID used to maintain synchronization integrity.
 # This must (currently) be the same on all note types used by TiddlyRemember
@@ -173,7 +175,7 @@ class ModelData(ABC):
         for (anki_ord, anki_name), (mod_ord, mod_name) in zip(anki_fields,
                                                               enumerate(cls.fields)):
             if not anki_ord == mod_ord and anki_name == mod_name:
-                raise Exception(
+                raise AnkiStateError(
                     f"The fields on the note type {cls.name} have been modified "
                     f"in a way that prevents TiddlyRemember from syncing. Please "
                     f"restore the fields to their standard names and positions, "
@@ -181,12 +183,12 @@ class ModelData(ABC):
 
         # Verify model type.
         if cls.is_cloze and not anki_model['type'] == MODEL_CLOZE:
-            raise Exception(
+            raise AnkiStateError(
                 f"TiddlyRemember expects the note type {cls.name} to be a cloze note "
                 f"type, but it is not! Please fix the note type, then try syncing "
                 f"again.")
         elif not cls.is_cloze and anki_model['type'] == MODEL_CLOZE:
-            raise Exception(
+            raise AnkiStateError(
                 f"TiddlyRemember expects the note type {cls.name} to be a standard "
                 f"note type, but it is a cloze note type! Please fix the note type, "
                 f"then try syncing again.")
