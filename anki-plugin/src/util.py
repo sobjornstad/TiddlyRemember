@@ -9,6 +9,8 @@ from typing import NewType, Optional
 Twid = NewType('Twid', str)
 
 DEFAULT_FILTER = '[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]'
+PLUGIN_VERSION = "1.2.1"
+COMPATIBLE_TW_VERSIONS = ["", "1.2.1"]
 
 
 def pluralize(sg: str, n: int, pl: str = None) -> str:

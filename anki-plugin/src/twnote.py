@@ -12,9 +12,10 @@ from anki.notes import Note
 from bs4 import BeautifulSoup
 
 from .clozeparse import ankify_clozes
+from .oops import ConfigurationError
 from .trmodels import (TiddlyRememberQuestionAnswer, TiddlyRememberCloze,
                        TiddlyRememberPair, ID_FIELD_NAME)
-from .util import Twid
+from .util import Twid, PLUGIN_VERSION, COMPATIBLE_TW_VERSIONS
 
 
 class TwNote(metaclass=ABCMeta):
@@ -392,3 +393,26 @@ def clean_field_html(soup: BeautifulSoup) -> str:
             elem.replace_with(elem.get_text())
 
     return ''.join(str(i) for i in soup.contents)
+
+
+def ensure_version(soup: BeautifulSoup) -> None:
+    """
+    Given the soup of a tiddler, which contains a version assertion,
+    raise an exception if the user's TiddlyWiki plugin version is incompatible
+    with her Anki plugin version.
+    """
+    element = soup.find("span", id="tr-version")
+    if element:
+        tw_plugin_version = element.get_text().strip()
+    else:
+        tw_plugin_version = ""
+
+    if tw_plugin_version not in COMPATIBLE_TW_VERSIONS:
+        compat_versions = ', '.join(i for i in COMPATIBLE_TW_VERSIONS if i.strip())
+        raise ConfigurationError(
+            f"Your Anki plugin is at version {PLUGIN_VERSION}, "
+            f"but your TiddlyWiki plugin is at version {tw_plugin_version}. "
+            f"This version of the Anki plugin is compatible with the following "
+            f"TiddlyRemember plugin versions: {compat_versions}. "
+            f"Please update your Anki and TiddlyWiki plugins to the latest version, "
+            f"then try syncing again.")
