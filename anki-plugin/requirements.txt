@@ -14,6 +14,5 @@ pre-commit>=2.7.1
 # The Anki version we're developing against.
 pyqt5==5.15.0
 pyqtwebengine==5.15.0
-anki==2.1.33
-ankirspy==2.1.33
-aqt==2.1.33
+anki==2.1.38
+aqt==2.1.38
