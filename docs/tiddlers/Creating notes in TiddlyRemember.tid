@@ -81,6 +81,17 @@ Downloading them from the Internet repeatedly
 </$details>
 <$details summary="Macro parameters containing quotation marks">
 
+KaTeX markup using the official "tiddlywiki/katex" plugin,
+    using either the `$$` or widget syntax,
+    is supported since TiddlyRemember 1.3.0.
+It will be converted to MathJax syntax with `\( \)` delimiters for inline math
+    and `\[ \]` delimiters for display math on sync,
+    since this is the implementation Anki uses.
+Any snippets so converted will be contained in HTML spans
+    with the class `tw-katex-inline` or `tw-katex-display`, respectively,
+    in case you want to style these snippets differently
+    or do something else special with them.
+
 If you need to include double quotation marks in a note, use triple quotes for the macro parameter:
 
 ```
