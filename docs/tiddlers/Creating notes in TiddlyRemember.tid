@@ -1,6 +1,6 @@
 created: 20200523163252291
 list: [[Question-and-answer notes]] [[Pair notes]] [[Cloze notes]]
-modified: 20201220192329388
+modified: 20210202021100745
 tags: TiddlyRemember
 title: Creating notes in TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -49,6 +49,17 @@ For instance, an image found on Wikimedia Commons
     (provided you have Internet access while studying),
     while one you dragged and dropped into your wiki will not.
 Support for syncing media into Anki's media repository is planned for the future.
+
+KaTeX markup using the official "tiddlywiki/katex" plugin,
+    using either the `$$` or widget syntax,
+    is supported since TiddlyRemember 1.3.0.
+It will be converted to MathJax syntax with `\( \)` delimiters for inline math
+    and `\[ \]` delimiters for display math on sync,
+    since this is the implementation Anki uses.
+Any snippets so converted will be contained in HTML spans
+    with the class `tw-katex-inline` or `tw-katex-display`, respectively,
+    in case you want to style these snippets differently
+    or do something else special with them.
 
 If you need to include double quotation marks in a note, use triple quotes for the macro parameter:
 

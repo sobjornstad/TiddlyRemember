@@ -1,0 +1,13 @@
+created: 20210202012948419
+modified: 20210202013029236
+tags: TestCase
+title: KatexTest
+type: text/vnd.tiddlywiki
+
+Display math syntax using the official KaTeX plugin.
+
+<<rememberq "20201220193519092"
+	"What is $$x$$ in the equation $$x + 5 = 86$$?"
+	"$$
+	81
+	$$">>

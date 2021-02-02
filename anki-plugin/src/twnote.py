@@ -381,6 +381,8 @@ def clean_field_html(soup: BeautifulSoup) -> str:
     outer <p> tags and internal links, and return the string of HTML that belongs
     in the field.
     """
+    replace_katex(soup)
+
     for elem in soup.find_all("a"):
         classes = elem.attrs.get('class', None)
         if (classes is not None
@@ -393,6 +395,27 @@ def clean_field_html(soup: BeautifulSoup) -> str:
             elem.replace_with(elem.get_text())
 
     return ''.join(str(i) for i in soup.contents)
+
+
+def replace_katex(soup: BeautifulSoup) -> None:
+    r"""
+    Given the raw HTML for a field, such as "question" or "answer", remove extra crud
+    associated with KaTeX markup in TiddlyWiki by replacing it in-place, and convert
+    to MathJax markup surrounds that Anki will understand, i.e., $$ x $$ --> \( x \).
+    """
+    display_katex_fragments = soup.find_all("span", class_="katex-display")
+    for k in display_katex_fragments:
+        mathml = k.find("span", class_="katex-mathml")
+        k.parent.replace_with(r'<span class="tw-katex-display">\[ '
+                              + mathml.math.semantics.annotation.text.strip()
+                              + r' \]</span>')
+
+    inline_katex_fragments = soup.find_all("span", class_="katex")
+    for k in inline_katex_fragments:
+        mathml = k.find("span", class_="katex-mathml")
+        k.parent.replace_with(r'<span class="tw-katex-inline">\( '
+                              + mathml.math.semantics.annotation.text.strip()
+                              + r' \)</span>')
 
 
 def ensure_version(soup: BeautifulSoup) -> None:
