@@ -67,6 +67,10 @@ Roll back the `tiddlywiki.info` changes,
 3. Push the branch to GitHub.
 4. Create a pull request to `master`.
    If all looks good, complete with a rebase-and-merge and delete the branch.
+5. Create a new release on GitHub to publicize the update:
+   https://github.com/sobjornstad/TiddlyRemember/releases/new.
+   The tag should be in the form `v0.0.0`, using standard semantic versioning.
+   Hold off on publishing the release for the moment.
 
 
 ## Publishing the docs and TiddlyWiki plugin
@@ -85,11 +89,8 @@ Roll back the `tiddlywiki.info` changes,
 
 ## Final steps
 
-1. Click the Submit button on AnkiWeb to update the plugin.
-2. Create a new release on GitHub to publicize the update:
-   https://github.com/sobjornstad/TiddlyRemember/releases/new.
-   The tag should be in the form `v0.0.0`, using standard semantic versioning.
-
+1. Click the **Submit** button on AnkiWeb to update the plugin.
+2. Click the **Publish release** button on GitHub to create the release.
 
 ## Smoke tests
 
