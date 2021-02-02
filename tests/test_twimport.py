@@ -225,6 +225,20 @@ def test_audio(fn_params):
     assert f'[sound:{expected_filename}]' in note.question
 
 
+def test_katex(fn_params):
+    "Check that KaTeX math markup comes across as MathJax entries."
+    fn_params['filter_'] = "KatexTest"
+    notes = find_notes(**fn_params)
+
+    assert len(notes) == 1
+    note = notes.pop()
+
+    assert isinstance(note, QuestionNote)
+    assert note.id_ == "20201220193519092"
+    assert r'<span class="tw-katex-inline">\( x + 5 = 86 \)</span>' in note.question
+    assert r'<span class="tw-katex-display">\[ 81 \]</span>' in note.answer
+
+
 def test_file_import(fn_params):
     """
     Check that the file-to-folder conversion works.
