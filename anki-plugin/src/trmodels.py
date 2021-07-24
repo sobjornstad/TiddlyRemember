@@ -29,8 +29,8 @@ from typing import Dict, Iterable, List, Optional, Tuple, Type
 import sys
 
 from anki.consts import MODEL_CLOZE
-from anki.models import Template as AnkiTemplate
-from anki.models import NoteType as AnkiModel
+from anki.models import TemplateDict as AnkiTemplate
+from anki.models import NotetypeDict as AnkiModel
 
 from .oops import AnkiStateError
 
@@ -53,7 +53,7 @@ class TemplateData(ABC):
     def to_template(cls, col) -> AnkiTemplate:
         "Create and return an Anki template object for this model definition."
         mm = col.models
-        t = mm.newTemplate(cls.name)
+        t = mm.new_template(cls.name)
         t['qfmt'] = dedent(cls.front).strip()
         t['afmt'] = dedent(cls.back).strip()
         return t
@@ -76,11 +76,11 @@ class ModelData(ABC):
         mm = col.models
         model = mm.new(cls.name)
         for i in cls.fields:
-            field = mm.newField(i)
-            mm.addField(model, field)
+            field = mm.new_field(i)
+            mm.add_field(model, field)
         for template in cls.templates:
             t = template.to_template(col)
-            mm.addTemplate(model, t)
+            mm.add_template(model, t)
         model['css'] = dedent(cls.styling).strip()
         model['sortf'] = cls.fields.index(cls.sort_field)
         if cls.is_cloze:
@@ -93,7 +93,7 @@ class ModelData(ABC):
         Determine if a model by this name exists already in the current
         Anki collection.
         """
-        model = col.models.byName(cls.name)
+        model = col.models.by_name(cls.name)
         return model is not None
 
     @classmethod
@@ -417,5 +417,5 @@ def verify_note_types(col) -> None:
     (this is checked by name) before calling verify_note_types().
     """
     for model in _itermodels():
-        anki_model = col.models.byName(model.name)
+        anki_model = col.models.by_name(model.name)
         model.verify_integrity(anki_model)
