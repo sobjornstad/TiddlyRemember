@@ -1,7 +1,8 @@
-##############################################################
+###################################################################
 # TiddlyRemember - store Anki notes in a NodeJS TiddlyWiki
-# Copyright 2020 Soren Bjornstad <contact@sorenbjornstad.com>
-##############################################################
+# Copyright 2020--2021 Soren Bjornstad <contact@sorenbjornstad.com>
+# and the TiddlyRemember community.
+###################################################################
 
 ###############################################################################
 # The MIT License:
