@@ -85,7 +85,9 @@ class SettingsDialog(QDialog):
             if control is not None:
                 control.setText(value)
                 control.setCursorPosition(0)
-        self.deckChooser.setDeckName(self.conf['defaultDeck'])
+
+        if did := self.mw.col.decks.id_for_name(self.conf['defaultDeck']):
+            self.deckChooser.selected_deck_id = did
         self.wikis = [[name, config] for name, config in self.conf['wikis'].items()]
         self._populate_wiki_list()
 
@@ -95,7 +97,7 @@ class SettingsDialog(QDialog):
             control = getattr(self.form, name + '_', None)
             if control is not None:
                 self.conf[name] = control.text()
-        self.conf['defaultDeck'] = self.deckChooser.deckName()
+        self.conf['defaultDeck'] = self.deckChooser.selected_deck_name()
 
         self.conf['wikis'].clear()
         self.wiki_changed(self.current_wiki_index)  # to save changes to list
