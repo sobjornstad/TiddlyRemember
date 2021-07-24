@@ -73,99 +73,103 @@ Error message and password prompt
 
 /*
 ** Start with the normalize CSS reset, and then belay some of its effects
-*//*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+*//*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
-/* Document
-   ========================================================================== */
+/*
+Document
+========
+*/
 
 /**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
- */
+Use a better box model (opinionated).
+*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/**
+Use a more readable tab size (opinionated).
+*/
+
+:root {
+  -moz-tab-size: 4;
+  tab-size: 4;
+}
+
+/**
+1. Correct the line height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+*/
 
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
 
-/* Sections
-   ========================================================================== */
+/*
+Sections
+========
+*/
 
 /**
- * Remove the margin in all browsers.
- */
+Remove the margin in all browsers.
+*/
 
 body {
   margin: 0;
 }
 
 /**
- * Render the `main` element consistently in IE.
- */
+Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+*/
 
-main {
-  display: block;
+body {
+  font-family:
+    system-ui,
+    -apple-system, /* Firefox supports this but not yet `system-ui` */
+    'Segoe UI',
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji';
 }
 
-/**
- * Correct the font size and margin on `h1` elements within `section` and
- * `article` contexts in Chrome, Firefox, and Safari.
- */
-
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-
-/* Grouping content
-   ========================================================================== */
+/*
+Grouping content
+================
+*/
 
 /**
- * 1. Add the correct box sizing in Firefox.
- * 2. Show the overflow in Edge and IE.
- */
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+*/
 
 hr {
-  box-sizing: content-box; /* 1 */
   height: 0; /* 1 */
-  overflow: visible; /* 2 */
+  color: inherit; /* 2 */
 }
 
-/**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
-
-pre {
-  font-family: monospace, monospace; /* 1 */
-  font-size: 1em; /* 2 */
-}
-
-/* Text-level semantics
-   ========================================================================== */
+/*
+Text-level semantics
+====================
+*/
 
 /**
- * Remove the gray background on active links in IE 10.
- */
-
-a {
-  background-color: transparent;
-}
-
-/**
- * 1. Remove the bottom border in Chrome 57-
- * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
- */
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
 
 abbr[title] {
-  border-bottom: none; /* 1 */
-  text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+  text-decoration: underline dotted;
 }
 
 /**
- * Add the correct font weight in Chrome, Edge, and Safari.
- */
+Add the correct font weight in Edge and Safari.
+*/
 
 b,
 strong {
@@ -173,29 +177,35 @@ strong {
 }
 
 /**
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
- */
+1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
+2. Correct the odd 'em' font sizing in all browsers.
+*/
 
 code,
 kbd,
-samp {
-  font-family: monospace, monospace; /* 1 */
+samp,
+pre {
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    'Liberation Mono',
+    Menlo,
+    monospace; /* 1 */
   font-size: 1em; /* 2 */
 }
 
 /**
- * Add the correct font size in all browsers.
- */
+Add the correct font size in all browsers.
+*/
 
 small {
   font-size: 80%;
 }
 
 /**
- * Prevent `sub` and `sup` elements from affecting the line height in
- * all browsers.
- */
+Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
+*/
 
 sub,
 sup {
@@ -213,24 +223,30 @@ sup {
   top: -0.5em;
 }
 
-/* Embedded content
-   ========================================================================== */
+/*
+Tabular data
+============
+*/
 
 /**
- * Remove the border on images inside links in IE 10.
- */
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+*/
 
-img {
-  border-style: none;
+table {
+  text-indent: 0; /* 1 */
+  border-color: inherit; /* 2 */
 }
 
-/* Forms
-   ========================================================================== */
+/*
+Forms
+=====
+*/
 
 /**
- * 1. Change the font styles in all browsers.
- * 2. Remove the margin in Firefox and Safari.
- */
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+*/
 
 button,
 input,
@@ -244,19 +260,9 @@ textarea {
 }
 
 /**
- * Show the overflow in IE.
- * 1. Show the overflow in Edge.
- */
-
-button,
-input { /* 1 */
-  overflow: visible;
-}
-
-/**
- * Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 1. Remove the inheritance of text transform in Firefox.
- */
+Remove the inheritance of text transform in Edge and Firefox.
+1. Remove the inheritance of text transform in Firefox.
+*/
 
 button,
 select { /* 1 */
@@ -264,177 +270,123 @@ select { /* 1 */
 }
 
 /**
- * Correct the inability to style clickable types in iOS and Safari.
- */
+Correct the inability to style clickable types in iOS and Safari.
+*/
 
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
   -webkit-appearance: button;
 }
 
 /**
- * Remove the inner border and padding in Firefox.
- */
+Remove the inner border and padding in Firefox.
+*/
 
-button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
+::-moz-focus-inner {
   border-style: none;
   padding: 0;
 }
 
 /**
- * Restore the focus styles unset by the previous rule.
- */
+Restore the focus styles unset by the previous rule.
+*/
 
-button:-moz-focusring,
-[type="button"]:-moz-focusring,
-[type="reset"]:-moz-focusring,
-[type="submit"]:-moz-focusring {
+:-moz-focusring {
   outline: 1px dotted ButtonText;
 }
 
 /**
- * Correct the padding in Firefox.
- */
+Remove the additional ':invalid' styles in Firefox.
+See: https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737
+*/
 
-fieldset {
-  padding: 0.35em 0.75em 0.625em;
+:-moz-ui-invalid {
+  box-shadow: none;
 }
 
 /**
- * 1. Correct the text wrapping in Edge and IE.
- * 2. Correct the color inheritance from `fieldset` elements in IE.
- * 3. Remove the padding so developers are not caught out when they zero out
- *    `fieldset` elements in all browsers.
- */
+Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
+*/
 
 legend {
-  box-sizing: border-box; /* 1 */
-  color: inherit; /* 2 */
-  display: table; /* 1 */
-  max-width: 100%; /* 1 */
-  padding: 0; /* 3 */
-  white-space: normal; /* 1 */
+  padding: 0;
 }
 
 /**
- * Add the correct vertical alignment in Chrome, Firefox, and Opera.
- */
+Add the correct vertical alignment in Chrome and Firefox.
+*/
 
 progress {
   vertical-align: baseline;
 }
 
 /**
- * Remove the default vertical scrollbar in IE 10+.
- */
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
 
-textarea {
-  overflow: auto;
-}
-
-/**
- * 1. Add the correct box sizing in IE 10.
- * 2. Remove the padding in IE 10.
- */
-
-[type="checkbox"],
-[type="radio"] {
-  box-sizing: border-box; /* 1 */
-  padding: 0; /* 2 */
-}
-
-/**
- * Correct the cursor style of increment and decrement buttons in Chrome.
- */
-
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
   height: auto;
 }
 
 /**
- * 1. Correct the odd appearance in Chrome and Safari.
- * 2. Correct the outline style in Safari.
- */
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
 
-[type="search"] {
+[type='search'] {
   -webkit-appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
 }
 
 /**
- * Remove the inner padding in Chrome and Safari on macOS.
- */
+Remove the inner padding in Chrome and Safari on macOS.
+*/
 
-[type="search"]::-webkit-search-decoration {
+::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
 /**
- * 1. Correct the inability to style clickable types in iOS and Safari.
- * 2. Change font properties to `inherit` in Safari.
- */
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to 'inherit' in Safari.
+*/
 
 ::-webkit-file-upload-button {
   -webkit-appearance: button; /* 1 */
   font: inherit; /* 2 */
 }
 
-/* Interactive
-   ========================================================================== */
+/*
+Interactive
+===========
+*/
 
 /*
- * Add the correct display in Edge, IE 10+, and Firefox.
- */
-
-details {
-  display: block;
-}
-
-/*
- * Add the correct display in all browsers.
- */
+Add the correct display in Chrome and Safari.
+*/
 
 summary {
   display: list-item;
-}
-
-/* Misc
-   ========================================================================== */
-
-/**
- * Add the correct display in IE 10+.
- */
-
-template {
-  display: none;
-}
-
-/**
- * Add the correct display in IE 10.
- */
-
-[hidden] {
-  display: none;
 }
 *, input[type="search"] {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
+}input[type="search"] {
+  outline-offset: initial;
 }html button {
 	line-height: 1.2;
 	color: inherit;
+	fill: inherit;
 	background: transparent;
 	border-color: #ec6;
 }/*
 ** Basic element styles
-*/html {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+*/html, body {
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 	text-rendering: optimizeLegibility; /* Enables kerning and ligatures etc. */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -450,12 +402,16 @@ template {
 	color: rgba(0, 0, 0, 0.87);
 	background-color: #f4f4f4;
 	fill: rgba(0, 0, 0, 0.87);
+}/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */h1 {
+	font-size: 2em;
 }h1, h2, h3, h4, h5, h6 {
 	line-height: 1.2;
 	font-weight: 300;
 }pre {
 	display: block;
-	padding: 14px;
 	margin-top: 1em;
 	margin-bottom: 1em;
 	word-break: normal;
@@ -529,6 +485,11 @@ input:not([type]) {
 	background: #FAFAFA;
 }input[type="checkbox"] {
   vertical-align: middle;
+}input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+	-webkit-appearance:none;
 }.tc-muted {
 	color: rgba(0, 0, 0, 0.54);
 }svg.tc-image-button {
@@ -548,6 +509,11 @@ input:not([type]) {
 	border-bottom-color: rgba(0, 0, 0, 0.54);
 	border-radius: 3px;
 	box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.54);
+}::selection {
+	background-color: Highlight;
+	color: HighlightText;
+	background-color: ;
+	color: ;
 }/*
 Markdown likes putting code elements inside pre elements
 */
@@ -619,6 +585,8 @@ a.tc-tiddlylink:hover {
 }a.tc-tiddlylink-external:hover {
 	color: ;
 	background-color: transparent;
+}.tc-drop-down a.tc-tiddlylink:hover {
+	color: #FAFAFA;
 }/*
 ** Drag and drop styles
 */.tc-tiddler-dragger {
@@ -690,8 +658,9 @@ a.tc-tiddlylink:hover {
 	margin: 0;
 	background: none;
 	border: none;
-    	cursor: pointer;
+	cursor: pointer;
 	color: rgba(0, 0, 0, 0.87);
+	fill: rgba(0, 0, 0, 0.87);
 }.tc-btn-boxed {
 	font-size: 0.6em;
 	padding: 0.2em;
@@ -768,6 +737,8 @@ a.tc-tiddlylink:hover {
 	color: rgba(0, 0, 0, 0.38);
 }.tc-sidebar-lists button.tc-btn-mini:hover {
 	color: rgba(0, 0, 0, 0.54);
+}.tc-sidebar-lists button small {
+	color: rgba(0, 0, 0, 0.87);
 }button svg.tc-image-button, button .tc-image-button img {
 	height: 1em;
 	width: 1em;
@@ -804,7 +775,7 @@ a.tc-tiddlylink:hover {
 	bottom: 6px;
 }.tc-fold-banner:hover {
 	background: #F5F5F5;
-}@media (max-width: 1000px) {.tc-unfold-banner {
+}@media (max-width: 999px) {.tc-unfold-banner {
 		position: static;
 		width: calc(100% + 59px);
 	}.tc-fold-banner {
@@ -827,6 +798,8 @@ a.tc-tiddlylink:hover {
 	line-height: 14px;
 	white-space: nowrap;
 	vertical-align: baseline;
+}.tc-block-tags-dropdown > .tc-btn-invisible:hover {
+	background-color: #3949ab;
 }button.tc-tag-label, span.tc-tag-label {
 	display: inline-block;
 	padding: 0.16em 0.7em;
@@ -854,7 +827,7 @@ a.tc-tiddlylink:hover {
 	width: 1em;
 	margin-right: 3px; 
 	margin-bottom: 1px;
-	vertical-align: text-bottom;
+	vertical-align: bottom;
 }.tc-edit-tags button.tc-remove-tag-button svg {
 	font-size: 0.7em;
 	vertical-align: middle;
@@ -864,6 +837,10 @@ a.tc-tiddlylink:hover {
 	width: 100%;
 }button.tc-btn-invisible.tc-remove-tag-button {
 	outline: none;
+}.tc-tag-button-selected,
+.tc-list-item-selected a.tc-tiddlylink, a.tc-list-item-selected {
+	background-color: #3949ab;
+	color: #FAFAFA;
 }/*
 ** Page layout
 */.tc-topbar {
@@ -875,13 +852,17 @@ a.tc-tiddlylink:hover {
 }.tc-topbar-right {
 	top: 5px;
 	right: 29px;
-}.tc-topbar button {
+}@media (max-width: 999px) {.tc-topbar-right {
+		right: 10px;
+	}}.tc-topbar button {
 	padding: 8px;
 }.tc-topbar svg {
 	fill: rgba(0, 0, 0, 0.54);
 }.tc-topbar button:hover svg {
 	fill: rgba(0, 0, 0, 0.87);
-}.tc-sidebar-header {
+}@media (max-width: 999px) {.tc-show-sidebar-btn svg.tc-image-chevron-left, .tc-hide-sidebar-btn svg.tc-image-chevron-right {
+		transform: rotate(-90deg);
+	}}.tc-sidebar-header {
 	color: rgba(0, 0, 0, 0.54);
 	fill: rgba(0, 0, 0, 0.54);
 }.tc-sidebar-header .tc-title a.tc-tiddlylink-resolves {
@@ -912,7 +893,7 @@ a.tc-tiddlylink:hover {
 	fill: #c6c6c6;
 }.tc-page-controls button:hover svg, .tc-page-controls a:hover svg {
 	fill: #aeaeae;
-}.tc-menu-list-item {
+}.tc-sidebar-lists .tc-menu-list-item {
 	white-space: nowrap;
 }.tc-menu-list-count {
 	font-weight: bold;
@@ -920,11 +901,14 @@ a.tc-tiddlylink:hover {
 	padding-left: 7px;
 }.tc-story-river {
 	position: relative;
-}@media (max-width: 1000px) {.tc-sidebar-header {
+}@media (max-width: 999px) {.tc-sidebar-header {
 		padding: 14px;
 		min-height: 32px;
 		margin-top: 0px;
-	}.tc-story-river {
+		transition:  min-height 400ms ease-in-out, padding-top 400ms ease-in-out, padding-bottom 400ms ease-in-out;
+	}
+	
+	.tc-story-river {
 		position: relative;
 		padding: 0;
 	}
@@ -950,6 +934,9 @@ a.tc-tiddlylink:hover {
 		top: 0px;
 		width: 770px;
 		padding: 42px 42px 42px 42px;
+	}.tc-story-river.tc-static-story-river {
+		margin-right: 0;
+		padding-right: 42px;
 	}}@media print {body.tc-body {
 		background-color: transparent;
 	}.tc-sidebar-header, .tc-topbar {
@@ -981,7 +968,9 @@ a.tc-tiddlylink:hover {
 }.tc-tiddler-info .tc-tab-buttons button.tc-tab-selected {
 	background-color: rgba(0, 0, 0, 0.04);
 	border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-}.tc-view-field-table {
+}@media (max-width: 999px) {.tc-tiddler-info {
+		padding: 14px 14px 14px 14px;
+	}}.tc-view-field-table {
 	width: 100%;
 }.tc-view-field-name {
 	width: 1%; /* Makes this column be as narrow as possible */
@@ -989,9 +978,10 @@ a.tc-tiddlylink:hover {
 	font-style: italic;
 	font-weight: 200;
 }.tc-view-field-value {
-}@media (max-width: 1000px) {
+}@media (max-width: 999px) {
 	.tc-tiddler-frame {
 		padding: 14px 14px 14px 14px;
+		margin-bottom: .5em;
 	}.tc-tiddler-info {
 		margin: 0 -14px 0 -14px;
 	}
@@ -1007,7 +997,7 @@ a.tc-tiddlylink:hover {
 .tc-titlebar {
 	font-weight: 300;
 	font-size: 2.35em;
-	line-height: 1.2em;
+	line-height: 1.35em;
 	color: #000000;
 	margin: 0;
 }.tc-site-title {
@@ -1074,10 +1064,14 @@ a.tc-tiddlylink:hover {
 .tc-tiddler-frame iframe.tc-edit-texteditor {
 	padding: 3px 3px 3px 3px;
 	border: 1px solid #e8e7e7;
-	background-color: transparent;
 	line-height: 1.3em;
 	-webkit-appearance: none;
 	font-family: ;
+}.tc-tiddler-frame input.tc-edit-texteditor,
+.tc-tiddler-frame textarea.tc-edit-texteditor {
+	background-color: transparent;
+}.tc-tiddler-frame iframe.tc-edit-texteditor {
+	background-color: #FAFAFA;
 }.tc-tiddler-frame .tc-binary-warning {
 	width: 100%;
 	height: 5em;
@@ -1195,8 +1189,14 @@ a.tc-tiddlylink:hover {
 }.tc-edit-type-dropdown a.tc-tiddlylink-missing {
 	font-style: normal;
 }.tc-type-selector .tc-edit-typeeditor {
-	width: 20%;
-}.tc-edit-tags {
+	width: auto;
+}.tc-type-selector-dropdown-wrapper {
+	display: inline-block;
+}.tc-type-selector-dropdown-wrapper {
+		min-width: calc(32ch + 4em);
+	}.tc-type-selector-dropdown-wrapper input.tc-edit-typeeditor {
+		min-width: 32ch;
+	}.tc-edit-tags {
 	border: 1px solid #e8e7e7;
 	padding: 4px 8px 4px 8px;
 }.tc-edit-add-tag {
@@ -1225,6 +1225,9 @@ a.tc-tiddlylink:hover {
 	max-width: 49%;
 }.tc-edit-fields {
 	width: 100%;
+}.tc-edit-fields.tc-edit-fields-small {
+	margin-top: 0;
+	margin-bottom: 0;
 }.tc-edit-fields table, .tc-edit-fields tr, .tc-edit-fields td {
 	border: none;
 	padding: 4px;
@@ -1242,13 +1245,15 @@ a.tc-tiddlylink:hover {
 	width: 1em;
 	fill: rgba(0, 0, 0, 0.54);
 	vertical-align: middle;
-}.tc-edit-field-add-name {
+}.tc-edit-field-add-name-wrapper input.tc-edit-texteditor {
+	width: auto;
+}.tc-edit-field-add-name-wrapper {
 	display: inline-block;
-	width: 15%;
 }.tc-edit-field-add-value {
 	display: inline-block;
-	width: 40%;
-}.tc-edit-field-add-button {
+}@media (min-width: 1000px) {.tc-edit-field-add-value {
+		width: 35%;
+	}}.tc-edit-field-add-button {
 	display: inline-block;
 	width: 10%;
 }/*
@@ -1285,7 +1290,7 @@ a.tc-tiddlylink:hover {
 }.tc-drop-down button svg, .tc-drop-down a svg  {
 	fill: rgba(0, 0, 0, 0.87);
 }.tc-drop-down button.tc-btn-invisible:hover svg {
-	fill: rgba(0, 0, 0, 0.87);
+	fill: #FAFAFA;
 }.tc-drop-down .tc-drop-down-info {
 	padding-left: 14px;
 }.tc-drop-down p {
@@ -1360,7 +1365,7 @@ a.tc-tiddlylink:hover {
 .tc-block-dropdown .tc-dropdown-item {
 	padding: 4px 14px 4px 7px;
 	color: rgba(0, 0, 0, 0.54);
-}.tc-block-dropdown a:hover {
+}.tc-block-dropdown a.tc-tiddlylink:hover {
 	color: #FAFAFA;
 	background-color: #3949ab;
 	text-decoration: none;
@@ -1465,6 +1470,14 @@ a.tc-tiddlylink:hover {
 	text-align: right;
 	background-color: #FAFAFA;
 	border-top: 1px solid rgba(0, 0, 0, 0.12);
+}/*
+** Centered modals
+*/
+.tc-modal-centered .tc-modal {
+	width: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) !important;
 }/*
 ** Notifications
 */.tc-notification {
@@ -1645,6 +1658,21 @@ a.tc-tiddlylink:hover {
 	width: 100%;
 	height: auto;
 }/*
+** Import table
+*/.tc-import-table {
+	width: 100%;
+}.tc-import-table svg.tc-image-edit-button {
+	max-width: unset;
+}.tc-import-table th:first-of-type {
+	width: 10%;
+}.tc-import-table th:last-of-type {
+	width: 30%;
+}.tc-import-table .tc-row-disabled {
+	background: rgba(0, 0, 0, 0.12)10;
+	opacity: 0.8;
+}.tc-import-table .tc-row-warning {
+	background: #ffc9c950;
+}/*
 ** Alerts
 */.tc-alerts {
 	position: fixed;
@@ -1749,8 +1777,8 @@ a.tc-tiddlylink:hover {
 	background-color: #3949ab;
 	color: #FAFAFA;
 	fill: rgba(0, 0, 0, 0.87);
-}a.tc-tiddlylink.tc-plugin-info:hover .tc-plugin-info > .tc-plugin-info-chunk > svg {
-	fill: rgba(0, 0, 0, 0.87);
+}a.tc-tiddlylink.tc-plugin-info:hover > .tc-plugin-info-chunk > svg {
+	fill: #FAFAFA;
 }.tc-plugin-info-chunk {
     margin: 2px;
 }.tc-plugin-info-chunk.tc-plugin-info-toggle {
@@ -1999,6 +2027,8 @@ a.tc-tiddlylink:hover {
 	background: white;
 	cursor: pointer;
 	display: inline-block;
+}::-webkit-file-upload-button {
+	cursor:pointer;
 }/*
 ** Thumbnail macros
 */.tc-thumbnail-wrapper {
@@ -2127,7 +2157,39 @@ a.tc-tiddlylink:hover {
 ** Utility classes for SVG icons
 */.tc-fill-background {
 	fill: #FAFAFA;
+}/*
+** Flexbox utility classes
+*/.tc-flex {
+	display: -webkit-flex;
+	display: flex;
+}.tc-flex-column {
+	flex-direction: column;
+}.tc-flex-row {
+	flex-direction: row;
+}.tc-flex-grow-1 {
+	flex-grow: 1;
+}.tc-flex-grow-2 {
+	flex-grow: 2;
+}/*
+** Other utility classes
+*/.tc-small-gap {
+	margin-left: .5em;
+	margin-right: .5em;
+}.tc-small-gap-left {
+	margin-left: .5em;
+}.tc-small-gap-right {
+	margin-right: .5em;
+}.tc-big-gap {
+	margin-left: 1em;
+	margin-right: 1em;
+}.tc-big-gap-left {
+	margin-left: 1em;
+}.tc-big-gap-right {
+	margin-right: 1em;
+}.tc-word-break {
+	word-break: break-all;
 }
+
 
 div.remembertwo {
 	border-left: 3px solid #ec6;
