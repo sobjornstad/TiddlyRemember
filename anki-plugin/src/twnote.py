@@ -110,7 +110,7 @@ class TwNote(metaclass=ABCMeta):
         Compare the model (note type) defined for this TwNote to that of
         an Anki note. Return True if it is the same model.
         """
-        model = anki_note.model()
+        model = anki_note.note_type()
         assert model is not None, "Anki note passed does not have a model!"
         assert self.model is not None, \
              f"Class {self.__class__} does not specify a 'model' attribute."
