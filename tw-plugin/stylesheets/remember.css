@@ -29,6 +29,9 @@ div.remembercz {
 
 .remembercz > span.cloze-identifier {
 	color: <<colour tag-background>>;
+
+.remembercz > span.cloze-extra {
+          font-style: italic;
 }
 
 .remembercz div.tr-selfidentification {
