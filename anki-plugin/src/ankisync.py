@@ -41,7 +41,7 @@ def _change_note_type(col: Any, tw_note: TwNote, anki_note: Note) -> Note:
     new_model = col.models.by_name(tw_note.model.name)
     col.models.change(anki_note.note_type(), [anki_note.id], new_model, fmap, cmap)
 
-    return col.getNote(col.find_notes(f"nid:{anki_note.id}")[0])
+    return col.get_note(col.find_notes(f"nid:{anki_note.id}")[0])
 
 
 def _set_initial_scheduling(tw_note: TwNote, anki_note: Note, col: Any):
@@ -85,7 +85,7 @@ def _update_deck(tw_note: TwNote, anki_note: Note, col: Any, default_deck: str) 
     for card in anki_note.cards():
         if card.did != new_did:
             card.did = new_did
-            card.flush()
+            col.update_card(card)
 
 
 def sync(tw_notes: Set[TwNote], col: Any, default_deck: str) -> str:
@@ -125,7 +125,7 @@ def sync(tw_notes: Set[TwNote], col: Any, default_deck: str) -> str:
     extracted_notes_map: Dict[Twid, TwNote] = {n.id_: n for n in extracted_notes}
 
     model_search = ' or '.join(f'note:"{i.name}"' for i in trmodels.all_note_types())
-    anki_notes: Set[Note] = set(col.getNote(nid)
+    anki_notes: Set[Note] = set(col.get_note(nid)
                                 for nid in col.find_notes(model_search))
     id_field = trmodels.ID_FIELD_NAME
     anki_twids: Set[Twid] = set(cast(Twid, n[id_field]) for n in anki_notes)
@@ -140,7 +140,7 @@ def sync(tw_notes: Set[TwNote], col: Any, default_deck: str) -> str:
     # Make the changes to the collection.
     for note_id in adds:
         tw_note = extracted_notes_map[note_id]
-        n = Note(col, col.models.byName(tw_note.model.name))
+        n = Note(col, col.models.by_name(tw_note.model.name))
         tw_note.update_fields(n)
         deck = col.decks.id(tw_note.target_deck or default_deck)
         col.add_note(n, deck)
@@ -157,7 +157,7 @@ def sync(tw_notes: Set[TwNote], col: Any, default_deck: str) -> str:
             anki_note = anki_notes_map[note_id] = new_note
         if not tw_note.fields_equal(anki_note):
             tw_note.update_fields(anki_note)
-            anki_note.flush()
+            col.update_note(anki_note)
             edit_count += 1
         _update_deck(tw_note, anki_note, col, default_deck)
     userlog.append(f"Updated {edit_count} {pluralize('note', edit_count)}.")
