@@ -1,0 +1,105 @@
+created: 20210924151444658
+modified: 20210924154137031
+tags: Troubleshooting
+title: Exception during TiddlyRemember sync
+type: text/vnd.tiddlywiki
+
+When you try to sync your TiddlyRemember notes to Anki,
+    you may receive a dialog titled ''Error'', like this one:
+
+{{unhandled-exception.png}}
+
+This could in principle be caused by almost anything,
+    but it's most commonly caused by ''misbehaving third-party plugins in your wiki''.
+Many plugins and templates assume that they're running in a browser,
+    but when TiddlyRemember syncs,
+    it doesn't have access to some things like the browser window,
+    which can result in errors.
+This isn't a bug in TiddlyRemember, but rather in the other plugin;
+    the fact that TiddlyRemember runs TiddlyWiki in a mode that you haven't used before
+    is just making the problem show up for the first time.
+
+If this is the case, the end of the error log will likely look something like this:
+
+```
+tiddlyremember.oops.RenderingError: Failed to render wiki: return code 1.
+$ tiddlywiki --verbose --output /tmp/tmppj4s4up3/render --render [type[text/vnd.tiddlywiki]] [type[]] +[!is[system]] -[suffix[/Examples]] -[tag[SrPromptPattern]] [encodeuricomponent[]addsuffix[.html]] text/html $:/plugins/sobjornstad/TiddlyRemember/templates/TiddlyRememberParseable
+
+Boot log:
+  Startup task: load-modules
+  Startup task: info after: load-modules before: startup
+  Startup task: plugins after: load-modules
+  Startup task: startup after: load-modules
+  Startup task: story after: startup
+  Startup task: commands platforms: node after: story
+Executing command: output /tmp/tmppj4s4up3/render
+Executing command: render [type[text/vnd.tiddlywiki]] [type[]] +[!is[system]] -[suffix[/Examples]] -[tag[SrPromptPattern]] [encodeuricomponent[]addsuffix[.html]] text/html $:/plugins/sobjornstad/TiddlyRemember/templates/TiddlyRememberParseable
+Rendering "2021Goals" to "/tmp/tmppj4s4up3/render/2021Goals.html"
+...
+Rendering "Lifehacker" to "/tmp/tmppj4s4up3/render/Lifehacker.html"
+Rendering "LifetimeReading" to "/tmp/tmppj4s4up3/render/LifetimeReading.html"
+Rendering "LikableSoftware" to "/tmp/tmppj4s4up3/render/LikableSoftware.html"
+Rendering "LillSyl:DreamOfLight" to "/tmp/tmppj4s4up3/render/LillSyl%3ADreamOfLight.html"
+$:/plugins/tiddlywiki/codemirror/engine.js:113
+	this.cm = window.CodeMirror(function(cmDomNode) {
+	          ^
+
+ReferenceError: window is not defined
+    at new CodeMirrorEngine ($:/plugins/tiddlywiki/codemirror/engine.js:113:12)
+    at EditTextWidget.render ($:/core/modules/editor/factory.js:60:17)
+    at EditWidget.Widget.renderChildren ($:/core/modules/widgets/widget.js:393:15)
+    at EditWidget.render ($:/core/modules/widgets/edit.js:33:7)
+    at TranscludeWidget.Widget.renderChildren ($:/core/modules/widgets/widget.js:393:15)
+    at TranscludeWidget.render ($:/core/modules/widgets/transclude.js:33:7)
+    at ElementWidget.Widget.renderChildren ($:/core/modules/widgets/widget.js:393:15)
+    at ElementWidget.render ($:/core/modules/widgets/element.js:71:7)
+    at ListItemWidget.Widget.renderChildren ($:/core/modules/widgets/widget.js:393:15)
+    at ListItemWidget.render ($:/core/modules/widgets/list.js:305:7)
+```
+
+The last tiddler that appears in the list of "Rendering" messages
+    ("LillSyl:DreamOfLight" in this case)
+    will be the last one that rendered successfully.
+The next tiddler in your wiki alphabetically is the first one that TiddlyWiki wasn't able to render correctly,
+    so that tiddler -- and any templates that are displayed on it --
+    is where you should look to find the problem.
+Common culprits include a CodeMirror editing box directly on that tiddler
+    or a date picker widget.
+
+
+!! Solution
+
+The simplest way to resolve the issue
+    is by disabling or uninstalling the offending plugin.
+Obviously, this isn't always practical or desirable.
+A better way is to submit a bug report to the plugin author
+    and ask if they can make it behave better
+    when run directly under Node.js with no browser,
+    or (if you have the necessary skills) to fix the plugin yourself.
+
+As a workaround in the meantime,
+    you may be able to use the `tr-rendering` variable
+    to selectively disable the widget or element that's causing issues.
+This variable is set to `yes` when TiddlyRemember is syncing with your wiki.
+For instance, suppose you want an `$edit-date` widget to appear in a template,
+    but the `$edit-date` widget is causing errors when syncing to TiddlyRemember:
+
+```
+<$edit-date field="completed"/>
+```
+
+We can make this display only when `tr-rendering` is not set to `yes`:
+
+```
+<$list filter="[<tr-rendering>!match[yes]]" variable=_>
+<$edit-date field="completed"/>
+</$list>
+```
+
+Now the widget will continue to display when you view your wiki in a browser,
+    but be ignored during TiddlyRemember sync when it's causing issues.
+
+
+''If you continue to have issues after disabling all plugins in your wiki except TiddlyRemember'',
+    please [[post an issue|https://github.com/sobjornstad/TiddlyRemember/issues]] on the GitHub page,
+    being sure to include the full text in the ''Error'' dialog box.

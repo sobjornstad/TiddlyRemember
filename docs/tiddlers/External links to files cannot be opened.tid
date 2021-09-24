@@ -1,5 +1,5 @@
 created: 20201220192136524
-modified: 20201220192510746
+modified: 20210924154136988
 tags: Troubleshooting
 title: External links to files cannot be opened
 type: text/vnd.tiddlywiki
@@ -13,6 +13,8 @@ This may apply to either the `Permalink` field
 
 Oddly, this does not seem to be an issue for all users,
     and no clear pattern in Anki version, operating system, etc., has been observed.
+
+!! Solution
 
 As a workaround, the Anki add-on
     [[Open linked pdf, docx, epub, audio/video etc. in external program|https://ankiweb.net/shared/info/879473266]]

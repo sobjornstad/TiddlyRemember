@@ -5,7 +5,7 @@ venv/
 .vscode/
 meta.json
 node_modules/
-docs/tiddlers/$__StoryList.tid
+docs/tiddlers/$__StoryList*.tid
 
 # build outputs
 *.ankiaddon
