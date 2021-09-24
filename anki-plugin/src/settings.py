@@ -222,6 +222,7 @@ class SettingsDialog(QDialog):
                                    else 0)
         self.form.wikiList.blockSignals(oldBlockSignals)
         self.wiki_changed(self.current_wiki_index, save=False)
+        self.form.wikiList.setCurrentRow(self.current_wiki_index)
 
     @staticmethod
     def get_help() -> None:
