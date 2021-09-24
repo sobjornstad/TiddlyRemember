@@ -4,7 +4,7 @@ twnote.py - class definitions for TiddlyWiki notes
 TiddlyWiki note instances extract and store the data from the rendered HTML
 representation of a TiddlyWiki (see twimport.py).
 """
-from abc import ABCMeta, abstractmethod, abstractclassmethod
+from abc import ABCMeta, abstractmethod
 from typing import Any, List, Optional, Set, Tuple
 from urllib.parse import quote as urlquote
 
@@ -156,7 +156,8 @@ class TwNote(metaclass=ABCMeta):
 
 
     ### Abstract methods ###
-    @abstractclassmethod
+    @classmethod
+    @abstractmethod
     def parse_html(cls, soup: BeautifulSoup, wiki_name: str, tiddler_name: str):
         """
         Given soup and the name of the wiki and its tiddler, construct and return
@@ -164,7 +165,8 @@ class TwNote(metaclass=ABCMeta):
         """
         raise NotImplementedError
 
-    @abstractclassmethod
+    @classmethod
+    @abstractmethod
     def wants_soup(cls, soup: BeautifulSoup) -> bool:
         """
         Whether this subclass wants an opportunity to parse the provided
