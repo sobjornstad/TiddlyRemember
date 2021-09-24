@@ -29,6 +29,7 @@ div.remembercz {
 
 .remembercz > span.cloze-identifier {
 	color: <<colour tag-background>>;
+}
 
 .remembercz div.tr-selfidentification {
 	float: right;
