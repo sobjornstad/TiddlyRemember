@@ -62,8 +62,11 @@ type: text/vnd.tiddlywiki
 \define twRememberClozeBlock(id, text, extra, reference)
   <div class="remembercz">
     <span class="cloze-identifier">cloze: </span>
-    <span class="cloze-text">$text$</span><br>
-    <span class="cloze-identifier">extra: </span>
+    <span class="cloze-text">$text$</span>
+    <$list filter="[[$extra$]!match[]]" variable=_>
+       <br>
+       <span class="cloze-identifier">extra: </span>
+    </$list>
     <span class="cloze-extra">$extra$</span>
     <div class="tr-selfidentification">
       <$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
