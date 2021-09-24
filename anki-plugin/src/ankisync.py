@@ -37,7 +37,7 @@ def _change_note_type(col: Any, tw_note: TwNote, anki_note: Note) -> Note:
     fmap = old_model_definition.field_remap(tw_note.model)
     cmap = old_model_definition.card_remap(tw_note.model)
     new_model = col.models.byName(tw_note.model.name)
-    col.models.change(anki_note.model(), [anki_note.id], new_model, fmap, cmap)
+    col.models.change(anki_note.note_type(), [anki_note.id], new_model, fmap, cmap)
 
     return col.getNote(col.find_notes(f"nid:{anki_note.id}")[0])
 

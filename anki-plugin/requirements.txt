@@ -11,7 +11,12 @@ pytest>=6.0.2
 pytest-cov>=2.10.1
 pre-commit>=2.7.1
 
+## Items below this line must also be updated in the pre-commit config.
+
 # The Anki version we're developing against.
 pyqt5==5.15.1
-anki==2.1.45rc2
-aqt==2.1.45rc2
+anki==2.1.47
+aqt==2.1.47
+
+# Stubs.
+types-requests==2.25.8
