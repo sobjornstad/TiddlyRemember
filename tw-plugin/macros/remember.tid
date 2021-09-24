@@ -46,6 +46,10 @@ type: text/vnd.tiddlywiki
     </div>
 \end
 
+\define remembercz(id, text, mode: "block", reference: "")
+    <$macrocall $name=remembercze id=<<__id__>> text=<<__text__>> extra="" mode=<<__mode__>> reference=<<__reference__>>/> 
+\end
+
 \define remembercze(id, text, extra: "",mode: "block", reference: "")
   <$list filter="[[$mode$]match[inline]]" variable=_>
     <$macrocall $name=twRememberClozeInline id=<<__id__>> text=<<__text__>> reference=<<__reference__>>/>
@@ -53,10 +57,6 @@ type: text/vnd.tiddlywiki
   <$list filter="[[$mode$]!match[inline]]" variable=_>
     <$macrocall $name=twRememberClozeBlock id=<<__id__>> text=<<__text__>>  extra=<<__extra__>> reference=<<__reference__>>/>
   </$list>
-\end
-
-\define remembercz(id, text, mode: "block", reference: "")
-    <$macrocall $name=twRememberClozeInline id=<<__id__>> text=<<__text__>> extra="" reference=<<__reference__>>/> 
 \end
 
 \define twRememberClozeBlock(id, text, extra, reference)
