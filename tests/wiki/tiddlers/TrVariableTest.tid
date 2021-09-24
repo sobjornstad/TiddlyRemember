@@ -1,0 +1,12 @@
+created: 20210924150021795
+creator: mnemonist
+modified: 20210924150452229
+modifier: mnemonist
+tags: TestCase
+title: TrVariableTest
+type: text/vnd.tiddlywiki
+
+<$macrocall $name=rememberq
+    id="20210924150047675"
+	question="What is the `tr-rendering` variable set to?"
+	answer="<<tr-rendering>>"/>

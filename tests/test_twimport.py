@@ -190,6 +190,20 @@ def test_url_import(fn_params):
     assert notes  # don't want to make dependent on the summarized note options
 
 
+def test_tiddlyremember_variable(fn_params):
+    """
+    Check that the variable "tr-rendering" is set to "yes" when TiddlyRemember
+    is working. This will allow custom templates to be written to render or not
+    render certain things. For instance, some UI elements won't work correctly
+    when there is no browser, so they shouldn't appear.
+    """
+    fn_params['filter_'] = "TrVariableTest"
+    notes = find_notes(**fn_params)
+    assert len(notes) == 1
+    note = notes.pop()
+    assert note.answer == "yes"
+
+
 ### Regression tests ###
 # Tests arising out of bug reports or other broken behavior.
 

@@ -6,9 +6,13 @@ type: text/vnd.tiddlywiki
 
 \import [[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]
 
+<$set name="tr-rendering" value="yes">
+
 <span id="tr-version">1.2.3</span>
 
 {{||$:/plugins/sobjornstad/TiddlyRemember/templates/AnkiDecks}}
 {{||$:/plugins/sobjornstad/TiddlyRemember/templates/AnkiTags}}
 
 <$transclude mode="block" />
+
+</$set>
