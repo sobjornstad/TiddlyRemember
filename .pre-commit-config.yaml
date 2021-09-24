@@ -27,3 +27,8 @@ repos:
         language: system
         types: [python]
         args: ["--fail-under=9.0", "anki-plugin/src"]
+    - id: pytest-check
+      name: pytest-check
+      entry: pytest
+      language: system
+      pass_filenames: false
