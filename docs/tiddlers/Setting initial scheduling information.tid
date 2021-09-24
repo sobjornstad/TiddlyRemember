@@ -1,0 +1,26 @@
+created: 20210924225934360
+modified: 20210924232441772
+title: Setting initial scheduling information
+type: text/vnd.tiddlywiki
+
+The `sched` parameter to `rememberq`, `rememberp`, and `remembercz` can be used to set initial values for the big four scheduling parameters used by Anki. If this parameter is non-empty (and in the correct format), cards synced into TiddlyRemember will immediately become review cards, rather than starting as new cards as they otherwise would. This can be useful if you have some tooling built into your wiki that can provide initial intervals for notes, or you want to migrate from an in-wiki spaced repetition solution to an external one.
+
+Setting initial scheduling information is often combined with [[Dynamically generating TiddlyRemember notes]], retrieving the scheduling information from tiddlers representing each card.
+
+!! Parameters
+
+|!Parameter|!Key|!Description|
+|Due|`due`|The date (in TiddlyWiki format; the time and time zones positions can be absent and will be ignored in any case) on which the card will next be shown in Anki.|
+|Interval|`ivl`|The number of days between the previous due date and the current due date.|
+|Ease|`ease`|The amount by which the next interval of the card should be greater than the current interval, expressed in per mille (parts per thousand). So an ease of 2300 means the next interval will be 2.3 times the current interval.|
+|Lapses|`lapses`|The number of times you've forgotten the card. Anki uses this to warn you when you're [[wasting a lot of time on unusually difficult cards|https://controlaltbackspace.org/memory/dealing-with-leeches/]] (//leeches//).|
+
+The format of `sched` is a semicolon-separated string of key-value pairs, with keys and their values separated by colons. For example, if the due date was 4 July 1776, the interval was 30 days, the ease was 300%, and the number of lapses was 2, we would say `due:17760704;ivl:30;ease:3000;lapses:2`. Any whitespace at the beginning or end of a key or value is ignored.
+
+For more information on the function of due date, interval, and ease, read [[Spaced Repetition from the Ground Up|https://controlaltbackspace.org/memory/spaced-repetition-from-the-ground-up/]].
+
+!! Limitations
+
+* ''Scheduling is only applied when notes are initially added to your collection.'' Once the note exists in your Anki collection, TiddlyRemember will never touch the scheduling again unless the note is deleted from Anki and synced back. This is usually what you want; the whole point of having the cards in Anki is to let it schedule things!
+* ''Scheduling is applied per-note by TiddlyRemember'', but scheduling is per-card in Anki. So if the note type has multiple cards (for a [[pair note|Pair notes]] or [[cloze note|Cloze notes]] with multiple occlusions with different numbers), the same scheduling is currently applied to all cards of the note. (There's no technical reason the format of the `sched` string couldn't apply different formatting for different cards, it's just hard for me to see how one would end up with this information in a TiddlyWiki in most cases. If this would be useful for you, please post a GitHub issue explaining your use case.)
+* ''If you supply any of the scheduling parameters, you must supply all of them.'' The format must be exactly as explained above or you'll get an error when you sync. If you want to use “defaults” for any of the parameters, ease is 2500‰ by default in Anki and lapses is 0; the due date and interval are typically determined by what button you press when you see the new card for the first time, but `sched` is skipping the new-card phase, so there isn't really a “default” due date or interval.
