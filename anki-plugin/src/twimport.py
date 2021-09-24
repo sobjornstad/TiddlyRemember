@@ -203,20 +203,27 @@ def find_notes(
     in the same rendered HTML appearing in multiple places.
     """
     with TemporaryDirectory() as tmpdir:
-        if wiki_type == 'file':
-            wiki_folder = os.path.join(tmpdir, 'wikifolder')
-            _folderify_wiki(tw_binary, wiki_path, wiki_folder, password)
-        elif wiki_type == 'folder':
-            wiki_folder = wiki_path
-        elif wiki_type == 'url':
-            downloaded_file = os.path.join(tmpdir, 'wiki.html')
-            _download_wiki(url=wiki_path, target_location=downloaded_file,
-                           requests_session=requests_session)
-            wiki_folder = os.path.join(tmpdir, 'wikifolder')
-            _folderify_wiki(tw_binary, downloaded_file, wiki_folder, password)
-        else:
-            raise Exception(f"Invalid wiki type '{wiki_type}' -- must be "
-                            f"'file', 'folder', or 'url'.")
+        try:
+            if wiki_type == 'file':
+                wiki_folder = os.path.join(tmpdir, 'wikifolder')
+                _folderify_wiki(tw_binary, wiki_path, wiki_folder, password)
+            elif wiki_type == 'folder':
+                wiki_folder = wiki_path
+            elif wiki_type == 'url':
+                downloaded_file = os.path.join(tmpdir, 'wiki.html')
+                _download_wiki(url=wiki_path, target_location=downloaded_file,
+                            requests_session=requests_session)
+                wiki_folder = os.path.join(tmpdir, 'wikifolder')
+                _folderify_wiki(tw_binary, downloaded_file, wiki_folder, password)
+            else:
+                raise Exception(f"Invalid wiki type '{wiki_type}' -- must be "
+                                f"'file', 'folder', or 'url'.")
+        except ConfigurationError as e:
+            # Add a little more context so it's clear where to look for the problem.
+            raise ConfigurationError(
+                f"There is a problem with the configuration for the wiki "
+                f"'{wiki_name}': {str(e)}"
+            ) from e
 
         render_location = os.path.join(tmpdir, 'render')
         _render_wiki(tw_binary, wiki_folder, render_location, filter_)
