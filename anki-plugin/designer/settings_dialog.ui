@@ -123,45 +123,6 @@ You'll need to install TiddlyWiki on Node.js if you don't have it installed alre
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>&amp;Type</string>
-          </property>
-          <property name="buddy">
-           <cstring>type_</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>&amp;Name</string>
-          </property>
-          <property name="buddy">
-           <cstring>wikiName</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1" colspan="2">
-         <widget class="QLineEdit" name="permalink_">
-          <property name="toolTip">
-           <string>URL where your wiki can be accessed in a browser on the devices you review on.
-This will allow Anki to provide a link to view the source of each card.
-Tip: Use a file:/// URI for single-file wikis on your local computer.</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_6">
-          <property name="text">
-           <string>&amp;Filter</string>
-          </property>
-          <property name="buddy">
-           <cstring>contentFilter_</cstring>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1" colspan="2">
          <widget class="QLineEdit" name="wikiName">
           <property name="toolTip">
@@ -176,6 +137,62 @@ Tip: Use a file:/// URI for single-file wikis on your local computer.</string>
           </property>
           <property name="buddy">
            <cstring>permalink_</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>&amp;Type</string>
+          </property>
+          <property name="buddy">
+           <cstring>type_</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1" colspan="2">
+         <widget class="QLineEdit" name="permalink_">
+          <property name="toolTip">
+           <string>URL where your wiki can be accessed in a browser on the devices you review on.
+This will allow Anki to provide a link to view the source of each card.
+Tip: Use a file:/// URI for single-file wikis on your local computer.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="QLineEdit" name="contentFilter_">
+          <property name="toolTip">
+           <string>Only tiddlers matching this filter will be searched for notes.
+Be careful to exclude tiddlers that cannot be rendered to HTML, or you may encounter issues.
+Be aware that if you make the filter more restrictive, any newly excluded questions will be deleted on next sync.
+To test changes safely, sync into a new profile and review the notes that still show up.</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>&amp;Name</string>
+          </property>
+          <property name="buddy">
+           <cstring>wikiName</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>&amp;Filter</string>
+          </property>
+          <property name="buddy">
+           <cstring>contentFilter_</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="path_">
+          <property name="toolTip">
+           <string>The path or URL to the wiki to sync.</string>
           </property>
          </widget>
         </item>
@@ -203,13 +220,6 @@ URL: A single-file wiki accessible at a location on the internet.</string>
           </item>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLineEdit" name="path_">
-          <property name="toolTip">
-           <string>The path or URL to the wiki to sync.</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="2">
          <widget class="QPushButton" name="browseButton">
           <property name="text">
@@ -230,13 +240,24 @@ URL: A single-file wiki accessible at a location on the internet.</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1" colspan="2">
-         <widget class="QLineEdit" name="contentFilter_">
+        <item row="5" column="0">
+         <widget class="QLabel" name="passwordLabel">
+          <property name="text">
+           <string>Passwo&amp;rd</string>
+          </property>
+          <property name="buddy">
+           <cstring>password_</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1" colspan="2">
+         <widget class="QLineEdit" name="password_">
           <property name="toolTip">
-           <string>Only tiddlers matching this filter will be searched for notes.
-Be careful to exclude tiddlers that cannot be rendered to HTML, or you may encounter issues.
-Be aware that if you make the filter more restrictive, any newly excluded questions will be deleted on next sync.
-To test changes safely, sync into a new profile and review the notes that still show up.</string>
+           <string>If your wiki is encrypted with the &quot;set password&quot; function in TiddlyWiki, enter the password here.
+This password will be stored in plain text in your Anki settings, so don't use this for super-high-security wikis.</string>
+          </property>
+          <property name="echoMode">
+           <enum>QLineEdit::Password</enum>
           </property>
          </widget>
         </item>

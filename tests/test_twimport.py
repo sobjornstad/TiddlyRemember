@@ -11,14 +11,16 @@ import sys
 sys.path.append("anki-plugin")
 
 import os
+from pathlib import Path
 
 import pytest
 
 from src.clozeparse import UnmatchedBracesError
+from src.oops import RenderingError
 from src.twimport import find_notes
 from src.twnote import TwNote, QuestionNote, ClozeNote, PairNote
 
-from testutils import fn_params  # pylint: disable=unused-import
+from testutils import fn_params, file_requests_session  # pylint: disable=unused-import
 
 
 ### Integration tests of basic functionality ###
@@ -188,6 +190,48 @@ def test_url_import(fn_params):
     fn_params['wiki_type'] = "url"
     notes = find_notes(**fn_params)
     assert notes  # don't want to make dependent on the summarized note options
+
+
+def test_encrypted_wiki_import(fn_params):
+    """
+    Check that we can import notes from an encrypted wiki.
+    """
+    fn_params['filter_'] = "TiddlyRememberTest"
+    fn_params['wiki_path'] = "tests/encrypted_wiki.html"
+    fn_params['wiki_type'] = "file"
+    fn_params['password'] = "tiddlywiki"
+    notes = find_notes(**fn_params)
+
+    assert len(notes) == 1
+    note = notes.pop()
+    assert note.id_ == "20200925190437552"
+
+
+def test_encrypted_wiki_without_password(fn_params):
+    """
+    Check that when we import from an encrypted wiki without a password,
+    we get a useful error message.
+    """
+    fn_params['filter_'] = "TiddlyRememberTest"
+    fn_params['wiki_path'] = "tests/encrypted_wiki.html"
+    fn_params['wiki_type'] = "file"
+
+    with pytest.raises(RenderingError, match="forget to give the password"):
+        find_notes(**fn_params)
+
+
+def test_encrypted_wiki_from_url(fn_params, file_requests_session):
+    """
+    Check that when we import from an encrypted wiki without a password,
+    we get a useful error message.
+    """
+    fn_params['filter_'] = "TiddlyRememberTest"
+    fn_params['wiki_path'] = (Path.cwd() / "tests" / "encrypted_wiki.html").as_uri()
+    fn_params['wiki_type'] = "url"
+    fn_params['requests_session'] = file_requests_session
+
+    with pytest.raises(RenderingError, match="forget to give the password"):
+        find_notes(**fn_params)
 
 
 def test_tiddlyremember_variable(fn_params):

@@ -167,6 +167,7 @@ class SettingsDialog(QDialog):
         for k in prototype.keys():
             prototype[k] = ''
         prototype['type'] = 'file'
+        prototype['password'] = ''
         prototype['contentFilter'] = DEFAULT_FILTER
         self.wikis.append(['', prototype])
 
@@ -271,6 +272,12 @@ class SettingsDialog(QDialog):
         else:
             self.form.pathLabel.setText("&Path")
             self.form.browseButton.show()
+
+        password_possible = new_text in ('URL', 'File')
+        self.form.password_.setHidden(not password_possible)
+        self.form.passwordLabel.setHidden(not password_possible)
+        if not password_possible:
+            self.form.password_.setText("")
 
     def wiki_changed(self, new_index: int, save=True) -> None:
         "Save and repopulate the settings interface for the current wiki."
