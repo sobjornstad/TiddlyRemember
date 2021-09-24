@@ -11,8 +11,10 @@ Anki and not in TiddlyWiki will be lost at this point.
 
 The sync() method is the public interface to this module.
 """
+from datetime import datetime
 from typing import Any, Dict, Set, cast
 
+import anki.consts
 from anki.notes import Note
 
 from . import trmodels
@@ -36,10 +38,36 @@ def _change_note_type(col: Any, tw_note: TwNote, anki_note: Note) -> Note:
 
     fmap = old_model_definition.field_remap(tw_note.model)
     cmap = old_model_definition.card_remap(tw_note.model)
-    new_model = col.models.byName(tw_note.model.name)
+    new_model = col.models.by_name(tw_note.model.name)
     col.models.change(anki_note.note_type(), [anki_note.id], new_model, fmap, cmap)
 
     return col.getNote(col.find_notes(f"nid:{anki_note.id}")[0])
+
+
+def _set_initial_scheduling(tw_note: TwNote, anki_note: Note, col: Any):
+    """
+    When a note is added, apply any starting scheduling information supplied by
+    the TiddlyWiki note. Subsequent syncs will keep Anki's scheduling information,
+    unless the note is deleted and then synced back again.
+
+    Currently, the same scheduling must be applied to all cards of a note.
+
+    Not sure whether this is the best-practice way to set initial scheduling:
+    https://forums.ankiweb.net/t/correct-way-to-apply-arbitrary-scheduling-changes-to-a-card/13638
+    """
+    if tw_note.schedule is not None:
+        for cid in col.find_cards(f"nid:{anki_note.id}"):
+            c = col.get_card(cid)
+
+            c.queue = anki.consts.QUEUE_TYPE_REV
+            c.type = anki.consts.CARD_TYPE_REV
+            c.ivl = tw_note.schedule.ivl
+            c.factor = tw_note.schedule.ease
+            c.lapses = tw_note.schedule.lapses
+            col.update_card(c)
+
+            days_from_today = (tw_note.schedule.due - datetime.now().date()).days
+            col.sched.set_due_date((c.id,), str(days_from_today))
 
 
 def _update_deck(tw_note: TwNote, anki_note: Note, col: Any, default_deck: str) -> None:
@@ -113,10 +141,11 @@ def sync(tw_notes: Set[TwNote], col: Any, default_deck: str) -> str:
     for note_id in adds:
         tw_note = extracted_notes_map[note_id]
         n = Note(col, col.models.byName(tw_note.model.name))
-        n.model()['did'] = col.decks.id(tw_note.target_deck     # type: ignore
-                                        or default_deck)
         tw_note.update_fields(n)
-        col.addNote(n)
+        deck = col.decks.id(tw_note.target_deck or default_deck)
+        col.add_note(n, deck)
+        _set_initial_scheduling(tw_note, n, col)
+
     userlog.append(f"Added {len(adds)} {pluralize('note', len(adds))}.")
 
     edit_count = 0

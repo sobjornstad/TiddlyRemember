@@ -10,6 +10,12 @@ class RenderingError(ExtractError):
     "A type of extract error that occurs when Node fails to render the wiki to HTML."
 
 
+class ScheduleParsingError(TrError):
+    """
+    A type of extra error that occurs when the 'sched' string of a note
+    is in an invalid format.
+    """
+
 class ConfigurationError(ExtractError):
     """
     A type of extract error that occurs when the user set invalid configuration

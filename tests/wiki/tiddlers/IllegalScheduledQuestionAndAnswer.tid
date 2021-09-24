@@ -1,0 +1,15 @@
+created: 20210924224148516
+creator: mnemonist
+modified: 20210924224218333
+modifier: mnemonist
+tags: TestCase
+title: IllegalScheduledQuestionAndAnswer
+type: text/vnd.tiddlywiki
+
+Here the `sched` parameter has an invalid format.
+
+<<rememberq "20200925171619043"
+	"What is TiddlyRemember good for?"
+	"Remembering things that you put in your TiddlyWiki."
+    sched:"I like pie:yes;"
+>>
