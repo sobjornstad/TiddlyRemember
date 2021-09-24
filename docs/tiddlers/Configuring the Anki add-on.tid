@@ -1,5 +1,5 @@
 created: 20200523160949539
-modified: 20201220192453711
+modified: 20210924184708496
 tags: [[Configuring TiddlyRemember]]
 title: Configuring the Anki add-on
 type: text/vnd.tiddlywiki
@@ -41,5 +41,10 @@ You can configure any number of wikis to sync with. Each wiki has its own set of
 : A URL at which your wiki can be accessed on the devices where you review Anki cards. This will allow Anki to provide a link back to the source tiddler on your cards. This field is optional -- if you leave it blank, no link will be provided on your cards, but you'll still be able to see which wiki and tiddler it came from. If you use a file wiki on your local computer, you can use a `file://` URL. You should be able to copy this URL out of the address bar of your browser.
 
 : At least one user has reported being unable to open the link on Windows with a `file://` URI. A workaround is described in [[External links to files cannot be opened]].
+
+; Password
+: If your single-file wiki is encrypted ''with the “set password” function within TiddlyWiki'', you can enter the password here. Beware that this password will be stored in plain text in Anki's settings directory, so it isn't a good idea to use an encrypted wiki with TiddlyRemember if it's is top-secret and other people have access to your computer. This function does not work with folder wikis.
+
+: For wikis accessed via a URL which are ''password-protected via HTTP basic authentication'' (where your browser pops up a dialog box and asks you for the username and password), you should instead enter the username and password as part of the URL in the `user:password@URL` format, like `https://soren:mypassword@wiki.sorenbjornstad.com`.
 
 Changes to the name or permalink will update all of the notes from that wiki on the next sync.

@@ -5,6 +5,7 @@
     "wikis": {
         "defaultWiki": {
             "contentFilter": "[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]",
+            "password": "",
             "path": "",
             "permalink": "",
             "type": "file"

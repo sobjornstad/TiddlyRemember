@@ -21,23 +21,29 @@ from .util import nowin_startupinfo
 RENDERED_FILE_EXTENSION = "html"
 
 
-def _download_wiki(url: str, target_location: str) -> None:
+def _download_wiki(url: str, target_location: str,
+                   requests_session: Optional[requests.Session] = None) -> None:
     """
     Download a wiki from a URL to the path target_location.
     """
-    r = requests.get(url)
+    if requests_session is None:
+        requests_session = requests.session()
+
+    r = requests_session.get(url)
     r.raise_for_status()
     with open(target_location, 'wb') as f:
         f.write(r.text.encode(r.encoding))
 
 
-def _folderify_wiki(tw_binary: str, wiki_path: str, output_directory: str) -> None:
+def _folderify_wiki(tw_binary: str, wiki_path: str, output_directory: str,
+                    password: str = "") -> None:
     """
     Convert a single-file wiki into a folder wiki so we can continue working with it.
 
-    :param tw_binary: Path to the TiddlyWiki node executable.
-    :param wiki_path: Path of the wiki file to convert to a folder.
+    :param tw_binary:        Path to the TiddlyWiki node executable.
+    :param wiki_path:        Path of the wiki file to convert to a folder.
     :param output_directory: Directory to place the folder wiki in.
+    :param password:         Password with which to decrypt the wiki, if one is needed.
     """
     if not os.path.exists(wiki_path):
         raise ConfigurationError(
@@ -48,7 +54,10 @@ def _folderify_wiki(tw_binary: str, wiki_path: str, output_directory: str) -> No
             f"The wiki file '{wiki_path}' is a folder. If you meant to "
             f"use a folder wiki, set the 'type' parameter to 'folder'.")
 
-    cmd = [tw_binary, "--load", wiki_path, "--savewikifolder", output_directory]
+    cmd = [tw_binary]
+    if password:
+        cmd.extend(("--password", password))
+    cmd.extend(("--load", wiki_path, "--savewikifolder", output_directory))
     _invoke_tw_command(cmd, None, "folderify wiki")
 
 
@@ -69,8 +78,11 @@ def _invoke_tw_command(cmd: Sequence[str], wiki_path: Optional[str],
             f"Node.JS installed on your computer, please install it now.") from e
     except subprocess.CalledProcessError as proc:
         stdout = proc.stdout.decode() if proc.stdout else "(no output)"
+        if "No tiddlers found in file" in stdout:
+            extra = ("(If this wiki is encrypted, "
+                     "did you forget to give the password?)\n")
         raise RenderingError(
-            f"Failed to {description}: return code {proc.returncode}.\n"
+            f"Failed to {description}: return code {proc.returncode}.\n{extra}"
             f"$ {' '.join(proc.cmd)}\n\n{stdout}") from proc
 
 
@@ -161,6 +173,8 @@ def _render_wiki(tw_binary: str, wiki_path: str, output_directory: str,
 
 def find_notes(
     tw_binary: str, wiki_path: str, wiki_type: str, wiki_name: str, filter_: str,
+    password: str = "",
+    requests_session: Optional[requests.Session] = None,
     callback: Optional[Callable[[int, int], None]] = None) -> Set[TwNote]:
     """
     Return a set of TwNotes parsed out of a TiddlyWiki.
@@ -174,6 +188,11 @@ def find_notes(
                       part of the tiddler reference field.
     :param filter_:   TiddlyWiki filter describing which tiddlers
                       to search for notes.
+    :param password:  If specified, a password needed to decrypt the wiki.
+                      Only valid with file and URL wikis.
+    :param requests_session: If specified, a session to be used to fetch the wiki from
+                      the provided URL. Ignored unless wiki_type is 'url'. If
+                      specified, one will be created with the default options.
     :param callback:  Optional callable receiving two integers, the first representing
                       the number of tiddlers processed and the second the total number.
                       It will be called every 50 tiddlers. The first call is made at
@@ -186,14 +205,15 @@ def find_notes(
     with TemporaryDirectory() as tmpdir:
         if wiki_type == 'file':
             wiki_folder = os.path.join(tmpdir, 'wikifolder')
-            _folderify_wiki(tw_binary, wiki_path, wiki_folder)
+            _folderify_wiki(tw_binary, wiki_path, wiki_folder, password)
         elif wiki_type == 'folder':
             wiki_folder = wiki_path
         elif wiki_type == 'url':
             downloaded_file = os.path.join(tmpdir, 'wiki.html')
-            _download_wiki(url=wiki_path, target_location=downloaded_file)
+            _download_wiki(url=wiki_path, target_location=downloaded_file,
+                           requests_session=requests_session)
             wiki_folder = os.path.join(tmpdir, 'wikifolder')
-            _folderify_wiki(tw_binary, downloaded_file, wiki_folder)
+            _folderify_wiki(tw_binary, downloaded_file, wiki_folder, password)
         else:
             raise Exception(f"Invalid wiki type '{wiki_type}' -- must be "
                             f"'file', 'folder', or 'url'.")

@@ -66,7 +66,8 @@ class ImportThread(QThread):
                 wiki_type=self.wiki_conf['type'],
                 wiki_name=self.wiki_name,
                 filter_=self.wiki_conf['contentFilter'],
-                callback=self.progress_update.emit
+                password=self.wiki_conf.get('password', ''),
+                callback=self.progress_update.emit,
             )
             for n in self.notes:
                 wiki_url = self.wiki_conf.get('permalink', '')
