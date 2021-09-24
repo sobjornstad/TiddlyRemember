@@ -9,7 +9,7 @@ import copy
 import os
 import platform
 import subprocess
-from typing import Any, List, Sequence
+from typing import Any, List
 
 # pylint: disable=no-name-in-module
 import aqt
@@ -20,7 +20,7 @@ from PyQt5.QtCore import QUrl
 from aqt.utils import showWarning, showInfo, showCritical, askUser
 
 from . import settings_dialog
-from .util import nowin_startupinfo, DEFAULT_FILTER
+from .util import DEFAULT_FILTER, nowin_startupinfo, uniquify_name
 
 
 class SettingsDialog(QDialog):
@@ -169,7 +169,8 @@ class SettingsDialog(QDialog):
         prototype['type'] = 'file'
         prototype['password'] = ''
         prototype['contentFilter'] = DEFAULT_FILTER
-        self.wikis.append(['', prototype])
+        self.wikis.append([uniquify_name("New Wiki", list(i[0] for i in self.wikis)),
+                           prototype])
 
         self.current_wiki_index = len(self.wikis) - 1
         self._populate_wiki_list()
@@ -179,6 +180,7 @@ class SettingsDialog(QDialog):
             self.form.groupBox.hide()
             self.form.groupBox.show()
         self.form.wikiName.setFocus()
+        self.form.wikiName.selectAll()
 
     def browse_for_wiki(self):
         "Use a file browser dialog to replace the path to a wiki."
@@ -234,7 +236,7 @@ class SettingsDialog(QDialog):
         wiki_names = [name for name, _ in self.wikis]
         if len(set(wiki_names)) != len(wiki_names):
             showWarning("Two wikis cannot have the same name. Fixing this for you.")
-            new_name = _uniquify_name(self.form.wikiName.text(), wiki_names)
+            new_name = uniquify_name(self.form.wikiName.text(), wiki_names)
             self.form.wikiName.setText(new_name)
             self.wiki_name_changed(new_name)
 
@@ -293,18 +295,6 @@ class SettingsDialog(QDialog):
         "Update the wiki list when the name of a wiki changes."
         self.wikis[self.current_wiki_index][0] = new_text
         self.form.wikiList.currentItem().setText(new_text)
-
-
-def _uniquify_name(name: str, names: Sequence[str]) -> str:
-    """
-    Given a tentative name and a list of existing names, return a possibly
-    modified new name that is guaranteed not to be the same as any of the existing
-    names.
-    """
-    number = 2
-    while f"{name} {number}" in names:
-        number += 1
-    return f"{name} {number}"
 
 
 def edit_settings() -> None:

@@ -3,7 +3,7 @@ util.py - general-purpose functions and definitions used by multiple modules
 """
 import os
 import subprocess
-from typing import NewType, Optional
+from typing import NewType, Optional, Sequence
 
 
 Twid = NewType('Twid', str)
@@ -55,3 +55,18 @@ def nowin_startupinfo() -> Optional['subprocess.STARTUPINFO']:  # type: ignore
         return info
     else:
         return None
+
+
+def uniquify_name(name: str, names: Sequence[str]) -> str:
+    """
+    Given a tentative name and a list of existing names, return a possibly
+    modified new name that is guaranteed not to be the same as any of the existing
+    names.
+    """
+    if name not in names:
+        return name
+
+    number = 2
+    while f"{name} {number}" in names:
+        number += 1
+    return f"{name} {number}"
