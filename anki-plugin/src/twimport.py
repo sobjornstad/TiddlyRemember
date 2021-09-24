@@ -147,6 +147,7 @@ def _render_wiki(tw_binary: str, wiki_path: str, output_directory: str,
 
     cmd = [
         tw_binary,
+        "--verbose",
         "--output",
         output_directory,
         "--render",
