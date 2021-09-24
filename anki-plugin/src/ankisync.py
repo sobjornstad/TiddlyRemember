@@ -46,8 +46,7 @@ def _update_deck(tw_note: TwNote, anki_note: Note, col: Any, default_deck: str) 
     """
     Given a note already in Anki's database, move its cards into an
     appropriate deck if they aren't already there. All cards must go to the
-    same deck for the time being -- although this is currently irrelevant
-    since we don't support any note types with multiple cards!
+    same deck for the time being.
 
     The note must be flushed to Anki's database for this to work correctly.
     """
