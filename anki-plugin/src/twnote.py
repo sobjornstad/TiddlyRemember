@@ -371,16 +371,16 @@ def _get_deck_and_tags(tiddler_soup: BeautifulSoup) -> Tuple[Optional[str], Set[
     """
     Given the soup of a tiddler, extract its deck and list of tags.
     """
-    deckList = tiddler_soup.find("ul", id="anki-decks")
-    if deckList:
-        firstItem = deckList.find("li")
-        deck = firstItem.get_text() if firstItem is not None else None
+    deck_list = tiddler_soup.find("ul", id="anki-decks")
+    if deck_list:
+        first_item = deck_list.find("li")
+        deck = first_item.get_text() if first_item is not None else None
     else:
         deck = None
 
-    tagList = tiddler_soup.find("ul", id="anki-tags")
-    if tagList:
-        tags = set(i.get_text() for i in tagList.find_all("li"))
+    tag_list = tiddler_soup.find("ul", id="anki-tags")
+    if tag_list:
+        tags = set(i.get_text() for i in tag_list.find_all("li"))
     else:
         tags = set()
 
