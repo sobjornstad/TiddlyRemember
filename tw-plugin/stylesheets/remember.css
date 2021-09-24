@@ -45,3 +45,7 @@ div.remembertwo div.tr-reference, .remembercz div.tr-reference {
 div.remembertwo div.rid, .remembercz div.rid {
 	display: none;
 }
+
+div.remembertwo div.tr-sched, .remembercz div.tr-sched {
+	display: none;
+}

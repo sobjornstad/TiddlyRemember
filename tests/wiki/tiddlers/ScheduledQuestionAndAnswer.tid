@@ -1,0 +1,13 @@
+created: 20210924222300537
+creator: mnemonist
+modified: 20210924223608786
+modifier: mnemonist
+tags: TestCase
+title: ScheduledQuestionAndAnswer
+type: text/vnd.tiddlywiki
+
+<<rememberq "20200925171619043"
+	"What is TiddlyRemember good for?"
+	"Remembering things that you put in your TiddlyWiki."
+    sched:"due:220009221200000;ivl:5;ease:1800;lapses:1"
+>>
