@@ -1,18 +1,15 @@
 .PHONY: all forms zip clean
 
 all: forms zip
-forms: src/import_dialog.py src/settings_dialog.py
+forms: $(patsubst designer/%_dialog.ui,src/%_dialog.py,$(wildcard designer/*))
 zip: build.ankiaddon
 
-src/import_dialog.py: designer/import_dialog.ui
-	pyuic5 $^ > $@
-
-src/settings_dialog.py: designer/settings_dialog.ui
+src/%_dialog.py: designer/%_dialog.ui
 	pyuic5 $^ > $@
 
 build.ankiaddon: src/*.py src/config.json
 	rm -f $@
-	( cd src/; zip -r ../$@ *.py config.json )
+	( cd src/; zip -r ../$@ $(^F) )
 
 clean:
 	rm -rf src/__pycache__
