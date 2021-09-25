@@ -324,12 +324,8 @@ class TiddlyRememberCloze(ModelData):
             {{cloze:Text}}
         """
         back = """
-            {{cloze:Text}}
-
-            <br>
-
+            {{cloze:Text}}<br>
             {{Extra}}
-
             <div class="note-id">
                 {{#Permalink}}
                     [<a href="{{text:Permalink}}">{{Wiki}}/{{Reference}}</a> {{ID}}]
