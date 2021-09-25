@@ -46,7 +46,7 @@ def test_question_import(fn_params):
 
 
 def test_cloze_import(fn_params):
-    "The 'BasicQuestionAndAnswer' note imports as expected."
+    "The 'BasicCloze' note imports as expected."
     fn_params['filter_'] = "BasicCloze"
     notes = find_notes(**fn_params)
 
@@ -62,6 +62,14 @@ def test_cloze_import(fn_params):
                          '{{c1::remembering things that you put in your TiddlyWiki}}.')
     assert note.target_tags == set()
     assert note.target_deck is None
+
+
+def test_escaped_cloze_import(fn_params):
+    "The 'EscapedCloze' note imports with successful escaped braces."
+    fn_params['filter_'] = "EscapedCloze"
+    note = find_notes(**fn_params).pop()
+    assert note.text == (r'In LaTeX, we create fractions with '
+                         r'{{c1::<code>\frac{numerator}{denominator}</code>}}.')
 
 
 def test_pair_import(fn_params):
@@ -285,7 +293,12 @@ def test_doubleclosingbrace(fn_params):
     prevents syncing.
 
     https://github.com/sobjornstad/TiddlyRemember/issues/29
+
+    Nowadays, it will end up malformed, but it won't prevent syncing, which is much
+    more forgiving on the user's side -- they can easily find the problem and fix it
+    when they see the card that's generated.
     """
     fn_params['filter_'] = "BadClosingBraceCloze"
-    with pytest.raises(UnmatchedBracesError):
-        find_notes(**fn_params)
+    note = find_notes(**fn_params).pop()
+    assert '{{c1::<code>&lt;input type="radio" name="some-name" checked}}&gt;</code>}' \
+         in note.text

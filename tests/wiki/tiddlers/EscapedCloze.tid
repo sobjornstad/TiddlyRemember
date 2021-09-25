@@ -1,0 +1,10 @@
+created: 20210925133929915
+creator: mnemonist
+modified: 20210925134023320
+modifier: mnemonist
+tags: TestCase
+title: EscapedCloze
+type: text/vnd.tiddlywiki
+
+<<remembercz "20210925133938745"
+	"In LaTeX, we create fractions with {`\frac\{numerator\}\{denominator\}`}.">>

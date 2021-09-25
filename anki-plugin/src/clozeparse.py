@@ -33,7 +33,7 @@ class Occlusion:
     @property
     def placeholder(self) -> str:
         "A Python format-string placeholder for this occlusion."
-        return "{%i}" % self.placeholder_index
+        return "©<%i>©" % self.placeholder_index
 
     @property
     def anki_occlusion(self) -> str:
@@ -60,7 +60,7 @@ class Occlusion:
 
 
 def ankify_clozes(text: str, wiki_name: str = "", tidref: str = "") -> str:
-    """
+    r"""
     Given some text in TiddlyRemember simplified cloze format, convert it to
     work in Anki. The following documents the simplified format.
 
@@ -93,6 +93,31 @@ def ankify_clozes(text: str, wiki_name: str = "", tidref: str = "") -> str:
 
         >>> ankify_clozes("{c1::This} is a {c3::fourth} {test} {cloze deletion}.")
         '{{c1::This}} is a {{c3::fourth}} {{c2::test}} {{c4::cloze deletion}}.'
+
+    Braces escaped with a backslash:
+        >>> ankify_clozes(r"Here is a {sentence} with some \{escaped braces\}.")
+        'Here is a {{c1::sentence}} with some {escaped braces}.'
+
+        >>> ankify_clozes(r"How about {double escapes} like \\{this\\}?")
+        'How about {{c1::double escapes}} like \\{this\\}?'
+
+        >>> ankify_clozes(r"For LaTeX grouping, use {`\{braces\}`}.")
+        'For LaTeX grouping, use {{c1::`{braces}`}}.'
+
+    Syntax mistakes:
+        >>> ankify_clozes("Unclosed {braces just don't produce a cloze.")
+        "Unclosed {braces just don't produce a cloze."
+
+        >>> ankify_clozes("Unopened braces just don't produce} a cloze.")
+        "Unopened braces just don't produce} a cloze."
+
+        >>> ankify_clozes("Backwards braces }don't produce{ a cloze either.")
+        "Backwards braces }don't produce{ a cloze either."
+
+        >>> ankify_clozes("This is the {c3::first} cloze.")
+        'This is the {{c3::first}} cloze.'
+
+        (That one's weird but totally acceptable to Anki.)
     """
     def next_occlusion_number(seq: Sequence[int]) -> Iterable[int]:
         """
@@ -115,7 +140,7 @@ def ankify_clozes(text: str, wiki_name: str = "", tidref: str = "") -> str:
         o = Occlusion(len(occlusions), match.group(1))
         occlusions.append(o)
         return o.placeholder
-    placeholder_text = re.sub(r'{([^}]*)}', mark_occlusion, text)
+    placeholder_text = re.sub(r'(?<!\\){(.*?)(?<!\\)}', mark_occlusion, text)
 
     # Fill in cloze numbers for occlusions that used the implicit syntax.
     deferred_mappings = [o for o in occlusions
@@ -127,17 +152,11 @@ def ankify_clozes(text: str, wiki_name: str = "", tidref: str = "") -> str:
         occlusion.anki_index = index
 
     # Replace placeholders with the cleansed, explicified, Anki-format occlusions.
-    try:
-        return placeholder_text.format(*(i.anki_occlusion for i in occlusions))
-    except ValueError as e:
-        if str(e) == "Single '}' encountered in format string":
-            raise UnmatchedBracesError(
-                f"The following TiddlyRemember cloze note in your wiki '{wiki_name}' "
-                f"with reference '{tidref}' "
-                f"contains an unmatched closing brace ('}}'):\n{text}\n\n"
-                f"Please find and correct this note and then try syncing again.") from e
-        else:
-            raise
+    occ_lookup = {o.placeholder_index: o for o in occlusions}
+    def replace_placeholder(match):
+        return occ_lookup[int(match.group(1))].anki_occlusion
+    cloze_text = re.sub(r'©<([0-9]+)>©', replace_placeholder, placeholder_text)
+    return re.sub(r'\\([{}])', r'\1', cloze_text)
 
 
 if __name__ == '__main__':
