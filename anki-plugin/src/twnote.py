@@ -76,6 +76,10 @@ class TwNote(metaclass=ABCMeta):
         return hash(self.id_)
 
     @classmethod
+    def note_types(cls):
+        return list(cls.__subclasses__())
+
+    @classmethod
     def notes_from_soup(cls, soup: BeautifulSoup,
                         wiki_name: str, tiddler_name: str) -> Set['TwNote']:
         """
