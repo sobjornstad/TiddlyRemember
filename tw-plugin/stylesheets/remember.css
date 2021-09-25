@@ -49,3 +49,19 @@ div.remembertwo div.rid, .remembercz div.rid {
 div.remembertwo div.tr-sched, .remembercz div.tr-sched {
 	display: none;
 }
+
+/***** Built-in classes for common format customizations; apply to the class: parameter to macros *****/
+/* Hide the ID field */
+.tr-hide-id div.tr-selfidentification {
+	display: none;
+}
+
+/* Hide the ID only if it's an inline cloze */
+span.remembercz.tr-hide-inline-cloze-id div.tr-selfidentification {
+	display: none;
+}
+
+/* Hide the word "cloze" on inline clozes */
+span.remembercz.tr-hide-inline-cloze-name span.cloze-identifier span.tr-name-cloze {
+	display: none;
+}

@@ -1,5 +1,5 @@
 created: 20200510004110231
-modified: 20200730205800000
+modified: 20200925141800000
 tags: $:/tags/Macro
 title: $:/plugins/sobjornstad/TiddlyRemember/macros/remember
 type: text/vnd.tiddlywiki
@@ -21,8 +21,8 @@ type: text/vnd.tiddlywiki
 	</div>
 \end
 
-\define rememberq(id, question, answer, reference: "", sched:"")
-    <div class="rememberq remembertwo">
+\define rememberq(id, question, answer, reference: "", sched: "", class:"")
+    <div class={{{ [[rememberq remembertwo ]addsuffix<__class__>addsuffix[ ]addsuffix{$:/config/TiddlyRemember/DefaultClasses}] }}}>
         <div class="rquestion tr-ritem">
             <div>Q:</div>
             <p>$question$</p>
@@ -35,8 +35,8 @@ type: text/vnd.tiddlywiki
     </div>
 \end
 
-\define rememberp(id, first, second, reference: "", sched:"")
-    <div class="rememberp remembertwo">
+\define rememberp(id, first, second, reference: "", sched: "", class: "")
+    <div class={{{ [[rememberp remembertwo ]addsuffix<__class__>addsuffix[ ]addsuffix{$:/config/TiddlyRemember/DefaultClasses}] }}}>
         <div class="rfirst tr-ritem">
             <div>1:</div>
             <p>$first$</p>
@@ -49,12 +49,12 @@ type: text/vnd.tiddlywiki
     </div>
 \end
 
-\define remembercz(id, text, mode: "block", reference: "", sched: "")
+\define remembercz(id, text, mode: "block", reference: "", sched: "", class: "")
 	<$list filter="[[$mode$]match[inline]]" variable=_>
-		<$macrocall $name=twRememberClozeInline id=<<__id__>> text=<<__text__>> reference=<<__reference__>> sched=<<__sched__>>/>
+		<$macrocall $name=twRememberClozeInline id=<<__id__>> text=<<__text__>> reference=<<__reference__>> sched=<<__sched__>> class=<<__class__>>/>
 	</$list>
 	<$list filter="[[$mode$]!match[inline]]" variable=_>
-		<$macrocall $name=twRememberClozeBlock id=<<__id__>> text=<<__text__>> reference=<<__reference__>> sched=<<__sched__>>/>
+		<$macrocall $name=twRememberClozeBlock id=<<__id__>> text=<<__text__>> reference=<<__reference__>> sched=<<__sched__>> class=<<__class__>>/>
 	</$list>
 \end
 
@@ -75,17 +75,17 @@ type: text/vnd.tiddlywiki
 	</div>
 \end
 
-\define twRememberClozeBlock(id, text, reference, sched)
-	<div class="remembercz">
-		<span class="cloze-identifier">cloze: </span>
+\define twRememberClozeBlock(id, text, reference, sched, class)
+    <div class={{{ [[remembercz ]addsuffix<__class__>addsuffix[ ]addsuffix{$:/config/TiddlyRemember/DefaultClasses}] }}}>
+		<span class="cloze-identifier"><span class="tr-name-cloze">cloze: </span></span>
 		<span class="cloze-text">$text$</span>
 		<$macrocall $name="twRememberMetadata" id=<<__id__>> reference=<<__reference__>> sched=<<__sched__>>/>
 	</div>
 \end
 
-\define twRememberClozeInline(id, text, reference, sched)
-	<span class="remembercz">
-		<span class="cloze-identifier">{cloze: </span>
+\define twRememberClozeInline(id, text, reference, sched, class)
+    <span class={{{ [[remembercz ]addsuffix<__class__>addsuffix[ ]addsuffix{$:/config/TiddlyRemember/DefaultClasses}] }}}>
+		<span class="cloze-identifier">{<span class="tr-name-cloze">cloze: </span></span>
 		<span class="cloze-text">$text$</span>
 		<span class="cloze-identifier">}</span>
 		<$macrocall $name="twRememberMetadata" id=<<__id__>> reference=<<__reference__>> sched=<<__sched__>>/>

@@ -1,0 +1,100 @@
+created: 20210925141924513
+modified: 20210925162014192
+tags:
+title: Applying styles
+type: text/vnd.tiddlywiki
+
+All of the TiddlyRemember macros accept a `class` parameter,
+    which can contain one or more space-separated CSS class names to add
+    to the root `<div>` (or `<span>`, for inline clozes)
+    of the note when it's displayed in TiddlyWiki.
+By defining an appropriate class, you can display TiddlyRemember notes however you like.
+
+For instance, suppose you want the answer to appear in blue:
+
+```
+<<rememberq "20210925142322074"
+	"Is it possible to make TiddlyRemember display answers in blue?"
+	"You bet!"
+    class:"blue-answer">>
+
+<style>
+.blue-answer div.ranswer {
+    color: blue;
+}
+</style>
+```
+
+<<rememberq "20210925142322074"
+	"Is it possible to make TiddlyRemember display answers in blue?"
+	"You bet!"
+    class:"blue-answer">>
+
+<style>
+.blue-answer div.ranswer {
+    color: blue;
+}
+</style>
+
+The `blue-answer` class is applied to the div representing the question/answer pair.
+Our CSS rule then applies a blue color to all divs with the class `ranswer`
+    that are children of elements with the `blue-answer` class.
+`ranswer` is a class used on the answer component of questions;
+    the fastest way to figure out what class to use is to open your browser's devtools
+    and inspect an existing TiddlyRemember note.
+
+A common application is to hide part of the note.
+For instance, suppose you don't care about the ID/reference and don't want it in your way:
+
+```
+<<remembercz "20210925142914310"
+	"You can hide an element in CSS with {display: none}."
+    class:hide-id>>
+
+<style>
+.hide-id div.tr-selfidentification {
+    display: none;
+</style>
+```
+
+<<remembercz "20210925142914310"
+	"You can hide an element in CSS with {display: none}."
+    class:hide-id>>
+
+<style>
+.hide-id div.tr-selfidentification {
+    display: none;
+</style>
+
+Once you've worked out the appropriate CSS rule, you'll likely want to place it in a tiddler tagged [[$:/tags/Stylesheet]] so that you can apply it in any tiddler, rather than leaving it in a `<style>` tags where it will only work on a single tiddler.
+
+
+!! Built-in classes
+
+The following classes are available out of the box:
+
+; `tr-hide-id`
+: Don't display the ID number or reference.
+
+; `tr-hide-inline-cloze-id`
+: Don't display the ID number or reference, but only if the note is an inline cloze.
+
+; `tr-hide-inline-cloze-name`
+: Hide the word `cloze` on inline clozes.
+
+If you have a class you think would be broadly useful to TiddlyRemember users, feel free to add it to the appropriate section of the [[remember.css stylesheet|https://github.com/sobjornstad/TiddlyRemember/blob/master/tw-plugin/stylesheets/remember.css]] and submit a pull request.
+
+
+!! Default classes
+
+If you want to apply a class to //every// TiddlyRemember note in your wiki
+    (for instance, you never want to see the word `cloze` on inline clozes),
+    add its name to [[$:/config/TiddlyRemember/DefaultClasses]].
+The format here is exactly the same as the `class` parameter of macros
+    (space-separated CSS class names).
+
+
+!! Related
+
+If you want to change the display of content in //Anki// and not in your wiki,
+    you can do that by [[editing the card templates|Editing card templates]].
