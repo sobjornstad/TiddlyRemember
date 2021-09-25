@@ -1,5 +1,5 @@
 created: 20200523160949539
-modified: 20210924184708496
+modified: 20210925163223453
 tags: [[Configuring TiddlyRemember]]
 title: Configuring the Anki add-on
 type: text/vnd.tiddlywiki
@@ -32,7 +32,7 @@ You can configure any number of wikis to sync with. Each wiki has its own set of
 :* `URL`: A single-file wiki hosted on the web somewhere, which can be downloaded without requiring authentication.
 
 ; Path or URL
-: Either the path to the wiki (click ''Browse'' to look for it) or the URL of the wiki, depending on which option you chose for ''Type''.
+: Either the path to the wiki (click ''Browse'' to look for it) or the URL of the wiki, depending on which option you chose for ''Type''. For a folder wiki, select the folder that contains the `tiddlywiki.info` file.
 
 ; Filter
 : Only the tiddlers matching this TiddlyWiki filter will be searched for questions. It's important to make sure that tiddlers that can't be rendered to HTML (e.g., images) are excluded -- failing to do so may result in extremely long sync times or crashes. If you're not sure what to put here, just keep the default.
