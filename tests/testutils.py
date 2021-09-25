@@ -6,7 +6,7 @@ from collections import namedtuple
 import os
 import sys
 
-from anki import Collection
+from anki.collection import Collection
 import pytest
 import requests
 

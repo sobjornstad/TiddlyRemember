@@ -97,6 +97,10 @@ class ModelData(ABC):
         return model is not None
 
     @classmethod
+    def field_index_by_name(cls, field_name: str) -> int:
+        return cls.fields.index(field_name)
+
+    @classmethod
     def field_remap(cls, other: 'Type[ModelData]') -> Dict[int, Optional[int]]:
         """
         Produce a field mapping to be used to change a note of this note type

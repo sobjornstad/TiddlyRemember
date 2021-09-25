@@ -7,7 +7,9 @@ representation of a TiddlyWiki (see twimport.py).
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 from datetime import date
-from typing import Any, List, Optional, Set, Tuple
+import re
+from textwrap import dedent
+from typing import Any, List, Optional, Set, Tuple, Type
 from urllib.parse import quote as urlquote
 
 from anki.notes import Note
@@ -17,7 +19,7 @@ from .clozeparse import ankify_clozes
 from .oops import ConfigurationError, ScheduleParsingError
 from .trmodels import (TiddlyRememberQuestionAnswer, TiddlyRememberCloze,
                        TiddlyRememberPair, ID_FIELD_NAME)
-from .util import Twid, PLUGIN_VERSION, COMPATIBLE_TW_VERSIONS
+from .util import COMPATIBLE_TW_VERSIONS, PLUGIN_VERSION, Twid, tw_quote
 
 
 @dataclass
@@ -177,6 +179,16 @@ class TwNote(metaclass=ABCMeta):
     ### Abstract methods ###
     @classmethod
     @abstractmethod
+    def export_macro(cls, anki_note: Note) -> str:
+        """
+        Given an Anki note, return a string representation of a TiddlyWiki macro call
+        which will result in an Anki card of the current note type when imported
+        again through TiddlyRemember.
+        """
+        raise NotImplementedError
+
+    @classmethod
+    @abstractmethod
     def parse_html(cls, soup: BeautifulSoup, wiki_name: str, tiddler_name: str):
         """
         Given soup and the name of the wiki and its tiddler, construct and return
@@ -227,6 +239,16 @@ class QuestionNote(TwNote):
                 f"question={self.question!r}, answer={self.answer!r}, "
                 f"target_tags={self.target_tags!r}, target_deck={self.target_deck!r}, "
                 f"schedule={self.schedule!r})")
+
+    @classmethod
+    def export_macro(cls, anki_note: Note) -> str:
+        idx = cls.model.field_index_by_name
+        return dedent(f"""
+            <<rememberq
+                "{anki_note.fields[idx(ID_FIELD_NAME)]}"
+                {tw_quote(anki_note.fields[idx('Question')])}
+                {tw_quote(anki_note.fields[idx('Answer')])}>>
+            """).strip()
 
     @classmethod
     def parse_html(cls, soup: BeautifulSoup, wiki_name: str,
@@ -286,6 +308,16 @@ class PairNote(TwNote):
                 f"schedule={self.schedule!r})")
 
     @classmethod
+    def export_macro(cls, anki_note: Note) -> str:
+        idx = cls.model.field_index_by_name
+        return dedent(f"""
+            <<rememberp
+                "{anki_note.fields[idx(ID_FIELD_NAME)]}"
+                {tw_quote(anki_note.fields[idx('First')])}
+                {tw_quote(anki_note.fields[idx('Second')])}>>
+            """).strip()
+
+    @classmethod
     def parse_html(cls, soup: BeautifulSoup, wiki_name: str,
                    tiddler_name: str) -> Set['PairNote']:
         notes = set()
@@ -341,6 +373,22 @@ class ClozeNote(TwNote):
                 f"schedule={self.schedule!r})")
 
     @classmethod
+    def export_macro(cls, anki_note: Note) -> str:
+        def clz_sub(text: str) -> str:
+            "Replace Anki-style occlusions with TiddlyRemember-style ones."
+            def repl(match):
+                escaped_content = match.group(1).replace('{', r'\{').replace('}', r'\}')
+                return '{' + escaped_content + '}'
+            return re.sub(r"{{(c[0-9]+::.*?)}}", repl, text)
+
+        idx = cls.model.field_index_by_name
+        return dedent(f"""
+            <<remembercz
+                "{anki_note.fields[idx(ID_FIELD_NAME)]}"
+                {tw_quote(clz_sub(anki_note.fields[idx('Text')]))}>>
+            """).strip()
+
+    @classmethod
     def parse_html(cls, soup: BeautifulSoup, wiki_name: str,
                    tiddler_name: str) -> Set['ClozeNote']:
         notes = set()
@@ -389,6 +437,19 @@ def _get_deck_and_tags(tiddler_soup: BeautifulSoup) -> Tuple[Optional[str], Set[
         tags = set()
 
     return deck, tags
+
+
+def by_name(model_name: str) -> Optional[Type[TwNote]]:
+    """
+    Return the TwNote class which uses the model named `model_name`.
+
+    >>> by_name('TiddlyRemember Q&A v1')
+    <class 'src.twnote.QuestionNote'>
+    """
+    for cls in TwNote.__subclasses__():
+        if cls.model.name == model_name:
+            return cls
+    return None
 
 
 def build_scheduling_info(soup: BeautifulSoup,
