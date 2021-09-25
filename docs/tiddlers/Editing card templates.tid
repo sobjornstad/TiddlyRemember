@@ -1,10 +1,12 @@
 created: 20200926184842664
-modified: 20200926190939947
+modified: 20210925161857002
 tags: [[Configuring TiddlyRemember]]
 title: Editing card templates
 type: text/vnd.tiddlywiki
 
-It's possible to edit the card templates of the TiddlyRemember note types to produce custom formatting. ''This is an advanced feature'' – if you are not familiar with note types and card templates in Anki, you should not try to use it without first learning how they work. Reverting your changes may not be straightforward! Consider consulting the [[Anki manual|https://docs.ankiweb.net/#/]] if you have questions about card templates in Anki.
+It's possible to edit the card templates of the TiddlyRemember note types to produce custom formatting that applies only within Anki. ''This is an advanced feature'' – if you are not familiar with note types and card templates in Anki, you should not try to use it without first learning how they work. Reverting your changes may not be straightforward! Consider consulting the [[Anki manual|https://docs.ankiweb.net/#/]] if you have questions about card templates in Anki.
+
+If you want to adjust the styling of notes //in your wiki// rather than in Anki, read about [[Applying styles]].
 
 !! Things to know before you begin
 

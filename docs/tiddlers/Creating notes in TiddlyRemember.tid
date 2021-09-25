@@ -1,6 +1,6 @@
 created: 20200523163252291
 list: [[Question-and-answer notes]] [[Pair notes]] [[Cloze notes]]
-modified: 20210924225915799
+modified: 20210925161744580
 tags: TiddlyRemember
 title: Creating notes in TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -73,3 +73,4 @@ See [[External links to files cannot be opened]] for a possible workaround.
 * If you plan to transclude any tiddlers containing questions into other tiddlers, you'll want to read about [[Soft and hard references]].
 * In many cases, you can [[dynamically create questions|Dynamically generating TiddlyRemember notes]] from data stored elsewhere in your wiki using filters.
 * If you have scheduling information from some source, you can [[set initial scheduling information|Setting initial scheduling information]] for your notes.
+* You can [[apply styles|Applying styles]] to individual notes or all notes in your wiki via built-in or custom CSS classes. This allows you to make arbitrary changes to the display of notes in TiddlyRemember without affecting what they look like once synced to Anki.
