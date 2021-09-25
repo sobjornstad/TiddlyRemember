@@ -26,10 +26,13 @@
 ###############################################################################
 
 import re
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, TYPE_CHECKING
 
 # pylint: disable=import-error, no-name-in-module
+if TYPE_CHECKING:
+    from anki.models import NoteType
 import aqt
+from aqt.addcards import AddCards
 from aqt.utils import showWarning, tooltip
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QDialog, QAction
@@ -236,10 +239,41 @@ def open_dialog() -> None:
         dialog.exec_()
 
 
+def register_note_type_warning() -> None:
+    "Remind the user not to add notes of the TiddlyRemember note type."
+    def warn_if_adding_tiddlyremember(note_type_name: str) -> None:
+        if note_type_name in (i.model.name for i in TwNote.note_types()):
+            showWarning(
+                f"You are adding notes using the '{note_type_name}' note type. "
+                f"TiddlyRemember notes added directly within Anki "
+                f"will be permanently deleted on the next TiddlyRemember sync. "
+                f"Unless you're sure you know what you're doing, "
+                f"please select a different note type.")
+
+    def on_change_note_type(_old: NoteType, new: NoteType) -> None:
+        warn_if_adding_tiddlyremember(new['name'])
+
+    def on_add_init(add_cards_dialog: AddCards):
+        warn_if_adding_tiddlyremember(
+            add_cards_dialog.notetype_chooser.selected_notetype_name())
+
+    # This hook isn't in some supported versions of Anki yet,
+    # so silently skip adding the warning if it's not available.
+    # After we drop support for 2.1.47 and below, we can remove this check.
+    if hasattr(aqt.gui_hooks, 'add_cards_did_change_note_type'):
+        # lol at the line being too long because of the false positive lint
+        # pylint: disable=no-member, line-too-long
+        aqt.gui_hooks.add_cards_did_change_note_type.append(on_change_note_type)  # type: ignore
+    aqt.gui_hooks.add_cards_did_init.append(on_add_init)
+
+
 if aqt.mw is not None:
     action = QAction(aqt.mw)
     action.setText("Sync from &TiddlyWiki")
     action.setShortcut(QKeySequence("Shift+Y"))
     aqt.mw.form.menuTools.addAction(action)
     action.triggered.connect(open_dialog)
+
     aqt.mw.addonManager.setConfigAction(__name__, edit_settings)
+
+    register_note_type_warning()
