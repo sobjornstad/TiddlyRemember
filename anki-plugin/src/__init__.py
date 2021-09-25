@@ -34,6 +34,7 @@ from __future__ import annotations
 import re
 from typing import Dict, List, Optional, Set, TYPE_CHECKING
 
+import anki
 import aqt
 from aqt.addcards import AddCards
 from aqt.utils import showWarning
@@ -42,6 +43,7 @@ from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QAction
 
 from .importer import ImportDialog
+from .macro_exporter import MACRO_EXPORTER_PROPERTIES
 from .settings import edit_settings
 from .twnote import TwNote
 
@@ -97,3 +99,8 @@ if aqt.mw is not None:
 
     # Set up reminder message when user selects the TR note type to add notes.
     register_note_type_warning()
+
+    # Set up macro exporter.
+    def add_exporter(lst):
+        lst.append(MACRO_EXPORTER_PROPERTIES)
+    anki.hooks.exporters_list_created.append(add_exporter)

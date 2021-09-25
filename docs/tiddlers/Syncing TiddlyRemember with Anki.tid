@@ -1,10 +1,10 @@
 created: 20200523172456479
-modified: 20200523175517999
+modified: 20210925195023386
 tags: TiddlyRemember
 title: Syncing TiddlyRemember with Anki
 type: text/vnd.tiddlywiki
 
-After you [[add, edit, or remove notes in TiddlyWiki|Creating notes in TiddlyRemember]], you'll need to sync your changes to Anki.
+ After you [[add, edit, or remove notes in TiddlyWiki|Creating notes in TiddlyRemember]], you'll need to sync your changes to Anki.
 To do so, open Anki and choose ''Tools > Sync from TiddlyWiki'' (or press ''Shift-Y'').
 This will render all of the tiddlers in your wikis, find the questions currently defined in them,
 and update your Anki collection to match.
@@ -23,3 +23,11 @@ To avoid confusion and unexpected data loss, be sure you understand the followin
 * ''If you remove a wiki from your [[Anki configuration|Configuring the Anki add-on]], all of its notes will be deleted from your Anki collection'' on your next sync. If you want to break the connection to the wiki but permanently retain your notes in Anki (and thereafter edit them within Anki instead of within the wiki), change the notes to a different note type that isn't called //TiddlyRemember Q&A v1// or //TiddlyRemember Cloze v1// before removing the wiki from your configuration.
 
 * ''Do not add any notes directly to Anki using any of the TiddlyRemember note types'' (those whose names start with //TiddlyRemember//). TiddlyRemember will think any notes of this note type were added through TiddlyWiki and delete them on the next sync, since they are not in any of your wikis.
+
+It's possible to ''export TiddlyRemember macros from Anki'':
+    choose File > Export, then select the //TiddlyRemember macros// export format.
+This will produce a text file containing TiddlyWiki macro representations
+    of all the notes of a TiddlyRemember note type in the selected deck.
+You can use this to send your notes to a friend in a format they can add to their own wiki,
+    or to manually sync changes that you accidentally made directly in Anki
+    back to your wiki.
