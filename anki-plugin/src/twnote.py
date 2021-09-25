@@ -302,13 +302,14 @@ class ClozeNote(TwNote):
     model = TiddlyRememberCloze
 
     def __init__(self, id_: Twid, wiki_name: str, tidref: str, text: str,
-                 target_tags: Set[str], target_deck: Optional[str]) -> None:
+                 extra: str, target_tags: Set[str], target_deck: Optional[str]) -> None:
         super().__init__(id_, wiki_name, tidref, target_tags, target_deck)
         self.text = text
+        self.extra = extra
 
     def __repr__(self):
         return (f"ClozeNote(id_={self.id_!r}, tidref={self.tidref!r}, "
-                f"text={self.text!r}, target_tags={self.target_tags!r}, "
+                f"text={self.text!r}, extra={self.extra!r}, target_tags={self.target_tags!r}, "
                 f"target_deck={self.target_deck!r})")
 
     @classmethod
@@ -320,12 +321,13 @@ class ClozeNote(TwNote):
         pairs = soup.find_all(class_="remembercz")
         for pair in pairs:
             text = clean_field_html(pair.find("span", class_="cloze-text"))
+            extra = clean_field_html(pair.find("span", class_="cloze-extra"))
             id_raw = pair.find("div", class_="rid").get_text()
             id_ = id_raw.strip().lstrip('[').rstrip(']')
             tidref = select_tidref(pair.find("div", class_="tr-reference"),
                                    tiddler_name)
             parsed_text = ankify_clozes(text, wiki_name, tidref)
-            notes.add(cls(id_, wiki_name, tidref, parsed_text, tags, deck))
+            notes.add(cls(id_, wiki_name, tidref, parsed_text, extra, tags, deck))
 
         return notes
 
@@ -334,10 +336,15 @@ class ClozeNote(TwNote):
         return bool(soup.find(class_="remembercz"))
 
     def _fields_equal(self, anki_note: Note) -> bool:
-        return self.text == anki_note['Text'] and self._base_equal(anki_note)
+        return (
+            self.text == anki_note['Text'] 
+            and self.extra == anki_note['Extra'] 
+            and self._base_equal(anki_note)
+        )
 
     def _update_fields(self, anki_note: Note) -> None:
         anki_note['Text'] = self.text
+        anki_note['Extra'] = self.extra
         self._base_update(anki_note)
 
 

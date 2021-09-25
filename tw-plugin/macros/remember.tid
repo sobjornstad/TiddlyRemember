@@ -47,47 +47,57 @@ type: text/vnd.tiddlywiki
 \end
 
 \define remembercz(id, text, mode: "block", reference: "")
-	<$list filter="[[$mode$]match[inline]]" variable=_>
-		<$macrocall $name=twRememberClozeInline id=<<__id__>> text=<<__text__>> reference=<<__reference__>>/>
-	</$list>
-	<$list filter="[[$mode$]!match[inline]]" variable=_>
-		<$macrocall $name=twRememberClozeBlock id=<<__id__>> text=<<__text__>> reference=<<__reference__>>/>
-	</$list>
+    <$macrocall $name=remembercze id=<<__id__>> text=<<__text__>> extra="" mode=<<__mode__>> reference=<<__reference__>>/> 
 \end
 
-\define twRememberClozeBlock(id, text, reference)
-	<div class="remembercz">
-		<span class="cloze-identifier">cloze: </span>
-		<span class="cloze-text">$text$</span>
-		<div class="tr-selfidentification">
-			<$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
-				<<selfid>>
-			</$set>
-		</div>
-		<div class="rid">
-			[$id$]
-		</div>
-		<div class="tr-reference">
-			<$text text=<<__reference__>>/>
-		</div>
-	</div>
+\define remembercze(id, text, extra: "",mode: "block", reference: "")
+  <$list filter="[[$mode$]match[inline]]" variable=_>
+    <$macrocall $name=twRememberClozeInline id=<<__id__>> text=<<__text__>> reference=<<__reference__>>/>
+  </$list>
+  <$list filter="[[$mode$]!match[inline]]" variable=_>
+    <$macrocall $name=twRememberClozeBlock id=<<__id__>> text=<<__text__>>  extra=<<__extra__>> reference=<<__reference__>>/>
+  </$list>
+\end
+
+\define twRememberClozeBlock(id, text, extra, reference)
+  <div class="remembercz">
+    <span class="cloze-identifier">cloze: </span>
+    <span class="cloze-text">$text$</span>
+    <$list filter="[[$extra$]!match[]]" variable=_>
+       <br>
+       <span class="cloze-identifier">extra: </span>
+    </$list>
+    <span class="cloze-extra">$extra$</span>
+    <div class="tr-selfidentification">
+      <$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
+        <<selfid>>
+      </$set>
+    </div>
+    <div class="rid">
+      [$id$]
+    </div>
+    <div class="tr-reference">
+      <$text text=<<__reference__>>/>
+    </div>
+  </div>
 \end
 
 \define twRememberClozeInline(id, text, reference)
-	<span class="remembercz">
-		<span class="cloze-identifier">{cloze: </span>
-		<span class="cloze-text">$text$</span>
-		<span class="cloze-identifier">}</span>
-		<div class="tr-selfidentification">
-			<$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
-				<<selfid>>
-			</$set>
-		</div>
-		<div class="rid">
-			[$id$]
-		</div>
-		<div class="tr-reference">
-			<$text text=<<__reference__>>/>
-		</div>
-	</span>
+  <span class="remembercz">
+    <span class="cloze-identifier">{cloze: </span>
+    <span class="cloze-text">$text$</span>
+    <span class="cloze-extra"/>
+    <span class="cloze-identifier">}</span>
+    <div class="tr-selfidentification">
+      <$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
+        <<selfid>>
+      </$set>
+    </div>
+    <div class="rid">
+      [$id$]
+    </div>
+    <div class="tr-reference">
+      <$text text=<<__reference__>>/>
+    </div>
+  </span>
 \end

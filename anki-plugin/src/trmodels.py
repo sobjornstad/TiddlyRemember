@@ -324,8 +324,8 @@ class TiddlyRememberCloze(ModelData):
             {{cloze:Text}}
         """
         back = """
-            {{cloze:Text}}
-
+            {{cloze:Text}}<br>
+            {{Extra}}
             <div class="note-id">
                 {{#Permalink}}
                     [<a href="{{text:Permalink}}">{{Wiki}}/{{Reference}}</a> {{ID}}]
@@ -336,8 +336,8 @@ class TiddlyRememberCloze(ModelData):
             </div>
         """
 
-    name = "TiddlyRemember Cloze v1"
-    fields = ("Text", ID_FIELD_NAME, "Wiki", "Reference", "Permalink")
+    name = "TiddlyRemember Cloze v2"
+    fields = ("Text", "Extra", ID_FIELD_NAME, "Wiki", "Reference", "Permalink")
     templates = (TiddlyRememberClozeTemplate,)
     styling = """
         .card {
