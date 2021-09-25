@@ -1,0 +1,21 @@
+created: 20210925140526231
+modified: 20210925140953590
+tags: [[Cloze notes]]
+title: Escaping braces
+type: text/vnd.tiddlywiki
+
+Sometimes you might need to use literal braces somewhere in the question.
+In this case, escape the braces that aren't indicating an occlusion with a backslash;
+    the escaping backslash will not appear on your Anki card.
+
+```
+<<remembercz "20210925140558330"
+    "In LaTeX, we create fractions with {`\frac\{numerator\}\{denominator\}`}.)">>
+```
+
+<<remembercz "20210925140558330"
+    "In LaTeX, we create fractions with {`\frac\{numerator\}\{denominator\}`}.)">>
+
+{{escaped-braces.png}}
+
+Backslashes that don't precede a `{` or a `}` are treated as normal.

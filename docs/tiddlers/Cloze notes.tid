@@ -1,7 +1,7 @@
 created: 20200523164249707
-list: [[Multiple occlusions]] [[Explicit cloze numbering]] [[Inline cloze deletions]] [[Editing cloze notes]]
+list: [[Multiple occlusions]] [[Explicit cloze numbering]] [[Inline cloze deletions]] [[Escaping braces]] [[Editing cloze notes]]
 macro: remembercz
-modified: 20201220191538609
+modified: 20210925141032645
 tags: [[Creating notes in TiddlyRemember]]
 title: Cloze notes
 type: text/vnd.tiddlywiki
