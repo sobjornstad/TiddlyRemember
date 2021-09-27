@@ -129,6 +129,37 @@ def test_import_qa_with_scheduling(fn_params, col_tuple):
     assert card.due == (datetime.date(year=2200, month=9, day=22)
                         - datetime.datetime.now().date()).days
 
+def test_import_qa_with_negative_due_date(col_tuple):
+    "Test that we can schedule an overdue card."
+    days_until_due = -3
+    sched_param = {
+        'due': datetime.datetime.now().date() + datetime.timedelta(days=days_until_due),
+        'ivl': 5,
+        'ease': 1800,
+        'lapses': 1
+    }
+    n = QuestionNote(
+        id_="20200101120100000",
+        wiki_name="MyTestWiki",
+        tidref="TestTiddler",
+        question="Does this question get correctly scheduled?",
+        answer="I hope so",
+        target_tags="",
+        target_deck="Default",
+        schedule=SchedulingInfo(**sched_param)
+    )
+
+    sync((n,), col_tuple.col, 'Default')
+
+    anki_notes = col_tuple.col.find_notes("")
+    anki_note = col_tuple.col.getNote(anki_notes[0])
+    assert anki_note.fields[0] == "Does this question get correctly scheduled?"
+
+    card = col_tuple.col.get_card(col_tuple.col.find_cards(f"nid:{anki_note.id}")[0])
+    assert card.due == days_until_due
+
+
+
 def test_import_invalid_scheduling(fn_params, col_tuple):
     "Test what happens when we import a note with invalid scheduling info."
 

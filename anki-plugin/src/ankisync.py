@@ -51,23 +51,26 @@ def _set_initial_scheduling(tw_note: TwNote, anki_note: Note, col: Any):
     unless the note is deleted and then synced back again.
 
     Currently, the same scheduling must be applied to all cards of a note.
-
-    Not sure whether this is the best-practice way to set initial scheduling:
-    https://forums.ankiweb.net/t/correct-way-to-apply-arbitrary-scheduling-changes-to-a-card/13638
     """
     if tw_note.schedule is not None:
         for cid in col.find_cards(f"nid:{anki_note.id}"):
             c = col.get_card(cid)
 
+            # If scheduling is given, the card goes straight to the review queue,
+            # rather than starting in the new queue.
             c.queue = anki.consts.QUEUE_TYPE_REV
             c.type = anki.consts.CARD_TYPE_REV
             c.ivl = tw_note.schedule.ivl
             c.factor = tw_note.schedule.ease
             c.lapses = tw_note.schedule.lapses
-            col.update_card(c)
-
+            # Due date appears to be a number of days with epoch when the scheduler is
+            # initialized for the collection, so we translate the due date by
+            # figuring the number of days it differs from today and adding it to
+            # today's Anki number.
             days_from_today = (tw_note.schedule.due - datetime.now().date()).days
-            col.sched.set_due_date((c.id,), str(days_from_today))
+            c.due = col.sched.today + days_from_today
+
+            col.update_card(c)
 
 
 def _update_deck(tw_note: TwNote, anki_note: Note, col: Any, default_deck: str) -> None:
