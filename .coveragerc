@@ -1,6 +1,6 @@
 [report]
 # omit UI files from test coverage, as I don't intend to test those through pytest
-omit = *dialog.py, anki-plugin/src/settings.py, anki-plugin/src/__init__.py
+omit = *dialog.py, anki-plugin/src/settings.py, anki-plugin/src/__init__.py, anki-plugin/src/importer.py
 
 [run]
 branch = True
