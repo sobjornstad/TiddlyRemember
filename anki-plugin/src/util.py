@@ -1,9 +1,11 @@
 """
 util.py - general-purpose functions and definitions used by multiple modules
 """
+from contextlib import contextmanager
 import os
+from pathlib import Path
 import subprocess
-from typing import NewType, Optional, Sequence
+from typing import Iterator, NewType, Optional, Sequence
 
 
 Twid = NewType('Twid', str)
@@ -38,6 +40,17 @@ def pluralize(sg: str, n: int, pl: str = None) -> str:
         if pl is None:
             pl = sg + 's'
         return pl
+
+
+@contextmanager
+def pushd(path: Path) -> Iterator[None]:
+    "Change directory into a given path for the duration of the context."
+    old_cwd = os.getcwd()
+    os.chdir(path)
+    try:
+        yield
+    finally:
+        os.chdir(old_cwd)
 
 
 def nowin_startupinfo() -> Optional['subprocess.STARTUPINFO']:  # type: ignore

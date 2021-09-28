@@ -17,6 +17,7 @@ import requests
 from .oops import RenderingError, ConfigurationError
 from .twnote import TwNote, ensure_version
 from .util import nowin_startupinfo
+from .wiki import Wiki, WikiType
 
 RENDERED_FILE_EXTENSION = "html"
 
@@ -88,14 +89,14 @@ def _invoke_tw_command(cmd: Sequence[str], wiki_path: Optional[str],
 
 def _notes_from_paths(
     paths: Sequence[Path],
-    wiki_name: str,
+    wiki: Wiki,
     callback: Optional[Callable[[int, int], None]],
     warnings: List[str]) -> Set[TwNote]:
     """
     Given an iterable of paths, compile the notes found in all those tiddlers.
 
     :param paths: The paths of the tiddlers to generate notes for.
-    :param wiki_name: The name/id of the wiki these notes are from.
+    :param wiki:  Details on the wiki these notes come from.
     :param callback: Optional callable passing back progress. See :func:`find_notes`.
     :param warnings: List to add warnings of any non-critical conditions to.
     :return: A set of all the notes found in the tiddler files passed.
@@ -106,7 +107,7 @@ def _notes_from_paths(
             tid_text = f.read().decode()
         tid_name = urllib.parse.unquote(
             tiddler.name[:tiddler.name.find(f".{RENDERED_FILE_EXTENSION}")])
-        notes.update(_notes_from_tiddler(tid_text, wiki_name, tid_name, warnings))
+        notes.update(_notes_from_tiddler(tid_text, wiki, tid_name, warnings))
 
         if callback is not None and not index % 50:
             callback(index+1, len(paths))
@@ -116,22 +117,21 @@ def _notes_from_paths(
     return notes
 
 
-def _notes_from_tiddler(tiddler: str, wiki_name: str, tiddler_name: str,
+def _notes_from_tiddler(tiddler: str, wiki: Wiki, tiddler_name: str,
                         warnings: List[str]) -> Set[TwNote]:
     """
     Given the text of a tiddler, parse the contents and return a set
     containing all the TwNotes found within that tiddler.
 
     :param tiddler:      The rendered text of a tiddler as a string.
-    :param wiki_name:    The name of the wiki this tiddler comes from,
-                         for traceability purposes.
+    :param wiki:         The wiki this tiddler comes from, for traceability purposes.
     :param tiddler_name: The name of the tiddler itself, for traceability purposes.
     :param warnings:     A list to add warnings of any non-critical issues to.
     :return: A (possibly empty) set of all the notes found in this tiddler.
     """
     soup = BeautifulSoup(tiddler, 'html.parser')
     ensure_version(soup)
-    return TwNote.notes_from_soup(soup, wiki_name, tiddler_name, warnings)
+    return TwNote.notes_from_soup(soup, wiki, tiddler_name, warnings)
 
 
 def _render_wiki(tw_binary: str, wiki_path: str, output_directory: str,
@@ -217,14 +217,22 @@ def find_notes(
             if wiki_type == 'file':
                 wiki_folder = os.path.join(tmpdir, 'wikifolder')
                 _folderify_wiki(tw_binary, wiki_path, wiki_folder, password)
+                wiki = Wiki(wiki_name, Path(wiki_path), Path(wiki_folder),
+                            WikiType.FILE)
+
             elif wiki_type == 'folder':
                 wiki_folder = wiki_path
+                wiki = Wiki(wiki_name, Path(wiki_path), Path(wiki_path),
+                            WikiType.FOLDER)
+
             elif wiki_type == 'url':
                 downloaded_file = os.path.join(tmpdir, 'wiki.html')
                 _download_wiki(url=wiki_path, target_location=downloaded_file,
-                            requests_session=requests_session)
+                               requests_session=requests_session)
                 wiki_folder = os.path.join(tmpdir, 'wikifolder')
                 _folderify_wiki(tw_binary, downloaded_file, wiki_folder, password)
+                wiki = Wiki(wiki_name, wiki_path, Path(wiki_folder), WikiType.URL)
+
             else:
                 raise Exception(f"Invalid wiki type '{wiki_type}' -- must be "
                                 f"'file', 'folder', or 'url'.")
@@ -239,7 +247,7 @@ def find_notes(
         _render_wiki(tw_binary, wiki_folder, render_location, filter_)
         notes = _notes_from_paths(
             list(Path(render_location).glob(f"*.{RENDERED_FILE_EXTENSION}")),
-            wiki_name,
+            wiki,
             callback,
             warnings)
 
