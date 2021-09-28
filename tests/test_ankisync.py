@@ -8,15 +8,17 @@ sys.path.append("anki-plugin")
 
 import datetime
 import os
+from pathlib import Path
 from typing import Callable
 
 import pytest
 
+from src.ankisync import sync
 from src.oops import ScheduleParsingError
 from src.twnote import SchedulingInfo, QuestionNote
 from src.trmodels import ID_FIELD_NAME
 from src.twimport import find_notes
-from src.ankisync import sync
+from src.wiki import Wiki, WikiType
 
 
 # pylint: disable=unused-import
@@ -80,7 +82,7 @@ def test_add_with_scheduling(col_tuple):
     }
     n = QuestionNote(
         id_="20200101120000000",
-        wiki_name="MyTestWiki",
+        wiki=Wiki("MyTestWiki", Path("."), Path("."), WikiType.FOLDER),
         tidref="TestTiddler",
         question="Does this question get correctly scheduled?",
         answer="I hope so",
@@ -142,7 +144,7 @@ def test_import_qa_with_negative_due_date(col_tuple):
     }
     n = QuestionNote(
         id_="20200101120100000",
-        wiki_name="MyTestWiki",
+        wiki=Wiki("MyTestWiki", Path("."), Path("."), WikiType.FOLDER),
         tidref="TestTiddler",
         question="Does this question get correctly scheduled?",
         answer="I hope so",
