@@ -1,0 +1,11 @@
+created: 20210928205228122
+creator: mnemonist
+modified: 20210928205318929
+modifier: mnemonist
+tags: TestCase
+title: AudioTest
+type: text/vnd.tiddlywiki
+
+<<rememberq "20210928205233830"
+	"""What's this audio file?<br><audio src="https://archive.org/download/testmp3testfile/mpthreetest.mp3" controls="controls"></audio>"""
+	"A //test// audio file.">>

@@ -58,6 +58,12 @@ from testutils import col_tuple, fn_params
                 "What does a dog look like?"
                 '<img src="tr-f53cec5dc23d10d91500c50d79ccb4e73df697f64fc2cd93a1b2fcf2698775c5.jpg" width="300"/>'>>
             """),
+        ("AudioTest", '''
+            <<rememberq
+                "20210928205233830"
+                """What's this audio file?<br/><audio controls="controls" src="tr-07d11170fe30596ca17307682d2745e09862a8dcdf90c76fa90b70d381eb4973.mp3"></audio>"""
+                "A <em>test</em> audio file.">>
+            '''),
     ]
 )
 def test_export(fn_params, col_tuple, tmp_path, test_case_name, output):

@@ -215,6 +215,16 @@ def test_canonical_uri_image(fn_params):
     assert '<img src="tr-' in note.answer
 
 
+def test_audio(fn_params):
+    "An HTML5 audio tag should come across into a TwNote."
+    expected_filename = \
+        "tr-07d11170fe30596ca17307682d2745e09862a8dcdf90c76fa90b70d381eb4973.mp3"
+    fn_params['filter_'] = "AudioTest"
+    note = find_notes(**fn_params).pop()
+
+    assert f'[sound:{expected_filename}]' in note.question
+
+
 def test_file_import(fn_params):
     """
     Check that the file-to-folder conversion works.
