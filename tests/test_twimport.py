@@ -178,6 +178,17 @@ def test_internal_image(fn_params):
     assert 'width="300"' in note.answer
 
 
+def test_invalid_image_format(fn_params):
+    fn_params['filter_'] = "InvalidFormatImageTest"
+    fn_params['warnings'] = []
+    note = find_notes(**fn_params).pop()
+
+    assert '<img src="tr-' in note.answer  # we still add it to Anki...
+    assert '.xxx' in note.answer           # ...but we don't know what to call it
+    assert len(fn_params['warnings']) == 1
+    assert "Unknown media type for URL" in fn_params['warnings'][0]  # and warn user
+
+
 def test_bad_image_url(fn_params):
     "An image URL that returns 404 at sync time should render an explanatory message."
     warnings = []
