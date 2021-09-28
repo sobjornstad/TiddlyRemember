@@ -1,0 +1,11 @@
+created: 20210928161720689
+modified: 20210928162525169
+tags: TestCase
+title: InvalidFormatImageTest
+type: text/vnd.tiddlywiki
+
+Including an image that isn't an image should give a warning and use the extension 'xxx'.
+
+<<rememberq "20210928162133892"
+	"What does garbage look like?"
+	'<img src="data:image/IMAGINE;base64,88ec">'>>

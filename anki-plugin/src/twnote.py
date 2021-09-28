@@ -52,9 +52,9 @@ class TwMedia:
         mime_type, _ = mimetypes.guess_type(url)
         self.extension = mimetypes.guess_extension(mime_type or "")
         if self.extension is None:
-            warnings.append(f"Unknown media type for URL {url}: using extension "
+            warnings.append(f"Unknown media type for URL '{url}': using extension "
                             f"'xxx'. The media may not render correctly in Anki.")
-            self.extension = "xxx"
+            self.extension = ".xxx"
         self.filename = "tr-" + self.hash + self.extension
 
     def __eq__(self, other) -> bool:
@@ -232,7 +232,7 @@ class TwNote(metaclass=ABCMeta):
     ### Abstract methods ###
     @classmethod
     @abstractmethod
-    def export_macro(cls, anki_note: Note) -> str:
+    def export_macro(cls, anki_note: Note) -> str:  # pragma: no cover
         """
         Given an Anki note, return a string representation of a TiddlyWiki macro call
         which will result in an Anki card of the current note type when imported
@@ -243,7 +243,7 @@ class TwNote(metaclass=ABCMeta):
     @classmethod
     @abstractmethod
     def parse_html(cls, soup: BeautifulSoup, wiki: Wiki, tiddler_name: str,
-                   warnings: List[str]):
+                   warnings: List[str]):  # pragma: no cover
         """
         Given soup and the name of the wiki and its tiddler, construct and return
         any TwNotes of this subclass's type that can be extracted from it.
@@ -254,7 +254,7 @@ class TwNote(metaclass=ABCMeta):
 
     @classmethod
     @abstractmethod
-    def wants_soup(cls, soup: BeautifulSoup) -> bool:
+    def wants_soup(cls, soup: BeautifulSoup) -> bool:  # pragma: no cover
         """
         Whether this subclass wants an opportunity to parse the provided
         :attr:`soup` and return TwNotes of its type through the parse_html() method;
@@ -263,12 +263,12 @@ class TwNote(metaclass=ABCMeta):
         raise NotImplementedError
 
     @abstractmethod
-    def _fields_equal(self, anki_note: Note) -> bool:
+    def _fields_equal(self, anki_note: Note) -> bool:  # pragma: no cover
         "Check whether this TwNote's fields match those of the provided Anki note."
         raise NotImplementedError
 
     @abstractmethod
-    def _update_fields(self, anki_note: Note) -> None:
+    def _update_fields(self, anki_note: Note) -> None:  # pragma: no cover
         """
         Update the fields of the provided Anki note to match those of this TwNote.
 
