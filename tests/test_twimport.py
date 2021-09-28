@@ -15,7 +15,6 @@ from pathlib import Path
 
 import pytest
 
-from src.clozeparse import UnmatchedBracesError
 from src.oops import RenderingError
 from src.twimport import find_notes
 from src.twnote import TwNote, QuestionNote, ClozeNote, PairNote
@@ -163,8 +162,33 @@ def test_external_image(fn_params):
 
     assert isinstance(note, QuestionNote)
     assert note.id_ == "20200926152139943"
-    assert '<img src="https://upload.wikimedia.org' in note.answer
+    # will have been replaced with an internal media file
+    assert '<img src="tr-' in note.answer
     assert 'width="400"' in note.answer
+
+
+def test_internal_image(fn_params):
+    "Check that internal images come across into TwNotes, including sizing."
+    fn_params['filter_'] = "InternalDogImageTest"
+    notes = find_notes(**fn_params)
+    note = notes.pop()
+
+    # will have been replaced with an internal media file
+    assert '<img src="tr-' in note.answer
+    assert 'width="300"' in note.answer
+
+
+def test_bad_image_url(fn_params):
+    "An image URL that returns 404 at sync time should render an explanatory message."
+    warnings = []
+    fn_params['filter_'] = "BadImageUrlTest"
+    fn_params['warnings'] = warnings
+    note = find_notes(**fn_params).pop()
+
+    assert '<img src="https://example.com/missing.png"' in note.text
+    assert warnings
+    assert '404 Not Found' in warnings[0]
+
 
 
 def test_file_import(fn_params):

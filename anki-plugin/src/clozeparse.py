@@ -11,8 +11,6 @@ import itertools
 import re
 from typing import Iterable, List, Optional, Sequence
 
-from .oops import UnmatchedBracesError
-
 
 class Occlusion:
     """

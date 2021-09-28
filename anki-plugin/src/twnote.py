@@ -7,16 +7,21 @@ representation of a TiddlyWiki (see twimport.py).
 from abc import ABCMeta, abstractmethod
 from dataclasses import dataclass
 from datetime import date
+import hashlib
+import mimetypes
 import re
 from textwrap import dedent
 from typing import Any, List, Optional, Set, Tuple, Type
+from urllib.error import HTTPError, URLError
+from urllib.request import urlopen
 from urllib.parse import quote as urlquote
 
+from anki.collection import Collection
 from anki.notes import Note
 from bs4 import BeautifulSoup
 
 from .clozeparse import ankify_clozes
-from .oops import ConfigurationError, ScheduleParsingError
+from .oops import ConfigurationError, ExtractError, ScheduleParsingError
 from .trmodels import (TiddlyRememberQuestionAnswer, TiddlyRememberCloze,
                        TiddlyRememberPair, ID_FIELD_NAME)
 from .util import COMPATIBLE_TW_VERSIONS, PLUGIN_VERSION, Twid, tw_quote
@@ -31,6 +36,49 @@ class SchedulingInfo():
     due: date
     ease: int
     lapses: int
+
+
+class TwMedia:
+    """
+    One media file being imported into Anki from TiddlyWiki.
+    """
+    def __init__(self, data: bytes, url: str, warnings: List[str]) -> None:
+        self.data = data
+        self.url = url
+        self.hash = hashlib.sha256(data).hexdigest()
+
+        mime_type, _ = mimetypes.guess_type(url)
+        self.extension = mimetypes.guess_extension(mime_type or "")
+        if self.extension is None:
+            warnings.append(f"Unknown media type for URL {url}: using extension "
+                            f"'xxx'. The media may not render correctly in Anki.")
+            self.extension = "xxx"
+        self.filename = "tr-" + self.hash + self.extension
+
+    def __eq__(self, other) -> bool:
+        return self.hash == other.hash
+
+    def __hash__(self) -> int:
+        return hash(self.hash)
+
+    def __repr__(self) -> str:
+        return f"TwMedia(extension={self.extension}, src={self.url}, hash={self.hash})"
+
+    def write_to_anki(self, col: Collection) -> None:
+        """
+        Save the file to Anki's media folder if it isn't already there.
+
+        Since our filenames are based on a hash of their content, we can try to
+        add media as many times as we want while updating without risk of ending
+        up with duplicates.  (If the user added the media directly to Anki
+        themselves, then we might end up with one duplicate, but there's nothing
+        we can do about that unless we want to read through the entire media
+        directory and hash every file.)
+        """
+        assert self.extension is not None, \
+            "Unable to determine filename extension to use."
+        if not col.media.have(self.filename):
+            col.media.write_data(desired_fname=self.filename, data=self.data)
 
 
 class TwNote(metaclass=ABCMeta):
@@ -62,6 +110,7 @@ class TwNote(metaclass=ABCMeta):
 
     def __init__(self, id_: Twid, wiki_name: str, tidref: str,
                  target_tags: Set[str], target_deck: Optional[str],
+                 media: Optional[Set[TwMedia]],
                  schedule: Optional[SchedulingInfo]) -> None:
         self.id_ = id_
         self.wiki_name = wiki_name
@@ -70,6 +119,7 @@ class TwNote(metaclass=ABCMeta):
         self.target_deck = target_deck
         self.permalink: Optional[str] = None
         self.schedule: Optional[SchedulingInfo] = schedule
+        self.media = media or set()
 
     def __eq__(self, other):
         return self.id_ == other.id_
@@ -83,7 +133,8 @@ class TwNote(metaclass=ABCMeta):
 
     @classmethod
     def notes_from_soup(cls, soup: BeautifulSoup,
-                        wiki_name: str, tiddler_name: str) -> Set['TwNote']:
+                        wiki_name: str, tiddler_name: str,
+                        warnings: List[str]) -> Set['TwNote']:
         """
         Given soup for a tiddler and the tiddler's name, create notes by calling
         the wants_soup and parse_html methods of each candidate subclass.
@@ -92,8 +143,8 @@ class TwNote(metaclass=ABCMeta):
         for subclass in cls.__subclasses__():
             wanted_soup = subclass.wants_soup(soup)  # type: ignore
             if wanted_soup:
-                notes.update(subclass.parse_html(soup, wiki_name,
-                                                 tiddler_name))  # type: ignore
+                notes.update(subclass.parse_html(
+                    soup, wiki_name, tiddler_name, warnings))  # type: ignore
         return notes
 
     def _assert_correct_model(self, anki_note: Note) -> None:
@@ -189,10 +240,13 @@ class TwNote(metaclass=ABCMeta):
 
     @classmethod
     @abstractmethod
-    def parse_html(cls, soup: BeautifulSoup, wiki_name: str, tiddler_name: str):
+    def parse_html(cls, soup: BeautifulSoup, wiki_name: str, tiddler_name: str,
+                   warnings: List[str]):
         """
         Given soup and the name of the wiki and its tiddler, construct and return
         any TwNotes of this subclass's type that can be extracted from it.
+
+        Add a message for any non-critical issues that arise to the list of warnings.
         """
         raise NotImplementedError
 
@@ -229,8 +283,10 @@ class QuestionNote(TwNote):
     def __init__(self, id_: Twid, wiki_name: str, tidref: str,
                  question: str, answer: str,
                  target_tags: Set[str], target_deck: Optional[str],
+                 media: Optional[Set[TwMedia]] = None,
                  schedule: Optional[SchedulingInfo] = None) -> None:
-        super().__init__(id_, wiki_name, tidref, target_tags, target_deck, schedule)
+        super().__init__(id_, wiki_name, tidref, target_tags, target_deck, media,
+                         schedule)
         self.question = question
         self.answer = answer
 
@@ -252,12 +308,14 @@ class QuestionNote(TwNote):
 
     @classmethod
     def parse_html(cls, soup: BeautifulSoup, wiki_name: str,
-                   tiddler_name: str) -> Set['QuestionNote']:
+                   tiddler_name: str, warnings: List[str]) -> Set['QuestionNote']:
         notes = set()
         deck, tags = _get_deck_and_tags(soup)
 
+        media: Set[TwMedia] = set()
         pairs = soup.find_all("div", class_="rememberq")
         for pair in pairs:
+            pair = extract_media(media, pair, tiddler_name, warnings)
             question = clean_field_html(pair.find("div", class_="rquestion").p)
             answer = clean_field_html(pair.find("div", class_="ranswer").p)
             id_raw = pair.find("div", class_="rid").get_text()
@@ -265,7 +323,8 @@ class QuestionNote(TwNote):
             tidref = select_tidref(pair.find("div", class_="tr-reference"),
                                    tiddler_name)
             sched = build_scheduling_info(pair, tiddler_name)
-            notes.add(cls(id_, wiki_name, tidref, question, answer, tags, deck, sched))
+            notes.add(cls(id_, wiki_name, tidref, question, answer, tags, deck, media,
+                          sched))
 
         return notes
 
@@ -296,8 +355,10 @@ class PairNote(TwNote):
     def __init__(self, id_: Twid, wiki_name: str, tidref: str,
                  first: str, second: str,
                  target_tags: Set[str], target_deck: Optional[str],
+                 media: Optional[Set[TwMedia]] = None,
                  schedule: Optional[SchedulingInfo] = None) -> None:
-        super().__init__(id_, wiki_name, tidref, target_tags, target_deck, schedule)
+        super().__init__(id_, wiki_name, tidref, target_tags, target_deck, media,
+                         schedule)
         self.first = first
         self.second = second
 
@@ -319,12 +380,14 @@ class PairNote(TwNote):
 
     @classmethod
     def parse_html(cls, soup: BeautifulSoup, wiki_name: str,
-                   tiddler_name: str) -> Set['PairNote']:
+                   tiddler_name: str, warnings: List[str]) -> Set['PairNote']:
         notes = set()
         deck, tags = _get_deck_and_tags(soup)
 
+        media: Set[TwMedia] = set()
         pairs = soup.find_all("div", class_="rememberp")
         for pair in pairs:
+            pair = extract_media(media, pair, tiddler_name, warnings)
             question = clean_field_html(pair.find("div", class_="rfirst").p)
             answer = clean_field_html(pair.find("div", class_="rsecond").p)
             id_raw = pair.find("div", class_="rid").get_text()
@@ -332,7 +395,8 @@ class PairNote(TwNote):
             tidref = select_tidref(pair.find("div", class_="tr-reference"),
                                    tiddler_name)
             sched = build_scheduling_info(pair, tiddler_name)
-            notes.add(cls(id_, wiki_name, tidref, question, answer, tags, deck, sched))
+            notes.add(cls(id_, wiki_name, tidref, question, answer, tags, deck, media,
+                          sched))
 
         return notes
 
@@ -362,8 +426,10 @@ class ClozeNote(TwNote):
 
     def __init__(self, id_: Twid, wiki_name: str, tidref: str, text: str,
                  target_tags: Set[str], target_deck: Optional[str],
+                 media: Optional[Set[TwMedia]] = None,
                  schedule: Optional[SchedulingInfo] = None) -> None:
-        super().__init__(id_, wiki_name, tidref, target_tags, target_deck, schedule)
+        super().__init__(id_, wiki_name, tidref, target_tags, target_deck, media,
+                         schedule)
         self.text = text
 
     def __repr__(self):
@@ -390,12 +456,14 @@ class ClozeNote(TwNote):
 
     @classmethod
     def parse_html(cls, soup: BeautifulSoup, wiki_name: str,
-                   tiddler_name: str) -> Set['ClozeNote']:
+                   tiddler_name: str, warnings: List[str]) -> Set['ClozeNote']:
         notes = set()
         deck, tags = _get_deck_and_tags(soup)
 
+        media: Set[TwMedia] = set()
         pairs = soup.find_all(class_="remembercz")
         for pair in pairs:
+            pair = extract_media(media, pair, tiddler_name, warnings)
             text = clean_field_html(pair.find("span", class_="cloze-text"))
             id_raw = pair.find("div", class_="rid").get_text()
             id_ = id_raw.strip().lstrip('[').rstrip(']')
@@ -403,7 +471,8 @@ class ClozeNote(TwNote):
                                    tiddler_name)
             parsed_text = ankify_clozes(text, wiki_name, tidref)
             sched = build_scheduling_info(pair, tiddler_name)
-            notes.add(cls(id_, wiki_name, tidref, parsed_text, tags, deck, sched))
+            notes.add(cls(id_, wiki_name, tidref, parsed_text, tags, deck, media,
+                          sched))
 
         return notes
 
@@ -527,6 +596,50 @@ def ensure_version(soup: BeautifulSoup) -> None:
             f"TiddlyRemember plugin versions: {compat_versions}. "
             f"Please update your Anki and TiddlyWiki plugins to the latest version, "
             f"then try syncing again.")
+
+
+def extract_media(media: Set[TwMedia], soup: BeautifulSoup,
+                  tiddler_name: str, warnings: List[str]) -> BeautifulSoup:
+    """
+    Extract media references from the //fields//, retrieve the associated media,
+    and update the media references.
+
+    `soup` is returned possibly modified. The `media` set is updated in-place.
+    """
+    for elem in soup.find_all("img"):
+        src = elem.attrs.get('src', None)
+        if src is not None:
+            try:
+                with urlopen(src) as response:
+                    medium = TwMedia(response.read(), src, warnings)
+                    media.add(medium)
+                    elem.attrs['src'] = medium.filename
+            except ValueError:
+                warnings.append(
+                    f"Image '{src}' in tiddler '{tiddler_name}' isn't a valid URL, "
+                    f"so we couldn't retrieve it and sync it into Anki."
+                )
+            except HTTPError as e:
+                # Leave the URL so if it comes back later we can still access it.
+                if e.code == 404:
+                    warnings.append(
+                        f"Image '{src}' in tiddler '{tiddler_name}' could not be "
+                        f"retrieved at sync time: 404 Not Found.")
+                elif e.code in (400, 403, 500, 502):
+                    warnings.append(
+                        f"Image '{src}' in tiddler '{tiddler_name}' could not be "
+                        f"retrieved at sync time: 404 Not Found.")
+                else:
+                    raise ExtractError(
+                        "Unable to retrieve media files from the Internet. "
+                        "Please check your network connection and review the error "
+                        "below for more information if necessary.") from e
+            except URLError as e:
+                raise ExtractError(
+                    "Unable to retrieve media files from the Internet. "
+                    "Please check your network connection and review the error "
+                    "below for more information if necessary.") from e
+    return soup
 
 
 def select_tidref(hard_ref: BeautifulSoup, tiddler_name: str):

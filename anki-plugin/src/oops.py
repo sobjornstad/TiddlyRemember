@@ -32,6 +32,3 @@ class AnkiStateError(TrError):
     Error that occurs when note types or other objects in Anki have been
     manually modified in a way that makes them incompatible with TiddlyRemember.
     """
-
-class UnmatchedBracesError(TrError):
-    "Occurs when parsing clozes and the user has braces that don't match}."

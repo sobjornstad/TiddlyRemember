@@ -1,0 +1,8 @@
+created: 20210928011657812
+modified: 20210928011753829
+tags: TestCase
+title: BadImageUrlTest
+type: text/vnd.tiddlywiki
+
+<<remembercz "20210928011703241"
+	"""An image that doesn't exist looks like {<img src="https://example.com/missing.png">}.""">>

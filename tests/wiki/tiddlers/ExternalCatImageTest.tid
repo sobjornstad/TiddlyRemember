@@ -1,10 +1,12 @@
 created: 20200926152101486
-modified: 20200926153737075
+modified: 20210928011058295
 tags: TestCase
 title: ExternalCatImageTest
 type: text/vnd.tiddlywiki
 
-It should be possible to embed an image within a question, provided the image links to an external location accessible during review (we can't import media into Anki yet).
+It should be possible to embed an image that links to an external source within a question, and to sync the image into Anki's media folder.
+
+TiddlyRemember will download this URL and pass it into Anki's media folder on sync. This is probably not the most efficient use of resources since the image will have to be downloaded on //every// sync for TiddlyRemember to prove it doesn't already exist, but it's an option. (One could imagine caching the filenames in some way if this becomes an issue.)
 
 <<rememberq "20200926152139943"
 	"What does a cat look like?"

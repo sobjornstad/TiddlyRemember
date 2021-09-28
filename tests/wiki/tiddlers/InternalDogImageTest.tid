@@ -1,0 +1,17 @@
+created: 20210928004045751
+modified: 20210928010947788
+tags: TestCase
+title: InternalDogImageTest
+type: text/vnd.tiddlywiki
+
+It should be possible to embed an image that's a tiddler within the wiki into a question, and to sync the image into Anki's media folder.
+
+When exporting the image to static, TiddlyWiki embeds the image as a data: URI, which Python's URL library is fully capable of extracting and writing to a file. This means we don't have to explicitly include the image in a filter and then match it up to the `src` attribute or anything funky like that, it Just Works™.
+
+<<rememberq "20210928004052765"
+	"What does a dog look like?"
+	"[img width=300 [dog.jpg]]">>
+
+(Image: CC-BY-SA 3.0, https://en.wikipedia.org/wiki/Dog#/media/File:Golden_retriever_eating_pigs_foot.jpg)
+
+Cf. [[ExternalCatImageTest]].
