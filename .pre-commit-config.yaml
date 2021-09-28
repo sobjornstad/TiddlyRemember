@@ -32,4 +32,4 @@ repos:
       entry: pytest
       language: system
       pass_filenames: false
-      args: ["--cov-fail-under=75"]
+      args: ["--cov-fail-under=90"]

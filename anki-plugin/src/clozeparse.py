@@ -157,6 +157,6 @@ def ankify_clozes(text: str) -> str:
     return re.sub(r'\\([{}])', r'\1', cloze_text)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     import doctest
     doctest.testmod()
