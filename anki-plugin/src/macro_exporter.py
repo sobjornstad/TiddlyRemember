@@ -28,7 +28,8 @@ class TiddlyRememberMacroExporter(Exporter):
 
     def doExport(self, path) -> None:
         cids = sorted(self.cardIds())
-        notes = set(self.col.get_card(c).note() for c in cids)
+        nids = set(self.col.get_card(c).note().id for c in cids)
+        notes = set(self.col.get_note(i) for i in nids)
 
         out = []
         for n in notes:
