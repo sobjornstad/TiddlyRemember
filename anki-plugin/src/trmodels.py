@@ -255,6 +255,12 @@ class TiddlyRememberPair(ModelData):
     "Two-sided flashcard."
 
     class Metatemplate(TemplateData):
+        """
+        Outline of the template used for both forward and back, with <%placeholders%>
+        for field names. These placeholders are filled from the
+        `front_name` and `back_name` attributes of subclasses when the subclass
+        is initialized.
+        """
         front = r"""
             {{<%FRONT%>}}
         """
@@ -274,8 +280,7 @@ class TiddlyRememberPair(ModelData):
                 {{/Permalink}}
             </div>
         """
-
-        def __init_subclass__(cls, **kwargs):
+        def __init_subclass__(cls):
             # pylint: disable=no-member
             cls.front = cls.front.replace(r'<%FRONT%>', cls.front_name)
             cls.back = cls.back.replace(r'<%BACK%>', cls.back_name)

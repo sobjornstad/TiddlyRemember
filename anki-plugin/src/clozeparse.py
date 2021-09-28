@@ -31,7 +31,7 @@ class Occlusion:
     @property
     def placeholder(self) -> str:
         "A Python format-string placeholder for this occlusion."
-        return "©<%i>©" % self.placeholder_index
+        return "©<%i>©" % self.placeholder_index  # pylint: disable=consider-using-f-string
 
     @property
     def anki_occlusion(self) -> str:
@@ -45,7 +45,7 @@ class Occlusion:
         """
         assert self.anki_index is not None, \
             "Tried to render occlusion before filling in missing index!"
-        return "{{c%i::%s}}" % (self.anki_index, self.text)
+        return "{{c%i::%s}}" % (self.anki_index, self.text)  # pylint: disable=consider-using-f-string
 
     def _parse_text(self) -> None:
         "Fill text and maybe anki_index field from raw_text."
@@ -57,7 +57,7 @@ class Occlusion:
             self.text = self.raw_text
 
 
-def ankify_clozes(text: str, wiki_name: str = "", tidref: str = "") -> str:
+def ankify_clozes(text: str) -> str:
     r"""
     Given some text in TiddlyRemember simplified cloze format, convert it to
     work in Anki. The following documents the simplified format.

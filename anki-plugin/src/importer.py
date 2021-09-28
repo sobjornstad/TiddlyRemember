@@ -220,7 +220,7 @@ class ImportDialog(QDialog):
             else:
                 self.accept()
                 self.mw.reset()
-                tooltip("Sync canceled.")
+                return tooltip("Sync canceled.")
 
     def sync(self) -> None:
         """
