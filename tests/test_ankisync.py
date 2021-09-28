@@ -227,3 +227,66 @@ def test_image_import(fn_params, col_tuple):
     answer = _get_only_note(col_tuple).fields[1]
     assert answer.startswith(f'<img src="{expected_filename}"')
     assert col_tuple.col.media.have(expected_filename)
+
+
+def test_image_update(fn_params, col_tuple):
+    "Test that we can update an existing image."
+    expected_initial_filename = \
+        "tr-f53cec5dc23d10d91500c50d79ccb4e73df697f64fc2cd93a1b2fcf2698775c5.jpg"
+    expected_modified_filename = \
+        "tr-fecd805de369bbc6d59fdd673b7bec823a6a84fada25335835e71acae780dbc5.jpg"
+
+    # Create the image.
+    fn_params['filter_'] = "InternalDogImageTest"
+    os.chdir(col_tuple.cwd)
+    note = find_notes(**fn_params).pop()
+
+    sync((note,), col_tuple.col, "Default")
+    answer = _get_only_note(col_tuple).fields[1]
+    assert answer.startswith(f'<img src="{expected_initial_filename}"')
+
+    # Update to a new image (DogUpdateTest uses the same TR ID for its question).
+    fn_params['filter_'] = "DogUpdateTest"
+    note = find_notes(**fn_params).pop()
+    sync((note,), col_tuple.col, "Default")
+    answer = _get_only_note(col_tuple).fields[1]
+    assert answer.startswith(f'<img src="{expected_modified_filename}')
+
+    # The original image doesn't get removed, but it could be removed on media check.
+    assert col_tuple.col.media.have(expected_initial_filename)
+
+    # But the new one is there.
+    assert col_tuple.col.media.have(expected_modified_filename)
+
+    # And the initial filename is now shown as unused.
+    r = col_tuple.col.media.check()
+    assert not r.missing
+    assert r.unused == [expected_initial_filename]
+
+
+def test_image_resync(fn_params, col_tuple):
+    """
+    Test that we can sync an unchanged image on an update and nothing untoward
+    happens.
+    """
+    expected_initial_filename = \
+        "tr-f53cec5dc23d10d91500c50d79ccb4e73df697f64fc2cd93a1b2fcf2698775c5.jpg"
+
+    # sanity check
+    assert not col_tuple.col.media.have(expected_initial_filename)
+
+    fn_params['filter_'] = "InternalDogImageTest"
+    os.chdir(col_tuple.cwd)
+    note = find_notes(**fn_params).pop()
+
+    sync((note,), col_tuple.col, "Default")
+    assert col_tuple.col.media.have(expected_initial_filename)
+
+    # Resync; we have to change a field before it will try to resync the image.
+    note.question = "A new question"
+    sync((note,), col_tuple.col, "Default")
+    assert col_tuple.col.media.have(expected_initial_filename)
+
+    r = col_tuple.col.media.check()
+    assert not r.missing
+    assert not r.unused

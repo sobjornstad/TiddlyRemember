@@ -1,0 +1,13 @@
+created: 20210928192850537
+modified: 20210928192952924
+tags: TestCase
+title: DogUpdateTest
+type: text/vnd.tiddlywiki
+
+It should be possible to update a file in the media folder with a changed version. This uses the same ID but a different image as the [[InternalDogImageTest]], and is to be run after adding it.
+
+<<rememberq "20210928004052765"
+	"What does a dog look like?"
+	"[img width=300 [modified-dog.jpg]]">>
+
+(Image: CC-BY-SA 3.0, https://en.wikipedia.org/wiki/Dog#/media/File:Golden_retriever_eating_pigs_foot.jpg), ed. Soren Bjornstad
