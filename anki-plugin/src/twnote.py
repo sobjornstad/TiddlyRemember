@@ -304,8 +304,8 @@ class QuestionNote(TwNote):
         return dedent(f"""
             <<rememberq
                 "{anki_note.fields[idx(ID_FIELD_NAME)]}"
-                {tw_quote(anki_note.fields[idx('Question')])}
-                {tw_quote(anki_note.fields[idx('Answer')])}>>
+                {munge_export_field(anki_note.fields[idx('Question')])}
+                {munge_export_field(anki_note.fields[idx('Answer')])}>>
             """).strip()
 
     @classmethod
@@ -376,8 +376,8 @@ class PairNote(TwNote):
         return dedent(f"""
             <<rememberp
                 "{anki_note.fields[idx(ID_FIELD_NAME)]}"
-                {tw_quote(anki_note.fields[idx('First')])}
-                {tw_quote(anki_note.fields[idx('Second')])}>>
+                {munge_export_field(anki_note.fields[idx('First')])}
+                {munge_export_field(anki_note.fields[idx('Second')])}>>
             """).strip()
 
     @classmethod
@@ -453,7 +453,7 @@ class ClozeNote(TwNote):
         return dedent(f"""
             <<remembercz
                 "{anki_note.fields[idx(ID_FIELD_NAME)]}"
-                {tw_quote(clz_sub(anki_note.fields[idx('Text')]))}>>
+                {munge_export_field(clz_sub(anki_note.fields[idx('Text')]))}>>
             """).strip()
 
     @classmethod
@@ -610,7 +610,7 @@ def extract_media(media: Set[TwMedia], soup: BeautifulSoup, wiki: Wiki,
 
     `soup` is returned possibly modified. The `media` set is updated in-place.
     """
-    for elem in soup.find_all("img"):
+    for elem in soup.find_all(("img", "audio")):
         src = elem.attrs.get('src', None)
         if src is not None:
             open_src = src
@@ -633,7 +633,11 @@ def extract_media(media: Set[TwMedia], soup: BeautifulSoup, wiki: Wiki,
                 with urlopen(open_src) as response:
                     medium = TwMedia(response.read(), src, warnings)
                     media.add(medium)
-                    elem.attrs['src'] = medium.filename
+
+                    if elem.name == 'img':
+                        elem.attrs['src'] = medium.filename
+                    elif elem.name == 'audio':
+                        elem.replace_with(f"[sound:{medium.filename}]")
             except ValueError:
                 warnings.append(
                     f"Image '{src}' in tiddler '{tiddler_name}' isn't a valid URL, "
@@ -660,6 +664,16 @@ def extract_media(media: Set[TwMedia], soup: BeautifulSoup, wiki: Wiki,
                     "Please check your network connection and review the error "
                     "below for more information if necessary.") from e
     return soup
+
+
+def munge_export_field(field: str) -> str:
+    """
+    Common steps run on every field which is being exported to a TiddlyRemember macro.
+    """
+    field = re.sub(r"\[sound:(.*?)\]",
+                   r'<audio controls="controls" src="\1"></audio>',
+                   field)
+    return tw_quote(field)
 
 
 def select_tidref(hard_ref: BeautifulSoup, tiddler_name: str):
