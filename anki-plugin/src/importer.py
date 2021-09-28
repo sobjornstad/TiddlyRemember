@@ -21,18 +21,19 @@ of :class:`ImportDialog()`, which relies primarily on :meth:`ankisync.sync()`.
 from __future__ import annotations
 
 import re
-from typing import Dict, Optional, Set
+from typing import Dict, List, Optional, Set
 
-from aqt.utils import showWarning, tooltip
+from aqt.utils import askUser, showText, showWarning, tooltip
 # pylint: disable=import-error, no-name-in-module
 from PyQt5.QtCore import pyqtSignal, QThread
 from PyQt5.QtWidgets import QDialog
 
 from . import ankisync
 from . import import_dialog
-from .oops import ConfigurationError, RenderingError, UnmatchedBracesError
+from .oops import ConfigurationError, RenderingError
 from . import twimport
 from .twnote import TwNote
+from .util import pluralize
 
 
 class ImportThread(QThread):
@@ -48,6 +49,7 @@ class ImportThread(QThread):
         self.wiki_conf = wiki_conf
         self.notes: Optional[Set[TwNote]] = None
         self.exception: Optional[Exception] = None
+        self.warnings: List[str] = []
 
     def run(self) -> None:
         "Find notes, updating owner on progress periodically."
@@ -60,6 +62,7 @@ class ImportThread(QThread):
                 filter_=self.wiki_conf['contentFilter'],
                 password=self.wiki_conf.get('password', ''),
                 callback=self.progress_update.emit,
+                warnings=self.warnings,
             )
             for n in self.notes:
                 wiki_url = self.wiki_conf.get('permalink', '')
@@ -83,6 +86,7 @@ class ImportDialog(QDialog):
 
         self.extract_thread: Optional[ImportThread] = None
         self.notes: Set[TwNote] = set()
+        self.warnings: List[str] = []
         self.wikis = list(self.conf['wikis'].items())
         self.form.wikiProgressBar.setMaximum(len(self.wikis))
 
@@ -147,7 +151,7 @@ class ImportDialog(QDialog):
         if exc:
             self.reject()
 
-            if isinstance(exc, (ConfigurationError, UnmatchedBracesError)):
+            if isinstance(exc, ConfigurationError):
                 showWarning(str(self.extract_thread.exception))
             elif isinstance(exc, RenderingError) and 'ENAMETOOLONG' in str(exc):
                 msg = ("It looks like your wiki may contain a tiddler with an "
@@ -195,6 +199,7 @@ class ImportDialog(QDialog):
         # notes with an ID matching one already used in a previous wiki will be
         # discarded here.
         self.notes.update(self.extract_thread.notes)
+        self.warnings.extend(self.extract_thread.warnings)
 
         self.form.wikiProgressBar.setValue(self.form.wikiProgressBar.value() + 1)
         if self.wikis:
@@ -203,8 +208,19 @@ class ImportDialog(QDialog):
             # (might also not improve performance).
             return self.extract()
         else:
-            # When all are completed, start the sync with Anki.
-            return self.sync()
+            # When all are completed...
+            if self.warnings:
+                showText(
+                    f"*** {len(self.warnings)} "
+                    f"{pluralize('warning', len(self.warnings))}: ***\n"
+                    + '\n'.join(self.warnings)
+                )
+            if (not self.warnings) or askUser("Continue syncing?"):
+                return self.sync()
+            else:
+                self.accept()
+                self.mw.reset()
+                tooltip("Sync canceled.")
 
     def sync(self) -> None:
         """

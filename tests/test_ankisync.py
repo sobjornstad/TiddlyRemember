@@ -7,9 +7,10 @@ import sys
 sys.path.append("anki-plugin")
 
 import datetime
-import pytest
 import os
 from typing import Callable
+
+import pytest
 
 from src.oops import ScheduleParsingError
 from src.twnote import SchedulingInfo, QuestionNote
@@ -18,6 +19,7 @@ from src.twimport import find_notes
 from src.ankisync import sync
 
 
+# pylint: disable=unused-import
 from testutils import fn_params, col_tuple
 
 
@@ -37,7 +39,7 @@ def _sync_note_with_edits(fn_params, col_tuple, from_tiddler: str,
 
 
 def _get_only_note(col_tuple):
-    return col_tuple.col.getNote(col_tuple.col.find_notes("")[0])
+    return col_tuple.col.get_note(col_tuple.col.find_notes("")[0])
 
 
 def test_import_qa(fn_params, col_tuple):
@@ -208,3 +210,18 @@ def test_change_twoside_note_type(fn_params, col_tuple):
         note.id_ = used_id
     _sync_note_with_edits(fn_params, col_tuple, "BasicQuestionAndAnswer", reset_id)
     _sync_note_with_edits(fn_params, col_tuple, "BasicPair", reset_id)
+
+
+def test_image_import(fn_params, col_tuple):
+    "Test importing an image embedded in a TiddlyWiki into Anki."
+    expected_filename = \
+        "tr-f53cec5dc23d10d91500c50d79ccb4e73df697f64fc2cd93a1b2fcf2698775c5.jpg"
+
+    fn_params['filter_'] = "InternalDogImageTest"
+    os.chdir(col_tuple.cwd)
+    note = find_notes(**fn_params).pop()
+
+    sync((note,), col_tuple.col, "Default")
+    answer = _get_only_note(col_tuple).fields[1]
+    assert answer.startswith(f'<img src="{expected_filename}"')
+    assert col_tuple.col.media.have(expected_filename)

@@ -73,6 +73,12 @@ def _set_initial_scheduling(tw_note: TwNote, anki_note: Note, col: Any):
             col.update_card(c)
 
 
+def _add_media(tw_note: TwNote, col: Any) -> None:
+    "Sync any media used on the note into Anki."
+    for medium in tw_note.media:
+        medium.write_to_anki(col)
+
+
 def _update_deck(tw_note: TwNote, anki_note: Note, col: Any, default_deck: str) -> None:
     """
     Given a note already in Anki's database, move its cards into an
@@ -148,6 +154,7 @@ def sync(tw_notes: Set[TwNote], col: Any, default_deck: str) -> str:
         deck = col.decks.id(tw_note.target_deck or default_deck)
         col.add_note(n, deck)
         _set_initial_scheduling(tw_note, n, col)
+        _add_media(tw_note, col)
 
     userlog.append(f"Added {len(adds)} {pluralize('note', len(adds))}.")
 
@@ -161,6 +168,7 @@ def sync(tw_notes: Set[TwNote], col: Any, default_deck: str) -> str:
         if not tw_note.fields_equal(anki_note):
             tw_note.update_fields(anki_note)
             col.update_note(anki_note)
+            _add_media(tw_note, col)
             edit_count += 1
         _update_deck(tw_note, anki_note, col, default_deck)
     userlog.append(f"Updated {edit_count} {pluralize('note', edit_count)}.")

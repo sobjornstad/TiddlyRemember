@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 import subprocess
 from tempfile import TemporaryDirectory
-from typing import Callable, Optional, Set, Sequence
+from typing import Callable, List, Optional, Set, Sequence
 import urllib
 
 from bs4 import BeautifulSoup
@@ -89,13 +89,15 @@ def _invoke_tw_command(cmd: Sequence[str], wiki_path: Optional[str],
 def _notes_from_paths(
     paths: Sequence[Path],
     wiki_name: str,
-    callback: Optional[Callable[[int, int], None]]) -> Set[TwNote]:
+    callback: Optional[Callable[[int, int], None]],
+    warnings: List[str]) -> Set[TwNote]:
     """
     Given an iterable of paths, compile the notes found in all those tiddlers.
 
     :param paths: The paths of the tiddlers to generate notes for.
     :param wiki_name: The name/id of the wiki these notes are from.
     :param callback: Optional callable passing back progress. See :func:`find_notes`.
+    :param warnings: List to add warnings of any non-critical conditions to.
     :return: A set of all the notes found in the tiddler files passed.
     """
     notes = set()
@@ -104,7 +106,7 @@ def _notes_from_paths(
             tid_text = f.read().decode()
         tid_name = urllib.parse.unquote(
             tiddler.name[:tiddler.name.find(f".{RENDERED_FILE_EXTENSION}")])
-        notes.update(_notes_from_tiddler(tid_text, wiki_name, tid_name))
+        notes.update(_notes_from_tiddler(tid_text, wiki_name, tid_name, warnings))
 
         if callback is not None and not index % 50:
             callback(index+1, len(paths))
@@ -114,7 +116,8 @@ def _notes_from_paths(
     return notes
 
 
-def _notes_from_tiddler(tiddler: str, wiki_name: str, tiddler_name: str) -> Set[TwNote]:
+def _notes_from_tiddler(tiddler: str, wiki_name: str, tiddler_name: str,
+                        warnings: List[str]) -> Set[TwNote]:
     """
     Given the text of a tiddler, parse the contents and return a set
     containing all the TwNotes found within that tiddler.
@@ -123,11 +126,12 @@ def _notes_from_tiddler(tiddler: str, wiki_name: str, tiddler_name: str) -> Set[
     :param wiki_name:    The name of the wiki this tiddler comes from,
                          for traceability purposes.
     :param tiddler_name: The name of the tiddler itself, for traceability purposes.
+    :param warnings:     A list to add warnings of any non-critical issues to.
     :return: A (possibly empty) set of all the notes found in this tiddler.
     """
     soup = BeautifulSoup(tiddler, 'html.parser')
     ensure_version(soup)
-    return TwNote.notes_from_soup(soup, wiki_name, tiddler_name)
+    return TwNote.notes_from_soup(soup, wiki_name, tiddler_name, warnings)
 
 
 def _render_wiki(tw_binary: str, wiki_path: str, output_directory: str,
@@ -175,9 +179,10 @@ def find_notes(
     tw_binary: str, wiki_path: str, wiki_type: str, wiki_name: str, filter_: str,
     password: str = "",
     requests_session: Optional[requests.Session] = None,
-    callback: Optional[Callable[[int, int], None]] = None) -> Set[TwNote]:
+    callback: Optional[Callable[[int, int], None]] = None,
+    warnings: Optional[List[str]] = None) -> Set[TwNote]:
     """
-    Return a set of TwNotes parsed out of a TiddlyWiki.
+    Return a tuple of TwNotes parsed out of a TiddlyWiki.
 
     :param tw_binary: Path to the TiddlyWiki node executable.
     :param wiki_path: Path of the wiki URL, file or folder to render.
@@ -197,11 +202,16 @@ def find_notes(
                       the number of tiddlers processed and the second the total number.
                       It will be called every 50 tiddlers. The first call is made at
                       tiddler 1, once the wiki has been rendered.
+    :param warnings:  Optional list which will have lines appended to it for any
+                      non-critical issues that arise during the sync.
 
     Be aware that more than one TwNote can be returned for a given invocation
     of <<remember*>> in TiddlyWiki. This is because transclusions can result
     in the same rendered HTML appearing in multiple places.
     """
+    if warnings is None:
+        warnings = []
+
     with TemporaryDirectory() as tmpdir:
         try:
             if wiki_type == 'file':
@@ -230,6 +240,7 @@ def find_notes(
         notes = _notes_from_paths(
             list(Path(render_location).glob(f"*.{RENDERED_FILE_EXTENSION}")),
             wiki_name,
-            callback)
+            callback,
+            warnings)
 
     return notes
