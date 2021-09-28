@@ -516,6 +516,8 @@ def by_name(model_name: str) -> Optional[Type[TwNote]]:
 
     >>> by_name('TiddlyRemember Q&A v1')
     <class 'src.twnote.QuestionNote'>
+
+    >>> by_name('Nonexistent Model')
     """
     for cls in TwNote.__subclasses__():
         if cls.model.name == model_name:

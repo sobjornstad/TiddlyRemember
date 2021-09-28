@@ -42,7 +42,7 @@ from testutils import col_tuple, fn_params
                 "20210925133938745"
                 "In LaTeX, we create fractions with {c1::<code>\frac\{numerator\}\{denominator\}</code>}.">>
             """),
-        # hard references and other options aren't preserved
+        # Hard references and other options aren't preserved.
         ("HardrefQa", """
             <<rememberq
                 "20200925183527082"
