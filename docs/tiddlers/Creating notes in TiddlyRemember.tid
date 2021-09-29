@@ -1,6 +1,6 @@
 created: 20200523163252291
 list: [[Question-and-answer notes]] [[Pair notes]] [[Cloze notes]]
-modified: 20210925161744580
+modified: 20210928235605360
 tags: TiddlyRemember
 title: Creating notes in TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -31,24 +31,55 @@ After you add, edit, or remove questions in TiddlyWiki, you'll want to [[sync to
 
 !! What can I include in my notes?
 
-TiddlyRemember actually renders your tiddlers to HTML when you sync to Anki,
-    and the contents of TiddlyRemember macro parameters are wikified,
-    so you can include anything from basic wikitext formatting to transclusions,
+TiddlyRemember actually renders your tiddlers when you sync to Anki,
+    and the contents of TiddlyRemember macro parameters are wikified during this process,
+    so you can include anything from basic wikitext formatting to transclusions and macro calls,
     and the results will be displayed correctly both in your wiki and on your Anki cards.
-Starting in TiddlyRemember 1.2.0, most HTML will be preserved when synced to Anki,
-    from simple things like bold or italics to complex things like `<span>`s with custom classes.
-One exception is internal links;
+All HTML elements are preserved, except for internal links;
     since these don't work outside the context of TiddlyWiki,
     they're converted to plain text in Anki.
 
-Images work only if they point to external files
-    (not tiddlers within your TiddlyWiki)
-    that are accessible from all devices you review on.
-For instance, an image found on Wikimedia Commons
-    and linked with `[img [https://the/url]]` will work
-    (provided you have Internet access while studying),
-    while one you dragged and dropped into your wiki will not.
-Support for syncing media into Anki's media repository is planned for the future.
+Special notes:
+
+<$details summary="Images and audio">
+
+Starting in TiddlyRemember 1.3.0,
+    images
+    (using the `<img>` HTML tag or anything that reduces to it,
+     like `[img [myimage]]` or `{{myimage}}`)
+    and audio
+    (using the `<audio>` HTML tag or `{{transcluding}}` an audio tiddler)
+    will be synced into Anki's media database.
+This works whether the source file is embedded in your TiddlyWiki,
+    uses the `_canonical_uri` [[field|https://tiddlywiki.com/#ExternalImages]],
+    or points directly at a web URL.
+If you later make changes to the images,
+    or your images are hotlinked to a web URL and the live version changes,
+    the changes will also be synced to Anki.
+
+To include external audio that you can play either in your wiki or in Anki,
+    you can use:
+
+```
+<audio control="control" src="THE URL TO THE AUDIO"></audio>
+```
+
+Additional attributes of the `<img>` tag, such as `width`, are preserved,
+    including on a round-trip if you [[export TiddlyRemember macros from Anki|Exporting TiddlyRemember macros from Anki]].
+All attributes of the `<audio>` tag except for `src` are lost
+    (this is a consequence of the way Anki handles audio references).
+
+If you have a lot of images or audio,
+    it's recommended that you embed them in your wiki
+    or use a `_canonical_uri` location on your local computer or a fast local network,
+    because TiddlyRemember has to read all of them on every sync
+    to see if they've changed and need to be updated in Anki.
+Downloading them from the Internet repeatedly
+    will use an excessive amount of bandwidth
+    and make syncing much slower than necessary.
+
+</$details>
+<$details summary="Macro parameters containing quotation marks">
 
 If you need to include double quotation marks in a note, use triple quotes for the macro parameter:
 
@@ -64,8 +95,14 @@ If you need to include double quotation marks in a note, use triple quotes for t
     "Use triple quotation marks on the outside."
 >>
 
-Some users have reported issues opening external links with `file://` URLs.
-See [[External links to files cannot be opened]] for a possible workaround.
+</$details>
+<$details summary="External links">
+
+Most external links should work directly from within Anki.
+Some users have reported issues opening external links with `file://` URLs;
+    see [[External links to files cannot be opened]] for a possible workaround.
+
+</$details>
 
 
 !! Advanced features
