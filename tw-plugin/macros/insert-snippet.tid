@@ -1,0 +1,20 @@
+created: 20210929144300000
+modified: 20210929144300000
+tags: $:/tags/Macro
+title: $:/plugins/sobjornstad/TiddlyRemember/macros/insert-snippet
+type: text/vnd.tiddlywiki
+
+\define tr-insert-note(snippet)
+	<$vars
+		thetime=<<now "[UTC]YYYY0MM0DD0hh0mm0ss0XXX">>
+		theprefix={{$:/config/TiddlyRemember/IdPrefix}}>
+	<$vars
+		noteid={{{ [<theprefix>addsuffix<thetime>] }}}
+		editingtid={{{ [<storyTiddler>get[draft.of]] }}}>
+		<$action-sendmessage
+			$message="tm-edit-text-operation"
+			$param="replace-selection"
+			text={{{ [<__snippet__>search-replace[%NOTE_ID%],<noteid>search-replace[%EDITING_TIDDLER%],<editingtid>] }}}/>
+	</$vars>
+	</$vars>
+\end

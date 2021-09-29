@@ -9,22 +9,4 @@ tags: $:/tags/EditorToolbar
 title: $:/plugins/sobjornstad/TiddlyRemember/toolbar/rememberq
 type: text/vnd.tiddlywiki
 
-\define getMacro()
-<<rememberq "$(questionid)$"
-	"Q"
-	"A">>
-\end
-
-\define prefixId() $(theprefix)$$(thetime)$
-
-<$set name=thetime value=<<now "[UTC]YYYY0MM0DD0hh0mm0ss0XXX">> >
-<$set name=theprefix value={{$:/config/TiddlyRemember/IdPrefix}}>
-<$set name=questionid value=<<prefixId>> >
-	<$action-sendmessage
-		$message="tm-edit-text-operation"
-		$param="replace-selection"
-		text=<<getMacro>>
-	/>
-</$set>
-</$set>
-</$set>
+<$macrocall $name=tr-insert-note snippet={{$:/config/TiddlyRemember/snippets/rememberq}}>

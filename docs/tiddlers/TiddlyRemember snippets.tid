@@ -1,0 +1,77 @@
+created: 20210929145341988
+modified: 20210929152603371
+title: TiddlyRemember snippets
+type: text/vnd.tiddlywiki
+
+By default TiddlyRemember adds two buttons to the editor toolbar,
+    one for a basic [[question-and-answer note|Question-and-answer notes]]
+    and one for a basic [[cloze note|Cloze notes]].
+You can customize the snippet that appears when you click each of these buttons
+    or add more buttons of your own.
+
+
+!! Customizing the existing snippets
+
+The existing snippets can be found in the Explorer
+    under [[$:/config/TiddlyRemember/snippets/]].
+Just open up the `remembercz` or `rememberq` tiddler
+    and edit it to taste.
+
+You can use two placeholders in this snippet:
+
+; `%NOTE_ID%`
+: A millisecond timestamp created as a [[Unique ID]] for this note.
+; `%EDITING_TIDDLER%`
+: The name of the tiddler in the story river that you're editing at the time you insert the snippet.
+
+As an example, suppose you want all cloze notes to be [[inline|Inline cloze deletions]] by default.
+Open [[$:/config/TiddlyRemember/snippets/remembercz]] and add the `inline` argument so it looks like this:
+
+```
+<<remembercz "%NOTE_ID%"
+	"Cloze"
+    inline>>
+```
+
+
+!! Adding new snippets
+
+If you'd like to add more snippets,
+    you can add more buttons to the toolbar for them.
+First, create a new snippet under [[$:/config/TiddlyRemember/snippets]]
+    as described in “Customizing the existing snippets,” above.
+You may wish to clone one of the existing snippets to make this easier.
+Take note of the name that you use for the final component of the tiddler title
+    (for instance, if you're creating a button to add a [[pair note|Pair notes]],
+    you might call the tiddler `$:/config/TiddlyRemember/snippets/rememberp`,
+    and you would be reusing the name `rememberp` throughout the remaining steps).
+We'll call this name `YOUR_NAME`.
+
+Next, create a new editor toolbar button.
+This is a tiddler in a specific format with the tag [[$:/tags/EditorToolbar]].
+You can start by cloning [[$:/plugins/sobjornstad/TiddlyRemember/toolbar/rememberq]]
+    and changing `rememberq` in the title to `YOUR_NAME`.
+Fill in the fields as follows:
+
+; `text`
+: A macro call to `tr-insert-note` where the `snippet` argument transcludes the snippet you created in the first step: `<$macrocall $name=tr-insert-note snippet={{$:/config/TiddlyRemember/snippets/YOUR_NAME}}>`.
+
+; `caption`
+: Displayed next to the icon if icons + text mode is turned on in TiddlyWiki's interface.
+
+; `description`
+: Displayed when you hover over the toolbar button.
+
+; `icon`
+: Tiddler to display as an icon. To find available icons, try using the tag manager ($:/TagManager) to pretend to select an icon for a tag and note down the name of the tiddler you'd like to use.
+
+; `shortcuts`
+: `((YOUR_NAME))`. TiddlyWiki will use this to look up the keyboard shortcut, which we'll set up in a moment.
+
+Lastly, if you want to add a keyboard shortcut,
+    create a `$:/config/shortcuts/YOUR_NAME` tiddler whose `text` field contains the [[keyboard shortcut descriptor|https://tiddlywiki.com/#Keyboard%20Shortcut%20Descriptor]].
+This will look something like `ctrl-alt-shift-r`.
+If you'd like to be able to see and change the keyboard shortcut in the control panel,
+    you'll also need a `$:/config/ShortcutInfo/YOUR_NAME` tiddler
+    whose `text` field contains a description of what the shortcut does;
+    if you don't care about seeing the shortcut in the control panel, you can skip this step.
