@@ -1,5 +1,5 @@
 created: 20210924225934360
-modified: 20210924232441772
+modified: 20210929002452830
 title: Setting initial scheduling information
 type: text/vnd.tiddlywiki
 
@@ -10,7 +10,7 @@ Setting initial scheduling information is often combined with [[Dynamically gene
 !! Parameters
 
 |!Parameter|!Key|!Description|
-|Due|`due`|The date (in TiddlyWiki format; the time and time zones positions can be absent and will be ignored in any case) on which the card will next be shown in Anki.|
+|Due date|`due`|The date (in TiddlyWiki format; the time and time zones positions can be absent and will be ignored in any case) on which the card will next be shown in Anki.|
 |Interval|`ivl`|The number of days between the previous due date and the current due date.|
 |Ease|`ease`|The amount by which the next interval of the card should be greater than the current interval, expressed in per mille (parts per thousand). So an ease of 2300 means the next interval will be 2.3 times the current interval.|
 |Lapses|`lapses`|The number of times you've forgotten the card. Anki uses this to warn you when you're [[wasting a lot of time on unusually difficult cards|https://controlaltbackspace.org/memory/dealing-with-leeches/]] (//leeches//).|

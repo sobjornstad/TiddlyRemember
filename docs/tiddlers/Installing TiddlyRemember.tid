@@ -1,5 +1,5 @@
 created: 20200523155103941
-modified: 20210924154137020
+modified: 20210928235902197
 tags: TiddlyRemember
 title: Installing TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -17,7 +17,9 @@ Alternatively, if you're running on Node.js, you might prefer to (but do not hav
 
 You need TiddlyWiki installed on Node.js on your computer to use TiddlyRemember. You don't need to actually host your wiki on Node -- you just need it to be installed to help out with the sync.
 
-If you don't already have TiddlyWiki on Node installed, follow the [[TiddlyWiki documentation|https://tiddlywiki.com/#GettingStarted - Node.js]] to install it.
+If you don't already have TiddlyWiki on Node.js installed,
+    follow the [[TiddlyWiki documentation|https://tiddlywiki.com/#GettingStarted - Node.js]] to install it.
+You can stop after step 4 if you're only using this to run TiddlyRemember.
 
 If you're using a Mac and you installed using Homebrew, there may be one more step -- see [[Calling TiddlyWiki in MacOS]].
 
