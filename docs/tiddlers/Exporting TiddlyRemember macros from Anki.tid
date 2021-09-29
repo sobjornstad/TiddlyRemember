@@ -1,0 +1,33 @@
+created: 20210928234102595
+modified: 20210929002836367
+tags: 
+title: Exporting TiddlyRemember macros from Anki
+type: text/vnd.tiddlywiki
+
+You can ''export notes as TiddlyRemember macros'' from within Anki.
+This will produce a text file containing TiddlyWiki macro-call representations
+    of all the notes of a TiddlyRemember note type in the selected deck.
+You can use this to send your notes to a friend in a format they can add to their own wiki,
+    or to manually sync changes that you accidentally made directly in Anki
+    back to your wiki.
+
+To do an export,
+    choose File > Export, select any deck that you want to limit your changes to,
+    then select the //TiddlyRemember macros// export format.
+A `.tid` file will be exported containing appropriate macro calls.
+
+Media is not included in the export,
+    but the filenames used in Anki's media folder will be preserved in the macro calls.
+So if you also import the relevant media files from Anki's media folder
+    (the `collection.media` folder in your [[profile folder|https://docs.ankiweb.net/files.html#file-locations]])
+    into the wiki where you're using the macros
+    (via drag and drop or another convenient method),
+    the media will work in the wiki as well.
+
+//Note//: The export only works for ''notes of a TiddlyRemember note type'';
+    any other notes will be ignored during the export.
+If you have notes of other note types that you want to export,
+    you'll first need to change their note type
+    to one of the `TiddlyRemember...` note types
+    and populate the ID field with unique values
+    (the [[Add Note ID|https://ankiweb.net/shared/info/1672832404]] Anki add-on can be used to accomplish this).
