@@ -1,0 +1,7 @@
+created: 20210929144900000
+modified: 20210929144900000
+tags:
+title: $:/config/TiddlyRemember/snippets/remembercz
+
+<<remembercz "%NOTE_ID%"
+	"Cloze">>

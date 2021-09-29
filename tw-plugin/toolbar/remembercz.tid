@@ -10,21 +10,4 @@ tags: $:/tags/EditorToolbar
 title: $:/plugins/sobjornstad/TiddlyRemember/toolbar/remembercz
 type: text/vnd.tiddlywiki
 
-\define getMacro()
-<<remembercz "$(clozeid)$"
-	"Cloze">>
-\end
-
-\define prefixId() $(theprefix)$$(thetime)$
-
-<$set name=thetime value=<<now "[UTC]YYYY0MM0DD0hh0mm0ss0XXX">> >
-<$set name=theprefix value={{$:/config/TiddlyRemember/IdPrefix}}>
-<$set name=clozeid value=<<prefixId>> >
-	<$action-sendmessage
-		$message="tm-edit-text-operation"
-		$param="replace-selection"
-		text=<<getMacro>>
-	/>
-</$set>
-</$set>
-</$set>
+<$macrocall $name=tr-insert-note snippet={{$:/config/TiddlyRemember/snippets/remembercz}}>
