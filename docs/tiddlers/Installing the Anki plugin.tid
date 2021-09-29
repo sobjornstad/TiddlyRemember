@@ -1,11 +1,12 @@
 created: 20200523161356417
-modified: 20200523161418822
+modified: 20210929000112242
 tags:
 title: Installing the Anki plugin
 type: text/vnd.tiddlywiki
 
-# Browse to the <a href={{TiddlyRemember Metadata##anki-addon-url}}>Anki add-on's homepage</a>.
-# Scroll down to find the add-on's code in the blue box, and copy this to your clipboard.
 # In Anki, choose ''Tools > Add-ons > Get Add-ons''.
-# Paste the code into the box and click OK.
+# Paste the add-on's code, `60456529`, into the box and click OK.
 # Quit and restart Anki.
+
+If you prefer to see what you're downloading before you install it,
+    you can first visit the <a href={{TiddlyRemember Metadata##anki-addon-url}}>Anki add-on's homepage</a>.

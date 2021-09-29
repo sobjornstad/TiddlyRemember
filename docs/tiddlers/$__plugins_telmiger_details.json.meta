@@ -1,7 +1,7 @@
 author: Thomas Elmiger
 core-version: >=5.1.13
 created: 20210928233004516
-dependents: 
+dependents:
 description: DetailsWidget
 list: readme license
 modified: 20210928233004516
