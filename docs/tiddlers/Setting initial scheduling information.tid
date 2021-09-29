@@ -1,5 +1,5 @@
 created: 20210924225934360
-modified: 20210929002452830
+modified: 20210929153528418
 title: Setting initial scheduling information
 type: text/vnd.tiddlywiki
 
@@ -22,5 +22,5 @@ For more information on the function of due date, interval, and ease, read [[Spa
 !! Limitations
 
 * ''Scheduling is only applied when notes are initially added to your collection.'' Once the note exists in your Anki collection, TiddlyRemember will never touch the scheduling again unless the note is deleted from Anki and synced back. This is usually what you want; the whole point of having the cards in Anki is to let it schedule things!
-* ''Scheduling is applied per-note by TiddlyRemember'', but scheduling is per-card in Anki. So if the note type has multiple cards (for a [[pair note|Pair notes]] or [[cloze note|Cloze notes]] with multiple occlusions with different numbers), the same scheduling is currently applied to all cards of the note. (There's no technical reason the format of the `sched` string couldn't apply different formatting for different cards, it's just hard for me to see how one would end up with this information in a TiddlyWiki in most cases. If this would be useful for you, please post a GitHub issue explaining your use case.)
+* ''Scheduling is applied per-note by TiddlyRemember'', but scheduling is per-card in Anki. So if the note type has multiple cards (for a [[pair note|Pair notes]] or [[cloze note|Cloze notes]] with multiple occlusions with different numbers), the same scheduling is currently applied to all cards of the note. (There's no technical reason the format of the `sched` string couldn't apply different formatting for different cards, so this may change in the future. If this would be useful for you, please post a GitHub issue explaining your use case.)
 * ''If you supply any of the scheduling parameters, you must supply all of them.'' The format must be exactly as explained above or you'll get an error when you sync. If you want to use “defaults” for any of the parameters, ease is 2500‰ by default in Anki and lapses is 0; the due date and interval are typically determined by what button you press when you see the new card for the first time, but `sched` is skipping the new-card phase, so there isn't really a “default” due date or interval.
