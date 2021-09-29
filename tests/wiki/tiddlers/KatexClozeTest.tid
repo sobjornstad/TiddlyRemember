@@ -1,0 +1,10 @@
+created: 20210929133248633
+modified: 20210929133400212
+tags: TestCase
+title: KatexClozeTest
+type: text/vnd.tiddlywiki
+
+We may need to use [[EscapedCloze]]s in a KaTeX math expression. The escape characters should be hidden both in the TiddlyWiki display and the import into Anki.
+
+<<remembercz "1"
+	"{$$x = \frac\{-b \pm \sqrt\{b^2 - 4ac\}\}\{2a\}$$} is known as the {quadratic formula}.">>

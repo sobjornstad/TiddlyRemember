@@ -239,6 +239,18 @@ def test_katex(fn_params):
     assert r'<span class="tw-katex-display">\[ 81 \]</span>' in note.answer
 
 
+def test_escaped_cloze_katex(fn_params):
+    "KaTeX math markup within clozes often requires escaping."
+    fn_params['filter_'] = "KatexClozeTest"
+    note = find_notes(**fn_params).pop()
+
+    assert (
+        r'{{c1::<span class="tw-katex-inline">'
+        r'\( x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \)'
+        r'</span>}}'
+    ) in note.text
+
+
 def test_file_import(fn_params):
     """
     Check that the file-to-folder conversion works.

@@ -78,6 +78,7 @@ type: text/vnd.tiddlywiki
 \define twRememberClozeBlock(id, text, reference, sched, class)
     <div class={{{ [[remembercz ]addsuffix<__class__>addsuffix[ ]addsuffix{$:/config/TiddlyRemember/DefaultClasses}] }}}>
 		<span class="cloze-identifier"><span class="tr-name-cloze">cloze: </span></span>
+		<span class="cloze-display"><$set name="unescape" value={{{ [<__text__>search-replace:g[\{],[{]search-replace:g[\}],[}]] }}}><<unescape>></$set></span>
 		<span class="cloze-text">$text$</span>
 		<$macrocall $name="twRememberMetadata" id=<<__id__>> reference=<<__reference__>> sched=<<__sched__>>/>
 	</div>
@@ -86,8 +87,9 @@ type: text/vnd.tiddlywiki
 \define twRememberClozeInline(id, text, reference, sched, class)
     <span class={{{ [[remembercz ]addsuffix<__class__>addsuffix[ ]addsuffix{$:/config/TiddlyRemember/DefaultClasses}] }}}>
 		<span class="cloze-identifier">{<span class="tr-name-cloze">cloze: </span></span>
-		<span class="cloze-text">$text$</span>
+		<span class="cloze-display"><$set name="unescape" value={{{ [<__text__>search-replace:g[\{],[{]search-replace:g[\}],[}]] }}}><<unescape>></$set></span>
 		<span class="cloze-identifier">}</span>
+		<span class="cloze-text">$text$</span>
 		<$macrocall $name="twRememberMetadata" id=<<__id__>> reference=<<__reference__>> sched=<<__sched__>>/>
 	</span>
 \end
