@@ -11,7 +11,6 @@ import hashlib
 import mimetypes
 from pathlib import Path
 import re
-from textwrap import dedent
 from typing import Any, List, Optional, Set, Tuple, Type
 from urllib.error import HTTPError, URLError
 from urllib.request import urlopen
@@ -232,7 +231,8 @@ class TwNote(metaclass=ABCMeta):
     ### Abstract methods ###
     @classmethod
     @abstractmethod
-    def export_macro(cls, anki_note: Note) -> str:  # pragma: no cover
+    def export_macro(cls, anki_note: Note,
+                     sched: Optional[str] = None) -> str:  # pragma: no cover
         """
         Given an Anki note, return a string representation of a TiddlyWiki macro call
         which will result in an Anki card of the current note type when imported
@@ -299,14 +299,15 @@ class QuestionNote(TwNote):
                 f"schedule={self.schedule!r})")
 
     @classmethod
-    def export_macro(cls, anki_note: Note) -> str:
+    def export_macro(cls, anki_note: Note, sched: Optional[str] = None) -> str:
         idx = cls.model.field_index_by_name
-        return dedent(f"""
-            <<rememberq
-                "{anki_note.fields[idx(ID_FIELD_NAME)]}"
-                {munge_export_field(anki_note.fields[idx('Question')])}
-                {munge_export_field(anki_note.fields[idx('Answer')])}>>
-            """).strip()
+        sched_fragment = ('\n    sched:"' + sched + '"') if sched else ""
+        return (
+            f"<<rememberq\n"
+            f'    "{anki_note.fields[idx(ID_FIELD_NAME)]}"\n'
+            f"    {munge_export_field(anki_note.fields[idx('Question')])}\n"
+            f"    {munge_export_field(anki_note.fields[idx('Answer')])}{sched_fragment}>>" # pylint: disable=line-too-long
+        )
 
     @classmethod
     def parse_html(cls, soup: BeautifulSoup, wiki: Wiki,
@@ -371,14 +372,15 @@ class PairNote(TwNote):
                 f"schedule={self.schedule!r})")
 
     @classmethod
-    def export_macro(cls, anki_note: Note) -> str:
+    def export_macro(cls, anki_note: Note, sched: Optional[str] = None) -> str:
         idx = cls.model.field_index_by_name
-        return dedent(f"""
-            <<rememberp
-                "{anki_note.fields[idx(ID_FIELD_NAME)]}"
-                {munge_export_field(anki_note.fields[idx('First')])}
-                {munge_export_field(anki_note.fields[idx('Second')])}>>
-            """).strip()
+        sched_fragment = ('\n    sched:"' + sched + '"') if sched else ""
+        return (
+            f"<<rememberp\n"
+            f'    "{anki_note.fields[idx(ID_FIELD_NAME)]}"\n'
+            f"    {munge_export_field(anki_note.fields[idx('First')])}\n"
+            f"    {munge_export_field(anki_note.fields[idx('Second')])}{sched_fragment}>>" # pylint: disable=line-too-long
+        )
 
     @classmethod
     def parse_html(cls, soup: BeautifulSoup, wiki: Wiki,
@@ -441,7 +443,7 @@ class ClozeNote(TwNote):
                 f"schedule={self.schedule!r})")
 
     @classmethod
-    def export_macro(cls, anki_note: Note) -> str:
+    def export_macro(cls, anki_note: Note, sched: Optional[str] = None) -> str:
         def clz_sub(text: str) -> str:
             "Replace Anki-style occlusions with TiddlyRemember-style ones."
             def repl(match):
@@ -450,11 +452,12 @@ class ClozeNote(TwNote):
             return re.sub(r"{{(c[0-9]+::.*?)}}", repl, text)
 
         idx = cls.model.field_index_by_name
-        return dedent(f"""
-            <<remembercz
-                "{anki_note.fields[idx(ID_FIELD_NAME)]}"
-                {munge_export_field(clz_sub(anki_note.fields[idx('Text')]))}>>
-            """).strip()
+        sched_fragment = ('\n    sched:"' + sched + '"') if sched else ""
+        return (
+            f"<<remembercz\n"
+            f'    "{anki_note.fields[idx(ID_FIELD_NAME)]}"\n'
+            f"    {munge_export_field(clz_sub(anki_note.fields[idx('Text')]))}{sched_fragment}>>" # pylint: disable=line-too-long
+        )
 
     @classmethod
     def parse_html(cls, soup: BeautifulSoup, wiki: Wiki,

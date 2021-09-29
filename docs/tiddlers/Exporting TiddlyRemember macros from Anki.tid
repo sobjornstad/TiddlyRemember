@@ -1,5 +1,5 @@
 created: 20210928234102595
-modified: 20210929002836367
+modified: 20210929153459713
 tags: 
 title: Exporting TiddlyRemember macros from Anki
 type: text/vnd.tiddlywiki
@@ -15,6 +15,17 @@ To do an export,
     choose File > Export, select any deck that you want to limit your changes to,
     then select the //TiddlyRemember macros// export format.
 A `.tid` file will be exported containing appropriate macro calls.
+
+If you choose to include scheduling information,
+    a `sched` [[parameter|Setting initial scheduling information]] will be included for review cards,
+    allowing the macros to be synced to a different Anki collection
+    without losing the scheduling information
+    (the history of reviews you've carried out will be lost,
+    but the parameters needed to determine when to show the cards again will be saved).
+Notes with multiple cards (e.g., pair notes or cloze notes with multiple occlusions)
+    will use the first card's scheduling information for all cards,
+    since TiddlyRemember doesn't support using different initial scheduling information for different cards.
+New cards won't have any scheduling information attached at all.
 
 Media is not included in the export,
     but the filenames used in Anki's media folder will be preserved in the macro calls.
