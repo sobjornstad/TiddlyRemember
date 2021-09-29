@@ -37,7 +37,8 @@ div.remembercz {
 	color: <<colour muted-foreground>>;
 }
 
-/* the separate reference and ID fields are only for TR's benefit */
+
+/* these separate fields are only read by the TR parser */
 div.remembertwo div.tr-reference, .remembercz div.tr-reference {
 	display: none;
 }
@@ -49,6 +50,11 @@ div.remembertwo div.rid, .remembercz div.rid {
 div.remembertwo div.tr-sched, .remembercz div.tr-sched {
 	display: none;
 }
+
+.remembercz > span.cloze-text {
+	display: none;
+}
+
 
 /***** Built-in classes for common format customizations; apply to the class: parameter to macros *****/
 /* Hide the ID field */
