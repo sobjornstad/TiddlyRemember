@@ -1,5 +1,5 @@
 created: 20200523162139989
-modified: 20200523162458928
+modified: 20210929001822781
 tags: [[Configuring TiddlyRemember]]
 title: Mapping tiddlers
 type: text/vnd.tiddlywiki
@@ -11,33 +11,25 @@ You can configure how questions map to decks and tags
     by overriding the configuration tiddlers
     `$:/config/TiddlyRemember/TagMapping`
     and `$:/config/TiddlyRemember/DeckMapping`.
-These tiddlers are empty in a base installation.
-You may populate them with a newline-separated list of TiddlyWiki filters.
-TiddlyRemember will run each filter
+These tiddlers are empty in a base installation,
+    but you can add as many TiddlyWiki filters to each as you like,
+    with each filter separated from the previous one by a newline/carriage return.
+
+When syncing, TiddlyRemember will run each filter
     against the title of the tiddler your question is in
-    and track results across the filter runs.
+    and accumulate results across the filter runs.
 (If you're familiar with the way Node folder wikis
- use `$:/config/FileSystemPaths` to define folder structure,
+ use `$:/config/FileSystemPaths` [[to define folder structure|https://tiddlywiki.com/#Customising%20Tiddler%20File%20Naming]],
  this is the same idea.)
+
 
 !! Tags
 
 For tags, all matches in any of the filters become tags,
-    duplicates excluded.
-If your tags contain spaces, the spaces will be turned into `_`
-    (Anki separates tags by spaces).
-If there are no results at all, the card gets no tags.
-
-Here's an example tag mapping,
-    which passes through all tags set in TiddlyWiki
-    with the exception of the `Public` tag,
-    and additionally includes an `Important` tag
-    for questions in tiddlers with a `priority` field set to `high`:
-
-```
-[tags[]] -[[Public]]
-[has[priority]get[priority]match[high]then[Important]]
-```
+    ignoring duplicates.
+Any spaces in a tag will be converted to underscores `_`
+    (tags are space-separated in Anki, so they can't contain spaces).
+If there are no results at all, the card will have no tags.
 
 
 !! Decks
@@ -47,6 +39,34 @@ However, since a card can only be in one deck,
     the first result returned by any of the filters wins
     and the remaining results are ignored.
 If there are no results at all,
-    the default deck specified in your Anki settings is used.
+    the default deck specified in [[your Anki settings|Configuring the Anki add-on]] is used.
 Decks will be created on sync if they don't exist,
-    but won't be deleted even if the sync makes them empty.
+    but decks won't be deleted even if the sync makes them empty.
+
+!! Examples
+
+A deck mapping to send all notes in this wiki to the `TiddlyRemember` deck:
+
+```
+[[TiddlyRemember]]
+```
+
+A deck mapping to send questions in tiddlers tagged `JavaScript` to the `Coding::JavaScript` deck,
+    questions in tiddlers tagged `CSS` to the `Coding::CSS` deck,
+    and questions in tiddlers with neither tag
+    to the default deck listed in the TiddlyRemember configuration in Anki:
+
+```
+[tag[JavaScript]then[Coding::JavaScript]]
+[tag[CSS]then[Coding::CSS]]
+```
+
+A tag mapping to pass through all tags set in TiddlyWiki
+    except the the `Public` tag,
+    and additionally add an `Important` tag
+    for questions in tiddlers with a `priority` field set to `high`:
+
+```
+[tags[]] -[[Public]]
+[has[priority]get[priority]match[high]then[Important]]
+```
