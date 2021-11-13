@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="generator" content="TiddlyWiki" />
+<meta name="tiddlywiki-version" content="5.2.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no">
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="static.css">
+<title>TiddlyRemember snippets: TiddlyRemember
+
+— Embed Anki notes in your TiddlyWiki
+</title>
+</head>
+<body class="tc-body">
+
+<section class="tc-story-river tc-static-story-river">
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="TiddlyRemember snippets"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">TiddlyRemember snippets</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a>29th September 2021 at 10:26am</div></div><div class=" tc-reveal">
+<div class="tc-tags-wrapper"></div>
+</div>
+
+<div class="tc-tiddler-body tc-reveal"><p>By default TiddlyRemember adds two buttons to the editor toolbar,
+    one for a basic <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Question-and-answer%2520notes.html">question-and-answer note</a>
+    and one for a basic <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Cloze%2520notes.html">cloze note</a>.
+You can customize the snippet that appears when you click each of these buttons
+    or add more buttons of your own.</p><h2 class="">Customizing the existing snippets</h2><p>The existing snippets can be found in the Explorer
+    under <a class="tc-tiddlylink tc-tiddlylink-missing" href="%2524%253A%252Fconfig%252FTiddlyRemember%252Fsnippets%252F.html">$:/config/TiddlyRemember/snippets/</a>.
+Just open up the <code>remembercz</code> or <code>rememberq</code> tiddler
+    and edit it to taste.</p><p>You can use two placeholders in this snippet:</p><dl><dt><code>%NOTE_ID%</code></dt><dd>A millisecond timestamp created as a <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Unique%2520ID.html">Unique ID</a> for this note.</dd><dt><code>%EDITING_TIDDLER%</code></dt><dd>The name of the tiddler in the story river that you're editing at the time you insert the snippet.</dd></dl><p>As an example, suppose you want all cloze notes to be <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Inline%2520cloze%2520deletions.html">inline</a> by default.
+Open <a class="tc-tiddlylink tc-tiddlylink-shadow" href="%2524%253A%252Fconfig%252FTiddlyRemember%252Fsnippets%252Fremembercz.html">$:/config/TiddlyRemember/snippets/remembercz</a> and add the <code>inline</code> argument so it looks like this:</p><pre><code>&lt;&lt;remembercz "%NOTE_ID%"
+	"Cloze"
+    inline&gt;&gt;</code></pre><h2 class="">Adding new snippets</h2><p>If you'd like to add more snippets,
+    you can add more buttons to the toolbar for them.
+First, create a new snippet under <a class="tc-tiddlylink tc-tiddlylink-missing" href="%2524%253A%252Fconfig%252FTiddlyRemember%252Fsnippets.html">$:/config/TiddlyRemember/snippets</a>
+    as described in “Customizing the existing snippets,” above.
+You may wish to clone one of the existing snippets to make this easier.
+Take note of the name that you use for the final component of the tiddler title
+    (for instance, if you're creating a button to add a <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Pair%2520notes.html">pair note</a>,
+    you might call the tiddler <code>$:/config/TiddlyRemember/snippets/rememberp</code>,
+    and you would be reusing the name <code>rememberp</code> throughout the remaining steps).
+We'll call this name <code>YOUR_NAME</code>.</p><p>Next, create a new editor toolbar button.
+This is a tiddler in a specific format with the tag <a class="tc-tiddlylink tc-tiddlylink-shadow" href="%2524%253A%252Ftags%252FEditorToolbar.html">$:/tags/EditorToolbar</a>.
+You can start by cloning <a class="tc-tiddlylink tc-tiddlylink-shadow" href="%2524%253A%252Fplugins%252Fsobjornstad%252FTiddlyRemember%252Ftoolbar%252Frememberq.html">$:/plugins/sobjornstad/TiddlyRemember/toolbar/rememberq</a>
+    and changing <code>rememberq</code> in the title to <code>YOUR_NAME</code>.
+Fill in the fields as follows:</p><dl><dt><code>text</code></dt><dd>A macro call to <code>tr-insert-note</code> where the <code>snippet</code> argument transcludes the snippet you created in the first step: <code>&lt;$macrocall $name=tr-insert-note snippet={{$:/config/TiddlyRemember/snippets/YOUR_NAME}}&gt;</code>.</dd><dt><code>caption</code></dt><dd>Displayed next to the icon if icons + text mode is turned on in TiddlyWiki's interface.</dd><dt><code>description</code></dt><dd>Displayed when you hover over the toolbar button.</dd><dt><code>icon</code></dt><dd>Tiddler to display as an icon. To find available icons, try using the tag manager (<a class="tc-tiddlylink tc-tiddlylink-shadow" href="%2524%253A%252FTagManager.html">$:/TagManager</a>) to pretend to select an icon for a tag and note down the name of the tiddler you'd like to use.</dd><dt><code>shortcuts</code></dt><dd><code>((YOUR_NAME))</code>. TiddlyWiki will use this to look up the keyboard shortcut, which we'll set up in a moment.</dd></dl><p>Lastly, if you want to add a keyboard shortcut,
+    create a <code>$:/config/shortcuts/YOUR_NAME</code> tiddler whose <code>text</code> field contains the <a class="tc-tiddlylink-external" href="https://tiddlywiki.com/#Keyboard%20Shortcut%20Descriptor" rel="noopener noreferrer" target="_blank">keyboard shortcut descriptor</a>.
+This will look something like <code>ctrl-alt-shift-r</code>.
+If you'd like to be able to see and change the keyboard shortcut in the control panel,
+    you'll also need a <code>$:/config/ShortcutInfo/YOUR_NAME</code> tiddler
+    whose <code>text</code> field contains a description of what the shortcut does;
+    if you don't care about seeing the shortcut in the control panel, you can skip this step.</p></div>
+
+<div class="tc-tiddler-plugin-info tc-reveal"><p>
+</p></div></div></p>
+</section>
+</body>
+</html>
+

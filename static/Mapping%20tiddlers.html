@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="generator" content="TiddlyWiki" />
-<meta name="tiddlywiki-version" content="5.1.23" />
+<meta name="tiddlywiki-version" content="5.2.0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -11,15 +11,18 @@
 <meta name="format-detection" content="telephone=no">
 <link id="faviconLink" rel="shortcut icon" href="favicon.ico">
 <link rel="stylesheet" href="static.css">
-<title>Mapping tiddlers: TiddlyRemember — Embed Anki notes in your TiddlyWiki</title>
+<title>Mapping tiddlers: TiddlyRemember
+
+— Embed Anki notes in your TiddlyWiki
+</title>
 </head>
 <body class="tc-body">
 
 <section class="tc-story-river tc-static-story-river">
-<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists  tc-tagged-Configuring%20TiddlyRemember" data-tags="[[Configuring TiddlyRemember]]" data-tiddler-title="Mapping tiddlers"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><span class=" tc-reveal"><button aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span></span><span><h2 class="tc-title">Mapping tiddlers</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
-<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a>23rd May 2020 at 11:24am</div></div><div class=" tc-reveal">
-<div class="tc-tags-wrapper"><span class="tc-tag-list-item">
-<span class="tc-tag-label tc-btn-invisible" draggable="true" style="background-color:;
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists  tc-tagged-Configuring%20TiddlyRemember" data-tags="[[Configuring TiddlyRemember]]" data-tiddler-title="Mapping tiddlers"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">Mapping tiddlers</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a>28th September 2021 at 7:18pm</div></div><div class=" tc-reveal">
+<div class="tc-tags-wrapper"><span class="tc-tag-list-item" data-tag-title="Configuring TiddlyRemember">
+<span aria-expanded="false" class="tc-tag-label tc-btn-invisible" draggable="true" style="background-color:;
 fill:rgba(0, 0, 0, 0.87);
 color:rgba(0, 0, 0, 0.87);">
 Configuring TiddlyRemember
@@ -32,36 +35,36 @@ Configuring TiddlyRemember
     by overriding the configuration tiddlers
     <code>$:/config/TiddlyRemember/TagMapping</code>
     and <code>$:/config/TiddlyRemember/DeckMapping</code>.
-These tiddlers are empty in a base installation.
-You may populate them with a newline-separated list of TiddlyWiki filters.
-TiddlyRemember will run each filter
+These tiddlers are empty in a base installation,
+    but you can add as many TiddlyWiki filters to each as you like,
+    with each filter separated from the previous one by a newline/carriage return.</p><p>When syncing, TiddlyRemember will run each filter
     against the title of the tiddler your question is in
-    and track results across the filter runs.
+    and accumulate results across the filter runs.
 (If you're familiar with the way Node folder wikis
- use <code>$:/config/FileSystemPaths</code> to define folder structure,
+ use <code>$:/config/FileSystemPaths</code> <a class="tc-tiddlylink-external" href="https://tiddlywiki.com/#Customising%20Tiddler%20File%20Naming" rel="noopener noreferrer" target="_blank">to define folder structure</a>,
  this is the same idea.)</p><h2 class="">Tags</h2><p>For tags, all matches in any of the filters become tags,
-    duplicates excluded.
-If your tags contain spaces, the spaces will be turned into <code>_</code>
-    (Anki separates tags by spaces).
-If there are no results at all, the card gets no tags.</p><p>Here's an example tag mapping,
-    which passes through all tags set in TiddlyWiki
-    with the exception of the <code>Public</code> tag,
-    and additionally includes an <code>Important</code> tag
-    for questions in tiddlers with a <code>priority</code> field set to <code>high</code>:</p><pre><code>[tags[]] -[[Public]]
-[has[priority]get[priority]match[high]then[Important]]</code></pre><h2 class="">Decks</h2><p>Decks work similarly to tags.
+    ignoring duplicates.
+Any spaces in a tag will be converted to underscores <code>_</code>
+    (tags are space-separated in Anki, so they can't contain spaces).
+If there are no results at all, the card will have no tags.</p><h2 class="">Decks</h2><p>Decks work similarly to tags.
 However, since a card can only be in one deck,
     the first result returned by any of the filters wins
     and the remaining results are ignored.
 If there are no results at all,
-    the default deck specified in your Anki settings is used.
+    the default deck specified in <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Configuring%2520the%2520Anki%2520add-on.html">your Anki settings</a> is used.
 Decks will be created on sync if they don't exist,
-    but won't be deleted even if the sync makes them empty.</p></div>
+    but decks won't be deleted even if the sync makes them empty.</p><h2 class="">Examples</h2><p>A deck mapping to send all notes in this wiki to the <code>TiddlyRemember</code> deck:</p><pre><code>[[TiddlyRemember]]</code></pre><p>A deck mapping to send questions in tiddlers tagged <code>JavaScript</code> to the <code>Coding::JavaScript</code> deck,
+    questions in tiddlers tagged <code>CSS</code> to the <code>Coding::CSS</code> deck,
+    and questions in tiddlers with neither tag
+    to the default deck listed in the TiddlyRemember configuration in Anki:</p><pre><code>[tag[JavaScript]then[Coding::JavaScript]]
+[tag[CSS]then[Coding::CSS]]</code></pre><p>A tag mapping to pass through all tags set in TiddlyWiki
+    except the the <code>Public</code> tag,
+    and additionally add an <code>Important</code> tag
+    for questions in tiddlers with a <code>priority</code> field set to <code>high</code>:</p><pre><code>[tags[]] -[[Public]]
+[has[priority]get[priority]match[high]then[Important]]</code></pre></div>
 
 <div class="tc-tiddler-plugin-info tc-reveal"><p>
-</p></div>
-</div>
-
-</p>
+</p></div></div></p>
 </section>
 </body>
 </html>

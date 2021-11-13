@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="generator" content="TiddlyWiki" />
-<meta name="tiddlywiki-version" content="5.1.23" />
+<meta name="tiddlywiki-version" content="5.2.0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -11,15 +11,18 @@
 <meta name="format-detection" content="telephone=no">
 <link id="faviconLink" rel="shortcut icon" href="favicon.ico">
 <link rel="stylesheet" href="static.css">
-<title>Creating notes in TiddlyRemember: TiddlyRemember — Embed Anki notes in your TiddlyWiki</title>
+<title>Creating notes in TiddlyRemember: TiddlyRemember
+
+— Embed Anki notes in your TiddlyWiki
+</title>
 </head>
 <body class="tc-body">
 
 <section class="tc-story-river tc-static-story-river">
-<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists  tc-tagged-TiddlyRemember" data-tags="TiddlyRemember" data-tiddler-title="Creating notes in TiddlyRemember"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><span class=" tc-reveal"><button aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span></span><span><h2 class="tc-title">Creating notes in TiddlyRemember</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
-<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a>20th December 2020 at 1:23pm</div></div><div class=" tc-reveal">
-<div class="tc-tags-wrapper"><span class="tc-tag-list-item">
-<span class="tc-tag-label tc-btn-invisible" draggable="true" style="background-color:;
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists  tc-tagged-TiddlyRemember" data-tags="TiddlyRemember" data-tiddler-title="Creating notes in TiddlyRemember"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">Creating notes in TiddlyRemember</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a>13th November 2021 at 5:19pm</div></div><div class=" tc-reveal">
+<div class="tc-tags-wrapper"><span class="tc-tag-list-item" data-tag-title="TiddlyRemember">
+<span aria-expanded="false" class="tc-tag-label tc-btn-invisible" draggable="true" style="background-color:;
 fill:rgba(0, 0, 0, 0.87);
 color:rgba(0, 0, 0, 0.87);">
 TiddlyRemember
@@ -45,28 +48,51 @@ It's important that you do not reuse unique IDs (thus making them non-unique),
 as this will cause TiddlyRemember to randomly overwrite one question with another.
 To aid in creating unique IDs, when you use either of the TiddlyRemember editor toolbar buttons
 (the white and black lightbulbs),
-a unique ID consisting of the current millisecond timestamp will be inserted automatically.</p><p>After you add, edit, or remove questions in TiddlyWiki, you'll want to <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Syncing%2520TiddlyRemember%2520with%2520Anki.html">sync to Anki</a>.</p><h2 class="">What can I include in my notes?</h2><p>TiddlyRemember actually renders your tiddlers to HTML when you sync to Anki,
-    and the contents of TiddlyRemember macro parameters are wikified,
-    so you can include anything from basic wikitext formatting to transclusions,
+a unique ID consisting of the current millisecond timestamp will be inserted automatically.</p><p>After you add, edit, or remove questions in TiddlyWiki, you'll want to <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Syncing%2520TiddlyRemember%2520with%2520Anki.html">sync to Anki</a>.</p><h2 class="">What can I include in my notes?</h2><p>TiddlyRemember actually renders your tiddlers when you sync to Anki,
+    and the contents of TiddlyRemember macro parameters are wikified during this process,
+    so you can include anything from basic wikitext formatting to transclusions and macro calls,
     and the results will be displayed correctly both in your wiki and on your Anki cards.
-Starting in TiddlyRemember 1.2.0, most HTML will be preserved when synced to Anki,
-    from simple things like bold or italics to complex things like <code>&lt;span&gt;</code>s with custom classes.
-One exception is internal links;
+All HTML elements are preserved, except for internal links;
     since these don't work outside the context of TiddlyWiki,
-    they're converted to plain text in Anki.</p><p>Images work only if they point to external files
-    (not tiddlers within your TiddlyWiki)
-    that are accessible from all devices you review on.
-For instance, an image found on Wikimedia Commons
-    and linked with <code>[img [https://the/url]]</code> will work
-    (provided you have Internet access while studying),
-    while one you dragged and dropped into your wiki will not.
-Support for syncing media into Anki's media repository is planned for the future.</p><p>If you need to include double quotation marks in a note, use triple quotes for the macro parameter:</p><pre><code>&lt;&lt;rememberq &quot;20200523163414807&quot;
-    &quot;&quot;&quot;How do you include &quot;quotation marks&quot; within a macro parameter in TiddlyWiki?&quot;&quot;&quot;
-    &quot;Use triple quotation marks on the outside.&quot;
-&gt;&gt;</code></pre><p><div class="rememberq remembertwo">
+    they're converted to plain text in Anki.</p><p>Special notes:</p><details><summary>Images and audio</summary><p>Starting in TiddlyRemember 1.3.0,
+    images
+    (using the <code>&lt;img&gt;</code> HTML tag or anything that reduces to it,
+     like <code>[img [myimage]]</code> or <code>{{myimage}}</code>)
+    and audio
+    (using the <code>&lt;audio&gt;</code> HTML tag or <code>{{transcluding}}</code> an audio tiddler)
+    will be synced into Anki's media database.
+This works whether the source file is embedded in your TiddlyWiki,
+    uses the <code>_canonical_uri</code> <a class="tc-tiddlylink-external" href="https://tiddlywiki.com/#ExternalImages" rel="noopener noreferrer" target="_blank">field</a>,
+    or points directly at a web URL.
+If you later make changes to the images,
+    or your images are hotlinked to a URL and the live version changes,
+    the changes will also be synced to Anki.</p><p>To include external audio that you can play either in your wiki or in Anki,
+    you can use:</p><pre><code>&lt;audio control="control" src="THE URL TO THE AUDIO"&gt;&lt;/audio&gt;</code></pre><p>Additional attributes of the <code>&lt;img&gt;</code> tag, such as <code>width</code>, are preserved,
+    including on a round-trip if you <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Exporting%2520TiddlyRemember%2520macros%2520from%2520Anki.html">export TiddlyRemember macros from Anki</a>.
+All attributes of the <code>&lt;audio&gt;</code> tag except for <code>src</code> are lost
+    (this is a consequence of the way Anki handles audio references).</p><p>If you have a lot of images or audio,
+    it's recommended that you embed them in your wiki
+    or use a <code>_canonical_uri</code> location on your local computer or a fast local network,
+    because TiddlyRemember has to read all of them on every sync
+    to see if they've changed and need to be updated in Anki.
+Downloading them from the Internet repeatedly
+    will use an excessive amount of bandwidth
+    and make syncing much slower than necessary.</p></details><details><summary>Math markup</summary><p>KaTeX markup using the official "tiddlywiki/katex" plugin,
+    using either the <code>$$</code> or widget syntax,
+    is supported since TiddlyRemember 1.3.0.
+It will be converted to MathJax syntax with <code>\( \)</code> delimiters for inline math
+    and <code>\[ \]</code> delimiters for display math on sync,
+    since this is the implementation Anki uses.
+Any snippets so converted will be contained in HTML spans
+    with the class <code>tw-katex-inline</code> or <code>tw-katex-display</code>, respectively,
+    in case you want to style these snippets differently
+    or do something else special with them.</p></details><details><summary>Macro parameters containing quotation marks</summary><p>If you need to include double quotation marks in a note, use triple quotes for the macro parameter:</p><pre><code>&lt;&lt;rememberq "20200523163414807"
+    """How do you include "quotation marks" within a macro parameter in TiddlyWiki?"""
+    "Use triple quotation marks on the outside."
+&gt;&gt;</code></pre><p><div class="rememberq remembertwo  ">
         <div class="rquestion tr-ritem">
             <div>Q:</div>
-            <p>How do you include &quot;quotation marks&quot; within a macro parameter in TiddlyWiki?</p>
+            <p>How do you include "quotation marks" within a macro parameter in TiddlyWiki?</p>
         </div>
         <div class="ranswer tr-ritem">
             <div>A:</div>
@@ -83,14 +109,15 @@ Support for syncing media into Anki's media repository is planned for the future
 	<div class="tr-reference">
 		
 	</div>
-    </div></p><p>Some users have reported issues opening external links with <code>file://</code> URLs.
-See <a class="tc-tiddlylink tc-tiddlylink-resolves" href="External%2520links%2520to%2520files%2520cannot%2520be%2520opened.html">External links to files cannot be opened</a> for a possible workaround.</p><h2 class="">Advanced features</h2><ul><li>If you plan to transclude any tiddlers containing questions into other tiddlers, you'll want to read about <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Soft%2520and%2520hard%2520references.html">Soft and hard references</a>.</li><li>In many cases, you can <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Dynamically%2520generating%2520TiddlyRemember%2520notes.html">dynamically create questions</a> from data stored elsewhere in your wiki using filters.</li></ul></div>
+	<div class="tr-sched">
+		
+	</div>
+    </div></p></details><details><summary>External links</summary><p>Most external links should work directly from within Anki.
+Some users have reported issues opening external links with <code>file://</code> URLs;
+    see <a class="tc-tiddlylink tc-tiddlylink-resolves" href="External%2520links%2520to%2520files%2520cannot%2520be%2520opened.html">External links to files cannot be opened</a> for a possible workaround.</p></details><h2 class="">Advanced features</h2><ul><li>If you plan to transclude any tiddlers containing questions into other tiddlers, you'll want to read about <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Soft%2520and%2520hard%2520references.html">Soft and hard references</a>.</li><li>In many cases, you can <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Dynamically%2520generating%2520TiddlyRemember%2520notes.html">dynamically create questions</a> from data stored elsewhere in your wiki using filters.</li><li>If you have scheduling information from some source, you can <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Setting%2520initial%2520scheduling%2520information.html">set initial scheduling information</a> for your notes.</li><li>You can <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Applying%2520styles.html">apply styles</a> to individual notes or all notes in your wiki via built-in or custom CSS classes. This allows you to make arbitrary changes to the display of notes in TiddlyRemember without affecting what they look like once synced to Anki.</li></ul></div>
 
 <div class="tc-tiddler-plugin-info tc-reveal"><p>
-</p></div>
-</div>
-
-</p>
+</p></div></div></p>
 </section>
 </body>
 </html>

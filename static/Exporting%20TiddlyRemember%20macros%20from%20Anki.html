@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="generator" content="TiddlyWiki" />
+<meta name="tiddlywiki-version" content="5.2.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no">
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="static.css">
+<title>Exporting TiddlyRemember macros from Anki: TiddlyRemember
+
+— Embed Anki notes in your TiddlyWiki
+</title>
+</head>
+<body class="tc-body">
+
+<section class="tc-story-river tc-static-story-river">
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="Exporting TiddlyRemember macros from Anki"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">Exporting TiddlyRemember macros from Anki</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a>29th September 2021 at 10:34am</div></div><div class=" tc-reveal">
+<div class="tc-tags-wrapper"></div>
+</div>
+
+<div class="tc-tiddler-body tc-reveal"><p>You can <strong>export notes as TiddlyRemember macros</strong> from within Anki.
+This will produce a text file containing TiddlyWiki macro-call representations
+    of all the notes of a TiddlyRemember note type in the selected deck.
+You can use this to send your notes to a friend in a format they can add to their own wiki,
+    or to manually sync changes that you accidentally made directly in Anki
+    back to your wiki.</p><p>To do an export,
+    choose File &gt; Export, select any deck that you want to limit your changes to,
+    then select the <em>TiddlyRemember macros</em> export format.
+A <code>.tid</code> file will be exported containing appropriate macro calls.</p><p>If you choose to include scheduling information,
+    a <code>sched</code> <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Setting%2520initial%2520scheduling%2520information.html">parameter</a> will be included for review cards,
+    allowing the macros to be synced to a different Anki collection
+    without losing the scheduling information
+    (the history of reviews you've carried out will be lost,
+    but the parameters needed to determine when to show the cards again will be saved).
+Notes with multiple cards (e.g., pair notes or cloze notes with multiple occlusions)
+    will use the first card's scheduling information for all cards,
+    since TiddlyRemember doesn't support using different initial scheduling information for different cards.
+New cards won't have any scheduling information attached at all.</p><p>Media is not included in the export,
+    but the filenames used in Anki's media folder will be preserved in the macro calls.
+So if you also import the relevant media files from Anki's media folder
+    (the <code>collection.media</code> folder in your <a class="tc-tiddlylink-external" href="https://docs.ankiweb.net/files.html#file-locations" rel="noopener noreferrer" target="_blank">profile folder</a>)
+    into the wiki where you're using the macros
+    (via drag and drop or another convenient method),
+    the media will work in the wiki as well.</p><p><em>Note</em>: The export only works for <strong>notes of a TiddlyRemember note type</strong>;
+    any other notes will be ignored during the export.
+If you have notes of other note types that you want to export,
+    you'll first need to change their note type
+    to one of the <code>TiddlyRemember...</code> note types
+    and populate the ID field with unique values
+    (the <a class="tc-tiddlylink-external" href="https://ankiweb.net/shared/info/1672832404" rel="noopener noreferrer" target="_blank">Add Note ID</a> Anki add-on can be used to accomplish this).</p></div>
+
+<div class="tc-tiddler-plugin-info tc-reveal"><p>
+</p></div></div></p>
+</section>
+</body>
+</html>
+

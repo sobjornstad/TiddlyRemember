@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="generator" content="TiddlyWiki" />
+<meta name="tiddlywiki-version" content="5.2.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no">
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="static.css">
+<title>Applying styles: TiddlyRemember
+
+— Embed Anki notes in your TiddlyWiki
+</title>
+</head>
+<body class="tc-body">
+
+<section class="tc-story-river tc-static-story-river">
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="Applying styles"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">Applying styles</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a>25th September 2021 at 11:20am</div></div><div class=" tc-reveal">
+<div class="tc-tags-wrapper"></div>
+</div>
+
+<div class="tc-tiddler-body tc-reveal"><p>All of the TiddlyRemember macros accept a <code>class</code> parameter,
+    which can contain one or more space-separated CSS class names to add
+    to the root <code>&lt;div&gt;</code> (or <code>&lt;span&gt;</code>, for inline clozes)
+    of the note when it's displayed in TiddlyWiki.
+By defining an appropriate class, you can display TiddlyRemember notes however you like.</p><p>For instance, suppose you want the answer to appear in blue:</p><pre><code>&lt;&lt;rememberq "20210925142322074"
+	"Is it possible to make TiddlyRemember display answers in blue?"
+	"You bet!"
+    class:"blue-answer"&gt;&gt;
+
+&lt;style&gt;
+.blue-answer div.ranswer {
+    color: blue;
+}
+&lt;/style&gt;</code></pre><p><div class="rememberq remembertwo blue-answer ">
+        <div class="rquestion tr-ritem">
+            <div>Q:</div>
+            <p>Is it possible to make TiddlyRemember display answers in blue?</p>
+        </div>
+        <div class="ranswer tr-ritem">
+            <div>A:</div>
+            <p>You bet!</p>
+        </div>
+		<div class="tr-selfidentification">
+		
+			[20210925142322074]
+		
+	</div>
+	<div class="rid">
+		[20210925142322074]
+	</div>
+	<div class="tr-reference">
+		
+	</div>
+	<div class="tr-sched">
+		
+	</div>
+    </div></p><p><style>
+.blue-answer div.ranswer {
+    color: blue;
+}
+</style></p><p>The <code>blue-answer</code> class is applied to the div representing the question/answer pair.
+Our CSS rule then applies a blue color to all divs with the class <code>ranswer</code>
+    that are children of elements with the <code>blue-answer</code> class.
+<code>ranswer</code> is a class used on the answer component of questions;
+    the fastest way to figure out what class to use is to open your browser's devtools
+    and inspect an existing TiddlyRemember note.</p><p>A common application is to hide part of the note.
+For instance, suppose you don't care about the ID/reference and don't want it in your way:</p><pre><code>&lt;&lt;remembercz "20210925142914310"
+	"You can hide an element in CSS with {display: none}."
+    class:hide-id&gt;&gt;
+
+&lt;style&gt;
+.hide-id div.tr-selfidentification {
+    display: none;
+&lt;/style&gt;</code></pre><p>
+	
+		<div class="remembercz hide-id ">
+		<span class="cloze-identifier"><span class="tr-name-cloze">cloze: </span></span>
+		<span class="cloze-display">You can hide an element in CSS with {display: none}.</span>
+		<span class="cloze-text">You can hide an element in CSS with {display: none}.</span>
+		<div class="tr-selfidentification">
+		
+			[20210925142914310]
+		
+	</div>
+	<div class="rid">
+		[20210925142914310]
+	</div>
+	<div class="tr-reference">
+		
+	</div>
+	<div class="tr-sched">
+		
+	</div>
+	</div>
+	</p><p><style>
+.hide-id div.tr-selfidentification {
+    display: none;
+</style></p><p>Once you've worked out the appropriate CSS rule, you'll likely want to place it in a tiddler tagged <a class="tc-tiddlylink tc-tiddlylink-missing" href="%2524%253A%252Ftags%252FStylesheet.html">$:/tags/Stylesheet</a> so that you can apply it in any tiddler, rather than leaving it in a <code>&lt;style&gt;</code> tags where it will only work on a single tiddler.</p><h2 class="">Built-in classes</h2><p>The following classes are available out of the box:</p><dl><dt><code>tr-hide-id</code></dt><dd>Don't display the ID number or reference.</dd><dt><code>tr-hide-inline-cloze-id</code></dt><dd>Don't display the ID number or reference, but only if the note is an inline cloze.</dd><dt><code>tr-hide-inline-cloze-name</code></dt><dd>Hide the word <code>cloze</code> on inline clozes.</dd></dl><p>If you have a class you think would be broadly useful to TiddlyRemember users, feel free to add it to the appropriate section of the <a class="tc-tiddlylink-external" href="https://github.com/sobjornstad/TiddlyRemember/blob/master/tw-plugin/stylesheets/remember.css" rel="noopener noreferrer" target="_blank">remember.css stylesheet</a> and submit a pull request.</p><h2 class="">Default classes</h2><p>If you want to apply a class to <em>every</em> TiddlyRemember note in your wiki
+    (for instance, you never want to see the word <code>cloze</code> on inline clozes),
+    add its name to <a class="tc-tiddlylink tc-tiddlylink-shadow" href="%2524%253A%252Fconfig%252FTiddlyRemember%252FDefaultClasses.html">$:/config/TiddlyRemember/DefaultClasses</a>.
+The format here is exactly the same as the <code>class</code> parameter of macros
+    (space-separated CSS class names).</p><h2 class="">Related</h2><p>If you want to change the display of content in <em>Anki</em> and not in your wiki,
+    you can do that by <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Editing%2520card%2520templates.html">editing the card templates</a>.</p></div>
+
+<div class="tc-tiddler-plugin-info tc-reveal"><p>
+</p></div></div></p>
+</section>
+</body>
+</html>
+

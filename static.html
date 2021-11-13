@@ -3,14 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="generator" content="TiddlyWiki" />
-<meta name="tiddlywiki-version" content="5.1.23" />
+<meta name="tiddlywiki-version" content="5.2.0" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="format-detection" content="telephone=no">
 <link id="faviconLink" rel="shortcut icon" href="favicon.ico">
-<title>TiddlyRemember — Embed Anki notes in your TiddlyWiki</title>
+<title>TiddlyRemember
+
+— Embed Anki notes in your TiddlyWiki
+</title>
 <div id="styleArea">
 <style data-tiddler-title="$:/boot/boot.css" data-tiddler-type="text/css" type="text/css">/*
 Basic styles used before we boot up the parsing engine
@@ -393,17 +396,19 @@ summary {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 }input[type="search"] {
-  outline-offset: initial;
+	outline-offset: initial;
 }html button {
 	line-height: 1.2;
 	color: inherit;
 	fill: inherit;
 	background: transparent;
 	border-color: #ec6;
+}button:disabled svg {
+	fill: rgba(0, 0, 0, 0.54);
 }/*
 ** Basic element styles
 */html, body {
-	font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;;
 	text-rendering: optimizeLegibility; /* Enables kerning and ligatures etc. */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -426,7 +431,7 @@ summary {
 	font-size: 2em;
 }h1, h2, h3, h4, h5, h6 {
 	line-height: 1.2;
-	font-weight: 300;
+	font-weight: normal;
 }pre {
 	display: block;
 	margin-top: 1em;
@@ -463,7 +468,7 @@ summary {
 	margin-left: 50px;
 	margin-right: 50px;
 	padding: 10px;
-    border-radius: 8px;
+	border-radius: 8px;
 }blockquote.tc-big-quote cite:before {
 	content: "\2014 \2009";
 }blockquote.tc-big-quote:before {
@@ -475,8 +480,8 @@ summary {
 	margin-right: 0.25em;
 	vertical-align: -0.4em;
 	position: absolute;
-    left: -50px;
-    top: 42px;
+	left: -50px;
+	top: 42px;
 }blockquote.tc-big-quote:after {
 	font-family: Georgia, serif;
 	color: #f4f4f4;
@@ -486,8 +491,8 @@ summary {
 	margin-right: 0.25em;
 	vertical-align: -0.4em;
 	position: absolute;
-    right: -80px;
-    bottom: -20px;
+	right: -80px;
+	bottom: -20px;
 }dl dt {
 	font-weight: bold;
 	margin-top: 6px;
@@ -501,7 +506,7 @@ input:not([type]) {
 	color: rgba(0, 0, 0, 0.87);
 	background: #FAFAFA;
 }input[type="checkbox"] {
-  vertical-align: middle;
+	vertical-align: middle;
 }input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
@@ -627,6 +632,8 @@ a.tc-tiddlylink:hover {
 }.tc-tiddler-dragger-cover {
 	position: absolute;
 	background-color: #f4f4f4;
+}.tc-page-container > .tc-dropzone {
+	min-height: 100vh;
 }.tc-dropzone {
 	position: relative;
 }.tc-dropzone.tc-dragover:before {
@@ -678,6 +685,9 @@ a.tc-tiddlylink:hover {
 	cursor: pointer;
 	color: rgba(0, 0, 0, 0.87);
 	fill: rgba(0, 0, 0, 0.87);
+}button:disabled.tc-btn-invisible  {
+	cursor: default; 
+	color: rgba(0, 0, 0, 0.54);
 }.tc-btn-boxed {
 	font-size: 0.6em;
 	padding: 0.2em;
@@ -715,8 +725,7 @@ a.tc-tiddlylink:hover {
 	width: 1em;
 	fill: rgba(0, 0, 0, 0.54);
 }.tc-btn-text {
-	padding: 0;
-	margin: 0;
+	margin-left: 7px;
 }/* used for documentation "fake" buttons */
 .tc-btn-standard {
 	line-height: 1.8;
@@ -744,7 +753,7 @@ a.tc-tiddlylink:hover {
 	vertical-align: middle;
 	fill: #FAFAFA;
 }.tc-primary-btn {
- 	background: #3949ab;
+	background: #3949ab;
 }.tc-sidebar-lists input {
 	color: rgba(0, 0, 0, 0.87);
 }.tc-sidebar-lists button {
@@ -804,9 +813,10 @@ a.tc-tiddlylink:hover {
 */.tc-tag-list-item {
 	position: relative;
 	display: inline-block;
-	margin-right: 7px;
 }.tc-tags-wrapper {
 	margin: 4px 0 14px 0;
+}.tc-tags-wrapper .tc-tag-list-item {
+	margin-right: 7px;
 }.tc-missing-tiddler-label {
 	font-style: italic;
 	font-weight: normal;
@@ -821,7 +831,7 @@ a.tc-tiddlylink:hover {
 	display: inline-block;
 	padding: 0.16em 0.7em;
 	font-size: 0.9em;
-	font-weight: 400;
+	font-weight: normal;
 	line-height: 1.2em;
 	color: inherit;
 	white-space: nowrap;
@@ -842,7 +852,7 @@ a.tc-tiddlylink:hover {
 }.tc-tag-label svg, .tc-tag-label img {
 	height: 1em;
 	width: 1em;
-	margin-right: 3px; 
+	margin-right: 3px;
 	margin-bottom: 1px;
 	vertical-align: bottom;
 }.tc-edit-tags button.tc-remove-tag-button svg {
@@ -883,7 +893,7 @@ a.tc-tiddlylink:hover {
 	color: rgba(0, 0, 0, 0.54);
 	fill: rgba(0, 0, 0, 0.54);
 }.tc-sidebar-header .tc-title a.tc-tiddlylink-resolves {
-	font-weight: 300;
+	font-weight: normal;
 }.tc-sidebar-header .tc-sidebar-lists p {
 	margin-top: 3px;
 	margin-bottom: 3px;
@@ -899,7 +909,7 @@ a.tc-tiddlylink:hover {
 	margin-top: 14px;
 	font-size: 1.5em;
 }.tc-page-controls .tc-drop-down {
-  font-size: 1rem;
+	font-size: 1rem;
 }.tc-page-controls button {
 	margin-right: 0.5em;
 }.tc-page-controls a.tc-tiddlylink:hover {
@@ -975,6 +985,7 @@ a.tc-tiddlylink:hover {
 	border: 1px solid #f9f9f9;
 }
 .tc-tiddler-info {
+	overflow: hidden;
 	padding: 14px 42px 14px 42px;
 	background-color: #F5F5F5;
 	border-top: 1px solid #F5F5F5;
@@ -993,8 +1004,9 @@ a.tc-tiddlylink:hover {
 	width: 1%; /* Makes this column be as narrow as possible */
 	text-align: right;
 	font-style: italic;
-	font-weight: 200;
+	font-weight: normal;
 }.tc-view-field-value {
+	word-break: break-all;
 }@media (max-width: 999px) {
 	.tc-tiddler-frame {
 		padding: 14px 14px 14px 14px;
@@ -1012,7 +1024,7 @@ a.tc-tiddlylink:hover {
 	}
 }.tc-site-title,
 .tc-titlebar {
-	font-weight: 300;
+	font-weight: normal;
 	font-size: 2.35em;
 	line-height: 1.35em;
 	color: #000000;
@@ -1032,12 +1044,12 @@ a.tc-tiddlylink:hover {
 }.tc-subtitle {
 	font-size: 0.9em;
 	color: rgba(0, 0, 0, 0.54);
-	font-weight: 300;
+	font-weight: normal;
 }.tc-subtitle .tc-tiddlylink {
 	margin-right: .3em;
 }.tc-tiddler-missing .tc-title {
-  font-style: italic;
-  font-weight: normal;
+	font-style: italic;
+	font-weight: normal;
 }.tc-tiddler-frame .tc-tiddler-controls {
 	float: right;
 }.tc-tiddler-controls .tc-drop-down {
@@ -1055,9 +1067,9 @@ a.tc-tiddlylink:hover {
 }.tc-tiddler-controls button svg, .tc-tiddler-controls button img {
 	height: 0.75em;
 }.tc-search button svg, .tc-search a svg {
-    height: 1.2em;
-    width: 1.2em;
-    margin: 0 0.25em;
+	height: 1.2em;
+	width: 1.2em;
+	margin: 0 0.25em;
 }.tc-tiddler-controls button.tc-selected svg,
 .tc-page-controls button.tc-selected svg  {
 	fill: #aeaeae;
@@ -1159,6 +1171,11 @@ a.tc-tiddlylink:hover {
 	width: auto;
 }.tc-editor-toolbar .tc-search-results {
 	padding: 0;
+}.tc-editor-toolbar button.tc-editortoolbar-stamp-button + .tc-popup .tc-drop-down > p {
+	margin: 0;
+	padding: 0;
+}.tc-editor-toolbar button.tc-editortoolbar-stamp-button + .tc-popup .tc-drop-down a.tc-tiddlylink {
+	font-weight: normal;
 }/*
 ** Adjustments for fluid-fixed mode
 */@media (min-width: 1000px) {.tc-story-river {
@@ -1181,23 +1198,23 @@ a.tc-tiddlylink:hover {
 	}}/*
 ** Toolbar buttons
 */.tc-page-controls svg.tc-image-new-button {
-  fill: ;
+	fill: ;
 }.tc-page-controls svg.tc-image-options-button {
-  fill: ;
+	fill: ;
 }.tc-page-controls svg.tc-image-save-button {
-  fill: ;
+	fill: ;
 }.tc-tiddler-controls button svg.tc-image-info-button {
-  fill: ;
+	fill: ;
 }.tc-tiddler-controls button svg.tc-image-edit-button {
-  fill: ;
+	fill: ;
 }.tc-tiddler-controls button svg.tc-image-close-button {
-  fill: ;
+	fill: ;
 }.tc-tiddler-controls button svg.tc-image-delete-button {
-  fill: ;
+	fill: ;
 }.tc-tiddler-controls button svg.tc-image-cancel-button {
-  fill: ;
+	fill: ;
 }.tc-tiddler-controls button svg.tc-image-done-button {
-  fill: ;
+	fill: ;
 }/*
 ** Tiddler edit mode
 */.tc-tiddler-edit-frame em.tc-edit {
@@ -1274,6 +1291,45 @@ a.tc-tiddlylink:hover {
 	display: inline-block;
 	width: 10%;
 }/*
+** Tiddler editor dropzone
+*/.tc-dropzone-editor {
+	position:relative;
+}.tc-dropzone-editor.tc-dragover .tc-editor-toolbar::after{
+	z-index: 10000;
+	top:0;
+	left:0;
+	right:0;
+	height: 100%;
+	background: #ec6;
+	content: "Drop here (or use the 'Escape' key to cancel)";
+	pointer-events: none;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #FAFAFA;
+	border: 4px dashed rgba(0, 0, 0, 0.12);
+	font-weight: bold;
+	font-size: 150%;
+	opacity: 0.8;
+	color: rgba(0, 0, 0, 0.87);
+}.tc-editor-importpopup {
+	width: 100%;
+	height: 100%;
+}.tc-editor-import {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: #ececec;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.87);
+	padding: 10px;
+	width: 96%;
+	border: 1px solid #c6c6c6;
+	text-align:center;
+}.tc-editor-import img {
+	max-height: 500px;
+}/*
 ** Storyview Classes
 */.tc-viewswitcher .tc-image-button {
 	margin-right: .3em;
@@ -1306,6 +1362,8 @@ a.tc-tiddlylink:hover {
 	margin-left: 14px;
 }.tc-drop-down button svg, .tc-drop-down a svg  {
 	fill: rgba(0, 0, 0, 0.87);
+}.tc-drop-down button:disabled svg {
+	fill: rgba(0, 0, 0, 0.54);
 }.tc-drop-down button.tc-btn-invisible:hover svg {
 	fill: #FAFAFA;
 }.tc-drop-down .tc-drop-down-info {
@@ -1326,10 +1384,10 @@ a.tc-tiddlylink:hover {
 	line-height: 1.4;
 }.tc-drop-down .tc-tab-set .tc-tab-buttons button {
 	display: inline-block;
-    width: auto;
-    margin-bottom: 0px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+	width: auto;
+	margin-bottom: 0px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
 }.tc-drop-down .tc-prompt {
 	padding: 0 14px;
 }.tc-drop-down .tc-chooser {
@@ -1487,6 +1545,8 @@ a.tc-tiddlylink:hover {
 	text-align: right;
 	background-color: #FAFAFA;
 	border-top: 1px solid rgba(0, 0, 0, 0.12);
+}.tc-modal-prevent-scroll {
+	overflow: hidden;
 }/*
 ** Centered modals
 */
@@ -1536,7 +1596,7 @@ a.tc-tiddlylink:hover {
 	color: rgba(0, 0, 0, 0.54);
 	padding: 3px 5px 3px 5px;
 	margin-right: 0.3em;
-	font-weight: 300;
+	font-weight: normal;
 	border: none;
 	background: inherit;
 	background-color: transparent;
@@ -1621,9 +1681,9 @@ a.tc-tiddlylink:hover {
 	border-left: 1px solid rgba(0, 0, 0, 0.54);
 	border-right: 1px solid rgba(0, 0, 0, 0.54);
 }.tc-manager-list-item {}.tc-manager-list-item-heading {
-    display: block;
-    width: 100%;
-    text-align: left;	
+	display: block;
+	width: 100%;
+	text-align: left;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.54);
 	padding: 3px;
 }.tc-manager-list-item-heading-selected {
@@ -1637,20 +1697,20 @@ a.tc-tiddlylink:hover {
 }.tc-manager-list-item-content {
 	display: flex;
 }.tc-manager-list-item-content-sidebar {
-    flex: 1 0;
-    background: transparent;
-    border-right: 0.5em solid rgba(0, 0, 0, 0.54);
-    border-bottom: 0.5em solid rgba(0, 0, 0, 0.54);
-    white-space: nowrap;
+	flex: 1 0;
+	background: transparent;
+	border-right: 0.5em solid rgba(0, 0, 0, 0.54);
+	border-bottom: 0.5em solid rgba(0, 0, 0, 0.54);
+	white-space: nowrap;
 }.tc-manager-list-item-content-item-heading {
 	display: block;
 	width: 100%;
 	text-align: left;
-    background: rgba(0, 0, 0, 0.54);
+	background: rgba(0, 0, 0, 0.54);
 	text-transform: uppercase;
 	font-size: 0.6em;
 	font-weight: bold;
-    padding: 0.5em 0 0.5em 0;
+	padding: 0.5em 0 0.5em 0;
 }.tc-manager-list-item-content-item-body {
 	padding: 0 0.5em 0 0.5em;
 }.tc-manager-list-item-content-item-body > pre {
@@ -1658,10 +1718,10 @@ a.tc-tiddlylink:hover {
 	border: none;
 	background: inherit;
 }.tc-manager-list-item-content-tiddler {
-    flex: 3 1;
-    border-left: 0.5em solid rgba(0, 0, 0, 0.54);
-    border-right: 0.5em solid rgba(0, 0, 0, 0.54);
-    border-bottom: 0.5em solid rgba(0, 0, 0, 0.54);
+	flex: 3 1;
+	border-left: 0.5em solid rgba(0, 0, 0, 0.54);
+	border-right: 0.5em solid rgba(0, 0, 0, 0.54);
+	border-bottom: 0.5em solid rgba(0, 0, 0, 0.54);
 }.tc-manager-list-item-content-item-body > table {
 	border: none;
 	padding: 0;
@@ -1708,14 +1768,14 @@ a.tc-tiddlylink:hover {
 	position: absolute;
 	top: 7px;
 	right: 7px;
-    line-height: 0;
+	line-height: 0;
 }.tc-alert-toolbar svg {
 	fill: rgba(0, 0, 0, 0.54);
 }.tc-alert-subtitle {
 	color: rgba(0, 0, 0, 0.54);
 	font-weight: bold;
-    font-size: 0.8em;
-    margin-bottom: 0.5em;
+	font-size: 0.8em;
+	margin-bottom: 0.5em;
 }.tc-alert-body > p {
 	margin: 0;
 }.tc-alert-highlight {
@@ -1768,9 +1828,9 @@ a.tc-tiddlylink:hover {
 	background-color: #FAFAFA;
 	margin: 0.5em 0 0.5em 0;
 	padding: 4px;
-    align-items: center;
+	align-items: center;
 }.tc-plugin-info-sub-plugins .tc-plugin-info {
-    margin: 0.5em;
+	margin: 0.5em;
 	background: #FAFAFA;
 }.tc-plugin-info-sub-plugin-indicator {
 	margin: -16px 1em 0 2em;
@@ -1778,8 +1838,8 @@ a.tc-tiddlylink:hover {
 	color: #FAFAFA;
 	background: rgba(0, 0, 0, 0.87);
 	border-radius: 8px;
-    padding: 2px 7px;
-    font-size: 0.75em;
+	padding: 2px 7px;
+	font-size: 0.75em;
 }.tc-plugin-info-sub-plugins .tc-plugin-info-dropdown {
 	margin-left: 1em;
 	margin-right: 1em;
@@ -1797,7 +1857,7 @@ a.tc-tiddlylink:hover {
 }a.tc-tiddlylink.tc-plugin-info:hover > .tc-plugin-info-chunk > svg {
 	fill: #FAFAFA;
 }.tc-plugin-info-chunk {
-    margin: 2px;
+	margin: 2px;
 }.tc-plugin-info-chunk.tc-plugin-info-toggle {
 	flex-grow: 0;
 	flex-shrink: 0;
@@ -1813,7 +1873,7 @@ a.tc-tiddlylink:hover {
 	line-height: 1.2;
 	flex-grow: 0;
 	flex-shrink: 0;
-    text-align: right;
+	text-align: right;
 }.tc-plugin-info-chunk.tc-plugin-info-description h1 {
 	font-size: 1em;
 	line-height: 1.2;
@@ -1846,7 +1906,7 @@ a.tc-tiddlylink:hover {
 	background: #FAFAFA;
 }.tc-plugin-info-sub-plugins {
 	padding: 0.5em;
-    margin: 0 1em 1em 1em;
+	margin: 0 1em 1em 1em;
 	background: #FFFFFF;
 }.tc-install-plugin {
 	font-weight: bold;
@@ -1877,7 +1937,7 @@ a.tc-tiddlylink:hover {
 }.tc-message-box svg {
 	width: 1em;
 	height: 1em;
-    vertical-align: text-bottom;
+	vertical-align: text-bottom;
 }/*
 ** Pictures
 */.tc-bordered-image {
@@ -1968,11 +2028,11 @@ a.tc-tiddlylink:hover {
 	font-weight: normal;
 }.tc-table-of-contents li li li {
 	font-size: 0.95em;
-	font-weight: 200;
+	font-weight: normal;
 	line-height: 1.5;
 }.tc-table-of-contents li li li li {
 	font-size: 0.95em;
-	font-weight: 200;
+	font-weight: normal;
 }.tc-tabbed-table-of-contents {
 	display: -webkit-flex;
 	display: flex;
@@ -2138,10 +2198,10 @@ a.tc-tiddlylink:hover {
 	font-weight: normal;
 	font-style: italic;
 }.tc-diff-tiddlers pre {
-    margin: 0;
-    padding: 0;
-    border: none;
-    background: none;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: none;
 }/*
 ** Errors
 */.tc-error {
@@ -2150,26 +2210,26 @@ a.tc-tiddlylink:hover {
 }/*
 ** Tree macro
 */.tc-tree div {
-    	padding-left: 14px;
+	padding-left: 14px;
 }.tc-tree ol {
-    	list-style-type: none;
-    	padding-left: 0;
-    	margin-top: 0;
+	list-style-type: none;
+	padding-left: 0;
+	margin-top: 0;
 }.tc-tree ol ol {
-    	padding-left: 1em;    
-}.tc-tree button { 
-    	color: #acacac;
+	padding-left: 1em;
+}.tc-tree button {
+	color: #acacac;
 }.tc-tree svg {
-     	fill: #acacac;
+	fill: #acacac;
 }.tc-tree span svg {
-    	width: 1em;
-    	height: 1em;
-    	vertical-align: baseline;
+	width: 1em;
+	height: 1em;
+	vertical-align: baseline;
 }.tc-tree li span {
-    	color: lightgray;
+	color: lightgray;
 }select {
-        color: rgba(0, 0, 0, 0.87);
-        background: #FAFAFA;
+	color: rgba(0, 0, 0, 0.87);
+	background: #FAFAFA;
 }/*
 ** Utility classes for SVG icons
 */.tc-fill-background {
@@ -2189,7 +2249,14 @@ a.tc-tiddlylink:hover {
 	flex-grow: 2;
 }/*
 ** Other utility classes
-*/.tc-small-gap {
+*/.tc-tiny-gap {
+	margin-left: .25em;
+	margin-right: .25em;
+}.tc-tiny-gap-left {
+	margin-left: .25em;
+}.tc-tiny-gap-right {
+	margin-right: .25em;
+}.tc-small-gap {
 	margin-left: .5em;
 	margin-right: .5em;
 }.tc-small-gap-left {
@@ -2233,12 +2300,68 @@ div.remembertwo {
 	float: right;
 	margin-left: 0.5em;
 	color: rgba(0, 0, 0, 0.54);
-}/* the separate reference and ID fields are only for TR's benefit */
+}/* these separate fields are only read by the TR parser */
 div.remembertwo div.tr-reference, .remembercz div.tr-reference {
 	display: none;
 }div.remembertwo div.rid, .remembercz div.rid {
 	display: none;
+}div.remembertwo div.tr-sched, .remembercz div.tr-sched {
+	display: none;
+}.remembercz > span.cloze-text {
+	display: none;
+}/***** Built-in classes for common format customizations; apply to the class: parameter to macros *****/
+/* Hide the ID field */
+.tr-hide-id div.tr-selfidentification {
+	display: none;
+}/* Hide the ID only if it's an inline cloze */
+span.remembercz.tr-hide-inline-cloze-id div.tr-selfidentification {
+	display: none;
+}/* Hide the word "cloze" on inline clozes */
+span.remembercz.tr-hide-inline-cloze-name span.cloze-identifier span.tr-name-cloze {
+	display: none;
 }
+
+/* details and summary colours */details {
+   background-color: rgba(0, 0, 0, 0.04);
+   color: rgba(0, 0, 0, 0.87);
+}details summary {
+   background-color: #F5F5F5;
+}details.notification summary {
+    background-color: #FFFFFF;
+    /* TW leaves color undefined/uses foreground */
+}details.warning summary {
+    background-color: #ffbbaf;
+    color: #000;
+}details.success summary {
+    background-color: #88edc5;
+    color: #000;
+}
+
+
+/* details and summary */details {
+   transition: height 1s ease;
+   padding: 0 0.5em 0 0.66em;
+   margin-top: 0.66em;
+   margin-bottom: 0.66em;
+}details + details {
+   margin-top: -0.46em;
+}details[open] {
+   padding-bottom: 1em;
+}details:not([open]) { 
+   cursor: pointer;
+}details > summary {
+   display: list-item;
+   margin: 0 -0.5em 0 -0.66em;
+   padding: 0.2em 0.5em 0.2em 0.66em;
+   padding-left: 1.76em;  /* adjust for indentation */
+   text-indent: -1.1em;
+   cursor: pointer;
+}details[open] > summary {
+   margin-bottom: 1em;
+}details[open] > *:first-child:not(summary) {
+   margin-top: 1em;
+}
+
 
 
 </style>
@@ -2249,22 +2372,7 @@ div.remembertwo div.tr-reference, .remembercz div.tr-reference {
 <button aria-label="hide sidebar" class="tc-btn-invisible tc-hide-sidebar-btn" title="Hide sidebar"><svg class="tc-image-chevron-right tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M83.456 63.947c0 2.027-.77 4.054-2.316 5.6l-55.98 55.98a7.92 7.92 0 01-11.196 0c-3.085-3.086-3.092-8.105 0-11.196L64.344 63.95 13.963 13.567a7.92 7.92 0 010-11.195c3.086-3.085 8.105-3.092 11.196 0l55.98 55.98a7.892 7.892 0 012.317 5.595z"></path><path d="M122.069 63.947c0 2.027-.77 4.054-2.316 5.6l-55.98 55.98a7.92 7.92 0 01-11.196 0c-3.085-3.086-3.092-8.105 0-11.196l50.382-50.382-50.382-50.382a7.92 7.92 0 010-11.195c3.086-3.085 8.104-3.092 11.196 0l55.98 55.98a7.892 7.892 0 012.316 5.595z"></path></g></svg></button>
 
 
-</span><div class="tc-sidebar-scrollable" style="overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;"><div><div class="tc-sidebar-header"><div class=" tc-reveal"><div class=" tc-reveal"><h1 class="tc-site-title">TiddlyRemember</h1></div><div class=" tc-reveal"><div class="tc-site-subtitle">Embed Anki notes in your TiddlyWiki</div></div><div class=" tc-reveal"><p><div class="tc-page-controls"><button aria-label="new tiddler" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fnew-tiddler" title="Create a new tiddler"><svg class="tc-image-new-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M56 72H8.007C3.591 72 0 68.418 0 64c0-4.41 3.585-8 8.007-8H56V8.007C56 3.591 59.582 0 64 0c4.41 0 8 3.585 8 8.007V56h47.993c4.416 0 8.007 3.582 8.007 8 0 4.41-3.585 8-8.007 8H72v47.993c0 4.416-3.582 8.007-8 8.007-4.41 0-8-3.585-8-8.007V72z" fill-rule="evenodd"></path></svg></button><button aria-label="control panel" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fcontrol-panel " title="Open control panel">
-
-<svg class="tc-image-options-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M110.488 76a47.712 47.712 0 01-5.134 12.384l6.724 6.724c3.123 3.123 3.132 8.192.011 11.313l-5.668 5.668c-3.12 3.12-8.186 3.117-11.313-.01l-6.724-6.725c-3.82 2.258-7.98 4-12.384 5.134v9.505c0 4.417-3.578 8.007-7.992 8.007h-8.016C55.58 128 52 124.415 52 119.993v-9.505a47.712 47.712 0 01-12.384-5.134l-6.724 6.725c-3.123 3.122-8.192 3.131-11.313.01l-5.668-5.668c-3.12-3.12-3.116-8.186.01-11.313l6.725-6.724c-2.257-3.82-4-7.98-5.134-12.384H8.007C3.591 76 0 72.422 0 68.01v-8.017C0 55.58 3.585 52 8.007 52h9.505a47.712 47.712 0 015.134-12.383l-6.724-6.725c-3.123-3.122-3.132-8.191-.011-11.312l5.668-5.669c3.12-3.12 8.186-3.116 11.313.01l6.724 6.725c3.82-2.257 7.98-4 12.384-5.134V8.007C52 3.591 55.578 0 59.992 0h8.016C72.42 0 76 3.585 76 8.007v9.505a47.712 47.712 0 0112.384 5.134l6.724-6.724c3.123-3.123 8.192-3.132 11.313-.01l5.668 5.668c3.12 3.12 3.116 8.186-.01 11.312l-6.725 6.725c2.257 3.82 4 7.979 5.134 12.383h9.505c4.416 0 8.007 3.578 8.007 7.992v8.017c0 4.411-3.585 7.991-8.007 7.991h-9.505zM64 96c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z" fill-rule="evenodd"></path></svg>
-
-
-</button><button aria-label="save changes" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fsave-wiki" title="Save changes">
-
-
-
-<span class="tc-dirty-indicator">
-
-<svg class="tc-image-save-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M120.783 34.33c4.641 8.862 7.266 18.948 7.266 29.646 0 35.347-28.653 64-64 64-35.346 0-64-28.653-64-64 0-35.346 28.654-64 64-64 18.808 0 35.72 8.113 47.43 21.03l2.68-2.68c3.13-3.13 8.197-3.132 11.321-.008 3.118 3.118 3.121 8.193-.007 11.32l-4.69 4.691zm-12.058 12.058a47.876 47.876 0 013.324 17.588c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48c14.39 0 27.3 6.332 36.098 16.362L58.941 73.544 41.976 56.578c-3.127-3.127-8.201-3.123-11.32-.005-3.123 3.124-3.119 8.194.006 11.319l22.617 22.617a7.992 7.992 0 005.659 2.347c2.05 0 4.101-.783 5.667-2.349l44.12-44.12z" fill-rule="evenodd"></path></svg>
-
-
-</span>
-</button></div></p></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-search"><p><div class="tc-search"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><input class="tc-popup-handle" type="search" value=""></span></span></span></span></span></span></span></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="advanced search" class="tc-btn-invisible" title="Advanced search"><svg class="tc-image-advanced-search-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M74.565 87.985A47.776 47.776 0 0148 96C21.49 96 0 74.51 0 48S21.49 0 48 0s48 21.49 48 48c0 9.854-2.97 19.015-8.062 26.636l34.347 34.347a9.443 9.443 0 010 13.36 9.446 9.446 0 01-13.36 0l-34.36-34.358zM48 80c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z"></path><circle cx="48" cy="48" r="8"></circle><circle cx="28" cy="48" r="8"></circle><circle cx="68" cy="48" r="8"></circle></g></svg></button></span></div><div class="tc-block-dropdown-wrapper tc-reveal" hidden="true"></div></p></div></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-tabs"><p>
+</span><div class="tc-sidebar-scrollable" style="overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;"><div><div class="tc-sidebar-header"><div class=" tc-reveal"><div class=" tc-reveal"><h1 class="tc-site-title">TiddlyRemember</h1></div><div class=" tc-reveal"><div class="tc-site-subtitle">Embed Anki notes in your TiddlyWiki</div></div><div class=" tc-reveal"><p><div class="tc-page-controls"><button aria-label="new tiddler" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fnew-tiddler" title="Create a new tiddler"><svg class="tc-image-new-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M56 72H8.007C3.591 72 0 68.418 0 64c0-4.41 3.585-8 8.007-8H56V8.007C56 3.591 59.582 0 64 0c4.41 0 8 3.585 8 8.007V56h47.993c4.416 0 8.007 3.582 8.007 8 0 4.41-3.585 8-8.007 8H72v47.993c0 4.416-3.582 8.007-8 8.007-4.41 0-8-3.585-8-8.007V72z" fill-rule="evenodd"></path></svg></button><button aria-label="control panel" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fcontrol-panel " title="Open control panel"><svg class="tc-image-options-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M110.488 76a47.712 47.712 0 01-5.134 12.384l6.724 6.724c3.123 3.123 3.132 8.192.011 11.313l-5.668 5.668c-3.12 3.12-8.186 3.117-11.313-.01l-6.724-6.725c-3.82 2.258-7.98 4-12.384 5.134v9.505c0 4.417-3.578 8.007-7.992 8.007h-8.016C55.58 128 52 124.415 52 119.993v-9.505a47.712 47.712 0 01-12.384-5.134l-6.724 6.725c-3.123 3.122-8.192 3.131-11.313.01l-5.668-5.668c-3.12-3.12-3.116-8.186.01-11.313l6.725-6.724c-2.257-3.82-4-7.98-5.134-12.384H8.007C3.591 76 0 72.422 0 68.01v-8.017C0 55.58 3.585 52 8.007 52h9.505a47.712 47.712 0 015.134-12.383l-6.724-6.725c-3.123-3.122-3.132-8.191-.011-11.312l5.668-5.669c3.12-3.12 8.186-3.116 11.313.01l6.724 6.725c3.82-2.257 7.98-4 12.384-5.134V8.007C52 3.591 55.578 0 59.992 0h8.016C72.42 0 76 3.585 76 8.007v9.505a47.712 47.712 0 0112.384 5.134l6.724-6.724c3.123-3.123 8.192-3.132 11.313-.01l5.668 5.668c3.12 3.12 3.116 8.186-.01 11.312l-6.725 6.725c2.257 3.82 4 7.979 5.134 12.383h9.505c4.416 0 8.007 3.578 8.007 7.992v8.017c0 4.411-3.585 7.991-8.007 7.991h-9.505zM64 96c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z" fill-rule="evenodd"></path></svg></button><button aria-label="save changes" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fsave-wiki" title="Save changes"><span class="tc-dirty-indicator"><svg class="tc-image-save-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M120.783 34.33c4.641 8.862 7.266 18.948 7.266 29.646 0 35.347-28.653 64-64 64-35.346 0-64-28.653-64-64 0-35.346 28.654-64 64-64 18.808 0 35.72 8.113 47.43 21.03l2.68-2.68c3.13-3.13 8.197-3.132 11.321-.008 3.118 3.118 3.121 8.193-.007 11.32l-4.69 4.691zm-12.058 12.058a47.876 47.876 0 013.324 17.588c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48c14.39 0 27.3 6.332 36.098 16.362L58.941 73.544 41.976 56.578c-3.127-3.127-8.201-3.123-11.32-.005-3.123 3.124-3.119 8.194.006 11.319l22.617 22.617a7.992 7.992 0 005.659 2.347c2.05 0 4.101-.783 5.667-2.349l44.12-44.12z" fill-rule="evenodd"></path></svg></span></button></div></p></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-search"><p><div class="tc-search"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><input class="tc-popup-handle" type="search" value=""></span></span></span></span></span></span></span></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="advanced search" class="tc-btn-invisible" title="Advanced search"><svg class="tc-image-advanced-search-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M74.565 87.985A47.776 47.776 0 0148 96C21.49 96 0 74.51 0 48S21.49 0 48 0s48 21.49 48 48c0 9.854-2.97 19.015-8.062 26.636l34.347 34.347a9.443 9.443 0 010 13.36 9.446 9.446 0 01-13.36 0l-34.36-34.358zM48 80c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z"></path><circle cx="48" cy="48" r="8"></circle><circle cx="28" cy="48" r="8"></circle><circle cx="68" cy="48" r="8"></circle></g></svg></button></span></div><div class="tc-block-dropdown-wrapper tc-reveal" hidden="true"></div></p></div></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-tabs"><p>
 
 <div class="tc-tab-set tc-sidebar-tabs-main">
 <div class="tc-tab-buttons tc-sidebar-tabs-main">
@@ -2300,17 +2408,17 @@ More
 </div>
 </div>
 
-</p></div></div></div></div></div></div><section class="tc-story-river"><section class="story-backdrop"></section><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="TiddlyRemember"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><span class=" tc-reveal"><button aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"><svg class="tc-image-down-arrow tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M64.177 100.069a7.889 7.889 0 01-5.6-2.316l-55.98-55.98a7.92 7.92 0 010-11.196c3.086-3.085 8.105-3.092 11.196 0l50.382 50.382 50.382-50.382a7.92 7.92 0 0111.195 0c3.086 3.086 3.092 8.104 0 11.196l-55.98 55.98a7.892 7.892 0 01-5.595 2.316z"></path></svg></button><div class=" tc-reveal" hidden="true"></div></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"><svg class="tc-image-edit-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M95.627 10.059l-5.656 5.657 11.313 11.313 5.657-5.656-11.314-11.314zm5.657-5.657l1.966-1.966c3.123-3.122 8.194-3.129 11.319-.005 3.117 3.118 3.122 8.192-.005 11.32l-1.966 1.965-11.314-11.314zm-16.97 16.97l-60.25 60.25a8.12 8.12 0 00-.322.342c-.1.087-.198.179-.295.275-5.735 5.735-10.702 22.016-10.702 22.016s16.405-5.09 22.016-10.702c.095-.096.186-.193.272-.292a8.12 8.12 0 00.345-.325l60.25-60.25-11.314-11.313zM35.171 124.19c6.788-.577 13.898-2.272 23.689-5.348 1.825-.573 3.57-1.136 6.336-2.04 16-5.226 21.877-6.807 28.745-7.146 8.358-.413 13.854 2.13 17.58 8.699a4 4 0 006.959-3.946c-5.334-9.406-13.745-13.296-24.933-12.744-7.875.39-14.057 2.052-30.835 7.533-2.739.894-4.46 1.45-6.25 2.012-19.46 6.112-30.77 7.072-39.597 1.747a4 4 0 10-4.132 6.85c6.333 3.82 13.754 5.12 22.438 4.383z"></path></g></svg></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"><svg class="tc-image-close-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M65.086 75.41l-50.113 50.113c-3.121 3.121-8.192 3.126-11.316.002-3.118-3.118-3.123-8.19.002-11.316l50.114-50.114L3.659 13.982C.538 10.86.533 5.79 3.657 2.666c3.118-3.118 8.19-3.123 11.316.002l50.113 50.114L115.2 2.668c3.121-3.121 8.192-3.126 11.316-.002 3.118 3.118 3.123 8.19-.002 11.316L76.4 64.095l50.114 50.114c3.121 3.121 3.126 8.192.002 11.316-3.118 3.118-8.19 3.123-11.316-.002L65.086 75.409z" fill-rule="evenodd"></path></svg></button></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal" hidden="true"></span></span><span><h2 class="tc-title">TiddlyRemember</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
-<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href="static/.html"></a>24th July 2021 at 1:14pm</div></div><div class=" tc-reveal">
+</p></div></div></div></div></div></div><section class="tc-story-river"><section class="story-backdrop"></section><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="TiddlyRemember"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"><svg class="tc-image-down-arrow tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M64.177 100.069a7.889 7.889 0 01-5.6-2.316l-55.98-55.98a7.92 7.92 0 010-11.196c3.086-3.085 8.105-3.092 11.196 0l50.382 50.382 50.382-50.382a7.92 7.92 0 0111.195 0c3.086 3.086 3.092 8.104 0 11.196l-55.98 55.98a7.892 7.892 0 01-5.595 2.316z"></path></svg></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"><svg class="tc-image-edit-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M95.627 10.059l-5.656 5.657 11.313 11.313 5.657-5.656-11.314-11.314zm5.657-5.657l1.966-1.966c3.123-3.122 8.194-3.129 11.319-.005 3.117 3.118 3.122 8.192-.005 11.32l-1.966 1.965-11.314-11.314zm-16.97 16.97l-60.25 60.25a8.12 8.12 0 00-.322.342c-.1.087-.198.179-.295.275-5.735 5.735-10.702 22.016-10.702 22.016s16.405-5.09 22.016-10.702c.095-.096.186-.193.272-.292a8.12 8.12 0 00.345-.325l60.25-60.25-11.314-11.313zM35.171 124.19c6.788-.577 13.898-2.272 23.689-5.348 1.825-.573 3.57-1.136 6.336-2.04 16-5.226 21.877-6.807 28.745-7.146 8.358-.413 13.854 2.13 17.58 8.699a4 4 0 006.959-3.946c-5.334-9.406-13.745-13.296-24.933-12.744-7.875.39-14.057 2.052-30.835 7.533-2.739.894-4.46 1.45-6.25 2.012-19.46 6.112-30.77 7.072-39.597 1.747a4 4 0 10-4.132 6.85c6.333 3.82 13.754 5.12 22.438 4.383z"></path></g></svg></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"><svg class="tc-image-close-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M65.086 75.41l-50.113 50.113c-3.121 3.121-8.192 3.126-11.316.002-3.118-3.118-3.123-8.19.002-11.316l50.114-50.114L3.659 13.982C.538 10.86.533 5.79 3.657 2.666c3.118-3.118 8.19-3.123 11.316.002l50.113 50.114L115.2 2.668c3.121-3.121 8.192-3.126 11.316-.002 3.118 3.118 3.123 8.19-.002 11.316L76.4 64.095l50.114 50.114c3.121 3.121 3.126 8.192.002 11.316-3.118 3.118-8.19 3.123-11.316-.002L65.086 75.409z" fill-rule="evenodd"></path></svg></button></span><span><h2 class="tc-title">TiddlyRemember</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href="static/.html"></a>13th November 2021 at 4:38pm</div></div><div class=" tc-reveal">
 <div class="tc-tags-wrapper"></div>
 </div>
 
-<div class="tc-tiddler-body tc-reveal"><table><tbody><tr class="evenRow"><th align="left">Version</th><td>1.2.3</td></tr><tr class="oddRow"><th align="left">Published</th><td>July 24th, 2021</td></tr><tr class="evenRow"><th align="left">TW5 compatibility</th><td>&gt;= 5.1.21</td></tr><tr class="oddRow"><th align="left">Anki compatibility</th><td>&gt;= 2.1.28</td></tr><tr class="evenRow"><th align="left">GitHub</th><td><a class="tc-tiddlylink-external" href="https://github.com/sobjornstad/TiddlyRemember" rel="noopener noreferrer" target="_blank">https://github.com/sobjornstad/TiddlyRemember</a></td></tr></tbody></table><p>TiddlyRemember is a tool that integrates the <a class="tc-tiddlylink-external" href="https://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> non-linear note-taking system with the spaced-repetition-flashcards tool <a class="tc-tiddlylink-external" href="https://apps.ankiweb.net" rel="noopener noreferrer" target="_blank">Anki</a>.
+<div class="tc-tiddler-body tc-reveal"><table><tbody><tr class="evenRow"><th align="left">Version</th><td>1.3.0</td></tr><tr class="oddRow"><th align="left">Published</th><td>November 13th, 2021</td></tr><tr class="evenRow"><th align="left">TW5 compatibility</th><td>&gt;= 5.1.21</td></tr><tr class="oddRow"><th align="left">Anki compatibility</th><td>&gt;= 2.1.45</td></tr><tr class="evenRow"><th align="left">GitHub</th><td><a class="tc-tiddlylink-external" href="https://github.com/sobjornstad/TiddlyRemember" rel="noopener noreferrer" target="_blank">https://github.com/sobjornstad/TiddlyRemember</a></td></tr></tbody></table><p>TiddlyRemember is a tool that integrates the <a class="tc-tiddlylink-external" href="https://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> non-linear note-taking system with the spaced-repetition-flashcards tool <a class="tc-tiddlylink-external" href="https://apps.ankiweb.net" rel="noopener noreferrer" target="_blank">Anki</a>.
 You can interleave questions with your notes in TiddlyWiki,
     then sync them into Anki notes with one click.
 You can edit and move the questions around your TiddlyWiki,
     and they will stay connected to the Anki notes.
-Scheduling information in Anki is preserved when editing notes in TiddlyWiki.</p><p>Why would you want to keep your Anki notes in TiddlyWiki?</p><ul><li>One of the problems with using spaced repetition to study complex topics is that individual cards can end up largely without context, and if you need a refresher, it's hard to find the original source. TiddlyRemember can take you right back to your notes.</li><li>If you already have notes on a topic, this can help keep your content more <a class="tc-tiddlylink-external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" rel="noopener noreferrer" target="_blank">DRY</a> – you don't have to maintain the same knowledge in two places. If your knowledge on a topic changes and you update your notes or flashcards, they won't get out of sync.</li><li>You can easily add notes to your Anki collection at the same time you're taking narrative or outline notes, without having to switch back and forth between two applications.</li></ul><p>You can write <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/Question-and-answer%2520notes.html">Question-and-answer notes</a>:</p><p><div class="rememberq remembertwo">
+Scheduling information in Anki is preserved when editing notes in TiddlyWiki.</p><p>Why would you want to keep your Anki notes in TiddlyWiki?</p><ul><li>One of the problems with using spaced repetition to study complex topics is that individual cards can end up largely without context, and if you need a refresher, it's hard to find the original source. TiddlyRemember can take you right back to your notes.</li><li>If you already have notes on a topic, this can help keep your content more <a class="tc-tiddlylink-external" href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself" rel="noopener noreferrer" target="_blank">DRY</a> – you don't have to maintain the same knowledge in two places. If your knowledge on a topic changes and you update your notes or flashcards, they won't get out of sync.</li><li>You can easily add notes to your Anki collection at the same time you're taking narrative or outline notes, without having to switch back and forth between two applications.</li></ul><p>You can write <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/Question-and-answer%2520notes.html">Question-and-answer notes</a>:</p><p><div class="rememberq remembertwo  ">
         <div class="rquestion tr-ritem">
             <div>Q:</div>
             <p>What tool does TiddlyRemember integrate TiddlyWiki with?</p>
@@ -2330,22 +2438,29 @@ Scheduling information in Anki is preserved when editing notes in TiddlyWiki.</p
 	<div class="tr-reference">
 		
 	</div>
+	<div class="tr-sched">
+		
+	</div>
     </div></p><p>Or you can use <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/Cloze%2520notes.html">Cloze notes</a>:</p><p>
 	
-		<div class="remembercz">
-		<span class="cloze-identifier">cloze: </span>
+		<div class="remembercz  ">
+		<span class="cloze-identifier"><span class="tr-name-cloze">cloze: </span></span>
+		<span class="cloze-display">TiddlyRemember integrates TiddlyWiki with {Anki}.</span>
 		<span class="cloze-text">TiddlyRemember integrates TiddlyWiki with {Anki}.</span>
 		<div class="tr-selfidentification">
-			
-				[20200523175253647]
-			
-		</div>
-		<div class="rid">
+		
 			[20200523175253647]
-		</div>
-		<div class="tr-reference">
-			
-		</div>
+		
+	</div>
+	<div class="rid">
+		[20200523175253647]
+	</div>
+	<div class="tr-reference">
+		
+	</div>
+	<div class="tr-sched">
+		
+	</div>
 	</div>
 	</p><p>Ready to get started?</p><p>
 
@@ -2383,22 +2498,30 @@ Creating notes in TiddlyRemember
 Syncing TiddlyRemember with Anki
 
 
+</button><button class="">
+
+
+
+
+Troubleshooting
+
+
 </button>
 </div>
 <div class="tc-tab-divider tc-vertical"></div>
 <div class="tc-tab-content tc-vertical">
 <div class=" tc-reveal"><p>
-  <p>Since TiddlyRemember integrates TiddlyWiki and Anki, it requires installation steps in both programs, so setting it up is a bit more involved than most TiddlyWiki plugins. Here's the rundown.</p><h2 class="">Step 1: Install the TiddlyWiki plugin</h2><p>First you need to install the TiddlyWiki plugin into your wiki. To do so, drag and drop this link into your TiddlyWiki: <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/%2524%253A%252Fplugins%252Fsobjornstad%252FTiddlyRemember.html">TiddlyRemember</a>.</p><p>Alternatively, if you're running on Node.js, install the plugin to your computer or the <code>plugins/</code> folder of your wiki using any method you like. You can find TiddlyRemember's code <a href="https://github.com/sobjornstad/TiddlyRemember">in this GitHub repository</a>.</p><h2 class="">Step 2: Install TiddlyWiki on Node.js</h2><p>You need TiddlyWiki installed on Node on your computer to use TiddlyRemember. You don't need to actually host your wiki on Node – you just need it to be installed to help out with the sync.</p><p>If you don't already have TiddlyWiki on Node installed, follow the <a class="tc-tiddlylink-external" href="https://tiddlywiki.com/#GettingStarted - Node.js" rel="noopener noreferrer" target="_blank">TiddlyWiki documentation</a> to install it.</p><p>If you're using a Mac and you installed using Homebrew, there may be one more step – see <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/Calling%2520TiddlyWiki%2520in%2520MacOS.html">Calling TiddlyWiki in MacOS</a>.</p><h2 class="">Step 3: Install the Anki plugin</h2><ol><li>Browse to the <a href="https://ankiweb.net/shared/info/60456529">Anki add-on's homepage</a>.</li><li>Scroll down to find the add-on's code in the blue box, and copy this to your clipboard.</li><li>In Anki, choose <strong>Tools &gt; Add-ons &gt; Get Add-ons</strong>.</li><li>Paste the code into the box and click OK.</li><li>Quit and restart Anki.</li></ol>
-</p></div><div class=" tc-reveal" hidden="true"></div><div class=" tc-reveal" hidden="true"></div><div class=" tc-reveal" hidden="true"></div>
+  <p>Since TiddlyRemember integrates TiddlyWiki and Anki, it requires installation steps in both programs, so setting it up is a bit more involved than most TiddlyWiki plugins. Here's the rundown.</p><h2 class="">Step 1: Install the TiddlyWiki plugin</h2><p>First you need to install the TiddlyWiki plugin into your wiki. To do so, drag and drop this link into your TiddlyWiki: <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/%2524%253A%252Fplugins%252Fsobjornstad%252FTiddlyRemember.html">TiddlyRemember</a>.</p><p>Alternatively, if you're running on Node.js, you might prefer to (but do not have to) install the plugin as a plugin folder instead. See <a class="tc-tiddlylink-external" href="https://tiddlywiki.com/#Installing%20custom%20plugins%20on%20Node.js" rel="noopener noreferrer" target="_blank">Installing custom plugins on Node.js</a> in the TiddlyWiki documentation for details on the available options. You can find TiddlyRemember's code <a href="https://github.com/sobjornstad/TiddlyRemember">in this GitHub repository</a>.</p><h2 class="">Step 2: Install TiddlyWiki on Node.js</h2><p>You need TiddlyWiki installed on Node.js on your computer to use TiddlyRemember. You don't need to actually host your wiki on Node – you just need it to be installed to help out with the sync.</p><p>If you don't already have TiddlyWiki on Node.js installed,
+    follow the <a class="tc-tiddlylink-external" href="https://tiddlywiki.com/#GettingStarted - Node.js" rel="noopener noreferrer" target="_blank">TiddlyWiki documentation</a> to install it.
+You can stop after step 4 if you're only using this to run TiddlyRemember.</p><p>If you're using a Mac and you installed using Homebrew, there may be one more step – see <a class="tc-tiddlylink tc-tiddlylink-resolves" href="static/Calling%2520TiddlyWiki%2520in%2520MacOS.html">Calling TiddlyWiki in MacOS</a>.</p><h2 class="">Step 3: Install the Anki plugin</h2><ol><li>In Anki, choose <strong>Tools &gt; Add-ons &gt; Get Add-ons</strong>.</li><li>Paste the add-on's code, <code>60456529</code>, into the box and click OK.</li><li>Quit and restart Anki.</li></ol><p>If you prefer to see what you're downloading before you install it,
+    you can first visit the <a href="https://ankiweb.net/shared/info/60456529">Anki add-on's homepage</a>.</p>
+</p></div><div class=" tc-reveal" hidden="true"></div><div class=" tc-reveal" hidden="true"></div><div class=" tc-reveal" hidden="true"></div><div class=" tc-reveal" hidden="true"></div>
 </div>
 </div>
 
 </p></div>
 
 <div class="tc-tiddler-plugin-info tc-reveal"><p>
-</p></div>
-</div>
-
-<section class="story-frontdrop"></section></section><div class="tc-alerts"></div><p><div class="tc-drafts-list tc-reveal"></div></p></div></div>
+</p></div></div><section class="story-frontdrop"></section></section><div class="tc-alerts"></div><p><div class="tc-drafts-list tc-reveal"></div></p></div></div>
 </body>
 </html>
