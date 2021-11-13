@@ -1,5 +1,5 @@
 created: 20210924151444658
-modified: 20210924154137031
+modified: 20211113231905179
 tags: Troubleshooting
 title: Exception during TiddlyRemember sync
 type: text/vnd.tiddlywiki
@@ -59,10 +59,11 @@ ReferenceError: window is not defined
 
 The last tiddler that appears in the list of "Rendering" messages
     ("LillSyl:DreamOfLight" in this case)
-    will be the last one that rendered successfully.
-The next tiddler in your wiki alphabetically is the first one that TiddlyWiki wasn't able to render correctly,
+    is the one that TiddlyWiki wasn't able to render correctly,
     so that tiddler -- and any templates that are displayed on it --
     is where you should look to find the problem.
+(In versions of TiddlyWiki before 5.2.0, the tiddler with the error
+    will be the next tiddler in your wiki alphabetically after the one listed.)
 Common culprits include a CodeMirror editing box directly on that tiddler
     or a date picker widget.
 
@@ -100,6 +101,6 @@ Now the widget will continue to display when you view your wiki in a browser,
     but be ignored during TiddlyRemember sync when it's causing issues.
 
 
-''If you continue to have issues after disabling all plugins in your wiki except TiddlyRemember'',
+''If you continue to have issues after disabling all plugins in your wiki except TiddlyRemember'' (and $:/core),
     please [[post an issue|https://github.com/sobjornstad/TiddlyRemember/issues]] on the GitHub page,
     being sure to include the full text in the ''Error'' dialog box.
