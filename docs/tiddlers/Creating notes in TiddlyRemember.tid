@@ -1,6 +1,6 @@
 created: 20200523163252291
 list: [[Question-and-answer notes]] [[Pair notes]] [[Cloze notes]]
-modified: 20210928235605360
+modified: 20211113231905175
 tags: TiddlyRemember
 title: Creating notes in TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -54,7 +54,7 @@ This works whether the source file is embedded in your TiddlyWiki,
     uses the `_canonical_uri` [[field|https://tiddlywiki.com/#ExternalImages]],
     or points directly at a web URL.
 If you later make changes to the images,
-    or your images are hotlinked to a web URL and the live version changes,
+    or your images are hotlinked to a URL and the live version changes,
     the changes will also be synced to Anki.
 
 To include external audio that you can play either in your wiki or in Anki,
@@ -79,7 +79,7 @@ Downloading them from the Internet repeatedly
     and make syncing much slower than necessary.
 
 </$details>
-<$details summary="Macro parameters containing quotation marks">
+<$details summary="Math markup">
 
 KaTeX markup using the official "tiddlywiki/katex" plugin,
     using either the `$$` or widget syntax,
@@ -91,6 +91,9 @@ Any snippets so converted will be contained in HTML spans
     with the class `tw-katex-inline` or `tw-katex-display`, respectively,
     in case you want to style these snippets differently
     or do something else special with them.
+
+</$details>
+<$details summary="Macro parameters containing quotation marks">
 
 If you need to include double quotation marks in a note, use triple quotes for the macro parameter:
 
