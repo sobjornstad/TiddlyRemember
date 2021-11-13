@@ -15,8 +15,8 @@ pre-commit>=2.7.1
 
 # The Anki version we're developing against.
 pyqt5==5.15.1
-anki==2.1.47
-aqt==2.1.47
+anki==2.1.49
+aqt==2.1.49
 
 # Stubs.
 types-requests==2.25.8
