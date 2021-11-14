@@ -640,7 +640,7 @@ def extract_media(media: Set[TwMedia], soup: BeautifulSoup, wiki: Wiki,
         src = elem.attrs.get('src', None)
         if src is not None:
             open_src = src
-            if not '://' in src:
+            if '://' not in src and not src.startswith('data:'):
                 # Try reading as a relative path if this is a file or URL wiki,
                 # as this is a common way to work with _canonical_uri.
                 # The resulting path is not guaranteed to exist; we'll warn the
