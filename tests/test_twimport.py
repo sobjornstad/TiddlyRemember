@@ -201,6 +201,22 @@ def test_bad_image_url(fn_params):
     assert '404 Not Found' in warnings[0]
 
 
+def test_file_wiki_embedded_image(fn_params):
+    """
+    An embedded image in a file wiki should come across into a TwNote.
+
+    (Regression test: the prepending of a relative path to the URL to work with
+    _canonical_uri tiddlers broke this in an earlier version.)
+    """
+    fn_params['filter_'] = "EmbeddedImageTest"
+    fn_params['wiki_path'] = "tests/file_wiki.html"
+    fn_params['wiki_type'] = "file"
+    fn_params['warnings'] = []
+    note = find_notes(**fn_params).pop()
+    assert not fn_params['warnings']
+    assert '<img src="tr-' in note.answer
+
+
 def test_canonical_uri_image(fn_params):
     """
     An image given a _canonical_uri with a relative path should come across
