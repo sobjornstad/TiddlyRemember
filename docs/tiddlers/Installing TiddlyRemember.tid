@@ -1,10 +1,12 @@
 created: 20200523155103941
-modified: 20210928235902197
+modified: 20211114205316141
 tags: TiddlyRemember
 title: Installing TiddlyRemember
 type: text/vnd.tiddlywiki
 
 Since TiddlyRemember integrates TiddlyWiki and Anki, it requires installation steps in both programs, so setting it up is a bit more involved than most TiddlyWiki plugins. Here's the rundown.
+
+If this seems complicated when written out, you can watch most of the installation and configuration in the [[Video Introduction]].
 
 !! Step 1: Install the TiddlyWiki plugin
 

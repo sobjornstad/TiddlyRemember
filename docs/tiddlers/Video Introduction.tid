@@ -1,0 +1,14 @@
+created: 20211114204349261
+modified: 20211114205232488
+tags: TiddlyRemember
+title: Video Introduction
+type: text/vnd.tiddlywiki
+
+This //Getting Started with TiddlyRemember// video covers [[installation|Installing TiddlyRemember]], [[Anki configuration|Configuring the Anki add-on]], creating [[Question-and-answer notes]] and [[Cloze notes]], adding [[images and math notation|Creating notes in TiddlyRemember]], using [[deck and tag mappings|Mapping tiddlers]], and using TiddlyRemember for [[dynamic note generation|Dynamically generating TiddlyRemember notes]]. The full video is 35 minutes long, but it is split into chapters so you can easily watch only the parts you need to learn about.
+
+''To avoid data loss'' due to not understanding how syncing works, please be sure to do a quick read of [[Syncing TiddlyRemember with Anki]] in addition to watching the video. These details aren't covered in the current version of the video.
+
+The video was recorded with TiddlyRemember 1.3.1 and TiddlyWiki 5.2.0. Any minor differences in newer versions of the software will be noted here as they arise.
+
+<iframe width="1150" height="647" src="https://www.youtube.com/embed/BG8kkrLzMi0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
