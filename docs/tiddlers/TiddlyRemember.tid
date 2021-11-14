@@ -1,6 +1,6 @@
 created: 20200523154559237
-list: [[Installing TiddlyRemember]] [[Configuring TiddlyRemember]] [[Creating notes in TiddlyRemember]] [[Syncing TiddlyRemember with Anki]]
-modified: 20211114013510000
+list: [[Installing TiddlyRemember]] [[Configuring TiddlyRemember]] [[Creating notes in TiddlyRemember]] [[Syncing TiddlyRemember with Anki]] [[Video Introduction]] Troubleshooting
+modified: 20211114204931358
 title: TiddlyRemember
 type: text/vnd.tiddlywiki
 
@@ -37,9 +37,8 @@ Or you can use [[Cloze notes]]:
 Ready to get started?
 
 <<tabs
-	tabsList:"[tag<currentTiddler>]"
-        default:"Installing TiddlyRemember"
+    tabsList:"[tag<currentTiddler>]"
+    default:"Installing TiddlyRemember"
 	state:"$:/temp/TrTabState"
-        class:"tc-vertical"
-        template:"$:/sib/TabCurrentTemplate"
->>
+    class:"tc-vertical"
+    template:"$:/sib/TabCurrentTemplate">>
