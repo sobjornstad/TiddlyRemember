@@ -678,7 +678,7 @@ def extract_media(media: Set[TwMedia], soup: BeautifulSoup, wiki: Wiki,
                 elif e.code in (400, 403, 500, 502):
                     warnings.append(
                         f"Image '{src}' in tiddler '{tiddler_name}' could not be "
-                        f"retrieved at sync time: 404 Not Found.")
+                        f"retrieved at sync time: HTTP {e.code} error.")
                 else:
                     raise ExtractError(
                         "Unable to retrieve media files from the Internet. "
