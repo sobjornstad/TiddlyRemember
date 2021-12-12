@@ -82,6 +82,8 @@ def _invoke_tw_command(cmd: Sequence[str], wiki_path: Optional[str],
         if "No tiddlers found in file" in stdout:
             extra = ("(If this wiki is encrypted, "
                      "did you forget to give the password?)\n")
+        else:
+            extra = ""
         raise RenderingError(
             f"Failed to {description}: return code {proc.returncode}.\n{extra}"
             f"$ {' '.join(proc.cmd)}\n\n{stdout}") from proc
