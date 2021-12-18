@@ -11,7 +11,7 @@
 — Embed Anki notes in your TiddlyWiki
 </title>
 <div id="styleArea">
-<style data-tiddler-title="$:/boot/boot.css" data-tiddler-type="text/css" type="text/css">/*
+<style data-tiddler-title="$:/boot/boot.css" data-tiddler-type="text/css" data-tiddler-revision="0" data-tiddler-bag="default" type="text/css">/*
 Basic styles used before we boot up the parsing engine
 */
 
@@ -2271,6 +2271,52 @@ a.tc-tiddlylink:hover {
 }
 
 
+
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fclone, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fclone, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fclone,
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fdelete, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fdelete, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fdelete,
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fedit, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fedit, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fedit,
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-here, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-here, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-here,
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal-here, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal-here, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal-here,
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fimport, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fimport, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fimport,
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fmanager, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fmanager, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fmanager,
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-image, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-image, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-image,
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal,
+button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-tiddler, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-tiddler, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-tiddler {
+	display: none;
+}
+
+
+body.tc-dirty span.tc-dirty-indicator svg {
+	transition: fill 250ms ease-in-out;
+}body .tc-image-cloud-idle {
+	fill: #FAFAFA;
+	transition: opacity 250ms ease-in-out;
+	opacity: 1;
+	display: unset;
+}body.tc-dirty .tc-image-cloud-idle {
+	opacity: 0;
+	display: none;
+}body .tc-image-cloud-progress {
+	transition: opacity 250ms ease-in-out;
+	transform-origin: 50% 50%;
+	transform: rotate(359deg);
+	animation: animation-rotate-slow 2s infinite linear;
+	fill: #FAFAFA;
+	display: none;
+	opacity: 0;
+}body.tc-dirty .tc-image-cloud-progress {
+	opacity: 1;
+	display: unset;
+}@keyframes animation-rotate-slow {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: scale(359deg);
+	}
+}
+
+
 div.remembertwo {
 	border-left: 3px solid #ec6;
 	padding-left: 0.5em;
@@ -2365,7 +2411,17 @@ span.remembercz.tr-hide-inline-cloze-name span.cloze-identifier span.tr-name-clo
 <body class="tc-body">
 
 <section class="tc-story-river tc-static-story-river">
-<a name="/home/soren/cabinet/Me/Software/Active/anki-addons/anki21/tiddlyremember/docs/tiddlers/$__StoryList.tid">
+<a name="/home/soren/cabinet/Me/Software/Active/anki-addons/anki21/tiddlyremember/docs/tiddlers/$__StoryList_1.tid">
+<div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="/home/soren/cabinet/Me/Software/Active/anki-addons/anki21/tiddlyremember/docs/tiddlers/$__StoryList_1.tid"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">/home/soren/cabinet/Me/Software/Active/anki-addons/anki21/tiddlyremember/docs/tiddlers/$__StoryList_1.tid</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href="#"></a></div></div><div class=" tc-reveal">
+<div class="tc-tags-wrapper"></div>
+</div>
+
+<div class="tc-tiddler-body tc-reveal"></div>
+
+<div class="tc-tiddler-plugin-info tc-reveal"><p>
+</p></div></div>
+</a><a name="/home/soren/cabinet/Me/Software/Active/anki-addons/anki21/tiddlyremember/docs/tiddlers/$__StoryList.tid">
 <div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="/home/soren/cabinet/Me/Software/Active/anki-addons/anki21/tiddlyremember/docs/tiddlers/$__StoryList.tid"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">/home/soren/cabinet/Me/Software/Active/anki-addons/anki21/tiddlyremember/docs/tiddlers/$__StoryList.tid</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
 <div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href="#"></a></div></div><div class=" tc-reveal">
 <div class="tc-tags-wrapper"></div>
@@ -3455,11 +3511,11 @@ You should not modify a note's unique ID after creating it.</p><p>To avoid confu
 </p></div></div>
 </a><a name="TiddlyRemember">
 <div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="TiddlyRemember"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">TiddlyRemember</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
-<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href="#"></a>14th November 2021 at 2:49pm</div></div><div class=" tc-reveal">
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href="#"></a>18th December 2021 at 11:07am</div></div><div class=" tc-reveal">
 <div class="tc-tags-wrapper"></div>
 </div>
 
-<div class="tc-tiddler-body tc-reveal"><table><tbody><tr class="evenRow"><th align="left">Version</th><td>1.3.1</td></tr><tr class="oddRow"><th align="left">Published</th><td>November 14th, 2021</td></tr><tr class="evenRow"><th align="left">TW5 compatibility</th><td>&gt;= 5.1.21</td></tr><tr class="oddRow"><th align="left">Anki compatibility</th><td>&gt;= 2.1.45</td></tr><tr class="evenRow"><th align="left">GitHub</th><td><a class="tc-tiddlylink-external" href="https://github.com/sobjornstad/TiddlyRemember" rel="noopener noreferrer" target="_blank">https://github.com/sobjornstad/TiddlyRemember</a></td></tr></tbody></table><p>TiddlyRemember is a tool that integrates the <a class="tc-tiddlylink-external" href="https://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> non-linear note-taking system with the spaced-repetition-flashcards tool <a class="tc-tiddlylink-external" href="https://apps.ankiweb.net" rel="noopener noreferrer" target="_blank">Anki</a>.
+<div class="tc-tiddler-body tc-reveal"><table><tbody><tr class="evenRow"><th align="left">Version</th><td>1.3.2</td></tr><tr class="oddRow"><th align="left">Published</th><td>December 18th, 2021</td></tr><tr class="evenRow"><th align="left">TW5 compatibility</th><td>&gt;= 5.1.21</td></tr><tr class="oddRow"><th align="left">Anki compatibility</th><td>&gt;= 2.1.45</td></tr><tr class="evenRow"><th align="left">GitHub</th><td><a class="tc-tiddlylink-external" href="https://github.com/sobjornstad/TiddlyRemember" rel="noopener noreferrer" target="_blank">https://github.com/sobjornstad/TiddlyRemember</a></td></tr></tbody></table><p>TiddlyRemember is a tool that integrates the <a class="tc-tiddlylink-external" href="https://tiddlywiki.com" rel="noopener noreferrer" target="_blank">TiddlyWiki</a> non-linear note-taking system with the spaced-repetition-flashcards tool <a class="tc-tiddlylink-external" href="https://apps.ankiweb.net" rel="noopener noreferrer" target="_blank">Anki</a>.
 You can interleave questions with your notes in TiddlyWiki,
     then sync them into Anki notes with one click.
 You can edit and move the questions around your TiddlyWiki,
@@ -3579,12 +3635,12 @@ You can stop after step 4 if you're only using this to run TiddlyRemember.</p><p
 </p></div></div>
 </a><a name="TiddlyRemember Metadata">
 <div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="TiddlyRemember Metadata"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">TiddlyRemember Metadata</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
-<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href="#"></a>24th September 2021 at 6:44pm</div></div><div class=" tc-reveal">
+<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href="#"></a>18th December 2021 at 11:07am</div></div><div class=" tc-reveal">
 <div class="tc-tags-wrapper"></div>
 </div>
 
 <div class="tc-tiddler-body tc-reveal"><pre><code>{
-    "version": "1.3.1",
+    "version": "1.3.2",
     "compatible-tw5": "&gt;= 5.1.21",
     "compatible-anki": "&gt;= 2.1.45",
     "repository": "https://github.com/sobjornstad/TiddlyRemember",
