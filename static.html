@@ -15,7 +15,7 @@
 — Embed Anki notes in your TiddlyWiki
 </title>
 <div id="styleArea">
-<style data-tiddler-title="$:/boot/boot.css" data-tiddler-type="text/css" data-tiddler-revision="0" data-tiddler-bag="default" type="text/css">/*
+<style data-tiddler-title="$:/boot/boot.css" data-tiddler-type="text/css" type="text/css">/*
 Basic styles used before we boot up the parsing engine
 */
 
@@ -2275,52 +2275,6 @@ a.tc-tiddlylink:hover {
 }
 
 
-
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fclone, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fclone, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fclone,
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fdelete, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fdelete, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fdelete,
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fedit, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fedit, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fedit,
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-here, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-here, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-here,
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal-here, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal-here, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal-here,
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fimport, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fimport, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fimport,
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fmanager, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fmanager, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fmanager,
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-image, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-image, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-image,
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-journal,
-button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-tiddler, .tc-drop-down button.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-tiddler, div.tc-btn-\%24\%3A\%2Fcore\%2Fui\%2FButtons\%2Fnew-tiddler {
-	display: none;
-}
-
-
-body.tc-dirty span.tc-dirty-indicator svg {
-	transition: fill 250ms ease-in-out;
-}body .tc-image-cloud-idle {
-	fill: #FAFAFA;
-	transition: opacity 250ms ease-in-out;
-	opacity: 1;
-	display: unset;
-}body.tc-dirty .tc-image-cloud-idle {
-	opacity: 0;
-	display: none;
-}body .tc-image-cloud-progress {
-	transition: opacity 250ms ease-in-out;
-	transform-origin: 50% 50%;
-	transform: rotate(359deg);
-	animation: animation-rotate-slow 2s infinite linear;
-	fill: #FAFAFA;
-	display: none;
-	opacity: 0;
-}body.tc-dirty .tc-image-cloud-progress {
-	opacity: 1;
-	display: unset;
-}@keyframes animation-rotate-slow {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: scale(359deg);
-	}
-}
-
-
 div.remembertwo {
 	border-left: 3px solid #ec6;
 	padding-left: 0.5em;
@@ -2418,7 +2372,7 @@ span.remembercz.tr-hide-inline-cloze-name span.cloze-identifier span.tr-name-clo
 <button aria-label="hide sidebar" class="tc-btn-invisible tc-hide-sidebar-btn" title="Hide sidebar"><svg class="tc-image-chevron-right tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M83.456 63.947c0 2.027-.77 4.054-2.316 5.6l-55.98 55.98a7.92 7.92 0 01-11.196 0c-3.085-3.086-3.092-8.105 0-11.196L64.344 63.95 13.963 13.567a7.92 7.92 0 010-11.195c3.086-3.085 8.105-3.092 11.196 0l55.98 55.98a7.892 7.892 0 012.317 5.595z"></path><path d="M122.069 63.947c0 2.027-.77 4.054-2.316 5.6l-55.98 55.98a7.92 7.92 0 01-11.196 0c-3.085-3.086-3.092-8.105 0-11.196l50.382-50.382-50.382-50.382a7.92 7.92 0 010-11.195c3.086-3.085 8.104-3.092 11.196 0l55.98 55.98a7.892 7.892 0 012.316 5.595z"></path></g></svg></button>
 
 
-</span><div class="tc-sidebar-scrollable" style="overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;"><div><div class="tc-sidebar-header"><div class=" tc-reveal"><div class=" tc-reveal"><h1 class="tc-site-title">TiddlyRemember</h1></div><div class=" tc-reveal"><div class="tc-site-subtitle">Embed Anki notes in your TiddlyWiki</div></div><div class=" tc-reveal"><p><div class="tc-page-controls"><button aria-label="new tiddler" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fnew-tiddler" title="Create a new tiddler"><svg class="tc-image-new-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M56 72H8.007C3.591 72 0 68.418 0 64c0-4.41 3.585-8 8.007-8H56V8.007C56 3.591 59.582 0 64 0c4.41 0 8 3.585 8 8.007V56h47.993c4.416 0 8.007 3.582 8.007 8 0 4.41-3.585 8-8.007 8H72v47.993c0 4.416-3.582 8.007-8 8.007-4.41 0-8-3.585-8-8.007V72z" fill-rule="evenodd"></path></svg></button><button aria-label="control panel" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fcontrol-panel " title="Open control panel"><svg class="tc-image-options-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M110.488 76a47.712 47.712 0 01-5.134 12.384l6.724 6.724c3.123 3.123 3.132 8.192.011 11.313l-5.668 5.668c-3.12 3.12-8.186 3.117-11.313-.01l-6.724-6.725c-3.82 2.258-7.98 4-12.384 5.134v9.505c0 4.417-3.578 8.007-7.992 8.007h-8.016C55.58 128 52 124.415 52 119.993v-9.505a47.712 47.712 0 01-12.384-5.134l-6.724 6.725c-3.123 3.122-8.192 3.131-11.313.01l-5.668-5.668c-3.12-3.12-3.116-8.186.01-11.313l6.725-6.724c-2.257-3.82-4-7.98-5.134-12.384H8.007C3.591 76 0 72.422 0 68.01v-8.017C0 55.58 3.585 52 8.007 52h9.505a47.712 47.712 0 015.134-12.383l-6.724-6.725c-3.123-3.122-3.132-8.191-.011-11.312l5.668-5.669c3.12-3.12 8.186-3.116 11.313.01l6.724 6.725c3.82-2.257 7.98-4 12.384-5.134V8.007C52 3.591 55.578 0 59.992 0h8.016C72.42 0 76 3.585 76 8.007v9.505a47.712 47.712 0 0112.384 5.134l6.724-6.724c3.123-3.123 8.192-3.132 11.313-.01l5.668 5.668c3.12 3.12 3.116 8.186-.01 11.312l-6.725 6.725c2.257 3.82 4 7.979 5.134 12.383h9.505c4.416 0 8.007 3.578 8.007 7.992v8.017c0 4.411-3.585 7.991-8.007 7.991h-9.505zM64 96c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z" fill-rule="evenodd"></path></svg></button><button aria-expanded="false" aria-label="Server status" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fsave-wiki" title="Status of synchronisation with server"><span class="tc-dirty-indicator"><svg class="tc-image-cloud tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g><path d="M24 103C10.745 103 0 92.255 0 79c0-9.697 5.75-18.05 14.027-21.836A24.787 24.787 0 0114 56c0-13.255 10.745-24 24-24 1.373 0 2.718.115 4.028.337C48.628 24.2 58.707 19 70 19c19.882 0 36 16.118 36 36v.082c12.319 1.016 22 11.336 22 23.918 0 12.239-9.16 22.337-20.999 23.814L107 103H24z"></path><path class="tc-image-cloud-idle" d="M57.929 84.698a6 6 0 01-8.485 0L35.302 70.556a6 6 0 118.485-8.485l9.9 9.9L81.97 43.686a6 6 0 018.485 8.486L57.929 84.698z"></path><path class="tc-image-cloud-progress tc-animate-rotate-slow" d="M44.8 40a3.6 3.6 0 100 7.2h2.06A23.922 23.922 0 0040 64c0 13.122 10.531 23.785 23.603 23.997L64 88l.001-7.2c-9.171 0-16.626-7.348-16.798-16.477L47.2 64c0-5.165 2.331-9.786 5.999-12.868L53.2 55.6a3.6 3.6 0 107.2 0v-12a3.6 3.6 0 00-3.6-3.6h-12zM64 40v7.2c9.278 0 16.8 7.522 16.8 16.8 0 5.166-2.332 9.787-6 12.869V72.4a3.6 3.6 0 10-7.2 0v12a3.6 3.6 0 003.6 3.6h12a3.6 3.6 0 100-7.2l-2.062.001A23.922 23.922 0 0088 64c0-13.255-10.745-24-24-24z"></path></g></svg></span></button><span class=" tc-reveal" hidden="true"></span></div></p></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-search"><p><div class="tc-search"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><input class="tc-popup-handle" type="search" value=""></span></span></span></span></span></span></span></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="advanced search" class="tc-btn-invisible" title="Advanced search"><svg class="tc-image-advanced-search-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M74.565 87.985A47.776 47.776 0 0148 96C21.49 96 0 74.51 0 48S21.49 0 48 0s48 21.49 48 48c0 9.854-2.97 19.015-8.062 26.636l34.347 34.347a9.443 9.443 0 010 13.36 9.446 9.446 0 01-13.36 0l-34.36-34.358zM48 80c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z"></path><circle cx="48" cy="48" r="8"></circle><circle cx="28" cy="48" r="8"></circle><circle cx="68" cy="48" r="8"></circle></g></svg></button></span></div><div class="tc-block-dropdown-wrapper tc-reveal" hidden="true"></div></p></div></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-tabs"><p>
+</span><div class="tc-sidebar-scrollable" style="overflow-y:auto;overflow-x:auto;-webkit-overflow-scrolling:touch;"><div><div class="tc-sidebar-header"><div class=" tc-reveal"><div class=" tc-reveal"><h1 class="tc-site-title">TiddlyRemember</h1></div><div class=" tc-reveal"><div class="tc-site-subtitle">Embed Anki notes in your TiddlyWiki</div></div><div class=" tc-reveal"><p><div class="tc-page-controls"><button aria-label="new tiddler" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fnew-tiddler" title="Create a new tiddler"><svg class="tc-image-new-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M56 72H8.007C3.591 72 0 68.418 0 64c0-4.41 3.585-8 8.007-8H56V8.007C56 3.591 59.582 0 64 0c4.41 0 8 3.585 8 8.007V56h47.993c4.416 0 8.007 3.582 8.007 8 0 4.41-3.585 8-8.007 8H72v47.993c0 4.416-3.582 8.007-8 8.007-4.41 0-8-3.585-8-8.007V72z" fill-rule="evenodd"></path></svg></button><button aria-label="control panel" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fcontrol-panel " title="Open control panel"><svg class="tc-image-options-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M110.488 76a47.712 47.712 0 01-5.134 12.384l6.724 6.724c3.123 3.123 3.132 8.192.011 11.313l-5.668 5.668c-3.12 3.12-8.186 3.117-11.313-.01l-6.724-6.725c-3.82 2.258-7.98 4-12.384 5.134v9.505c0 4.417-3.578 8.007-7.992 8.007h-8.016C55.58 128 52 124.415 52 119.993v-9.505a47.712 47.712 0 01-12.384-5.134l-6.724 6.725c-3.123 3.122-8.192 3.131-11.313.01l-5.668-5.668c-3.12-3.12-3.116-8.186.01-11.313l6.725-6.724c-2.257-3.82-4-7.98-5.134-12.384H8.007C3.591 76 0 72.422 0 68.01v-8.017C0 55.58 3.585 52 8.007 52h9.505a47.712 47.712 0 015.134-12.383l-6.724-6.725c-3.123-3.122-3.132-8.191-.011-11.312l5.668-5.669c3.12-3.12 8.186-3.116 11.313.01l6.724 6.725c3.82-2.257 7.98-4 12.384-5.134V8.007C52 3.591 55.578 0 59.992 0h8.016C72.42 0 76 3.585 76 8.007v9.505a47.712 47.712 0 0112.384 5.134l6.724-6.724c3.123-3.123 8.192-3.132 11.313-.01l5.668 5.668c3.12 3.12 3.116 8.186-.01 11.312l-6.725 6.725c2.257 3.82 4 7.979 5.134 12.383h9.505c4.416 0 8.007 3.578 8.007 7.992v8.017c0 4.411-3.585 7.991-8.007 7.991h-9.505zM64 96c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z" fill-rule="evenodd"></path></svg></button><button aria-label="save changes" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fsave-wiki" title="Save changes"><span class="tc-dirty-indicator"><svg class="tc-image-save-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><path d="M120.783 34.33c4.641 8.862 7.266 18.948 7.266 29.646 0 35.347-28.653 64-64 64-35.346 0-64-28.653-64-64 0-35.346 28.654-64 64-64 18.808 0 35.72 8.113 47.43 21.03l2.68-2.68c3.13-3.13 8.197-3.132 11.321-.008 3.118 3.118 3.121 8.193-.007 11.32l-4.69 4.691zm-12.058 12.058a47.876 47.876 0 013.324 17.588c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48c14.39 0 27.3 6.332 36.098 16.362L58.941 73.544 41.976 56.578c-3.127-3.127-8.201-3.123-11.32-.005-3.123 3.124-3.119 8.194.006 11.319l22.617 22.617a7.992 7.992 0 005.659 2.347c2.05 0 4.101-.783 5.667-2.349l44.12-44.12z" fill-rule="evenodd"></path></svg></span></button></div></p></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-search"><p><div class="tc-search"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><span class=" tc-keyboard"><input class="tc-popup-handle" type="search" value=""></span></span></span></span></span></span></span></span><span class=" tc-reveal" hidden="true"></span><span class=" tc-reveal"><button aria-label="advanced search" class="tc-btn-invisible" title="Advanced search"><svg class="tc-image-advanced-search-button tc-image-button" height="22pt" viewBox="0 0 128 128" width="22pt"><g fill-rule="evenodd"><path d="M74.565 87.985A47.776 47.776 0 0148 96C21.49 96 0 74.51 0 48S21.49 0 48 0s48 21.49 48 48c0 9.854-2.97 19.015-8.062 26.636l34.347 34.347a9.443 9.443 0 010 13.36 9.446 9.446 0 01-13.36 0l-34.36-34.358zM48 80c17.673 0 32-14.327 32-32 0-17.673-14.327-32-32-32-17.673 0-32 14.327-32 32 0 17.673 14.327 32 32 32z"></path><circle cx="48" cy="48" r="8"></circle><circle cx="28" cy="48" r="8"></circle><circle cx="68" cy="48" r="8"></circle></g></svg></button></span></div><div class="tc-block-dropdown-wrapper tc-reveal" hidden="true"></div></p></div></div><div class=" tc-reveal"><div class="tc-sidebar-lists tc-sidebar-tabs"><p>
 
 <div class="tc-tab-set tc-sidebar-tabs-main">
 <div class="tc-tab-buttons tc-sidebar-tabs-main">
