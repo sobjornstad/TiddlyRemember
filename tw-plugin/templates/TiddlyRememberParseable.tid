@@ -8,7 +8,7 @@ type: text/vnd.tiddlywiki
 
 <$set name="tr-rendering" value="yes">
 
-<span id="tr-version">1.3.2</span>
+<span id="tr-version">1.3.3</span>
 
 {{||$:/plugins/sobjornstad/TiddlyRemember/templates/AnkiDecks}}
 {{||$:/plugins/sobjornstad/TiddlyRemember/templates/AnkiTags}}
