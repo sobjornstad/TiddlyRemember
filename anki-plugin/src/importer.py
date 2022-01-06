@@ -27,8 +27,14 @@ from aqt.utils import askUser, showText, showWarning, tooltip
 # pylint: disable=import-error, no-name-in-module
 from aqt.qt import QDialog, QThread, pyqtSignal
 
+from aqt.qt import qtmajor
+if qtmajor > 5:
+    from . import import_dialog6 as import_dialog
+else:
+    from . import import_dialog5 as import_dialog  # type: ignore
+
+# pylint: disable=wrong-import-position
 from . import ankisync
-from . import import_dialog
 from .oops import ConfigurationError, RenderingError
 from . import twimport
 from .twnote import TwNote
