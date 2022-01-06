@@ -17,7 +17,13 @@ from aqt.qt import (Qt, QApplication, QComboBox, QCursor, QDesktopServices, QDia
                     QFileDialog, QUrl)
 from aqt.utils import showWarning, showInfo, showCritical, askUser
 
-from . import settings_dialog
+from aqt.qt import qtmajor
+if qtmajor > 5:
+    from . import settings_dialog6 as settings_dialog
+else:
+    from . import settings_dialog5 as settings_dialog  # type: ignore
+
+# pylint: disable=wrong-import-position
 from .util import DEFAULT_FILTER, nowin_startupinfo, uniquify_name
 
 
