@@ -14,9 +14,10 @@ pre-commit>=2.7.1
 ## Items below this line must also be updated in the pre-commit config.
 
 # The Anki version we're developing against.
-pyqt5==5.15.1
-anki==2.1.49
-aqt==2.1.49
+pyqt6==6.2.2
+PyQt6-WebEngine==6.2.2
+anki==2.1.50b2
+aqt==2.1.50b2
 
 # Stubs.
 types-requests==2.25.8

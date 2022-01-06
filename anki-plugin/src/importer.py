@@ -25,8 +25,7 @@ from typing import Dict, List, Optional, Set
 
 from aqt.utils import askUser, showText, showWarning, tooltip
 # pylint: disable=import-error, no-name-in-module
-from PyQt5.QtCore import pyqtSignal, QThread
-from PyQt5.QtWidgets import QDialog
+from aqt.qt import QDialog, QThread, pyqtSignal
 
 from . import ankisync
 from . import import_dialog
@@ -128,7 +127,7 @@ class ImportDialog(QDialog):
         self.form.progressBar.setMaximum(0)
 
         self.extract_thread = ImportThread(self.conf, wiki_name, wiki_conf)
-        self.extract_thread.finished.connect(self.join_thread)
+        self.extract_thread.finished.connect(self.join_thread)  # type: ignore
         self.extract_thread.progress_update.connect(self.extract_progress)
         self.extract_thread.start()
 
