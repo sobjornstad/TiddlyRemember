@@ -5,7 +5,7 @@ forms: $(patsubst designer/%_dialog.ui,src/%_dialog.py,$(wildcard designer/*))
 zip: build.ankiaddon
 
 src/%_dialog.py: designer/%_dialog.ui
-	pyuic5 $^ > $@
+	pyuic6 $^ > $@
 
 build.ankiaddon: src/*.py src/config.json
 	rm -f $@

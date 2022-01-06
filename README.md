@@ -29,12 +29,11 @@ You don't have to actually host your wiki on Node --
     the plugin requires to extract questions.
 
 Run `make` in the `anki-plugin` directory.
-PyQt5 needs to be installed to do this
+PyQt needs to be installed to do this
     (try `pip install -r requirements.txt` to get all the devtools).
 Then copy the `anki-plugin/src` directory
-    to your Anki plugins folder (>=2.1.20 is assumed).
-Configure the Anki plugin with Tools -> Add-ons -> Configure,
-    following the instructions to the right of the JSON.
+    to your Anki plugins folder.
+Configure the Anki plugin with Tools -> Add-ons -> Configure.
 
 [TiddlyWiki]: https://tiddlywiki.com
 [Anki]: https://apps.ankiweb.net

@@ -39,8 +39,7 @@ import aqt
 from aqt.addcards import AddCards
 from aqt.utils import showWarning
 # pylint: disable=import-error, no-name-in-module
-from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from aqt.qt import QAction, QKeySequence
 
 from .importer import ImportDialog
 from .macro_exporter import MACRO_EXPORTER_PROPERTIES
@@ -55,7 +54,7 @@ def begin_sync() -> None:
     "Launch the importer dialog."
     dialog = ImportDialog(aqt.mw)
     if dialog.start_import():
-        dialog.exec_()
+        dialog.exec()
 
 
 def register_note_type_warning() -> None:
@@ -92,7 +91,7 @@ if aqt.mw is not None:
     action.setText("Sync from &TiddlyWiki")
     action.setShortcut(QKeySequence("Shift+Y"))
     aqt.mw.form.menuTools.addAction(action)
-    action.triggered.connect(begin_sync)
+    action.triggered.connect(begin_sync)  # type: ignore
 
     # Set up config dialog.
     aqt.mw.addonManager.setConfigAction(__name__, edit_settings)

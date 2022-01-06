@@ -13,10 +13,8 @@ from typing import Any, List
 
 # pylint: disable=no-name-in-module
 import aqt
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import QDialog, QComboBox, QApplication, QFileDialog
-from PyQt5.QtGui import QCursor, QDesktopServices
-from PyQt5.QtCore import QUrl
+from aqt.qt import (Qt, QApplication, QComboBox, QCursor, QDesktopServices, QDialog,
+                    QFileDialog, QUrl)
 from aqt.utils import showWarning, showInfo, showCritical, askUser
 
 from . import settings_dialog
@@ -157,7 +155,12 @@ class SettingsDialog(QDialog):
     def accept(self):
         "Dump new configuration and exit."
         self._save_config()
+        self.deckChooser.cleanup()
         super().accept()
+
+    def reject(self):
+        self.deckChooser.cleanup()
+        super().reject()
 
     def add_wiki(self) -> None:
         "Add a new wiki to the list."
@@ -193,7 +196,7 @@ class SettingsDialog(QDialog):
             mode = QFileDialog.ExistingFile
         dlg.setFileMode(mode)
 
-        retval = dlg.exec_()
+        retval = dlg.exec()
         if retval != 0:
             filename = dlg.selectedFiles()[0]
             self.form.path_.setText(filename)
@@ -243,7 +246,8 @@ class SettingsDialog(QDialog):
 
     def test_executable(self) -> None:
         "Check to see if the TiddlyWiki executable provided can be called from Anki."
-        QApplication.setOverrideCursor(QCursor(QtCore.Qt.WaitCursor))
+        # pylint: disable=no-member
+        QApplication.setOverrideCursor(QCursor(Qt.CursorShape.WaitCursor))
         try:
             args = [self.form.tiddlywikiBinary_.text(), "--version"]
             proc = subprocess.run(args, check=True, stderr=subprocess.STDOUT,
@@ -301,4 +305,4 @@ class SettingsDialog(QDialog):
 def edit_settings() -> None:
     "Use the SettingsDialog to adjust user configuration."
     dlg = SettingsDialog()
-    dlg.exec_()
+    dlg.exec()

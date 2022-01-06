@@ -89,7 +89,7 @@ Roll back the `tiddlywiki.info` changes,
 
 ## Final steps
 
-1. Click the **Submit** button on AnkiWeb to update the plugin.
+1. Click the **Update** button on AnkiWeb to update the plugin.
 2. Click the **Publish release** button on GitHub to create the release.
 
 ## Smoke tests
