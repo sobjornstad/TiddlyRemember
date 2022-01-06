@@ -3,13 +3,14 @@ beautifulsoup4==4.9.0
 
 # Development and build tools.
 bs4>=0.0.1,<1.0
-pylint>=2.5.2,<3.0
-yapf>=0.30.0,<1.0
+bumpversion=>0.6.0
 mypy>=0.770,<1.0
 pip>=20.2
-pytest>=6.0.2
-pytest-cov>=2.10.1
 pre-commit>=2.7.1
+pylint>=2.5.2,<3.0
+pytest-cov>=2.10.1
+pytest>=6.0.2
+yapf>=0.30.0,<1.0
 
 ## Items below this line must also be updated in the pre-commit config.
 
