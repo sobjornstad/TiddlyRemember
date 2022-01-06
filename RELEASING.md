@@ -9,8 +9,15 @@ Since Anki doesn't have any way to deploy plugins through CD,
 
 Aside from straight bugfix releases,
     the docs should be updated with every release.
-In order to perform edits,
-    first, edit the `docs/tiddlywiki.info` as follows:
+In order to perform edits:
+
+
+```bash
+cp docs/tiddlywiki.info{,.old}; jq '.plugins = ["tiddlywiki/filesystem", "tiddlywiki/tiddlyweb"]' docs/tiddlywiki.info.old >docs/tiddlywiki.info; cd docs && tiddlywiki --listen
+```
+
+This is the automatic version of editing the `docs/tiddlywiki.info` as follows
+and running the server so you can edit in your browser:
 
 ```json
     "plugins": [
@@ -19,35 +26,24 @@ In order to perform edits,
     ],
 ```
 
-Then cd into the `docs/` directory
-and run `tiddlywiki --listen`.
-You can now edit freely in your browser.
-Roll back the `tiddlywiki.info` changes,
-    commit the rest of your changes,
-    and you're set.
-
-*Suggestion for improvement*:
-    Provide a way to use a different `tiddlywiki.info`,
-    or to automatically remove those plugins on a production build,
-    to avoid having to manually change it all the time.
-
+Don't stop the listener until you're told to do so by a later step
+(or run the snippet again starting from `jq` to get the server restarted if you take a break).
 
 ## Bumping the version
 
-1. Update the version number in:
-   * `tw-plugin/plugin.info`.
-   * The `TiddlyWiki Metadata` tiddler.
-   * `util.py` (both the TR compatibility list and the plugin version).
-   * The `TiddlyRememberParseable` template.
-2. Open and save the `TiddlyRemember` main tiddler
+1. Open and save the `TiddlyRemember` main tiddler
    so that its modification date gets bumped.
-3. Quit the TiddlyWiki listener.
+2. Run `bumpversion patch` (or `minor` or `major` if needed).
+3. Check and update the `COMPATIBLE_TW_VERSIONS` array
+   in `anki-plugin/src/util.py`.
+4. Check and update the `compatible-tw5` and `compatible-anki` properties
+   in `docs/tiddlers/TiddlyRemember Metadata.json`.
 
 
 ## Updating the Anki add-on
 
 1. Update the add-on description in `ankiweb-description.html`,
-   including a brief changelog message.
+   including a brief changelog message and the release date.
    Don't forget to bump the version number presented.
    Remember that the AnkiWeb description page has *significant whitespace*,
    terribly enough.
@@ -62,12 +58,14 @@ Roll back the `tiddlywiki.info` changes,
 
 ## Publishing to GitHub
 
-1. Commit all doc and release changes made thus far.
-2. Check your branch log and make any final rebases or adjustments.
-3. Push the branch to GitHub.
-4. Create a pull request to `master`.
+1. Quit the TiddlyWiki listener (hit Ctrl+C on the big PasteOps command from above).
+   Run `cd -; mv docs/tiddlywiki.info.old docs/tiddlywiki.info` to restore the file.
+2. Commit all doc and release changes made thus far.
+3. Check your branch log and make any final rebases or adjustments.
+4. Push the branch to GitHub.
+5. Create a pull request to `master`.
    If all looks good, complete with a rebase-and-merge and delete the branch.
-5. Create a new release on GitHub to publicize the update:
+6. Create a new release on GitHub to publicize the update:
    https://github.com/sobjornstad/TiddlyRemember/releases/new.
    The tag should be in the form `v0.0.0`, using standard semantic versioning.
    Hold off on publishing the release for the moment.

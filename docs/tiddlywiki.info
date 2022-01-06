@@ -1,35 +1,35 @@
 {
-    "description": "TiddlyRemember",
-    "plugins": [
+  "description": "TiddlyRemember",
+  "plugins": [
+  ],
+  "themes": [
+    "tiddlywiki/vanilla"
+  ],
+  "build": {
+    "index": [
+      "--rendertiddler",
+      "$:/core/save/all",
+      "index.html",
+      "text/plain"
     ],
-    "themes": [
-        "tiddlywiki/vanilla"
-    ],
-    "build": {
-        "index": [
-            "--rendertiddler",
-            "$:/core/save/all",
-            "index.html",
-            "text/plain"
-        ],
-        "static": [
-            "--rendertiddler",
-            "$:/core/templates/static.template.html",
-            "static.html",
-            "text/plain",
-            "--rendertiddler",
-            "$:/core/templates/alltiddlers.template.html",
-            "alltiddlers.html",
-            "text/plain",
-            "--rendertiddlers",
-            "[!is[system]]",
-            "$:/core/templates/static.tiddler.html",
-            "static",
-            "text/plain",
-            "--rendertiddler",
-            "$:/core/templates/static.template.css",
-            "static/static.css",
-            "text/plain"
-        ]
-    }
+    "static": [
+      "--rendertiddler",
+      "$:/core/templates/static.template.html",
+      "static.html",
+      "text/plain",
+      "--rendertiddler",
+      "$:/core/templates/alltiddlers.template.html",
+      "alltiddlers.html",
+      "text/plain",
+      "--rendertiddlers",
+      "[!is[system]]",
+      "$:/core/templates/static.tiddler.html",
+      "static",
+      "text/plain",
+      "--rendertiddler",
+      "$:/core/templates/static.template.css",
+      "static/static.css",
+      "text/plain"
+    ]
+  }
 }

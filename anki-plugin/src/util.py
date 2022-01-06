@@ -11,8 +11,8 @@ from typing import Iterator, NewType, Optional, Sequence
 Twid = NewType('Twid', str)
 
 DEFAULT_FILTER = '[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]'
-PLUGIN_VERSION = "1.3.2"
-COMPATIBLE_TW_VERSIONS = ["", "1.2.2", "1.2.3", "1.3.0", "1.3.1", "1.3.2"]
+PLUGIN_VERSION = "1.3.3"
+COMPATIBLE_TW_VERSIONS = ["", "1.2.2", "1.2.3", "1.3.0", "1.3.1", "1.3.2", "1.3.3"]
 
 
 def pluralize(sg: str, n: int, pl: str = None) -> str:
