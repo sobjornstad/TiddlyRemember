@@ -232,6 +232,31 @@ def test_canonical_uri_image(fn_params):
     assert re.match(r'<img.*src="tr-', note.answer)
 
 
+def test_image_folder_path_import(fn_params):
+    """
+    An image in a files directory next to a folder wiki
+    should come across into a TwNote.
+    """
+    fn_params['filter_'] = "FolderRelativePathCatImageTest"
+    fn_params['warnings'] = []
+    note = find_notes(**fn_params).pop()
+    assert not fn_params['warnings']
+    assert re.match(r'<img.*src="tr-', note.answer)
+
+
+def test_image_file_path_import(fn_params):
+    """
+    An image in a files directory next to a file wiki
+    should come across into a TwNote.
+    """
+    fn_params['filter_'] = "FileRelativePathCatImageTest"
+    fn_params['wiki_path'] = "tests/file_wiki.html"
+    fn_params['wiki_type'] = "file"
+    fn_params['warnings'] = []
+    note = find_notes(**fn_params).pop()
+    assert not fn_params['warnings']
+    assert re.match(r'<img.*src="tr-', note.answer)
+
 
 def test_audio(fn_params):
     "An HTML5 audio tag should come across into a TwNote."

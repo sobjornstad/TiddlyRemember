@@ -628,6 +628,7 @@ def ensure_version(soup: BeautifulSoup) -> None:
             f"then try syncing again.")
 
 
+# pylint: disable=too-many-branches
 def extract_media(media: Set[TwMedia], soup: BeautifulSoup, wiki: Wiki,
                   tiddler_name: str, warnings: List[str]) -> BeautifulSoup:
     """
@@ -654,6 +655,10 @@ def extract_media(media: Set[TwMedia], soup: BeautifulSoup, wiki: Wiki,
                     assert isinstance(wiki.source_path, Path)  # Paths use Path type
                     with pushd(wiki.source_path.parent):
                         open_src = Path(src).absolute().as_uri()
+                elif wiki.type == WikiType.FOLDER:
+                    assert isinstance(wiki.source_path, Path)  # Paths use Path type
+                    with pushd(wiki.source_path):
+                        open_src = Path(src).absolute().as_uri()
 
             try:
                 with urlopen(open_src) as response:
@@ -666,7 +671,8 @@ def extract_media(media: Set[TwMedia], soup: BeautifulSoup, wiki: Wiki,
                         elem.replace_with(f"[sound:{medium.filename}]")
             except ValueError:
                 warnings.append(
-                    f"Image '{src}' in tiddler '{tiddler_name}' isn't a valid URL, "
+                    f"Media file '{src}' in tiddler '{tiddler_name}' isn't a valid "
+                    f"URL or resolvable path relative to the wiki location, "
                     f"so we couldn't retrieve it and sync it into Anki."
                 )
             except HTTPError as e:
