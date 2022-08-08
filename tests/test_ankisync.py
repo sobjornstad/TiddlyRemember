@@ -3,6 +3,7 @@
 # pylint: disable=redefined-outer-name
 
 # Must run from the project root.
+import re
 import sys
 sys.path.append("anki-plugin")
 
@@ -225,7 +226,7 @@ def test_image_import(fn_params, col_tuple):
 
     sync((note,), col_tuple.col, "Default")
     answer = _get_only_note(col_tuple).fields[1]
-    assert answer.startswith(f'<img src="{expected_filename}"')
+    assert re.match(f'<img.*src="{expected_filename}"', answer)
     assert col_tuple.col.media.have(expected_filename)
 
 
@@ -243,14 +244,14 @@ def test_image_update(fn_params, col_tuple):
 
     sync((note,), col_tuple.col, "Default")
     answer = _get_only_note(col_tuple).fields[1]
-    assert answer.startswith(f'<img src="{expected_initial_filename}"')
+    assert re.match(f'<img.*src="{expected_initial_filename}"', answer)
 
     # Update to a new image (DogUpdateTest uses the same TR ID for its question).
     fn_params['filter_'] = "DogUpdateTest"
     note = find_notes(**fn_params).pop()
     sync((note,), col_tuple.col, "Default")
     answer = _get_only_note(col_tuple).fields[1]
-    assert answer.startswith(f'<img src="{expected_modified_filename}')
+    assert re.match(f'<img.*src="{expected_modified_filename}', answer)
 
     # The original image doesn't get removed, but it could be removed on media check.
     assert col_tuple.col.media.have(expected_initial_filename)
