@@ -177,6 +177,7 @@ def _render_wiki(tw_binary: str, wiki_path: str, output_directory: str,
     _invoke_tw_command(cmd, wiki_path, "render wiki")
 
 
+# pylint: disable=too-many-arguments, too-many-locals
 def find_notes(
     tw_binary: str, wiki_path: str, wiki_type: str, wiki_name: str, filter_: str,
     password: str = "",

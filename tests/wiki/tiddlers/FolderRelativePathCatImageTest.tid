@@ -1,0 +1,11 @@
+created: 20220807233238454
+modified: 20220807233329917
+tags: TestCase
+title: FolderRelativePathCatImageTest
+type: text/vnd.tiddlywiki
+
+It should be possible to embed an image that links to a file on the local filesystem relative to the `tiddlywiki.info` in a Folder Wiki, and to sync the image into Anki's media folder.
+
+<<rememberq "20200926152139943"
+	"What does a cat look like in a folder wiki?"
+	"[img width=400 [files/cat.jpg]]">>
