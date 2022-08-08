@@ -12,6 +12,7 @@ sys.path.append("anki-plugin")
 
 import os
 from pathlib import Path
+import re
 
 import pytest
 
@@ -163,7 +164,7 @@ def test_external_image(fn_params):
     assert isinstance(note, QuestionNote)
     assert note.id_ == "20200926152139943"
     # will have been replaced with an internal media file
-    assert '<img src="tr-' in note.answer
+    assert re.match(r'<img.*src="tr-', note.answer)
     assert 'width="400"' in note.answer
 
 
@@ -174,7 +175,7 @@ def test_internal_image(fn_params):
     note = notes.pop()
 
     # will have been replaced with an internal media file
-    assert '<img src="tr-' in note.answer
+    assert re.match(r'<img.*src="tr-', note.answer)
     assert 'width="300"' in note.answer
 
 
@@ -183,7 +184,7 @@ def test_invalid_image_format(fn_params):
     fn_params['warnings'] = []
     note = find_notes(**fn_params).pop()
 
-    assert '<img src="tr-' in note.answer  # we still add it to Anki...
+    assert re.match(r'<img.*src="tr-', note.answer)
     assert '.xxx' in note.answer           # ...but we don't know what to call it
     assert len(fn_params['warnings']) == 1
     assert "Unknown media type for URL" in fn_params['warnings'][0]  # and warn user
@@ -214,7 +215,7 @@ def test_file_wiki_embedded_image(fn_params):
     fn_params['warnings'] = []
     note = find_notes(**fn_params).pop()
     assert not fn_params['warnings']
-    assert '<img src="tr-' in note.answer
+    assert re.match(r'<img.*src="tr-', note.answer)
 
 
 def test_canonical_uri_image(fn_params):
@@ -228,7 +229,8 @@ def test_canonical_uri_image(fn_params):
     fn_params['warnings'] = []
     note = find_notes(**fn_params).pop()
     assert not fn_params['warnings']
-    assert '<img src="tr-' in note.answer
+    assert re.match(r'<img.*src="tr-', note.answer)
+
 
 
 def test_audio(fn_params):

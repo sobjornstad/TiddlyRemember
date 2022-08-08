@@ -59,7 +59,7 @@ from testutils import col_tuple, fn_params
             <<rememberq
                 "20210928004052765"
                 "What does a dog look like?"
-                '<img src="tr-f53cec5dc23d10d91500c50d79ccb4e73df697f64fc2cd93a1b2fcf2698775c5.jpg" width="300"/>'>>
+                '<img class="tc-image-loading" src="tr-f53cec5dc23d10d91500c50d79ccb4e73df697f64fc2cd93a1b2fcf2698775c5.jpg" width="300"/>'>>
             """),
         ("AudioTest", False, '''
             <<rememberq
