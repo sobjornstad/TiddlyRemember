@@ -14,9 +14,22 @@ class RenderingError(ExtractError):
     "A type of extract error that occurs when Node fails to render the wiki to HTML."
 
 
+class TiddlerParsingError(ExtractError):
+    """
+    A type of extract error that occurs when something generic goes wrong while
+    parsing the text of a tiddler.
+    """
+
+    def __init__(self, tiddler_name: str) -> None:
+        super().__init__()
+        self.tiddler_name = tiddler_name
+
+    def __str__(self) -> str:
+        return f"Could not parse tiddler {self.tiddler_name}."
+
 class ScheduleParsingError(ExtractError):
     """
-    A type of extra error that occurs when the 'sched' string of a note
+    A type of extract error that occurs when the 'sched' string of a note
     is in an invalid format.
     """
 

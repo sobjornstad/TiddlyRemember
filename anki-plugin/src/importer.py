@@ -35,7 +35,8 @@ else:
 
 # pylint: disable=wrong-import-position
 from . import ankisync
-from .oops import ConfigurationError, RenderingError
+from .oops import ConfigurationError, RenderingError, TiddlerParsingError
+from .parsing_error import ParsingErrorDialog
 from . import twimport
 from .twnote import TwNote
 from .util import pluralize
@@ -174,6 +175,9 @@ class ImportDialog(QDialog):
                     msg += f"\n\nTiddler path: {m['path']}"
                 msg += f"\n\nThe original error message follows:\n{str(exc)}"
                 showWarning(msg)
+            elif isinstance(exc, TiddlerParsingError):
+                dlg = ParsingErrorDialog(exc)
+                dlg.exec()
             else:
                 raise exc
 
