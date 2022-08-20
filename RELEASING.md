@@ -92,6 +92,6 @@ Don't stop the listener until you're told to do so by a later step
 
 ## Smoke tests
 
-* Install TW plugin via Node.
-* Install TW plugin via drag-and-drop.
+* Install TW plugin via Node: `peru reup tiddlyremember`, restart the Zettelkasten server, and verify version number.
+* Install TW plugin via drag-and-drop to a file wiki and verify version number.
 * Remove any livelinks to Anki plugin, download/update through Anki interface, and sync up.
