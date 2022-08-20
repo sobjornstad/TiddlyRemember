@@ -14,7 +14,7 @@ import urllib
 from bs4 import BeautifulSoup
 import requests
 
-from .oops import RenderingError, ConfigurationError
+from .oops import RenderingError, ConfigurationError, ScheduleParsingError, TiddlerParsingError
 from .twnote import TwNote, ensure_version
 from .util import nowin_startupinfo
 from .wiki import Wiki, WikiType
@@ -109,7 +109,13 @@ def _notes_from_paths(
             tid_text = f.read().decode()
         tid_name = urllib.parse.unquote(
             tiddler.name[:tiddler.name.find(f".{RENDERED_FILE_EXTENSION}")])
-        notes.update(_notes_from_tiddler(tid_text, wiki, tid_name, warnings))
+        try:
+            notes.update(_notes_from_tiddler(tid_text, wiki, tid_name, warnings))
+        except ScheduleParsingError:
+            raise
+        except Exception as e:
+            tiddler_name = '.'.join(tiddler.name.rsplit('.', 1)[:-1])
+            raise TiddlerParsingError(tiddler_name) from e
 
         if callback is not None and not index % 50:
             callback(index+1, len(paths))
