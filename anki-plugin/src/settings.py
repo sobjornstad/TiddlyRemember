@@ -148,6 +148,11 @@ class SettingsDialog(QDialog):
         """
         current_wiki = self.wikis[self.current_wiki_index]
         current_wiki[0] = self.form.wikiName.text()
+
+        # added to schema in 1.3.0, upgrade if necessary
+        if 'password' not in current_wiki[1].keys():
+            current_wiki[1]['password'] = ''
+
         for name in list(current_wiki[1].keys()):
             if getattr(self.form, name + '_', None):
                 control = getattr(self.form, name + '_')
