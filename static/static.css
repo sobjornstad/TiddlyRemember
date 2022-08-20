@@ -625,7 +625,7 @@ a.tc-tiddlylink:hover {
 	right: 0;
 	background: #ec6;
 	text-align: center;
-	content: "Drop here (or use the 'Escape' key to cancel)";
+	content: "Drop now (or use the 'Escape' key to cancel)";
 }.tc-droppable > .tc-droppable-placeholder {
 	display: none;
 }.tc-droppable.tc-dragover > .tc-droppable-placeholder {
@@ -982,6 +982,8 @@ a.tc-tiddlylink:hover {
 	width: 100%;
 }.tc-view-field-name {
 	width: 1%; /* Makes this column be as narrow as possible */
+	white-space: nowrap;
+	vertical-align: top;
 	text-align: right;
 	font-style: italic;
 	font-weight: normal;
@@ -1070,13 +1072,18 @@ a.tc-tiddlylink:hover {
 	margin: 4px 0 4px 0;
 }.tc-tiddler-frame input.tc-edit-texteditor,
 .tc-tiddler-frame textarea.tc-edit-texteditor,
-.tc-tiddler-frame iframe.tc-edit-texteditor {
+.tc-tiddler-frame iframe.tc-edit-texteditor,
+.tc-tiddler-frame select.tc-edit-texteditor {
 	padding: 3px 3px 3px 3px;
 	border: 1px solid #e8e7e7;
 	line-height: 1.3em;
-	-webkit-appearance: none;
 	font-family: ;
 }.tc-tiddler-frame input.tc-edit-texteditor,
+.tc-tiddler-frame textarea.tc-edit-texteditor,
+.tc-tiddler-frame iframe.tc-edit-texteditor {
+	-webkit-appearance: none;
+}.tc-tiddler-frame input.tc-edit-texteditor,
+.tc-tiddler-frame select.tc-edit-texteditor,
 .tc-tiddler-frame textarea.tc-edit-texteditor {
 	background-color: transparent;
 }.tc-tiddler-frame iframe.tc-edit-texteditor {
@@ -1281,7 +1288,7 @@ a.tc-tiddlylink:hover {
 	right:0;
 	height: 100%;
 	background: #ec6;
-	content: "Drop here (or use the 'Escape' key to cancel)";
+	content: "Drop now (or use the 'Escape' key to cancel)";
 	pointer-events: none;
 	position: absolute;
 	display: flex;
@@ -1782,7 +1789,7 @@ a.tc-tiddlylink:hover {
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
 	border: 1px solid #FAFAFA;
-	border-bottom-none;
+	border-bottom: none;
 	background: #c80000;
 	color: #FAFAFA;
 	fill: #FAFAFA;
@@ -1803,12 +1810,15 @@ a.tc-tiddlylink:hover {
 	width: 100%;
 }.tc-plugin-info {
 	display: flex;
+	text-shadow: none;
 	border: 1px solid rgba(0, 0, 0, 0.54);
 	fill: rgba(0, 0, 0, 0.54);
 	background-color: #FAFAFA;
 	margin: 0.5em 0 0.5em 0;
 	padding: 4px;
 	align-items: center;
+}.tc-sidebar-lists a.tc-tiddlylink.tc-plugin-info {
+	color: #3949ab;
 }.tc-plugin-info-sub-plugins .tc-plugin-info {
 	margin: 0.5em;
 	background: #FAFAFA;
