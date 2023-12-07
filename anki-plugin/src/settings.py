@@ -202,9 +202,9 @@ class SettingsDialog(QDialog):
                           caption="Browse for wiki",
                           filter="HTML files (*.html);;All files (*)")
         if self.form.type_.currentText().lower() == 'folder':
-            mode = QFileDialog.Directory
+            mode = QFileDialog.FileMode.Directory
         else:
-            mode = QFileDialog.ExistingFile
+            mode = QFileDialog.FileMode.ExistingFile
         dlg.setFileMode(mode)
 
         retval = dlg.exec()
