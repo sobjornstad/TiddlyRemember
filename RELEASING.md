@@ -87,11 +87,22 @@ Don't stop the listener until you're told to do so by a later step
 
 ## Final steps
 
-1. Click the **Update** button on AnkiWeb to update the plugin.
+1. Click the **Save** button on AnkiWeb to update the plugin.
 2. Click the **Publish release** button on GitHub to create the release.
 
 ## Smoke tests
 
-* Install TW plugin via Node: `peru reup tiddlyremember`, restart the Zettelkasten server, and verify version number.
-* Install TW plugin via drag-and-drop to a file wiki and verify version number.
-* Remove any livelinks to Anki plugin, download/update through Anki interface, and sync up.
+* Install TW plugin via Node: 
+      1. `cd ~/cabinet/Me/Records/m2`.
+      2. `vim peru.yaml` and confirm that the version of TiddlyRemember that's active
+         is cloned from the GitHub repo.
+      3. `peru reup tiddlyremember`.
+      4. Restart the M2 server. Verify the new version number in More > Plugins > TR.
+* Install TW plugin via drag-and-drop to a file wiki (e.g., tiddlywiki.com)
+  and verify version number.
+* Try syncing:
+  1. `cd ~/.local/share/Anki2/addons21`.
+  2. `ls -l` and check if the plugin is livelinked. Remove livelink if needed.
+  3. Launch Anki and run "Check for Updates" in the addon settings.
+     Verify update is available, install and relaunch.
+  4. Run a sync, verify success.
