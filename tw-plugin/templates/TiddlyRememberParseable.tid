@@ -4,9 +4,9 @@ tags:
 title: $:/plugins/sobjornstad/TiddlyRemember/templates/TiddlyRememberParseable
 type: text/vnd.tiddlywiki
 
-\import [[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]]
+\import [[$:/core/ui/PageMacros]] [all[shadows+tiddlers]tag[$:/tags/Macro]!has[draft.of]] [all[shadows+tiddlers]tag[$:/tags/Global]!has[draft.of]]
 
-<$set name="tr-rendering" value="yes">
+<$let tr-rendering="yes">
 
 <span id="tr-version">1.3.6</span>
 
@@ -15,4 +15,4 @@ type: text/vnd.tiddlywiki
 
 <$transclude mode="block" />
 
-</$set>
+</$let>
