@@ -15,9 +15,9 @@ repos:
         files: anki-plugin/src
         additional_dependencies:
             - types-requests==2.25.8
-            - pyqt6==6.2.2
-            - anki==2.1.50b2
-            - aqt==2.1.50b2
+            - pyqt6==6.8.1
+            - anki==24.11
+            - aqt==24.11
 
 -   repo: local
     hooks:

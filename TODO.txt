@@ -1,0 +1,11 @@
+- [ ] Allow temporarily disabling sync for a wiki? #1
+- [ ] Investigate “TR bug that puts the cloze identifier line in the wrong place,” which is shadow-changed in TakeAway
+
+## Features
+
+- [ ] Display-only items?
+- [ ] LPCG add-on: split lines within TiddlyWiki, then make them exportable through TR
+- [ ] Takeaways with exportable button
+- [ ] Deletion options
+- [ ] Custom note types #18
+- [ ] TR should use the new slugify[] operator rather than url-encoding titles

@@ -1,4 +1,2 @@
-pyqt6==6.5.0
-anki==23.10
-aqt==23.10
 bumpversion
+-r anki-plugin/requirements.txt
