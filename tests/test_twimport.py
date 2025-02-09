@@ -20,7 +20,7 @@ from src.oops import RenderingError
 from src.twimport import find_notes
 from src.twnote import TwNote, QuestionNote, ClozeNote, PairNote
 
-from testutils import fn_params, file_requests_session  # pylint: disable=unused-import
+from testutils import fn_params, file_requests_session, mock_tiddler_deck_tags  # pylint: disable=unused-import
 
 
 ### Integration tests of basic functionality ###
@@ -108,6 +108,76 @@ def test_hardref(fn_params):
     assert note.question == "Do hard references work in TiddlyRemember?"
 
 
+def test_deck_and_tag_override_empty_defaults(fn_params):
+    """
+    You can specify the deck and tag using the 'deck' and 'tags'
+    parameters of a remember* call.
+    """
+    fn_params['filter_'] = "DeckAndTagOverride"
+    notes = find_notes(**fn_params)
+
+    assert len(notes) == 1
+    note = notes.pop()
+
+    assert isinstance(note, TwNote)
+    assert isinstance(note, QuestionNote)
+
+    assert note.id_ == '20250209155146331'
+    assert note.tidref == 'DeckAndTagOverride'
+    assert note.question == 'What is TiddlyRemember good for?'
+    assert note.answer == 'Remembering things that you put in your TiddlyWiki.'
+    assert note.target_tags == {'Tag1', 'Tag Two'}
+    assert note.target_deck == 'Deck1'
+
+
+@pytest.mark.parametrize(
+    "mock_tiddler_deck_tags,expected_deck,expected_tags",
+    [
+        # Test deck override only
+        (
+            {'deck': 'DefaultDeck', 'tags': set()},  # mock value
+            'Deck1',                                 # expected deck
+            {'Tag1', 'Tag Two'}                      # expected tags
+        ),
+        # Test tags override only
+        (
+            {'deck': None, 'tags': {'DefaultTag1', 'DefaultTag2'}},
+            'Deck1',
+            {'Tag1', 'Tag Two'}
+        ),
+        # Test both deck and tags override
+        (
+            {'deck': 'DefaultDeck', 'tags': {'DefaultTag1', 'DefaultTag2'}},
+            'Deck1',
+            {'Tag1', 'Tag Two'}
+        )
+    ],
+    indirect=['mock_tiddler_deck_tags']
+)
+def test_deck_and_tag_override_nonempty_defaults(
+        fn_params, mock_tiddler_deck_tags, expected_deck, expected_tags
+    ):  # pylint: disable=unused-argument
+    """
+    If the wiki has deck and tag mappings set, they are replaced
+    by the 'deck' and 'tags' parameters, if provided.
+    """
+    fn_params['filter_'] = "DeckAndTagOverride"
+    notes = find_notes(**fn_params)
+
+    assert len(notes) == 1
+    note = notes.pop()
+
+    assert isinstance(note, TwNote)
+    assert isinstance(note, QuestionNote)
+
+    assert note.id_ == '20250209155146331'
+    assert note.tidref == 'DeckAndTagOverride'
+    assert note.question == 'What is TiddlyRemember good for?'
+    assert note.answer == 'Remembering things that you put in your TiddlyWiki.'
+    assert note.target_tags == expected_tags
+    assert note.target_deck == expected_deck
+
+
 def test_formatting(fn_params):
     "Check that basic HTML formatting comes across into TwNotes."
     fn_params['filter_'] = "FormattingTest"
@@ -149,7 +219,7 @@ def test_recursive_link(fn_params):
     assert note.id_ == "20200926154719339"
     assert note.question == 'How do you get <strong>to Google</strong>?'
     assert note.answer == \
-        ('Browse <span style="color: orange;">to '
+        ('Browse <span style="color:orange;">to '
          '<a href="https://google.com">https://google.com</a></span>.')
 
 

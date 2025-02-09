@@ -104,3 +104,17 @@ def file_requests_session():
     requests_session = requests.session()
     requests_session.mount('file://', LocalFileAdapter())
     return requests_session
+
+
+@pytest.fixture
+def mock_tiddler_deck_tags(request, monkeypatch):
+    """
+    Mock the _get_tiddler_deck_and_tags function to return a deck and tags other
+    than the (blank) one defined in the test wiki.
+    """
+    def mock_get_tiddler_deck_tags(*args):  # pylint: disable=unused-argument
+        return request.param['deck'], request.param['tags']
+    monkeypatch.setattr(
+        "src.twnote._get_tiddler_deck_and_tags",
+        mock_get_tiddler_deck_tags
+    )

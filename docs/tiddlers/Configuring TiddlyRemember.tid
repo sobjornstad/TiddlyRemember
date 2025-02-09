@@ -1,5 +1,5 @@
 created: 20200523161821016
-modified: 20210929153040015
+modified: 20250209162244031
 tags: TiddlyRemember
 title: Configuring TiddlyRemember
 type: text/vnd.tiddlywiki
@@ -11,6 +11,6 @@ TiddlyRemember configuration is found in several places,
 
 Other things you can, but do not have to, configure:
 
-* [[Mapping tiddlers]] within your wiki(s) are used to determine what decks and tags your notes will have in Anki.
+* [[Mapping tiddlers]] within your wiki(s) are used to determine what decks and tags your notes will have in Anki. You can also [[override decks and tags per note|Overriding decks and tags]].
 * [[Card templates|Editing card templates]] within Anki can be edited to further customize the display of your cards.
 * [[TiddlyRemember snippets]] within your wiki(s) can be edited to influence the question template that appears when you select one of the TiddlyRemember icons on the editor toolbar.

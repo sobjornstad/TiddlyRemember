@@ -1,5 +1,5 @@
 created: 20200523162139989
-modified: 20210929001822781
+modified: 20250209162537338
 tags: [[Configuring TiddlyRemember]]
 title: Mapping tiddlers
 type: text/vnd.tiddlywiki
@@ -16,11 +16,18 @@ These tiddlers are empty in a base installation,
     with each filter separated from the previous one by a newline/carriage return.
 
 When syncing, TiddlyRemember will run each filter
-    against the title of the tiddler your question is in
+    against the title of the tiddler your `remember*` macro call is in
     and accumulate results across the filter runs.
 (If you're familiar with the way Node folder wikis
  use `$:/config/FileSystemPaths` [[to define folder structure|https://tiddlywiki.com/#Customising%20Tiddler%20File%20Naming]],
  this is the same idea.)
+
+Instead of, or in addition to, configuring mapping tiddlers,
+you can specify the deck and tag for individual `remember*` macro calls;
+these values will take precedence over anything set in the mapping tiddlers.
+This is particularly useful if your `remember*` macro call
+is not in the same tiddler as the location where the information is stored.
+See [[Overriding decks and tags]] for details.
 
 
 !! Tags

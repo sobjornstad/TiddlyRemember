@@ -1,0 +1,27 @@
+created: 20250209160857051
+modified: 20250209161941621
+tags: 
+title: Overriding decks and tags
+type: text/vnd.tiddlywiki
+
+In most cases, you'll want to use [[Mapping tiddlers]] to determine how cards are placed into decks and tags in Anki.
+
+However, sometimes the mapping tiddlers don't allow you to achieve the result you want. For instance, if you use the first example configuration in [[Dynamically generating TiddlyRemember notes]] to sync all of your TiddlyRemember notes from a single tiddler `TiddlyRememberNoteList`, the current tiddler will always be `TiddlyRememberNoteList` while processing the mapping tiddlers, and you won't have any useful information to use in the mapping filters. In this case, the `remember*` macros also support `deck` and `tags` parameters.
+
+If `deck` or `tags` exists and has any non-whitespace characters, any results from the mapping tiddler's filters are ignored (they are not combined).
+
+
+!! Example
+
+Here's an extension of the example in [[Dynamically generating TiddlyRemember notes]]:
+
+```
+<$list filter="[tag[TiddlyRememberNote]]">
+    <$let deck={{{ [all[current]get[tr-deck]else[TiddlyRemember]] }}}
+          tags={{{ [all[current]tags[]] -[[TiddlyRememberNote]] -[[Public]] }}}>
+        <$macrocall $name=rememberq id={{!!created}} question={{!!question}} answer={{!!answer}} reference={{!!title}} tags=<<tags>> deck=<<deck>>/>
+    </$let>
+</$list>
+```
+
+This places notes in the Anki deck corresponding to the value of the `tr-deck` field on the note's tiddler, or `TiddlyRemember` if that field is not present or empty, and passes through all tags present on the note's tiddler except `TiddlyRememberNote` and `Public`.

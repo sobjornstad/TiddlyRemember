@@ -1,0 +1,13 @@
+created: 20250209155136912
+creator: mnemonist
+modified: 20250209155214411
+modifier: mnemonist
+tags: TestCase
+title: DeckAndTagOverride
+type: text/vnd.tiddlywiki
+
+<<rememberq "20250209155146331"
+	"What is TiddlyRemember good for?"
+	"Remembering things that you put in your TiddlyWiki."
+    deck:"Deck1"
+    tags:"Tag1 [[Tag Two]]">>

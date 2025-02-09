@@ -4,24 +4,7 @@ tags: $:/tags/Macro
 title: $:/plugins/sobjornstad/TiddlyRemember/macros/remember
 type: text/vnd.tiddlywiki
 
-\define remembertwo(id, reference, sched)
-	<div class="tr-selfidentification">
-		<$set name="selfid" filter="""[enlist[$reference$]]""" value="""[<$link to="$reference$">$reference$</$link>: $id$]""" emptyValue="[$id$]">
-			<<selfid>>
-		</$set>
-	</div>
-	<div class="rid">
-		[$id$]
-	</div>
-	<div class="tr-reference">
-		<$text text=<<__reference__>>/>
-	</div>
-	<div class="tr-sched">
-		<$text text=<<__sched__>>/>
-	</div>
-\end
-
-\define rememberq(id, question, answer, reference: "", sched: "", class:"")
+\define rememberq(id, question, answer, reference: "", sched: "", class:"", deck:"", tags:"")
     <div class={{{ [[rememberq remembertwo ]addsuffix<__class__>addsuffix[ ]addsuffix{$:/config/TiddlyRemember/DefaultClasses}] }}}>
         <div class="rquestion tr-ritem">
             <div>Q:</div>
@@ -31,11 +14,11 @@ type: text/vnd.tiddlywiki
             <div>A:</div>
             <p>$answer$</p>
         </div>
-		<$macrocall $name=remembertwo id=<<__id__>> reference=<<__reference__>> sched=<<__sched__>>/>
+		<$macrocall $name=twRememberMetadata id=<<__id__>> reference=<<__reference__>> sched=<<__sched__>> deck=<<__deck__>> tags=<<__tags__>>/>
     </div>
 \end
 
-\define rememberp(id, first, second, reference: "", sched: "", class: "")
+\define rememberp(id, first, second, reference: "", sched: "", class: "", deck:"", tags:"")
     <div class={{{ [[rememberp remembertwo ]addsuffix<__class__>addsuffix[ ]addsuffix{$:/config/TiddlyRemember/DefaultClasses}] }}}>
         <div class="rfirst tr-ritem">
             <div>1:</div>
@@ -45,16 +28,16 @@ type: text/vnd.tiddlywiki
             <div>2:</div>
             <p>$second$</p>
         </div>
-		<$macrocall $name=remembertwo id=<<__id__>> reference=<<__reference__>> sched=<<__sched__>>/>
+		<$macrocall $name=twRememberMetadata id=<<__id__>> reference=<<__reference__>> sched=<<__sched__>> deck=<<__deck__>> tags=<<__tags__>>/>
     </div>
 \end
 
-\define remembercz(id, text, mode: "block", reference: "", sched: "", class: "")
+\define remembercz(id, text, mode: "block", reference: "", sched: "", class: "", deck:"", tags:"")
 	<$list filter="[[$mode$]match[inline]]" variable=_>
-		<$macrocall $name=twRememberClozeInline id=<<__id__>> text=<<__text__>> reference=<<__reference__>> sched=<<__sched__>> class=<<__class__>>/>
+		<$macrocall $name=twRememberClozeInline id=<<__id__>> text=<<__text__>> reference=<<__reference__>> sched=<<__sched__>> class=<<__class__>> deck=<<__deck__>> tags=<<__tags__>>/>
 	</$list>
 	<$list filter="[[$mode$]!match[inline]]" variable=_>
-		<$macrocall $name=twRememberClozeBlock id=<<__id__>> text=<<__text__>> reference=<<__reference__>> sched=<<__sched__>> class=<<__class__>>/>
+		<$macrocall $name=twRememberClozeBlock id=<<__id__>> text=<<__text__>> reference=<<__reference__>> sched=<<__sched__>> class=<<__class__>> deck=<<__deck__>> tags=<<__tags__>>/>
 	</$list>
 \end
 
@@ -72,6 +55,12 @@ type: text/vnd.tiddlywiki
 	</div>
 	<div class="tr-sched">
 		<$text text=<<__sched__>>/>
+	</div>
+	<div class="tr-deck">
+		<$text text=<<__deck__>>/>
+	</div>
+	<div class="tr-tags">
+		<$text text=<<__tags__>>/>
 	</div>
 \end
 

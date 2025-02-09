@@ -1,6 +1,6 @@
 created: 20200731031104283
-modified: 20210202024025316
-tags:
+modified: 20250209161238644
+tags: 
 title: Dynamically generating TiddlyRemember notes
 type: text/vnd.tiddlywiki
 
@@ -27,6 +27,8 @@ When you save, you will see the tiddler fill up with a list of TiddlyRemember no
 You can see that we use the `created` field of each of these tiddlers as a [[Unique ID]] -- this is quite suitable because it's a millisecond timestamp just like the `rememberq` and `remembercz` snippets create when you insert them. If you need to pull more than one question from a tiddler, you might have to get more creative.
 
 You can also see that we used the optional `reference` parameter and set it to the title of each tiddler containing a question. If we hadn't used this parameter, all of our Anki notes would be cited as coming from `TiddlyRememberNoteList`, which is presumably not particularly helpful. For more on the `reference` parameter, see [[Soft and hard references]].
+
+For the same reason, in this configuration, [[Mapping tiddlers]] will be unhelpful to control the decks and tags your TiddlyRemember notes get in Anki, because all notes will come from the `TiddlyRememberNoteList` tiddler. To avoid this, see [[Overriding decks and tags]].
 
 
 !! TiddlyRemember notes as separate tiddlers and integrated in content

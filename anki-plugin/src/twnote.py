@@ -24,7 +24,10 @@ from .clozeparse import ankify_clozes
 from .oops import ConfigurationError, ExtractError, ScheduleParsingError
 from .trmodels import (TiddlyRememberQuestionAnswer, TiddlyRememberCloze,
                        TiddlyRememberPair, ID_FIELD_NAME)
-from .util import COMPATIBLE_TW_VERSIONS, PLUGIN_VERSION, Twid, tw_quote, pushd
+from .util import (
+    COMPATIBLE_TW_VERSIONS, PLUGIN_VERSION, Twid,
+    pushd, split_tiddler_list, tw_quote
+)
 from .wiki import Wiki, WikiType
 
 
@@ -313,7 +316,7 @@ class QuestionNote(TwNote):
     def parse_html(cls, soup: BeautifulSoup, wiki: Wiki,
                    tiddler_name: str, warnings: List[str]) -> Set['QuestionNote']:
         notes = set()
-        deck, tags = _get_deck_and_tags(soup)
+        deck, tags = _get_tiddler_deck_and_tags(soup)
 
         media: Set[TwMedia] = set()
         pairs = soup.find_all("div", class_="rememberq")
@@ -326,8 +329,18 @@ class QuestionNote(TwNote):
             tidref = select_tidref(pair.find("div", class_="tr-reference"),
                                    tiddler_name)
             sched = build_scheduling_info(pair, tiddler_name)
-            notes.add(cls(id_, wiki, tidref, question, answer, tags, deck, media,
-                          sched))
+            deck_override, tags_override = _get_note_deck_and_tags(pair)
+            notes.add(cls(
+                id_,
+                wiki,
+                tidref,
+                question,
+                answer,
+                tags_override if tags_override else tags,
+                deck_override if deck_override else deck,
+                media,
+                sched
+            ))
 
         return notes
 
@@ -386,7 +399,7 @@ class PairNote(TwNote):
     def parse_html(cls, soup: BeautifulSoup, wiki: Wiki,
                    tiddler_name: str, warnings: List[str]) -> Set['PairNote']:
         notes = set()
-        deck, tags = _get_deck_and_tags(soup)
+        deck, tags = _get_tiddler_deck_and_tags(soup)
 
         media: Set[TwMedia] = set()
         pairs = soup.find_all("div", class_="rememberp")
@@ -399,8 +412,18 @@ class PairNote(TwNote):
             tidref = select_tidref(pair.find("div", class_="tr-reference"),
                                    tiddler_name)
             sched = build_scheduling_info(pair, tiddler_name)
-            notes.add(cls(id_, wiki, tidref, question, answer, tags, deck, media,
-                          sched))
+            deck_override, tags_override = _get_note_deck_and_tags(pair)
+            notes.add(cls(
+                id_,
+                wiki,
+                tidref,
+                question,
+                answer,
+                tags_override if tags_override else tags,
+                deck_override if deck_override else deck,
+                media,
+                sched
+            ))
 
         return notes
 
@@ -463,7 +486,7 @@ class ClozeNote(TwNote):
     def parse_html(cls, soup: BeautifulSoup, wiki: Wiki,
                    tiddler_name: str, warnings: List[str]) -> Set['ClozeNote']:
         notes = set()
-        deck, tags = _get_deck_and_tags(soup)
+        deck, tags = _get_tiddler_deck_and_tags(soup)
 
         media: Set[TwMedia] = set()
         pairs = soup.find_all(class_="remembercz")
@@ -476,8 +499,17 @@ class ClozeNote(TwNote):
                                    tiddler_name)
             parsed_text = ankify_clozes(text)
             sched = build_scheduling_info(pair, tiddler_name)
-            notes.add(cls(id_, wiki, tidref, parsed_text, tags, deck, media,
-                          sched))
+            deck_override, tags_override = _get_note_deck_and_tags(pair)
+            notes.add(cls(
+                id_,
+                wiki,
+                tidref,
+                parsed_text,
+                tags_override if tags_override else tags,
+                deck_override if deck_override else deck,
+                media,
+                sched
+            ))
 
         return notes
 
@@ -493,9 +525,11 @@ class ClozeNote(TwNote):
         self._base_update(anki_note)
 
 
-def _get_deck_and_tags(tiddler_soup: BeautifulSoup) -> Tuple[Optional[str], Set[str]]:
+def _get_tiddler_deck_and_tags(
+        tiddler_soup: BeautifulSoup) -> Tuple[Optional[str], Set[str]]:
     """
-    Given the soup of a tiddler, extract its deck and list of tags.
+    Given the soup of a tiddler, extract the deck and list of tags
+    created by the mappings for the tiddler.
     """
     deck_list = tiddler_soup.find("ul", id="anki-decks")
     if deck_list:
@@ -511,6 +545,32 @@ def _get_deck_and_tags(tiddler_soup: BeautifulSoup) -> Tuple[Optional[str], Set[
         tags = set()
 
     return deck, tags
+
+
+def _get_note_deck_and_tags(
+        pair_soup: BeautifulSoup) -> Tuple[Optional[str], Set[str]]:
+    """
+    Given the soup of a remember* call, extract the deck and list of tags
+    created by the 'deck' and 'tags' override parameters. These will take
+    precedence over those in _get_tiddler_deck_and_tags() if non-empty.
+    """
+    deck_element = pair_soup.find("div", class_="tr-deck")
+    if deck_element:
+        deck_override = deck_element.get_text().strip()
+    else:
+        deck_override = None
+
+    tags_element = pair_soup.find("div", class_="tr-tags")
+    if tags_element:
+        tags_override = set(
+            i
+            for i in split_tiddler_list(tags_element.get_text().strip())
+            if i
+        )
+    else:
+        tags_override = set()
+
+    return deck_override, tags_override
 
 
 def by_name(model_name: str) -> Optional[Type[TwNote]]:
