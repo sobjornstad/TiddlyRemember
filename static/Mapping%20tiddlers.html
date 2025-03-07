@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="generator" content="TiddlyWiki" />
-<meta name="tiddlywiki-version" content="5.2.2" />
+<meta name="tiddlywiki-version" content="5.3.5" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -11,26 +11,12 @@
 <meta name="format-detection" content="telephone=no">
 <link id="faviconLink" rel="shortcut icon" href="favicon.ico">
 <link rel="stylesheet" href="static.css">
-<title>Mapping tiddlers: TiddlyRemember
-
-— Embed Anki notes in your TiddlyWiki
-</title>
+<title>Mapping tiddlers: TiddlyRemember — Embed Anki notes in your TiddlyWiki</title>
 </head>
 <body class="tc-body">
 
 <section class="tc-story-river tc-static-story-river">
-<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists  tc-tagged-Configuring%20TiddlyRemember" data-tags="[[Configuring TiddlyRemember]]" data-tiddler-title="Mapping tiddlers"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><div class=" tc-reveal" hidden="true"></div><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><span class="tc-tiddler-title-icon" style="fill:;"></span><h2 class="tc-title">Mapping tiddlers</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class=" tc-reveal" hidden="true"></div>
-<div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a>28th September 2021 at 7:18pm</div></div><div class=" tc-reveal">
-<div class="tc-tags-wrapper"><span class="tc-tag-list-item" data-tag-title="Configuring TiddlyRemember">
-<span aria-expanded="false" class="tc-tag-label tc-btn-invisible" draggable="true" style="background-color:;
-fill:rgba(0, 0, 0, 0.87);
-color:rgba(0, 0, 0, 0.87);">
-Configuring TiddlyRemember
-</span>
-<span class="tc-drop-down tc-reveal" hidden="true"></span></span></div>
-</div>
-
-<div class="tc-tiddler-body tc-reveal"><p>By default, cards go to the <em>default deck</em> specified in your <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Configuring%2520the%2520Anki%2520add-on.html">Anki add-on configuration</a>, and notes have no tags.</p><p>You can configure how questions map to decks and tags
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists  tc-tagged-Configuring%20TiddlyRemember" data-tags="[[Configuring TiddlyRemember]]" data-tiddler-title="Mapping tiddlers" role="article"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><span class=" tc-reveal" hidden="true"></span><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">Mapping tiddlers</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class="tc-reveal"></div><div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a> 9th February 2025 at 10:25am</div></div><div class=" tc-reveal"><div class="tc-tags-wrapper"><span class="tc-tag-list-item" data-tag-title="Configuring TiddlyRemember"><span aria-expanded="false" class="tc-tag-label tc-btn-invisible" draggable="true" style="fill:rgba(0, 0, 0, 0.87);color:rgba(0, 0, 0, 0.87);"><span class="tc-tag-exists">Configuring TiddlyRemember</span></span><span class="tc-drop-down tc-reveal" hidden="true"></span></span></div></div><div class="tc-tiddler-body tc-reveal"><p>By default, cards go to the <em>default deck</em> specified in your <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Configuring%2520the%2520Anki%2520add-on.html">Anki add-on configuration</a>, and notes have no tags.</p><p>You can configure how questions map to decks and tags
     on a tiddler-by-tiddler basis
     by overriding the configuration tiddlers
     <code>$:/config/TiddlyRemember/TagMapping</code>
@@ -38,11 +24,16 @@ Configuring TiddlyRemember
 These tiddlers are empty in a base installation,
     but you can add as many TiddlyWiki filters to each as you like,
     with each filter separated from the previous one by a newline/carriage return.</p><p>When syncing, TiddlyRemember will run each filter
-    against the title of the tiddler your question is in
+    against the title of the tiddler your <code>remember*</code> macro call is in
     and accumulate results across the filter runs.
 (If you're familiar with the way Node folder wikis
  use <code>$:/config/FileSystemPaths</code> <a class="tc-tiddlylink-external" href="https://tiddlywiki.com/#Customising%20Tiddler%20File%20Naming" rel="noopener noreferrer" target="_blank">to define folder structure</a>,
- this is the same idea.)</p><h2 class="">Tags</h2><p>For tags, all matches in any of the filters become tags,
+ this is the same idea.)</p><p>Instead of, or in addition to, configuring mapping tiddlers,
+you can specify the deck and tag for individual <code>remember*</code> macro calls;
+these values will take precedence over anything set in the mapping tiddlers.
+This is particularly useful if your <code>remember*</code> macro call
+is not in the same tiddler as the location where the information is stored.
+See <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Overriding%2520decks%2520and%2520tags.html">Overriding decks and tags</a> for details.</p><h2 class="">Tags</h2><p>For tags, all matches in any of the filters become tags,
     ignoring duplicates.
 Any spaces in a tag will be converted to underscores <code>_</code>
     (tags are space-separated in Anki, so they can't contain spaces).

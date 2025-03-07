@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="generator" content="TiddlyWiki" />
+<meta name="tiddlywiki-version" content="5.3.5" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="format-detection" content="telephone=no">
+<link id="faviconLink" rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="static.css">
+<title>Overriding decks and tags: TiddlyRemember — Embed Anki notes in your TiddlyWiki</title>
+</head>
+<body class="tc-body">
+
+<section class="tc-story-river tc-static-story-river">
+<p><div class="tc-tiddler-frame tc-tiddler-view-frame tc-tiddler-exists " data-tags="" data-tiddler-title="Overriding decks and tags" role="article"><div class="tc-tiddler-title"><div class="tc-titlebar"><span class="tc-tiddler-controls"><button aria-expanded="false" aria-label="more" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fmore-tiddler-actions" title="More actions"></button><span class=" tc-reveal" hidden="true"></span><button aria-label="edit" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fedit" title="Edit this tiddler"></button><button aria-label="close" class="tc-btn-invisible tc-btn-%24%3A%2Fcore%2Fui%2FButtons%2Fclose" title="Close this tiddler"></button></span><span><h2 class="tc-title">Overriding decks and tags</h2></span></div><div class="tc-tiddler-info tc-popup-handle tc-reveal" hidden="true"></div></div><div class="tc-reveal"></div><div class=" tc-reveal"><div class="tc-subtitle"><a class="tc-tiddlylink tc-tiddlylink-missing" href=".html"></a> 9th February 2025 at 10:19am</div></div><div class=" tc-reveal"><div class="tc-tags-wrapper"></div></div><div class="tc-tiddler-body tc-reveal"><p>In most cases, you'll want to use <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Mapping%2520tiddlers.html">Mapping tiddlers</a> to determine how cards are placed into decks and tags in Anki.</p><p>However, sometimes the mapping tiddlers don't allow you to achieve the result you want. For instance, if you use the first example configuration in <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Dynamically%2520generating%2520TiddlyRemember%2520notes.html">Dynamically generating TiddlyRemember notes</a> to sync all of your TiddlyRemember notes from a single tiddler <code>TiddlyRememberNoteList</code>, the current tiddler will always be <code>TiddlyRememberNoteList</code> while processing the mapping tiddlers, and you won't have any useful information to use in the mapping filters. In this case, the <code>remember*</code> macros also support <code>deck</code> and <code>tags</code> parameters.</p><p>If <code>deck</code> or <code>tags</code> exists and has any non-whitespace characters, any results from the mapping tiddler's filters are ignored (they are not combined).</p><h2 class="">Example</h2><p>Here's an extension of the example in <a class="tc-tiddlylink tc-tiddlylink-resolves" href="Dynamically%2520generating%2520TiddlyRemember%2520notes.html">Dynamically generating TiddlyRemember notes</a>:</p><pre><code>&lt;$list filter="[tag[TiddlyRememberNote]]"&gt;
+    &lt;$let deck={{{ [all[current]get[tr-deck]else[TiddlyRemember]] }}}
+          tags={{{ [all[current]tags[]] -[[TiddlyRememberNote]] -[[Public]] }}}&gt;
+        &lt;$macrocall $name=rememberq id={{!!created}} question={{!!question}} answer={{!!answer}} reference={{!!title}} tags=&lt;&lt;tags&gt;&gt; deck=&lt;&lt;deck&gt;&gt;/&gt;
+    &lt;/$let&gt;
+&lt;/$list&gt;</code></pre><p>This places notes in the Anki deck corresponding to the value of the <code>tr-deck</code> field on the note's tiddler, or <code>TiddlyRemember</code> if that field is not present or empty, and passes through all tags present on the note's tiddler except <code>TiddlyRememberNote</code> and <code>Public</code>.</p></div>
+</div></p>
+</section>
+</body>
+</html>
+

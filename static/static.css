@@ -70,10 +70,9 @@ Error message and password prompt
 .tc-password-wrapper input {
 	width: 100%;
 }
-
 /*
 ** Start with the normalize CSS reset, and then belay some of its effects
-*//*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+*//*! modern-normalize v2.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
 /*
 Document
@@ -85,28 +84,26 @@ Use a better box model (opinionated).
 */
 
 *,
-*::before,
-*::after {
-  box-sizing: border-box;
+::before,
+::after {
+	box-sizing: border-box;
 }
-
-/**
-Use a more readable tab size (opinionated).
-*/
-
-:root {
-  -moz-tab-size: 4;
-  tab-size: 4;
-}
-
-/**
-1. Correct the line height in all browsers.
-2. Prevent adjustments of font size after orientation changes in iOS.
-*/
 
 html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+	/* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+	font-family:
+		system-ui,
+		'Segoe UI',
+		Roboto,
+		Helvetica,
+		Arial,
+		sans-serif,
+		'Apple Color Emoji',
+		'Segoe UI Emoji';
+	line-height: 1.15; /* 1. Correct the line height in all browsers. */
+	-webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
+	-moz-tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
+	tab-size: 4; /* 3 */
 }
 
 /*
@@ -114,29 +111,8 @@ Sections
 ========
 */
 
-/**
-Remove the margin in all browsers.
-*/
-
 body {
-  margin: 0;
-}
-
-/**
-Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
-*/
-
-body {
-  font-family:
-    system-ui,
-    -apple-system, /* Firefox supports this but not yet `system-ui` */
-    'Segoe UI',
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif,
-    'Apple Color Emoji',
-    'Segoe UI Emoji';
+	margin: 0; /* Remove the margin in all browsers. */
 }
 
 /*
@@ -150,8 +126,8 @@ Grouping content
 */
 
 hr {
-  height: 0; /* 1 */
-  color: inherit; /* 2 */
+	height: 0; /* 1 */
+	color: inherit; /* 2 */
 }
 
 /*
@@ -164,7 +140,7 @@ Add the correct text decoration in Chrome, Edge, and Safari.
 */
 
 abbr[title] {
-  text-decoration: underline dotted;
+	text-decoration: underline dotted;
 }
 
 /**
@@ -173,7 +149,7 @@ Add the correct font weight in Edge and Safari.
 
 b,
 strong {
-  font-weight: bolder;
+	font-weight: bolder;
 }
 
 /**
@@ -185,14 +161,14 @@ code,
 kbd,
 samp,
 pre {
-  font-family:
-    ui-monospace,
-    SFMono-Regular,
-    Consolas,
-    'Liberation Mono',
-    Menlo,
-    monospace; /* 1 */
-  font-size: 1em; /* 2 */
+	font-family:
+		ui-monospace,
+		SFMono-Regular,
+		Consolas,
+		'Liberation Mono',
+		Menlo,
+		monospace; /* 1 */
+	font-size: 1em; /* 2 */
 }
 
 /**
@@ -200,7 +176,7 @@ Add the correct font size in all browsers.
 */
 
 small {
-  font-size: 80%;
+	font-size: 80%;
 }
 
 /**
@@ -209,18 +185,18 @@ Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
 
 sub,
 sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
 }
 
 sub {
-  bottom: -0.25em;
+	bottom: -0.25em;
 }
 
 sup {
-  top: -0.5em;
+	top: -0.5em;
 }
 
 /*
@@ -230,12 +206,12 @@ Tabular data
 
 /**
 1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
-2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+2. Correct table border color inheritance in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
 */
 
 table {
-  text-indent: 0; /* 1 */
-  border-color: inherit; /* 2 */
+	text-indent: 0; /* 1 */
+	border-color: inherit; /* 2 */
 }
 
 /*
@@ -253,20 +229,19 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
-  margin: 0; /* 2 */
+	font-family: inherit; /* 1 */
+	font-size: 100%; /* 1 */
+	line-height: 1.15; /* 1 */
+	margin: 0; /* 2 */
 }
 
 /**
 Remove the inheritance of text transform in Edge and Firefox.
-1. Remove the inheritance of text transform in Firefox.
 */
 
 button,
-select { /* 1 */
-  text-transform: none;
+select {
+	text-transform: none;
 }
 
 /**
@@ -277,7 +252,7 @@ button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
-  -webkit-appearance: button;
+	-webkit-appearance: button;
 }
 
 /**
@@ -285,8 +260,8 @@ Remove the inner border and padding in Firefox.
 */
 
 ::-moz-focus-inner {
-  border-style: none;
-  padding: 0;
+	border-style: none;
+	padding: 0;
 }
 
 /**
@@ -294,7 +269,7 @@ Restore the focus styles unset by the previous rule.
 */
 
 :-moz-focusring {
-  outline: 1px dotted ButtonText;
+	outline: 1px dotted ButtonText;
 }
 
 /**
@@ -303,7 +278,7 @@ See: https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d4
 */
 
 :-moz-ui-invalid {
-  box-shadow: none;
+	box-shadow: none;
 }
 
 /**
@@ -311,7 +286,7 @@ Remove the padding so developers are not caught out when they zero out 'fieldset
 */
 
 legend {
-  padding: 0;
+	padding: 0;
 }
 
 /**
@@ -319,7 +294,7 @@ Add the correct vertical alignment in Chrome and Firefox.
 */
 
 progress {
-  vertical-align: baseline;
+	vertical-align: baseline;
 }
 
 /**
@@ -328,7 +303,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 
 ::-webkit-inner-spin-button,
 ::-webkit-outer-spin-button {
-  height: auto;
+	height: auto;
 }
 
 /**
@@ -337,8 +312,8 @@ Correct the cursor style of increment and decrement buttons in Safari.
 */
 
 [type='search'] {
-  -webkit-appearance: textfield; /* 1 */
-  outline-offset: -2px; /* 2 */
+	-webkit-appearance: textfield; /* 1 */
+	outline-offset: -2px; /* 2 */
 }
 
 /**
@@ -346,7 +321,7 @@ Remove the inner padding in Chrome and Safari on macOS.
 */
 
 ::-webkit-search-decoration {
-  -webkit-appearance: none;
+	-webkit-appearance: none;
 }
 
 /**
@@ -355,8 +330,8 @@ Remove the inner padding in Chrome and Safari on macOS.
 */
 
 ::-webkit-file-upload-button {
-  -webkit-appearance: button; /* 1 */
-  font: inherit; /* 2 */
+	-webkit-appearance: button; /* 1 */
+	font: inherit; /* 2 */
 }
 
 /*
@@ -369,15 +344,16 @@ Add the correct display in Chrome and Safari.
 */
 
 summary {
-  display: list-item;
+	display: list-item;
 }
 *, input[type="search"] {
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-}input[type="search"] {
-	outline-offset: initial;
-}html button {
+}/*
+** Button default styles. Makes them look consistent for all browsers
+*/
+html button {
 	line-height: 1.2;
 	color: inherit;
 	fill: inherit;
@@ -388,7 +364,7 @@ summary {
 }/*
 ** Basic element styles
 */html, body {
-	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;;
+	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
 	text-rendering: optimizeLegibility; /* Enables kerning and ligatures etc. */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -476,8 +452,6 @@ summary {
 }dl dt {
 	font-weight: bold;
 	margin-top: 6px;
-}button, textarea, input, select {
-	outline-color: #3949ab;
 }textarea,
 input[type=text],
 input[type=search],
@@ -516,6 +490,11 @@ input[type="search"]::-webkit-search-results-decoration {
 	color: HighlightText;
 	background-color: ;
 	color: ;
+}.tc-inline-style {
+	background: #ffff00;
+	color: #000000;
+}form.tc-form-inline {
+	display: inline;
 }/*
 Markdown likes putting code elements inside pre elements
 */
@@ -524,7 +503,9 @@ pre > code {
 	border: none;
 	background-color: inherit;
 	color: inherit;
-}table {
+}/*
+Table defaults
+*/table {
 	border: 1px solid #d8d8d8;
 	width: auto;
 	max-width: 100%;
@@ -543,9 +524,45 @@ pre > code {
 	font-weight: bold;
 }table tfoot tr td {
 	background-color: rgba(0, 0, 0, 0.04);
-}.tc-csv-table {
+}/*
+Table utility classes
+*//* Remove borders from table as used in eg: GettingStarted*/
+.tc-table-no-border,
+.tc-table-no-border th,
+.tc-table-no-border td {
+	border: initial;
+}/* First column in table width will fit to text.*/
+/* This rule makes most sense with tc-first-link-nowrap*/
+.tc-first-col-min-width td:nth-child(1) {
+	width: 1%;
+}/*
+** Utility classes work well with tables but also for other containers
+*//* First link A element will not wrap */
+.tc-first-link-nowrap:first-of-type a {
 	white-space: nowrap;
-}.tc-tiddler-frame img,
+}/* Move the table to the center of the container */
+.tc-center {
+	margin-left: auto;
+	margin-right: auto;
+}.tc-max-width {
+	width: 100%;
+}.tc-max-width-80 {
+	max-width: 80%;
+}/* Allow input and textarea to look like the ControlPanel inputs */
+.tc-edit-max-width input,
+.tc-edit-max-width textarea {
+	width: 100%;
+	padding: 3px;
+}/*
+CSV parser plugin
+*/.tc-csv-table {
+	white-space: nowrap;
+}.tc-csv-table th,
+.tc-csv-table td {
+	white-space: pre-line;
+}/*
+Tiddler frame in story river
+*/.tc-tiddler-frame img,
 .tc-tiddler-frame svg,
 .tc-tiddler-frame canvas,
 .tc-tiddler-frame embed,
@@ -555,6 +572,8 @@ pre > code {
 .tc-tiddler-body > iframe {
 	width: 100%;
 	height: 600px;
+}:root {
+	color-scheme: light;
 }/*
 ** Links
 */button.tc-tiddlylink,
@@ -563,6 +582,7 @@ a.tc-tiddlylink {
 	font-weight: 500;
 	color: #3949ab;
 	-webkit-user-select: inherit; /* Otherwise the draggable attribute makes links impossible to select */
+	-webkit-touch-callout: none; /* Prevents long presses from bringing up a link preview */
 }.tc-sidebar-lists a.tc-tiddlylink {
 	color: rgba(0, 0, 0, 0.54);
 }.tc-sidebar-lists a.tc-tiddlylink:hover {
@@ -666,7 +686,7 @@ a.tc-tiddlylink:hover {
 	color: rgba(0, 0, 0, 0.87);
 	fill: rgba(0, 0, 0, 0.87);
 }button:disabled.tc-btn-invisible  {
-	cursor: default; 
+	cursor: default;
 	color: rgba(0, 0, 0, 0.54);
 }.tc-btn-boxed {
 	font-size: 0.6em;
@@ -814,16 +834,13 @@ a.tc-tiddlylink:hover {
 	font-weight: normal;
 	line-height: 1.2em;
 	color: inherit;
-	white-space: nowrap;
+	white-space: break-spaces;
 	vertical-align: baseline;
 	background-color: #ec6;
 	border-radius: 1em;
 }.tc-sidebar-scrollable .tc-tag-label {
 	text-shadow: none;
 }.tc-untagged-separator {
-	width: 10em;
-	left: 0;
-	margin-left: 0;
 	border: 0;
 	height: 1px;
 	background: #d8d8d8;
@@ -839,7 +856,6 @@ a.tc-tiddlylink:hover {
 	font-size: 0.7em;
 	vertical-align: middle;
 }.tc-tag-manager-table .tc-tag-label {
-	white-space: normal;
 }.tc-tag-manager-tag {
 	width: 100%;
 }button.tc-btn-invisible.tc-remove-tag-button {
@@ -887,6 +903,7 @@ a.tc-tiddlylink:hover {
 	vertical-align: middle;
 }.tc-page-controls {
 	margin-top: 14px;
+	margin-bottom: 14px;
 	font-size: 1.5em;
 }.tc-page-controls .tc-drop-down {
 	font-size: 1rem;
@@ -913,9 +930,7 @@ a.tc-tiddlylink:hover {
 		min-height: 32px;
 		margin-top: 0px;
 		transition:  min-height 400ms ease-in-out, padding-top 400ms ease-in-out, padding-bottom 400ms ease-in-out;
-	}
-	
-	.tc-story-river {
+	}.tc-story-river {
 		position: relative;
 		padding: 0;
 	}
@@ -1016,6 +1031,9 @@ a.tc-tiddlylink:hover {
 }.tc-tiddler-title-icon {
 	vertical-align: middle;
 	margin-right: .1em;
+}.tc-tiddler-title-icon svg {
+	width: 0.9em;
+	height: 0.9em;
 }.tc-system-title-prefix {
 	color: rgba(0, 0, 0, 0.54);
 }.tc-titlebar h2 {
@@ -1034,6 +1052,7 @@ a.tc-tiddlylink:hover {
 	font-weight: normal;
 }.tc-tiddler-frame .tc-tiddler-controls {
 	float: right;
+	padding: 3px; /* make space for outline */
 }.tc-tiddler-controls .tc-drop-down {
 	font-size: 0.6em;
 }.tc-tiddler-controls .tc-drop-down .tc-drop-down {
@@ -1088,6 +1107,11 @@ a.tc-tiddlylink:hover {
 	background-color: transparent;
 }.tc-tiddler-frame iframe.tc-edit-texteditor {
 	background-color: #FAFAFA;
+}.tc-tiddler-frame .tc-edit-fields input.tc-edit-fieldeditor,
+.tc-tiddler-frame .tc-edit-fields select.tc-edit-fieldeditor,
+.tc-tiddler-frame .tc-edit-fields textarea.tc-edit-fieldeditor {
+	margin: 0;
+	padding: 2px 3px;
 }.tc-tiddler-frame .tc-binary-warning {
 	width: 100%;
 	height: 5em;
@@ -1109,12 +1133,16 @@ a.tc-tiddlylink:hover {
 	display: block;
 }.tc-tiddler-body {
 	clear: both;
-}.tc-tiddler-frame .tc-tiddler-body {
+}.tc-single-tiddler-window .tc-tiddler-body,
+.tc-tiddler-frame .tc-tiddler-body {
 	font-size: 15px;
 	line-height: 22px;
 }.tc-titlebar, .tc-tiddler-edit-title {
 	overflow: hidden; /* https://github.com/Jermolene/TiddlyWiki5/issues/282 */
-}html body.tc-body.tc-single-tiddler-window {
+}/*
+* Tiddler in a new window.
+* Also see: .tc-single-tiddler-window .tc-tiddler-body, above
+*/html body.tc-body.tc-single-tiddler-window {
 	margin: 1em;
 	background: #FAFAFA;
 }.tc-single-tiddler-window img,
@@ -1127,6 +1155,9 @@ a.tc-tiddlylink:hover {
 ** Editor
 */.tc-editor-toolbar {
 	margin-top: 8px;
+}.tc-tiddler-frame .tc-tiddler-editor.tc-tiddler-preview .tc-editor-toolbar,
+.tc-tiddler-frame .tc-tiddler-editor.tc-tiddler-preview-hidden .tc-editor-toolbar {
+	grid-area: toolbar;
 }.tc-editor-toolbar button {
 	vertical-align: middle;
 	background-color: #c6c6c6;
@@ -1146,6 +1177,8 @@ a.tc-tiddlylink:hover {
 }.tc-editor-toolbar button svg {
 	width: 1.6em;
 	height: 1.2em;
+}.tc-editor-toolbar .tc-drop-down button.tc-btn-mini {
+	padding: 2px 4px;
 }.tc-editor-toolbar button:hover {
 	background-color: #aeaeae;
 	fill: #FAFAFA;
@@ -1179,7 +1212,7 @@ a.tc-tiddlylink:hover {
 		bottom: 0;
 		right: 0;
 		width: 400px;
-	}body.tc-body .tc-storyview-zoomin-tiddler {
+	}body.tc-body .tc-page-container.tc-page-view-zoomin .tc-tiddler-frame {
 		width: 100%;
 		width: calc(100% - 42px);
 	}}/*
@@ -1201,6 +1234,8 @@ a.tc-tiddlylink:hover {
 }.tc-tiddler-controls button svg.tc-image-cancel-button {
 	fill: ;
 }.tc-tiddler-controls button svg.tc-image-done-button {
+	fill: ;
+}.tc-page-controls svg.tc-image-layout-button {
 	fill: ;
 }/*
 ** Tiddler edit mode
@@ -1232,18 +1267,34 @@ a.tc-tiddlylink:hover {
 	margin: 14px 0 14px 0;
 }.tc-remove-tag-button {
 	padding-left: 4px;
-}.tc-tiddler-preview {
-	overflow: auto;
-}.tc-tiddler-preview-preview {
-	float: right;
-	width: 49%;
+}.tc-tiddler-editor {
+	display: grid;
+}.tc-tiddler-frame .tc-tiddler-editor.tc-tiddler-preview {
+	grid-template-areas:
+		"toolbar toolbar"
+		"editor preview";
+	grid-template-columns: repeat(2, minmax(0px, 1fr));
+	grid-template-rows: auto 1fr;
+}.tc-tiddler-frame .tc-tiddler-editor.tc-tiddler-preview-hidden {
+	grid-template-areas:
+		"toolbar"
+		"editor";
+	grid-template-columns: 1fr;
+	grid-template-rows: auto 1fr;
+}.tc-tiddler-frame .tc-tiddler-editor.tc-tiddler-preview .tc-tiddler-preview-preview {
+	grid-area: preview;
+	overflow-wrap: anywhere;
+	word-break: normal;
 	border: 1px solid #e8e7e7;
 	margin: 4px 0 3px 3px;
 	padding: 3px 3px 3px 3px;
-}.tc-tiddler-frame .tc-tiddler-preview .tc-edit-texteditor {
-	width: 49%;
-}.tc-tiddler-frame .tc-tiddler-preview canvas.tc-edit-bitmapeditor {
-	max-width: 49%;
+}.tc-tiddler-frame .tc-tiddler-editor.tc-tiddler-preview .tc-edit-texteditor,
+.tc-tiddler-frame .tc-tiddler-editor.tc-tiddler-preview-hidden .tc-edit-texteditor {
+	grid-area: editor;
+}.tc-tiddler-frame .tc-tiddler-editor.tc-tiddler-preview canvas.tc-edit-bitmapeditor,
+.tc-tiddler-frame .tc-tiddler-editor.tc-tiddler-preview-hidden canvas.tc-edit-bitmapeditor {
+	grid-area: editor;
+	max-width: 100%;
 }.tc-edit-fields {
 	width: 100%;
 }.tc-edit-fields.tc-edit-fields-small {
@@ -1320,11 +1371,11 @@ a.tc-tiddlylink:hover {
 ** Storyview Classes
 */.tc-viewswitcher .tc-image-button {
 	margin-right: .3em;
-}.tc-storyview-zoomin-tiddler {
+}.tc-page-container.tc-page-view-zoomin .tc-tiddler-frame {
 	position: absolute;
 	display: block;
 	width: 100%;
-}@media (min-width: 1000px) {.tc-storyview-zoomin-tiddler {
+}@media (min-width: 1000px) {.tc-page-container.tc-page-view-zoomin .tc-tiddler-frame {
 		width: calc(100% - 84px);
 	}}/*
 ** Dropdowns
@@ -1470,7 +1521,10 @@ a.tc-tiddlylink:hover {
 	left: 0;
 	right: 0;
 	margin: auto;
-}/*
+}/* Make search dropdown visible on small screens. issue #7003 */
+@media (max-width: 1000px) {.tc-sidebar-search .tc-block-dropdown-wrapper {
+		position: initial;
+	}}/*
 ** Modals
 */.tc-modal-wrapper {
 	position: fixed;
@@ -1656,12 +1710,10 @@ a.tc-tiddlylink:hover {
 	border: none;
 }/*
 ** Manager
-*/.tc-manager-wrapper {
-	
-}.tc-manager-controls {
-	
-}.tc-manager-control {
+*/.tc-manager-wrapper {}.tc-manager-controls {}.tc-manager-control {
 	margin: 0.5em 0;
+}.tc-manager-control select {
+	max-width: 100%;
 }.tc-manager-list {
 	width: 100%;
 	border-top: 1px solid rgba(0, 0, 0, 0.54);
@@ -1808,6 +1860,8 @@ a.tc-tiddlylink:hover {
 	padding: 4px;
 }.tc-control-panel table, .tc-control-panel table input, .tc-control-panel table textarea {
 	width: 100%;
+}.tc-control-panel-setting {
+	border-top: 1px solid #f4f4f4;
 }.tc-plugin-info {
 	display: flex;
 	text-shadow: none;
@@ -1858,6 +1912,24 @@ a.tc-tiddlylink:hover {
 	line-height: 1;
 }.tc-plugin-info-chunk.tc-plugin-info-description {
 	flex-grow: 1;
+}.tc-plugin-info-chunk .tc-plugin-info-stability {
+	margin-right: 4px;
+	padding: 1px 3px;
+	font-size: 0.8em;
+	border-radius: 4px;
+	font-weight: bold;
+}.tc-plugin-info-chunk .tc-plugin-info-stability-stable {
+	border: 1px solid #008000;
+	color: #008000;
+}.tc-plugin-info-chunk .tc-plugin-info-stability-experimental {
+	border: 1px solid #c07c00;
+	color: #c07c00;
+}.tc-plugin-info-chunk .tc-plugin-info-stability-deprecated {
+	border: 1px solid #ff0000;
+	color: #ff0000;
+}.tc-plugin-info-chunk .tc-plugin-info-stability-legacy {
+	border: 1px solid #0000ff;
+	color: #0000ff;
 }.tc-plugin-info-chunk.tc-plugin-info-buttons {
 	font-size: 0.8em;
 	line-height: 1.2;
@@ -1873,7 +1945,7 @@ a.tc-tiddlylink:hover {
 	line-height: 1.2;
 	margin: 2px 0 2px 0;
 }.tc-plugin-info-chunk.tc-plugin-info-description div {
-	font-size: 0.7em;
+	font-size: 0.8em;
 	line-height: 1.2;
 	margin: 2px 0 2px 0;
 }.tc-plugin-info-chunk.tc-plugin-info-toggle img, .tc-plugin-info-chunk.tc-plugin-info-toggle svg {
@@ -1993,7 +2065,8 @@ a.tc-tiddlylink:hover {
 ** Table of contents
 */.tc-sidebar-lists .tc-table-of-contents {
 	white-space: nowrap;
-}.tc-table-of-contents button {
+}.tc-table-of-contents button,
+.tc-table-of-contents .toc-item-muted {
 	color: rgba(0, 0, 0, 0.54);
 }.tc-table-of-contents svg {
 	width: 0.7em;
@@ -2069,7 +2142,15 @@ a.tc-tiddlylink:hover {
 	flex: 1 0 50%;
 }/*
 ** Dirty indicator
-*/body.tc-dirty span.tc-dirty-indicator, body.tc-dirty span.tc-dirty-indicator svg {
+*/html body svg.tc-image-save-button-dynamic .tc-image-save-button-dynamic-clean {
+	visibility: visible;
+}html body svg.tc-image-save-button-dynamic .tc-image-save-button-dynamic-dirty {
+	visibility: hidden;
+}html body.tc-dirty svg.tc-image-save-button-dynamic .tc-image-save-button-dynamic-clean {
+	visibility: hidden;
+}html body.tc-dirty svg.tc-image-save-button-dynamic .tc-image-save-button-dynamic-dirty {
+	visibility: visible;
+}html body.tc-dirty span.tc-dirty-indicator, html body.tc-dirty span.tc-dirty-indicator svg {
 	fill: #c80000;
 	color: #c80000;
 }/*
@@ -2128,19 +2209,15 @@ a.tc-tiddlylink:hover {
 .tc-thumbnail-icon img {
 	width: 3em;
 	height: 3em;
-	
-  -webkit-filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
-     -moz-filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
-          filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
-
+	 -webkit-filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+	-moz-filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+	filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
 }.tc-thumbnail-wrapper:hover .tc-thumbnail-icon svg,
 .tc-thumbnail-wrapper:hover .tc-thumbnail-icon img {
 	fill: #fff;
-	
-  -webkit-filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
-     -moz-filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
-          filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
-
+	 -webkit-filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
+	-moz-filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
+	filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
 }.tc-thumbnail-icon {
 	position: absolute;
 	top: 0;
@@ -2221,9 +2298,145 @@ a.tc-tiddlylink:hover {
 	color: rgba(0, 0, 0, 0.87);
 	background: #FAFAFA;
 }/*
+** Translink macro
+*/.tc-translink {
+	background-color: #ececec;
+	border: 1px solid #ececec;
+	padding: 0 3px;
+	border-radius: 3px;
+}div.tc-translink > div {
+	margin: 1em;
+}div.tc-translink > div > a:first-child > h1 {
+	font-size: 1.2em;
+	font-weight: bold;
+}span.tc-translink > a:first-child {
+	font-weight: bold;
+}/*
+** Classes for displaying globals
+*/.tc-global-tiddler-body {
+	padding: 0.25em;
+	border: 1px solid rgba(0, 0, 0, 0.87);
+	background-color: rgba(0, 0, 0, 0.54);
+	border-radius: 3px;
+}.tc-global-tiddler-body-heading {
+	margin: 0 0 0.25em 0;
+	font-weight: normal;
+}.tc-global-tiddler-body-type {
+	margin: 0 0 0.25em 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.87);
+}.tc-global-tiddler-body-details {
+	background-color: #FAFAFA;
+}.tc-global-tiddler-body pre {
+	margin: 0;
+	border: 1px solid rgba(0, 0, 0, 0.87);
+}/*
 ** Utility classes for SVG icons
 */.tc-fill-background {
 	fill: #FAFAFA;
+}.tc-network-activity-background {
+	fill: #448844;
+}/*
+** Test Cases
+*/.tc-test-case-wrapper {
+	border: 1px solid rgba(0, 0, 0, 0.87);
+	background-color: rgba(0, 0, 0, 0.54);
+	border-radius: 6px;
+}.tc-test-case-wrapper {
+	background-color: #c1eaff;
+}.tc-test-case-wrapper .tc-test-case-wrapper {
+	background-color: #E3B740;
+}.tc-test-case-wrapper .tc-test-case-wrapper .tc-test-case-wrapper {
+	background-color: #5FD564;
+}.tc-test-case-header {
+	font-weight: normal;
+	margin: 0.5em 0;
+	padding: 0 0.5em;
+}.tc-test-case-divider {
+	x-background-color: rgba(0, 0, 0, 0.54);
+}.tc-test-case-result-icon {
+	fill: #fff;
+	padding: 0.25em;
+	display: inline-block;
+	line-height: 0;
+	border-radius: 1em;
+	vertical-align: text-bottom;
+	margin-right: 0.25em;
+}.tc-test-case-result-icon-pass {
+	background-color: green;
+}.tc-test-case-result-icon-fail {
+	background-color: red;
+}.tc-test-case-result-icon svg {
+	width: 0.5em;
+	height: 0.5em;
+}.tc-test-case-header > h2 {
+	background: #FAFAFA;
+	border-radius: 4px;
+	padding: 0.25em;
+}.tc-test-case-header > h2,
+.tc-test-case-source > pre {
+	margin: 0;
+}.tc-test-case-header > h2 a.tc-tiddlylink-missing {
+	font-style: normal;
+}.tc-test-case-toolbar {
+	float: right;
+}.tc-test-case-toolbar svg {
+	fill: #c6c6c6;
+}.tc-test-case-toolbar .tc-drop-down {
+	font-size: 0.8em;
+}.tc-test-case-result-fail {
+	border: 1px solid rgba(0, 0, 0, 0.87);
+	background-color: #FAFAFA;
+	border-radius: 4px;
+	margin: 0 0.5em;
+	padding: 0;
+}.tc-test-case-result-fail-header {
+	background: #ffc9c9;
+	color: rgba(0, 0, 0, 0.87);
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	padding: 4px;
+}.tc-test-case-result-fail-body {
+	padding: 4px;
+}.tc-test-case-source > pre {
+	height: 100%;
+}.tc-test-case-narrative {
+	padding: 0.5em;
+}.tc-test-case-panes {
+	display: flex;
+	align-items: stretch;
+	flex-wrap: wrap;
+	padding: 0.5em;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+}.tc-test-case-source {
+	flex: 1 0 49%;
+	min-width: 250px;
+}.tc-test-case-source .tc-tab-content {
+	background: inherit;
+	margin: 0;
+}.tc-test-case-source .tc-tab-content .tc-field-table {
+	background: #FAFAFA;
+}.tc-test-case-source .tc-field-table {
+	width: 100%;
+}.tc-test-case-source table.tc-field-table {
+	margin: 0;
+}.tc-test-case-source .tc-tiddler-frame .tc-edit-texteditor {
+	margin: 0;
+}.tc-test-case-divider {
+	flex: 0 0 1.5%;
+}.tc-test-case-source .tc-tab-buttons {
+	padding-top: 0;
+}.tc-test-case-footer-toolbar {
+	display: flex;
+	justify-content: flex-end;
+}.tc-test-case-output {
+	box-shadow: inset 2px 2px 10px 0px rgba(0, 0, 0, 0.54);
+	background: #FAFAFA;
+	border-radius: 4px;
+	border: 1px solid rgba(0, 0, 0, 0.54);
+	flex: 1 0 49%;
+	min-width: 250px;
+	padding: 0.25em 1em;
 }/*
 ** Flexbox utility classes
 */.tc-flex {
@@ -2239,7 +2452,7 @@ a.tc-tiddlylink:hover {
 	flex-grow: 2;
 }/*
 ** Other utility classes
-*/.tc-tiny-gap {
+*//* Horizontal gaps */.tc-tiny-gap {
 	margin-left: .25em;
 	margin-right: .25em;
 }.tc-tiny-gap-left {
@@ -2262,9 +2475,9 @@ a.tc-tiddlylink:hover {
 	margin-right: 1em;
 }.tc-word-break {
 	word-break: break-all;
+}/* Vertical gaps */.tc-tiny-v-gap-bottom {
+	margin-bottom: 3px;
 }
-
-
 div.remembertwo {
 	border-left: 3px solid #ec6;
 	padding-left: 0.5em;
@@ -2309,9 +2522,7 @@ span.remembercz.tr-hide-inline-cloze-id div.tr-selfidentification {
 }/* Hide the word "cloze" on inline clozes */
 span.remembercz.tr-hide-inline-cloze-name span.cloze-identifier span.tr-name-cloze {
 	display: none;
-}
-
-/* details and summary colours */details {
+}/* details and summary colours */details {
    background-color: rgba(0, 0, 0, 0.04);
    color: rgba(0, 0, 0, 0.87);
 }details summary {
@@ -2326,8 +2537,6 @@ span.remembercz.tr-hide-inline-cloze-name span.cloze-identifier span.tr-name-clo
     background-color: #88edc5;
     color: #000;
 }
-
-
 /* details and summary */details {
    transition: height 1s ease;
    padding: 0 0.5em 0 0.66em;
@@ -2351,5 +2560,3 @@ span.remembercz.tr-hide-inline-cloze-name span.cloze-identifier span.tr-name-clo
 }details[open] > *:first-child:not(summary) {
    margin-top: 1em;
 }
-
-
