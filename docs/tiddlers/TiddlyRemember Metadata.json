@@ -1,7 +1,7 @@
 {
-    "version": "1.3.6",
+    "version": "1.4.0",
     "compatible-tw5": ">= 5.1.21",
-    "compatible-anki": ">= 2.1.45",
+    "compatible-anki": ">= 25.02",
     "repository": "https://github.com/sobjornstad/TiddlyRemember",
     "anki-addon-url": "https://ankiweb.net/shared/info/60456529"
 }

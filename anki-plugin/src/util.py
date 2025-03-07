@@ -11,9 +11,10 @@ from typing import Iterator, List, NewType, Optional, Sequence
 Twid = NewType('Twid', str)
 
 DEFAULT_FILTER = '[type[text/vnd.tiddlywiki]] [type[]] +[!is[system]]'
-PLUGIN_VERSION = "1.3.6"
+PLUGIN_VERSION = "1.4.0"
 COMPATIBLE_TW_VERSIONS = [
-    "", "1.2.2", "1.2.3", "1.3.0", "1.3.1", "1.3.2", "1.3.3", "1.3.4", "1.3.5", "1.3.6"
+    "", "1.2.2", "1.2.3", "1.3.0", "1.3.1", "1.3.2", "1.3.3", "1.3.4", "1.3.5", "1.3.6",
+    "1.4.0",
 ]
 
 
