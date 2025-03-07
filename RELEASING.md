@@ -33,11 +33,14 @@ Don't stop the listener until you're told to do so by a later step
 
 1. Open and save the `TiddlyRemember` main tiddler
    so that its modification date gets bumped.
-2. Run `bumpversion patch` (or `minor` or `major` if needed).
-3. Check and update the `COMPATIBLE_TW_VERSIONS` array
+2. Commit your changes as a temp commit
+   (unfortunately `bumpversion` refuses to let you leave them uncommitted).
+3. Run `bumpversion patch` (or `minor` or `major` if needed).
+4. Check and update the `COMPATIBLE_TW_VERSIONS` array
    in `anki-plugin/src/util.py`.
-4. Check and update the `compatible-tw5` and `compatible-anki` properties
+5. Check and update the `compatible-tw5` and `compatible-anki` properties
    in `docs/tiddlers/TiddlyRemember Metadata.json`.
+6. Check and update the copyright dates in `LICENSE` and `tw-plugin/license.tid`.
 
 
 ## Updating the Anki add-on
@@ -60,12 +63,13 @@ Don't stop the listener until you're told to do so by a later step
 
 1. Quit the TiddlyWiki listener (hit Ctrl+C on the big PasteOps command from above).
    Run `cd -; mv docs/tiddlywiki.info.old docs/tiddlywiki.info` to restore the file.
-2. Commit all doc and release changes made thus far.
-3. Check your branch log and make any final rebases or adjustments.
-4. Push the branch to GitHub.
-5. Create a pull request to `master`.
+2. `git reset --soft HEAD^` to go back to before the last temp commit.
+3. Commit all doc and release changes made thus far, this time for real.
+4. Check your branch log and make any final rebases or adjustments.
+5. Push the branch to GitHub.
+6. Create a pull request to `master`.
    If all looks good, complete with a rebase-and-merge and delete the branch.
-6. Create a new release on GitHub to publicize the update:
+7. Create a new release on GitHub to publicize the update:
    https://github.com/sobjornstad/TiddlyRemember/releases/new.
    The tag should be in the form `v0.0.0`, using standard semantic versioning.
    Hold off on publishing the release for the moment.
