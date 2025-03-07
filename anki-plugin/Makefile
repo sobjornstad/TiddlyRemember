@@ -7,7 +7,7 @@ zip: build.ankiaddon
 src/%_dialog6.py: designer/%_dialog.ui
 	pyuic6 $^ > $@
 
-build.ankiaddon: src/*.py src/config.json
+build.ankiaddon: src/*.py src/config.json src/manifest.json
 	rm -f $@
 	( cd src/; zip -r ../$@ $(^F) )
 
