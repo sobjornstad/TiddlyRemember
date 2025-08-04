@@ -5,6 +5,12 @@ Since Anki doesn't have any way to deploy plugins through CD,
     here's at least a consistent set of manual release steps.
 
 
+## Creating a branch
+
+The TiddlyRemember release workflow requires publishing a branch.
+Move master or feature commits onto a release branch if necessary.
+
+
 ## Changing the docs
 
 Aside from straight bugfix releases,
@@ -64,12 +70,14 @@ Don't stop the listener until you're told to do so by a later step
 1. Quit the TiddlyWiki listener (hit Ctrl+C on the big PasteOps command from above).
    Run `cd -; mv docs/tiddlywiki.info.old docs/tiddlywiki.info` to restore the file.
 2. `git reset --soft HEAD^` to go back to before the last temp commit.
-3. Commit all doc and release changes made thus far, this time for real.
-4. Check your branch log and make any final rebases or adjustments.
-5. Push the branch to GitHub.
-6. Create a pull request to `master`.
+3. `git restore --staged tiddlywiki.info && git restore tiddlywiki.info && rm tiddlywiki.info.old`
+   to undo the temporary listener change.
+4. Commit all doc and release changes made thus far, this time for real.
+5. Check your branch log and make any final rebases or adjustments.
+6. Push the branch to GitHub.
+7. Create a pull request to `master`.
    If all looks good, complete with a rebase-and-merge and delete the branch.
-7. Create a new release on GitHub to publicize the update:
+8. Create a new release on GitHub to publicize the update:
    https://github.com/sobjornstad/TiddlyRemember/releases/new.
    The tag should be in the form `v0.0.0`, using standard semantic versioning.
    Hold off on publishing the release for the moment.

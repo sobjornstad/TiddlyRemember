@@ -1,5 +1,5 @@
 {
-    "version": "1.4.0",
+    "version": "1.4.1",
     "compatible-tw5": ">= 5.1.21",
     "compatible-anki": ">= 25.02",
     "repository": "https://github.com/sobjornstad/TiddlyRemember",
