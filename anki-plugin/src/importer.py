@@ -121,7 +121,7 @@ class ImportDialog(QDialog):
             # Obviously this will be done *real* soon...but don't want an exception!
             self.form.progressBar.setValue(100)
         else:
-            self.form.progressBar.setValue(at * 100 / end)
+            self.form.progressBar.setValue(at * 100 // end)
 
     def extract(self) -> None:
         """
