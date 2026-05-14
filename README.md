@@ -13,6 +13,13 @@ Installation and use instructions can be found at
 https://sobjornstad.github.io/TiddlyRemember/.
 
 
+## AI use
+
+No form of AI assistance has, as yet, been used in building TiddlyRemember.
+I may consider using AI agents to make changes in the future,
+but intend to retain a full understanding of the code.
+
+
 ## Building from source
 
 Install the TiddlyWiki plugin in the `tw-plugin/` subdirectory
