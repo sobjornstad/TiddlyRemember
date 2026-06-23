@@ -18,7 +18,7 @@ yapf>=0.30.0,<1.0
 pyqt6==6.8.1
 PyQt6-WebEngine
 anki==24.11
-aqt==24.11
+aqt==25.9.4
 
 # Stubs.
 types-requests==2.25.8
