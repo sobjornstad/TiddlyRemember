@@ -70,7 +70,310 @@ Error message and password prompt
 .tc-password-wrapper input {
 	width: 100%;
 }
-/*
+/* Tiddlywiki's CSS properties */:root {
+	
+	--tpc-alert-background: #FAFAFA;
+	
+	--tpc-alert-border: rgba(0, 0, 0, 0.12);
+	
+	--tpc-alert-highlight: rgba(0, 0, 0, 0.12);
+	
+	--tpc-alert-muted-foreground: rgba(0, 0, 0, 0.54);
+	
+	--tpc-background: #FAFAFA;
+	
+	--tpc-blockquote-bar: #f4f4f4;
+	
+	--tpc-button-background: transparent;
+	
+	--tpc-button-border: #ec6;
+	
+	--tpc-button-foreground: inherit;
+	
+	--tpc-code-background: #ececec;
+	
+	--tpc-code-border: #ececec;
+	
+	--tpc-code-foreground: ;
+	
+	--tpc-diff-delete-background: #ffc9c9;
+	
+	--tpc-diff-delete-foreground: rgba(0, 0, 0, 0.87);
+	
+	--tpc-diff-equal-background: ;
+	
+	--tpc-diff-equal-foreground: rgba(0, 0, 0, 0.87);
+	
+	--tpc-diff-insert-background: #aaefad;
+	
+	--tpc-diff-insert-foreground: rgba(0, 0, 0, 0.87);
+	
+	--tpc-diff-invisible-background: ;
+	
+	--tpc-diff-invisible-foreground: rgba(0, 0, 0, 0.54);
+	
+	--tpc-dirty-indicator: #c80000;
+	
+	--tpc-download-background: #3949ab;
+	
+	--tpc-download-foreground: #FAFAFA;
+	
+	--tpc-dragger-background: rgba(0, 0, 0, 0.87);
+	
+	--tpc-dragger-foreground: #FAFAFA;
+	
+	--tpc-dropdown-background: #FFFFFF;
+	
+	--tpc-dropdown-border: #FFFFFF;
+	
+	--tpc-dropdown-tab-background: #F5F5F5;
+	
+	--tpc-dropdown-tab-background-selected: #FFFFFF;
+	
+	--tpc-dropzone-background: #ec6;
+	
+	--tpc-external-link-background: transparent;
+	
+	--tpc-external-link-background-hover: transparent;
+	
+	--tpc-external-link-background-visited: transparent;
+	
+	--tpc-external-link-foreground: ;
+	
+	--tpc-external-link-foreground-hover: ;
+	
+	--tpc-external-link-foreground-visited: ;
+	
+	--tpc-footnote-target-background: #ececec;
+	
+	--tpc-foreground: rgba(0, 0, 0, 0.87);
+	
+	--tpc-highlight-background: #ffff00;
+	
+	--tpc-highlight-foreground: #000000;
+	
+	--tpc-message-background: #FAFAFA;
+	
+	--tpc-message-border: rgba(0, 0, 0, 0.12);
+	
+	--tpc-message-foreground: rgba(0, 0, 0, 0.54);
+	
+	--tpc-modal-backdrop: rgba(0, 0, 0, 0.87);
+	
+	--tpc-modal-background: #FAFAFA;
+	
+	--tpc-modal-border: rgba(0, 0, 0, 0.12);
+	
+	--tpc-modal-footer-background: #FAFAFA;
+	
+	--tpc-modal-footer-border: rgba(0, 0, 0, 0.12);
+	
+	--tpc-modal-header-border: rgba(0, 0, 0, 0.12);
+	
+	--tpc-muted-foreground: rgba(0, 0, 0, 0.54);
+	
+	--tpc-network-activity-foreground: #448844;
+	
+	--tpc-notification-background: #FFFFFF;
+	
+	--tpc-notification-border: #FFFFFF;
+	
+	--tpc-page-background: #f4f4f4;
+	
+	--tpc-pre-background: #ececec;
+	
+	--tpc-pre-border: #ececec;
+	
+	--tpc-primary: #3949ab;
+	
+	--tpc-select-tag-background: #FAFAFA;
+	
+	--tpc-select-tag-foreground: rgba(0, 0, 0, 0.87);
+	
+	--tpc-selection-background: ;
+	
+	--tpc-selection-foreground: ;
+	
+	--tpc-sidebar-button-foreground: rgba(0, 0, 0, 0.87);
+	
+	--tpc-sidebar-controls-foreground: #c6c6c6;
+	
+	--tpc-sidebar-controls-foreground-hover: #aeaeae;
+	
+	--tpc-sidebar-foreground: rgba(0, 0, 0, 0.54);
+	
+	--tpc-sidebar-foreground-shadow: transparent;
+	
+	--tpc-sidebar-muted-foreground: rgba(0, 0, 0, 0.38);
+	
+	--tpc-sidebar-muted-foreground-hover: rgba(0, 0, 0, 0.54);
+	
+	--tpc-sidebar-tab-background: transparent;
+	
+	--tpc-sidebar-tab-background-selected: #f4f4f4;
+	
+	--tpc-sidebar-tab-border: transparent;
+	
+	--tpc-sidebar-tab-border-selected: #d8d8d8;
+	
+	--tpc-sidebar-tab-divider: #d8d8d8;
+	
+	--tpc-sidebar-tab-foreground: rgba(0, 0, 0, 0.54);
+	
+	--tpc-sidebar-tab-foreground-selected: rgba(0, 0, 0, 0.87);
+	
+	--tpc-sidebar-tiddler-link-foreground: rgba(0, 0, 0, 0.54);
+	
+	--tpc-sidebar-tiddler-link-foreground-hover: rgba(0, 0, 0, 0.87);
+	
+	--tpc-site-title-foreground: rgba(0, 0, 0, 0.87);
+	
+	--tpc-stability-deprecated: #ff0000;
+	
+	--tpc-stability-experimental: #c07c00;
+	
+	--tpc-stability-legacy: #0000ff;
+	
+	--tpc-stability-stable: #00b700;
+	
+	--tpc-static-alert-foreground: #aaaaaa;
+	
+	--tpc-tab-background: transparent;
+	
+	--tpc-tab-background-selected: #FAFAFA;
+	
+	--tpc-tab-border: transparent;
+	
+	--tpc-tab-border-selected: #d8d8d8;
+	
+	--tpc-tab-divider: #d8d8d8;
+	
+	--tpc-tab-foreground: rgba(0, 0, 0, 0.54);
+	
+	--tpc-tab-foreground-selected: rgba(0, 0, 0, 0.87);
+	
+	--tpc-table-border: #d8d8d8;
+	
+	--tpc-table-footer-background: rgba(0, 0, 0, 0.04);
+	
+	--tpc-table-header-background: rgba(0, 0, 0, 0.1);
+	
+	--tpc-tag-background: #ec6;
+	
+	--tpc-tag-foreground: inherit;
+	
+	--tpc-testcase-accent-level-1: #c1eaff;
+	
+	--tpc-testcase-accent-level-2: #E3B740;
+	
+	--tpc-testcase-accent-level-3: #5FD564;
+	
+	--tpc-tiddler-background: #FAFAFA;
+	
+	--tpc-tiddler-border: #f9f9f9;
+	
+	--tpc-tiddler-controls-foreground: #c6c6c6;
+	
+	--tpc-tiddler-controls-foreground-hover: #aeaeae;
+	
+	--tpc-tiddler-controls-foreground-selected: #aeaeae;
+	
+	--tpc-tiddler-editor-background: transparent;
+	
+	--tpc-tiddler-editor-border: #e8e7e7;
+	
+	--tpc-tiddler-editor-border-image: ;
+	
+	--tpc-tiddler-editor-fields-even: rgba(0, 0, 0, 0.1);
+	
+	--tpc-tiddler-editor-fields-odd: rgba(0, 0, 0, 0.04);
+	
+	--tpc-tiddler-info-background: #F5F5F5;
+	
+	--tpc-tiddler-info-border: #F5F5F5;
+	
+	--tpc-tiddler-info-tab-background: rgba(0, 0, 0, 0.04);
+	
+	--tpc-tiddler-link-background: #FAFAFA;
+	
+	--tpc-tiddler-link-foreground: #3949ab;
+	
+	--tpc-tiddler-subtitle-foreground: rgba(0, 0, 0, 0.54);
+	
+	--tpc-tiddler-title-foreground: #000000;
+	
+	--tpc-toolbar-cancel-button: ;
+	
+	--tpc-toolbar-close-button: ;
+	
+	--tpc-toolbar-delete-button: ;
+	
+	--tpc-toolbar-done-button: ;
+	
+	--tpc-toolbar-edit-button: ;
+	
+	--tpc-toolbar-info-button: ;
+	
+	--tpc-toolbar-new-button: ;
+	
+	--tpc-toolbar-options-button: ;
+	
+	--tpc-toolbar-save-button: ;
+	
+	--tpc-untagged-background: rgba(0, 0, 0, 0.12);
+	
+	--tpc-very-muted-foreground: rgba(0, 0, 0, 0.12);
+	
+	--tpc-wikilist-background: #e5e5e5;
+	
+	--tpc-wikilist-button-background: #acacac;
+	
+	--tpc-wikilist-button-foreground: #000000;
+	
+	--tpc-wikilist-button-open: #4fb82b;
+	
+	--tpc-wikilist-button-open-hover: #009300;
+	
+	--tpc-wikilist-button-remove: #d85778;
+	
+	--tpc-wikilist-button-remove-hover: #ff0000;
+	
+	--tpc-wikilist-button-reveal: #5778d8;
+	
+	--tpc-wikilist-button-reveal-hover: #0000ff;
+	
+	--tpc-wikilist-droplink-dragover: #ffc0c0;
+	
+	--tpc-wikilist-info: #000000;
+	
+	--tpc-wikilist-item: #ffffff;
+	
+	--tpc-wikilist-title: #666666;
+	
+	--tpc-wikilist-title-svg: #666666;
+	
+	--tpc-wikilist-toolbar-background: #d3d3d3;
+	
+	--tpc-wikilist-toolbar-foreground: #888888;
+	
+	--tpc-wikilist-url: #aaaaaa;
+	/* CSS settings */
+	--tp-code-wrapping: pre-wrap;
+	--tp-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", sans-serif, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+	--tp-code-font-family: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+	--tp-editor-font-family: ;
+	--tp-font-size: 14px;
+	--tp-line-height: 20px;
+	--tp-body-font-size: 15px;
+	--tp-body-line-height: 22px;
+	--tp-story-left: 0px;
+	--tp-story-top: 0px;
+	--tp-story-right: 770px;
+	--tp-story-width: ;
+	--tp-tiddler-width: 686px;
+	--tp-sidebar-breakpoint: 1000px;
+	--tp-sidebar-width: 400px;--tp-animation-duration: {{{ [{$:/config/AnimationDuration}addsuffix[ms]] }}};
+}/*
 ** Start with the normalize CSS reset, and then belay some of its effects
 *//*! modern-normalize v2.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
@@ -346,10 +649,16 @@ Add the correct display in Chrome and Safari.
 summary {
 	display: list-item;
 }
-*, input[type="search"] {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
+input[type="search"] {
+	outline-offset: initial;
+}button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+	outline: 2px solid #3949ab;
+	outline-offset: -2px;
+	border-radius: 0.25em;
+}button:-moz-focusring, input:-moz-focusring, textarea:-moz-focusring, select:-moz-focusring {
+	outline: 2px solid #3949ab;
+	outline-offset: -2px;
+	border-radius: 0.25em;
 }/*
 ** Button default styles. Makes them look consistent for all browsers
 */
@@ -359,12 +668,16 @@ html button {
 	fill: inherit;
 	background: transparent;
 	border-color: #ec6;
+	cursor: pointer;
+}button:disabled {
+	cursor: default;
+	color: rgba(0, 0, 0, 0.54);
 }button:disabled svg {
 	fill: rgba(0, 0, 0, 0.54);
 }/*
 ** Basic element styles
 */html, body {
-	font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", sans-serif, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 	text-rendering: optimizeLegibility; /* Enables kerning and ligatures etc. */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -399,7 +712,7 @@ html button {
 	border: 1px solid #ececec;
 	padding: 0 3px 2px;
 	border-radius: 3px;
-	font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
+	font-family: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }code {
 	color: ;
 	background-color: #ececec;
@@ -407,11 +720,13 @@ html button {
 	white-space: pre-wrap;
 	padding: 0 3px 2px;
 	border-radius: 3px;
-	font-family: "SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace;
+	font-family: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 }blockquote {
-	border-left: 5px solid #f4f4f4;
-	margin-left: 25px;
-	padding-left: 10px;
+	border-inline-start: 5px solid #f4f4f4;
+		-webkit-margin-start: 25px;
+	margin-inline-start: 25px;
+		-webkit-padding-start: 10px;
+	padding-inline-start: 10px;
 	quotes: "\201C""\201D""\2018""\2019";
 }blockquote > div {
 	margin-top: 1em;
@@ -420,9 +735,11 @@ html button {
 	font-family: Georgia, serif;
 	position: relative;
 	background: #ececec;
-	border-left: none;
-	margin-left: 50px;
-	margin-right: 50px;
+	border-inline-start: none;
+		-webkit-margin-start: 50px;
+	margin-inline-start: 50px;
+	-webkit-margin-end: ;
+	margin-inline-end: ;
 	padding: 10px;
 	border-radius: 8px;
 }blockquote.tc-big-quote cite:before {
@@ -455,6 +772,11 @@ html button {
 }textarea,
 input[type=text],
 input[type=search],
+input[type=number],
+input[type=password],
+input[type=email],
+input[type=tel],
+input[type=url],
 input[type=""],
 input:not([type]) {
 	color: rgba(0, 0, 0, 0.87);
@@ -469,7 +791,12 @@ input[type="search"]::-webkit-search-results-decoration {
 }.tc-muted {
 	color: rgba(0, 0, 0, 0.54);
 }svg.tc-image-button {
-	padding: 0px 1px 1px 0px;
+	padding-top: 0px;
+	padding-bottom: 1px;
+		-webkit-padding-start: 0px;
+	padding-inline-start: 0px;
+	-webkit-padding-end: 1px;
+	padding-inline-end: 1px;
 }.tc-icon-wrapper > svg {
 	width: 1em;
 	height: 1em;
@@ -493,16 +820,22 @@ input[type="search"]::-webkit-search-results-decoration {
 }.tc-inline-style {
 	background: #ffff00;
 	color: #000000;
+}/* Markdown uses mark element to highlight */mark {
+	background: #ffff00;
+	color: #000000;
 }form.tc-form-inline {
 	display: inline;
 }/*
 Markdown likes putting code elements inside pre elements
 */
 pre > code {
-	padding: 0;
+	display: block;
+	padding: 0.5em;
 	border: none;
+	white-space: pre-wrap;
 	background-color: inherit;
 	color: inherit;
+	overflow-x: auto;
 }/*
 Table defaults
 */table {
@@ -574,6 +907,7 @@ Tiddler frame in story river
 	height: 600px;
 }:root {
 	color-scheme: light;
+	text-autospace: normal;
 }/*
 ** Links
 */button.tc-tiddlylink,
@@ -725,7 +1059,8 @@ a.tc-tiddlylink:hover {
 	width: 1em;
 	fill: rgba(0, 0, 0, 0.54);
 }.tc-btn-text {
-	margin-left: 7px;
+		-webkit-margin-start: 7px;
+	margin-inline-start: 7px;
 }/* used for documentation "fake" buttons */
 .tc-btn-standard {
 	line-height: 1.8;
@@ -776,7 +1111,8 @@ a.tc-tiddlylink:hover {
 	border: none;
 	width: 100%;
 	width: calc(100% + 2px);
-	margin-left: -43px;
+		-webkit-margin-start: -43px;
+	margin-inline-start: -43px;
 	text-align: center;
 	border-top: 2px solid #F5F5F5;
 	margin-top: 4px;
@@ -796,7 +1132,8 @@ a.tc-tiddlylink:hover {
 	border: none;
 	width: 23px;
 	text-align: center;
-	margin-left: -35px;
+		-webkit-margin-start: -35px;
+	margin-inline-start: -35px;
 	top: 6px;
 	bottom: 6px;
 }.tc-fold-banner:hover {
@@ -806,7 +1143,8 @@ a.tc-tiddlylink:hover {
 		width: calc(100% + 59px);
 	}.tc-fold-banner {
 		width: 16px;
-		margin-left: -16px;
+			-webkit-margin-start: -16px;
+	margin-inline-start: -16px;
 		font-size: 0.75em;
 	}}/*
 ** Tags and missing tiddlers
@@ -890,7 +1228,8 @@ a.tc-tiddlylink:hover {
 	fill: rgba(0, 0, 0, 0.54);
 }.tc-sidebar-header .tc-title a.tc-tiddlylink-resolves {
 	font-weight: normal;
-}.tc-sidebar-header .tc-sidebar-lists p {
+}.tc-sidebar-header .tc-sidebar-lists p,
+.tc-sidebar-tools-item {
 	margin-top: 3px;
 	margin-bottom: 3px;
 }.tc-sidebar-header .tc-missing-tiddler-label {
@@ -939,17 +1278,22 @@ a.tc-tiddlylink:hover {
 	}.tc-sidebar-scrollable {
 		position: fixed;
 		top: 0px;
-		left: 770px;
+		inset-inline-start: 770px;
 		bottom: 0;
-		right: 0;
+		inset-inline-end: 0;
 		overflow-y: auto;
 		overflow-x: auto;
 		-webkit-overflow-scrolling: touch;
 		margin: 0 0 0 -42px;
 		padding: 71px 0 28px 42px;
-	}html[dir="rtl"] .tc-sidebar-scrollable {
-		left: auto;
-		right: 770px;
+	}@supports not (inset-inline-start: 0) {
+		.tc-sidebar-scrollable {
+			left: 770px;
+			right: 0;
+		}html[dir="rtl"] .tc-sidebar-scrollable {
+			left: auto;
+			right: 770px;
+		}
 	}.tc-story-river {
 		position: relative;
 		left: 0px;
@@ -980,7 +1324,6 @@ a.tc-tiddlylink:hover {
 	border: 1px solid #f9f9f9;
 }
 .tc-tiddler-info {
-	overflow: hidden;
 	padding: 14px 42px 14px 42px;
 	background-color: #F5F5F5;
 	border-top: 1px solid #F5F5F5;
@@ -993,11 +1336,13 @@ a.tc-tiddlylink:hover {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }@media (max-width: 999px) {.tc-tiddler-info {
 		padding: 14px 14px 14px 14px;
-	}}.tc-view-field-table {
+	}}.tc-tiddler-info-controls {
+	position: absolute;
+	inset-inline-end: 0;
+}.tc-view-field-table {
 	width: 100%;
 }.tc-view-field-name {
 	width: 1%; /* Makes this column be as narrow as possible */
-	white-space: nowrap;
 	vertical-align: top;
 	text-align: right;
 	font-style: italic;
@@ -1030,12 +1375,23 @@ a.tc-tiddlylink:hover {
 	color: rgba(0, 0, 0, 0.87);
 }.tc-tiddler-title-icon {
 	vertical-align: middle;
-	margin-right: .1em;
+		-webkit-margin-end: .1em;
+	margin-inline-end: .1em;
 }.tc-tiddler-title-icon svg {
 	width: 0.9em;
 	height: 0.9em;
 }.tc-system-title-prefix {
 	color: rgba(0, 0, 0, 0.54);
+}.tc-tiddler-lazy-loading {
+	height: 4px;
+	width: 100%;
+	background: no-repeat linear-gradient(#FAFAFA 0 0),no-repeat linear-gradient(#FAFAFA 0 0),#3949ab;
+	background-size: 60% 100%;
+	animation: animation-loading-progress 3s infinite;
+}@keyframes animation-loading-progress {
+	0%   {background-position:-150% 0,-150% 0}
+	66%  {background-position: 250% 0,-150% 0}
+	100% {background-position: 250% 0, 250% 0}
 }.tc-titlebar h2 {
 	font-size: 1em;
 	display: inline;
@@ -1051,7 +1407,7 @@ a.tc-tiddlylink:hover {
 	font-style: italic;
 	font-weight: normal;
 }.tc-tiddler-frame .tc-tiddler-controls {
-	float: right;
+	float: inline-end;
 	padding: 3px; /* make space for outline */
 }.tc-tiddler-controls .tc-drop-down {
 	font-size: 0.6em;
@@ -1131,14 +1487,12 @@ a.tc-tiddlylink:hover {
 	display: block;
 }.tc-edit-bitmapeditor-height {
 	display: block;
-}.tc-tiddler-body {
-	clear: both;
 }.tc-single-tiddler-window .tc-tiddler-body,
 .tc-tiddler-frame .tc-tiddler-body {
 	font-size: 15px;
 	line-height: 22px;
 }.tc-titlebar, .tc-tiddler-edit-title {
-	overflow: hidden; /* https://github.com/Jermolene/TiddlyWiki5/issues/282 */
+	overflow: hidden; /* https://github.com/TiddlyWiki/TiddlyWiki5/issues/282 */
 }/*
 * Tiddler in a new window.
 * Also see: .tc-single-tiddler-window .tc-tiddler-body, above
@@ -1370,7 +1724,8 @@ a.tc-tiddlylink:hover {
 }/*
 ** Storyview Classes
 */.tc-viewswitcher .tc-image-button {
-	margin-right: .3em;
+		-webkit-margin-end: .3em;
+	margin-inline-end: .3em;
 }.tc-page-container.tc-page-view-zoomin .tc-tiddler-frame {
 	position: absolute;
 	display: block;
@@ -1417,7 +1772,7 @@ a.tc-tiddlylink:hover {
 	display: block;
 	padding: 0 14px 0 14px;
 	width: 100%;
-	text-align: left;
+	text-align: start;
 	color: rgba(0, 0, 0, 0.87);
 	line-height: 1.4;
 }.tc-drop-down .tc-tab-set .tc-tab-buttons button {
@@ -1621,7 +1976,7 @@ a.tc-tiddlylink:hover {
 	display: block;
 	padding-top: 14px;
 	vertical-align: top;
-	text-align: right;
+	text-align: end;
 	margin-bottom: inherit;
 	margin-right: -1px;
 	max-width: 33%;
@@ -1653,18 +2008,18 @@ a.tc-tiddlylink:hover {
 	width: 100%;
 	margin-top: 3px;
 	margin-right: 0;
-	text-align: right;
+	text-align: end;
 	background-color: transparent;
-	border-left: 1px solid transparent;
+	border-inline-start: 1px solid transparent;
 	border-bottom: 1px solid transparent;
-	border-right: none;
-	border-top-left-radius: 2px;
-	border-bottom-left-radius: 2px;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
+	border-inline-end: none;
+	border-start-start-radius: 2px;
+	border-end-start-radius: 2px;
+	border-start-end-radius: 0;
+	border-end-end-radius: 0;
 }.tc-tab-buttons.tc-vertical button.tc-tab-selected {
 	background-color: #FAFAFA;
-	border-right: 1px solid #FAFAFA;
+	border-inline-end: 1px solid #FAFAFA;
 }.tc-tab-divider {
 	border-top: 1px solid #d8d8d8;
 }.tc-tab-divider.tc-vertical  {
@@ -1675,8 +2030,9 @@ a.tc-tiddlylink:hover {
 	display: inline-block;
 	vertical-align: top;
 	padding-top: 0;
-	padding-left: 14px;
-	border-left: 1px solid transparent;
+		-webkit-padding-start: 14px;
+	padding-inline-start: 14px;
+	border-inline-start: 1px solid transparent;
 	-webkit-flex: 1 0 70%;
 	flex: 1 0 70%;
 	overflow: auto;
@@ -1775,7 +2131,16 @@ a.tc-tiddlylink:hover {
 	height: auto;
 }/*
 ** Import table
-*/.tc-import-table {
+*/.tc-import-option {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+	margin: 0.5em 0;
+	padding: 0.5em;
+	background: transparent;
+	border: 1px solid #e8e7e7;
+	border-radius: 4px;
+}.tc-import-table {
 	width: 100%;
 }.tc-import-table svg.tc-image-edit-button {
 	max-width: unset;
@@ -1806,7 +2171,7 @@ a.tc-tiddlylink:hover {
 }.tc-alert-toolbar {
 	position: absolute;
 	top: 7px;
-	right: 7px;
+	inset-inline-end: 7px;
 	line-height: 0;
 }.tc-alert-toolbar svg {
 	fill: rgba(0, 0, 0, 0.54);
@@ -1858,6 +2223,8 @@ a.tc-tiddlylink:hover {
 ** Control panel
 */.tc-control-panel td {
 	padding: 4px;
+}.tc-control-panel table > tbody > tr > td {
+	text-align: start;
 }.tc-control-panel table, .tc-control-panel table input, .tc-control-panel table textarea {
 	width: 100%;
 }.tc-control-panel-setting {
@@ -1900,6 +2267,9 @@ a.tc-tiddlylink:hover {
 	fill: rgba(0, 0, 0, 0.87);
 }a.tc-tiddlylink.tc-plugin-info:hover > .tc-plugin-info-chunk > svg {
 	fill: #FAFAFA;
+}a.tc-tiddlylink.tc-plugin-info:hover > .tc-plugin-info-chunk .tc-plugin-info-stability {
+	border: 1px solid #FAFAFA;
+	color: #FAFAFA;
 }.tc-plugin-info-chunk {
 	margin: 2px;
 }.tc-plugin-info-chunk.tc-plugin-info-toggle {
@@ -1910,6 +2280,9 @@ a.tc-tiddlylink:hover {
 	flex-grow: 0;
 	flex-shrink: 0;
 	line-height: 1;
+	height: 2em;
+	width: 2em;
+	display: grid;
 }.tc-plugin-info-chunk.tc-plugin-info-description {
 	flex-grow: 1;
 }.tc-plugin-info-chunk .tc-plugin-info-stability {
@@ -1919,8 +2292,8 @@ a.tc-tiddlylink:hover {
 	border-radius: 4px;
 	font-weight: bold;
 }.tc-plugin-info-chunk .tc-plugin-info-stability-stable {
-	border: 1px solid #008000;
-	color: #008000;
+	border: 1px solid #00b700;
+	color: #00b700;
 }.tc-plugin-info-chunk .tc-plugin-info-stability-experimental {
 	border: 1px solid #c07c00;
 	color: #c07c00;
@@ -1952,8 +2325,9 @@ a.tc-tiddlylink:hover {
 	width: 1em;
 	height: 1em;
 }.tc-plugin-info-chunk.tc-plugin-info-icon img, .tc-plugin-info-chunk.tc-plugin-info-icon svg {
-	width: 2em;
-	height: 2em;
+	max-width: 2em;
+	max-height: 2em;
+	margin: auto;
 }.tc-plugin-info-dropdown {
 	border: 1px solid rgba(0, 0, 0, 0.54);
 	background: #FAFAFA;
@@ -2010,6 +2384,17 @@ a.tc-tiddlylink:hover {
 ** Floats
 */.tc-float-right {
 	float: right;
+}/* Float tc-clearfix. Needs to be used by elements that allow float:right in their content.
+** So the floating element does not overflow
+*/.tc-clearfix:after {
+	content: "";
+	clear: both;
+	display: table;
+}/* Fix overflow toc, manager and testcase output */
+.tc-tiddler-body .tc-tabbed-table-of-contents, .tc-manager-list-item-content, .tc-test-case-output {
+	overflow-x: auto;
+}/* A wrapper to fix table overflow */.tc-table-wrapper {
+	overflow-x: auto;
 }/*
 ** Chooser
 */.tc-chooser {
@@ -2018,7 +2403,12 @@ a.tc-tiddlylink:hover {
 }.tc-chooser-item {
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	border-top: 1px solid rgba(0, 0, 0, 0.1);
-	padding: 2px 4px 2px 14px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+		-webkit-padding-start: 14px;
+	padding-inline-start: 14px;
+	-webkit-padding-end: 4px;
+	padding-inline-end: 4px;
 }.tc-drop-down .tc-chooser-item {
 	padding: 2px;
 }.tc-chosen,
@@ -2037,16 +2427,20 @@ a.tc-tiddlylink:hover {
 .tc-drop-down .tc-chooser-item .tc-tiddlylink:hover {
 	color: rgba(0, 0, 0, 0.87);
 }.tc-chosen > .tc-tiddlylink:before {
-	margin-left: -10px;
+		-webkit-margin-start: -10px;
+	margin-inline-start: -10px;
 	position: relative;
 	content: "» ";
 }.tc-chooser-item svg,
 .tc-chooser-item img{
-	width: 1em;
-	height: 1em;
+	max-width: 1em;
+	max-height: 1em;
 	vertical-align: middle;
 }.tc-language-chooser .tc-image-button img {
-	width: 2em;
+	max-width: 2em;
+	max-height: 1em;
+	width: auto;
+	height: auto;
 	vertical-align: -0.15em;
 }/*
 ** Palette swatches
@@ -2075,9 +2469,11 @@ a.tc-tiddlylink:hover {
 	fill: rgba(0, 0, 0, 0.54);
 }.tc-table-of-contents ol {
 	list-style-type: none;
-	padding-left: 0;
+		-webkit-padding-start: 0;
+	padding-inline-start: 0;
 }.tc-table-of-contents ol ol {
-	padding-left: 1em;
+		-webkit-padding-start: 1em;
+	padding-inline-start: 1em;
 }.tc-table-of-contents li {
 	font-size: 1.0em;
 	font-weight: bold;
@@ -2102,7 +2498,8 @@ a.tc-tiddlylink:hover {
 }.tc-tabbed-table-of-contents .tc-table-of-contents {
 	z-index: 100;
 	display: inline-block;
-	padding-left: 1em;
+		-webkit-padding-start: 1em;
+	padding-inline-start: 1em;
 	max-width: 50%;
 	-webkit-flex: 0 0 auto;
 	flex: 0 0 auto;
@@ -2209,15 +2606,15 @@ a.tc-tiddlylink:hover {
 .tc-thumbnail-icon img {
 	width: 3em;
 	height: 3em;
-	 -webkit-filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
-	-moz-filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
-	filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+	
+		filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+
 }.tc-thumbnail-wrapper:hover .tc-thumbnail-icon svg,
 .tc-thumbnail-wrapper:hover .tc-thumbnail-icon img {
 	fill: #fff;
-	 -webkit-filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
-	-moz-filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
-	filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
+	
+		filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.6));
+
 }.tc-thumbnail-icon {
 	position: absolute;
 	top: 0;
@@ -2277,13 +2674,16 @@ a.tc-tiddlylink:hover {
 }/*
 ** Tree macro
 */.tc-tree div {
-	padding-left: 14px;
+		-webkit-padding-start: 14px;
+	padding-inline-start: 14px;
 }.tc-tree ol {
 	list-style-type: none;
-	padding-left: 0;
+		-webkit-padding-start: 0;
+	padding-inline-start: 0;
 	margin-top: 0;
 }.tc-tree ol ol {
-	padding-left: 1em;
+		-webkit-padding-start: 1em;
+	padding-inline-start: 1em;
 }.tc-tree button {
 	color: #acacac;
 }.tc-tree svg {
@@ -2360,7 +2760,8 @@ a.tc-tiddlylink:hover {
 	line-height: 0;
 	border-radius: 1em;
 	vertical-align: text-bottom;
-	margin-right: 0.25em;
+		-webkit-margin-end: 0.25em;
+	margin-inline-end: 0.25em;
 }.tc-test-case-result-icon-pass {
 	background-color: green;
 }.tc-test-case-result-icon-fail {
@@ -2378,7 +2779,7 @@ a.tc-tiddlylink:hover {
 }.tc-test-case-header > h2 a.tc-tiddlylink-missing {
 	font-style: normal;
 }.tc-test-case-toolbar {
-	float: right;
+	float: inline-end;
 }.tc-test-case-toolbar svg {
 	fill: #c6c6c6;
 }.tc-test-case-toolbar .tc-drop-down {
@@ -2456,29 +2857,70 @@ a.tc-tiddlylink:hover {
 	margin-left: .25em;
 	margin-right: .25em;
 }.tc-tiny-gap-left {
-	margin-left: .25em;
+		-webkit-margin-start: .25em;
+	margin-inline-start: .25em;
 }.tc-tiny-gap-right {
-	margin-right: .25em;
+		-webkit-margin-end: .25em;
+	margin-inline-end: .25em;
 }.tc-small-gap {
 	margin-left: .5em;
 	margin-right: .5em;
 }.tc-small-gap-left {
-	margin-left: .5em;
+		-webkit-margin-start: .5em;
+	margin-inline-start: .5em;
 }.tc-small-gap-right {
-	margin-right: .5em;
+		-webkit-margin-end: .5em;
+	margin-inline-end: .5em;
 }.tc-big-gap {
 	margin-left: 1em;
 	margin-right: 1em;
 }.tc-big-gap-left {
-	margin-left: 1em;
+		-webkit-margin-start: 1em;
+	margin-inline-start: 1em;
 }.tc-big-gap-right {
-	margin-right: 1em;
+		-webkit-margin-end: 1em;
+	margin-inline-end: 1em;
 }.tc-word-break {
 	word-break: break-all;
 }/* Vertical gaps */.tc-tiny-v-gap-bottom {
 	margin-bottom: 3px;
-}
-div.remembertwo {
+}/* TODO: Remove the following rule once 2020 baseline is supported */
+@supports not (border-inline-start: 1px solid #000000) {
+	blockquote {
+		border-left: 5px solid #f4f4f4;
+	}blockquote.tc-big-quote {
+		border-left: none;
+	}.tc-tab-buttons.tc-vertical button {
+		border-left: 1px solid transparent;
+		border-right: none;
+	}.tc-tab-buttons.tc-vertical button.tc-tab-selected {
+		border-right: 1px solid #FAFAFA;
+	}.tc-tab-content.tc-vertical {
+		border-left: 1px solid transparent;
+	}
+}/* TODO: Remove the following rule once 2021 baseline is supported */
+@supports not (border-start-start-radius: 0px) {
+	.tc-tab-buttons.tc-vertical button {
+		border-top-left-radius: 2px;
+		border-bottom-left-radius: 2px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+}/* TODO: Remove the following rule once 2021 baseline is supported */
+@supports not (inset-inline-start: 0) {
+	.tc-tiddler-info-controls {
+		right: 0;
+	}.tc-alert-toolbar {
+		right: 7px;
+	}
+}/* TODO: Remove the following rule once 2023 baseline is supported */
+@supports not (float: inline-end) {
+	.tc-test-case-toolbar {
+		float: right;
+	}.tc-tiddler-frame .tc-tiddler-controls {
+		float: right;
+	}
+}div.remembertwo {
 	border-left: 3px solid #ec6;
 	padding-left: 0.5em;
 	margin-bottom: 22px; /* line-height of the selfidentification block */
