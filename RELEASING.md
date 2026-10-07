@@ -60,6 +60,12 @@ Don't stop the listener until you're told to do so by a later step
    This will update `anki-plugin/build.ankiaddon`.
 3. Browse to the add-on's page:
    https://ankiweb.net/shared/info/60456529
+   Log in if necessary.
+
+   NOTE:
+   If you were not logged in before and the update button is missing,
+   do a hard refresh or add something to the query string to bust the cache.
+   <https://forums.ankiweb.net/t/author-controls-are-missing-from-one-of-my-add-ons-on-ankiweb/50503/4>
 4. Upload the `build.ankiaddon` file for the latest branch
    and copy and paste the new `ankiweb-description.html` content.
 5. Leave this screen open until the remaining steps are ready.
