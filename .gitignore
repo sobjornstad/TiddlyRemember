@@ -2,7 +2,7 @@
 .mypy_cache/
 __pycache__/
 venv/
-venv.old/
+venv.*/
 .vscode/
 meta.json
 node_modules/

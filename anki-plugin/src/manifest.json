@@ -1,4 +1,5 @@
 {
     "package": "tiddlyremember",
-    "name": "TiddlyRemember"
+    "name": "TiddlyRemember",
+    "min_point_version": 55
 }

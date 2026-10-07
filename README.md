@@ -15,9 +15,11 @@ https://sobjornstad.github.io/TiddlyRemember/.
 
 ## AI use
 
-No form of AI assistance has, as yet, been used in building TiddlyRemember.
-I may consider using AI agents to make changes in the future,
-but intend to retain a full understanding of the code.
+No form of AI assistance was used in initially building TiddlyRemember
+(it’s too old for that!).
+Since then, I have occasionally used AI agents to make maintenance changes,
+like updating it to work with new versions of Anki.
+I retain a full understanding of and responsibility for the code.
 
 
 ## Building from source
