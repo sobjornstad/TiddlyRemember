@@ -32,17 +32,15 @@ __init__.py -- set up the add-on
 from __future__ import annotations
 
 import re
-from typing import Dict, List, Optional, Set, TYPE_CHECKING
+from typing import Any, Dict, List, Optional, Set, TYPE_CHECKING
 
-import anki
 import aqt
-from aqt.addcards import AddCards
 from aqt.utils import showWarning
 # pylint: disable=import-error, no-name-in-module
 from aqt.qt import QAction, QKeySequence
 
 from .importer import ImportDialog
-from .macro_exporter import MACRO_EXPORTER_PROPERTIES
+from .macro_exporter import TiddlyRememberMacroExporter
 from .settings import edit_settings
 from .twnote import TwNote
 
@@ -71,17 +69,14 @@ def register_note_type_warning() -> None:
     def on_change_note_type(_old: NoteType, new: NoteType) -> None:
         warn_if_adding_tiddlyremember(new['name'])
 
-    def on_add_init(add_cards_dialog: AddCards):
-        warn_if_adding_tiddlyremember(
-            add_cards_dialog.notetype_chooser.selected_notetype_name())
+    def on_add_init(add_cards_dialog: Any) -> None:
+        # Anki 26.09's experimental Add dialog (NewAddCards) has no
+        # notetype_chooser, so there's nothing we can check there yet.
+        chooser = getattr(add_cards_dialog, 'notetype_chooser', None)
+        if chooser is not None:
+            warn_if_adding_tiddlyremember(chooser.selected_notetype_name())
 
-    # This hook isn't in some supported versions of Anki yet,
-    # so silently skip adding the warning if it's not available.
-    # After we drop support for 2.1.48 and below, we can remove this check.
-    if hasattr(aqt.gui_hooks, 'add_cards_did_change_note_type'):
-        # lol at the line being too long because of the false positive lint
-        # pylint: disable=no-member, line-too-long
-        aqt.gui_hooks.add_cards_did_change_note_type.append(on_change_note_type)  # type: ignore
+    aqt.gui_hooks.add_cards_did_change_note_type.append(on_change_note_type)
     aqt.gui_hooks.add_cards_did_init.append(on_add_init)
 
 
@@ -100,6 +95,6 @@ if aqt.mw is not None:
     register_note_type_warning()
 
     # Set up macro exporter.
-    def add_exporter(lst):
-        lst.append(MACRO_EXPORTER_PROPERTIES)
-    anki.hooks.exporters_list_created.append(add_exporter)
+    def add_exporter(exporters):
+        exporters.append(TiddlyRememberMacroExporter)
+    aqt.gui_hooks.exporters_list_did_initialize.append(add_exporter)

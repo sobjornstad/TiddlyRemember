@@ -18,7 +18,7 @@ COMPATIBLE_TW_VERSIONS = [
 ]
 
 
-def pluralize(sg: str, n: int, pl: str = None) -> str:
+def pluralize(sg: str, n: int, pl: Optional[str] = None) -> str:
     """
     Return a string in one of two forms, depending on whether /n/ is 1.
 
@@ -96,7 +96,7 @@ def split_tiddler_list(s: str) -> List[str]:
     ['foo', 'bar', 'baz qux']
     """
     result = []
-    current_tiddler = []
+    current_tiddler: List[str] = []
     in_brackets = False
     i = 0
 

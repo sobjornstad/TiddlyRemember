@@ -157,10 +157,12 @@ class TwNote(metaclass=ABCMeta):
         the current class's model.
         """
         assert self.model is not None, "TwNote subclass forgot to set self.model"
+        anki_note_type = anki_note.note_type()
+        assert anki_note_type is not None, "Note type of existing note was None!"
         # pylint: disable=no-member
         assert self.model_equal(anki_note), \
             (f"Expected note of type {self.model.name}, "  # type: ignore
-             f"but got {anki_note.note_type()['name']}.")
+             f"but got {anki_note_type['name']}.")
 
     @property
     def anki_tags(self) -> List[str]:

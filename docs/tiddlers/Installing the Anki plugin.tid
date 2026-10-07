@@ -4,6 +4,8 @@ tags:
 title: Installing the Anki plugin
 type: text/vnd.tiddlywiki
 
+TiddlyRemember requires Anki 2.1.55 or newer.
+
 # In Anki, choose ''Tools > Add-ons > Get Add-ons''.
 # Paste the add-on's code, `60456529`, into the box and click OK.
 # Quit and restart Anki.
